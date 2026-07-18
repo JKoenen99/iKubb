@@ -258,4 +258,34 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get tourTryIt => 'Probier es aus — tippe auf die umgefallenen Kegel';
+
+  @override
+  String get historyTitle => 'Verlauf';
+
+  @override
+  String get noGamesYet => 'Noch keine Spiele — das Feld wartet!';
+
+  @override
+  String get gamesPlayed => 'Spiele';
+
+  @override
+  String get wins => 'Siege';
+
+  @override
+  String get winRate => 'Siegquote';
+
+  @override
+  String get avgPerThrow => 'Ø Punkte pro Wurf';
+
+  @override
+  String get mostHitPin => 'Lieblingskegel';
+
+  @override
+  String get statMisses => 'Fehlwürfe';
+
+  @override
+  String get statOvershoots => 'Überwürfe';
+
+  @override
+  String get statEliminations => 'Ausscheiden';
 }

@@ -29,6 +29,13 @@ class Throw {
 
   bool get isMiss => score == 0;
 
+  Map<String, Object?> toJson() =>
+      pins == null ? {'score': score} : {'pins': [...pins!]};
+
+  factory Throw.fromJson(Map<String, Object?> json) => json['pins'] != null
+      ? Throw.pins({for (final p in json['pins'] as List) (p as num).toInt()})
+      : Throw.score((json['score'] as num).toInt());
+
   @override
   bool operator ==(Object other) =>
       other is Throw &&

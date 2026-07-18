@@ -76,5 +76,15 @@
   "rematch": "Revanche",
   "skip": "Überspringen",
   "next": "Weiter",
-  "tourTryIt": "Probier es aus — tippe auf die umgefallenen Kegel"
+  "tourTryIt": "Probier es aus — tippe auf die umgefallenen Kegel",
+  "historyTitle": "Verlauf",
+  "noGamesYet": "Noch keine Spiele — das Feld wartet!",
+  "gamesPlayed": "Spiele",
+  "wins": "Siege",
+  "winRate": "Siegquote",
+  "avgPerThrow": "Ø Punkte pro Wurf",
+  "mostHitPin": "Lieblingskegel",
+  "statMisses": "Fehlwürfe",
+  "statOvershoots": "Überwürfe",
+  "statEliminations": "Ausscheiden"
 }

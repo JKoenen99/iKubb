@@ -258,4 +258,34 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get tourTryIt => 'Try it — tap the pins that fell';
+
+  @override
+  String get historyTitle => 'History';
+
+  @override
+  String get noGamesYet => 'No games yet — the field awaits!';
+
+  @override
+  String get gamesPlayed => 'Games';
+
+  @override
+  String get wins => 'Wins';
+
+  @override
+  String get winRate => 'Win rate';
+
+  @override
+  String get avgPerThrow => 'Avg points per throw';
+
+  @override
+  String get mostHitPin => 'Favorite pin';
+
+  @override
+  String get statMisses => 'Misses';
+
+  @override
+  String get statOvershoots => 'Overshoots';
+
+  @override
+  String get statEliminations => 'Eliminations';
 }

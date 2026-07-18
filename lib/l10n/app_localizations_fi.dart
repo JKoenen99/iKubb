@@ -258,4 +258,34 @@ class AppLocalizationsFi extends AppLocalizations {
 
   @override
   String get tourTryIt => 'Kokeile — napauta kaatuneita keiloja';
+
+  @override
+  String get historyTitle => 'Historia';
+
+  @override
+  String get noGamesYet => 'Ei vielä pelejä — kenttä odottaa!';
+
+  @override
+  String get gamesPlayed => 'Pelit';
+
+  @override
+  String get wins => 'Voitot';
+
+  @override
+  String get winRate => 'Voittoprosentti';
+
+  @override
+  String get avgPerThrow => 'Pisteet/heitto keskimäärin';
+
+  @override
+  String get mostHitPin => 'Suosikkikeila';
+
+  @override
+  String get statMisses => 'Ohiheitot';
+
+  @override
+  String get statOvershoots => 'Ylitykset';
+
+  @override
+  String get statEliminations => 'Putoamiset';
 }

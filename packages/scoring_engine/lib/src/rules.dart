@@ -63,6 +63,23 @@ class GameRules {
       ? score >= targetScore
       : score == targetScore;
 
+  Map<String, Object?> toJson() => {
+        'targetScore': targetScore,
+        'overshootPolicy': overshootPolicy.name,
+        'overshootResetValue': overshootResetValue,
+        'eliminationEnabled': eliminationEnabled,
+        'missLimit': missLimit,
+      };
+
+  factory GameRules.fromJson(Map<String, Object?> json) => GameRules(
+        targetScore: (json['targetScore'] as num).toInt(),
+        overshootPolicy: OvershootPolicy.values
+            .byName(json['overshootPolicy'] as String),
+        overshootResetValue: (json['overshootResetValue'] as num).toInt(),
+        eliminationEnabled: json['eliminationEnabled'] as bool,
+        missLimit: (json['missLimit'] as num).toInt(),
+      );
+
   @override
   bool operator ==(Object other) =>
       other is GameRules &&

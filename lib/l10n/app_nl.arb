@@ -76,5 +76,15 @@
   "rematch": "Revanche",
   "skip": "Overslaan",
   "next": "Volgende",
-  "tourTryIt": "Probeer het — tik op de omgevallen kegels"
+  "tourTryIt": "Probeer het — tik op de omgevallen kegels",
+  "historyTitle": "Geschiedenis",
+  "noGamesYet": "Nog geen spellen — het veld wacht!",
+  "gamesPlayed": "Partijen",
+  "wins": "Overwinningen",
+  "winRate": "Winstpercentage",
+  "avgPerThrow": "Gem. punten per worp",
+  "mostHitPin": "Favoriete kegel",
+  "statMisses": "Missers",
+  "statOvershoots": "Keer te veel",
+  "statEliminations": "Uitschakelingen"
 }

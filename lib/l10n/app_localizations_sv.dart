@@ -258,4 +258,34 @@ class AppLocalizationsSv extends AppLocalizations {
 
   @override
   String get tourTryIt => 'Prova — tryck på käglorna som föll';
+
+  @override
+  String get historyTitle => 'Historik';
+
+  @override
+  String get noGamesYet => 'Inga matcher än — planen väntar!';
+
+  @override
+  String get gamesPlayed => 'Matcher';
+
+  @override
+  String get wins => 'Segrar';
+
+  @override
+  String get winRate => 'Vinstandel';
+
+  @override
+  String get avgPerThrow => 'Snittpoäng per kast';
+
+  @override
+  String get mostHitPin => 'Favoritkägla';
+
+  @override
+  String get statMisses => 'Missar';
+
+  @override
+  String get statOvershoots => 'Över målet';
+
+  @override
+  String get statEliminations => 'Utslagningar';
 }

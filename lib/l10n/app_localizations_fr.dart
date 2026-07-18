@@ -258,4 +258,34 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get tourTryIt => 'Essayez — touchez les quilles tombées';
+
+  @override
+  String get historyTitle => 'Historique';
+
+  @override
+  String get noGamesYet => 'Pas encore de parties — le terrain vous attend !';
+
+  @override
+  String get gamesPlayed => 'Parties';
+
+  @override
+  String get wins => 'Victoires';
+
+  @override
+  String get winRate => 'Taux de victoire';
+
+  @override
+  String get avgPerThrow => 'Points moyens par lancer';
+
+  @override
+  String get mostHitPin => 'Quille favorite';
+
+  @override
+  String get statMisses => 'Ratés';
+
+  @override
+  String get statOvershoots => 'Dépassements';
+
+  @override
+  String get statEliminations => 'Éliminations';
 }

@@ -76,5 +76,15 @@
   "rematch": "Returmatch",
   "skip": "Hoppa över",
   "next": "Nästa",
-  "tourTryIt": "Prova — tryck på käglorna som föll"
+  "tourTryIt": "Prova — tryck på käglorna som föll",
+  "historyTitle": "Historik",
+  "noGamesYet": "Inga matcher än — planen väntar!",
+  "gamesPlayed": "Matcher",
+  "wins": "Segrar",
+  "winRate": "Vinstandel",
+  "avgPerThrow": "Snittpoäng per kast",
+  "mostHitPin": "Favoritkägla",
+  "statMisses": "Missar",
+  "statOvershoots": "Över målet",
+  "statEliminations": "Utslagningar"
 }

@@ -258,4 +258,34 @@ class AppLocalizationsNb extends AppLocalizations {
 
   @override
   String get tourTryIt => 'Prøv selv — trykk på kjeglene som veltet';
+
+  @override
+  String get historyTitle => 'Historikk';
+
+  @override
+  String get noGamesYet => 'Ingen spill ennå — banen venter!';
+
+  @override
+  String get gamesPlayed => 'Spill';
+
+  @override
+  String get wins => 'Seire';
+
+  @override
+  String get winRate => 'Seiersrate';
+
+  @override
+  String get avgPerThrow => 'Snittpoeng per kast';
+
+  @override
+  String get mostHitPin => 'Favorittkjegle';
+
+  @override
+  String get statMisses => 'Bom';
+
+  @override
+  String get statOvershoots => 'Over målet';
+
+  @override
+  String get statEliminations => 'Utslagninger';
 }

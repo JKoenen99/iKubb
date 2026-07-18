@@ -258,4 +258,34 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get tourTryIt => 'Provaci — tocca i birilli caduti';
+
+  @override
+  String get historyTitle => 'Cronologia';
+
+  @override
+  String get noGamesYet => 'Ancora nessuna partita — il campo aspetta!';
+
+  @override
+  String get gamesPlayed => 'Partite';
+
+  @override
+  String get wins => 'Vittorie';
+
+  @override
+  String get winRate => 'Percentuale di vittorie';
+
+  @override
+  String get avgPerThrow => 'Punti medi per lancio';
+
+  @override
+  String get mostHitPin => 'Birillo preferito';
+
+  @override
+  String get statMisses => 'Lanci mancati';
+
+  @override
+  String get statOvershoots => 'Superamenti';
+
+  @override
+  String get statEliminations => 'Eliminazioni';
 }

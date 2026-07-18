@@ -76,5 +76,15 @@
   "rematch": "Revancha",
   "skip": "Omitir",
   "next": "Siguiente",
-  "tourTryIt": "Pruébalo — toca los bolos caídos"
+  "tourTryIt": "Pruébalo — toca los bolos caídos",
+  "historyTitle": "Historial",
+  "noGamesYet": "Aún no hay partidas — ¡el campo espera!",
+  "gamesPlayed": "Partidas",
+  "wins": "Victorias",
+  "winRate": "Porcentaje de victorias",
+  "avgPerThrow": "Media de puntos por lanzamiento",
+  "mostHitPin": "Bolo favorito",
+  "statMisses": "Fallos",
+  "statOvershoots": "Pasadas",
+  "statEliminations": "Eliminaciones"
 }

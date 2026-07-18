@@ -76,5 +76,15 @@
   "rematch": "Revanche",
   "skip": "Passer",
   "next": "Suivant",
-  "tourTryIt": "Essayez — touchez les quilles tombées"
+  "tourTryIt": "Essayez — touchez les quilles tombées",
+  "historyTitle": "Historique",
+  "noGamesYet": "Pas encore de parties — le terrain vous attend !",
+  "gamesPlayed": "Parties",
+  "wins": "Victoires",
+  "winRate": "Taux de victoire",
+  "avgPerThrow": "Points moyens par lancer",
+  "mostHitPin": "Quille favorite",
+  "statMisses": "Ratés",
+  "statOvershoots": "Dépassements",
+  "statEliminations": "Éliminations"
 }

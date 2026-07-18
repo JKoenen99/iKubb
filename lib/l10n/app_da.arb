@@ -76,5 +76,15 @@
   "rematch": "Omkamp",
   "skip": "Spring over",
   "next": "Næste",
-  "tourTryIt": "Prøv det — tryk på de væltede kegler"
+  "tourTryIt": "Prøv det — tryk på de væltede kegler",
+  "historyTitle": "Historik",
+  "noGamesYet": "Ingen spil endnu — banen venter!",
+  "gamesPlayed": "Spil",
+  "wins": "Sejre",
+  "winRate": "Sejrsrate",
+  "avgPerThrow": "Gns. point pr. kast",
+  "mostHitPin": "Favoritkegle",
+  "statMisses": "Forbiere",
+  "statOvershoots": "Over målet",
+  "statEliminations": "Udelukkelser"
 }

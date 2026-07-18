@@ -79,6 +79,26 @@ class Game {
   }) =>
       Game._(List.unmodifiable(sides), rules, const []);
 
+  /// A game serializes as sides + rules + throw log; deserializing replays
+  /// it, so the restored game is exact — undo history included.
+  Map<String, Object?> toJson() => {
+        'sides': [for (final s in sides) s.toJson()],
+        'rules': rules.toJson(),
+        'throws': [for (final t in throws) t.toJson()],
+      };
+
+  factory Game.fromJson(Map<String, Object?> json) => Game._(
+        List.unmodifiable([
+          for (final s in json['sides'] as List)
+            Side.fromJson((s as Map).cast<String, Object?>()),
+        ]),
+        GameRules.fromJson((json['rules'] as Map).cast<String, Object?>()),
+        [
+          for (final t in json['throws'] as List)
+            Throw.fromJson((t as Map).cast<String, Object?>()),
+        ],
+      );
+
   final List<Side> sides;
   final GameRules rules;
 

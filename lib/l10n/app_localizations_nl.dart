@@ -258,4 +258,34 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get tourTryIt => 'Probeer het — tik op de omgevallen kegels';
+
+  @override
+  String get historyTitle => 'Geschiedenis';
+
+  @override
+  String get noGamesYet => 'Nog geen spellen — het veld wacht!';
+
+  @override
+  String get gamesPlayed => 'Partijen';
+
+  @override
+  String get wins => 'Overwinningen';
+
+  @override
+  String get winRate => 'Winstpercentage';
+
+  @override
+  String get avgPerThrow => 'Gem. punten per worp';
+
+  @override
+  String get mostHitPin => 'Favoriete kegel';
+
+  @override
+  String get statMisses => 'Missers';
+
+  @override
+  String get statOvershoots => 'Keer te veel';
+
+  @override
+  String get statEliminations => 'Uitschakelingen';
 }

@@ -19,6 +19,11 @@ class Side {
   @override
   int get hashCode => Object.hash(id, name);
 
+  Map<String, Object?> toJson() => {'id': id, 'name': name};
+
+  factory Side.fromJson(Map<String, Object?> json) =>
+      Side(id: json['id'] as String, name: json['name'] as String);
+
   @override
   String toString() => 'Side($id, $name)';
 }

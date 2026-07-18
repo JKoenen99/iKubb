@@ -258,4 +258,34 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get tourTryIt => 'Pruébalo — toca los bolos caídos';
+
+  @override
+  String get historyTitle => 'Historial';
+
+  @override
+  String get noGamesYet => 'Aún no hay partidas — ¡el campo espera!';
+
+  @override
+  String get gamesPlayed => 'Partidas';
+
+  @override
+  String get wins => 'Victorias';
+
+  @override
+  String get winRate => 'Porcentaje de victorias';
+
+  @override
+  String get avgPerThrow => 'Media de puntos por lanzamiento';
+
+  @override
+  String get mostHitPin => 'Bolo favorito';
+
+  @override
+  String get statMisses => 'Fallos';
+
+  @override
+  String get statOvershoots => 'Pasadas';
+
+  @override
+  String get statEliminations => 'Eliminaciones';
 }

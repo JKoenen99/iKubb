@@ -202,4 +202,30 @@ void main() {
       expect(g.pointsNeeded(1), 50);
     });
   });
+
+  group('serialization', () {
+    test('a game round-trips through JSON exactly', () {
+      var g = twoPlayer(const GameRules(targetScore: 20, overshootResetValue: 10));
+      g = g.applyThrow(Throw.pins({5}));
+      g = g.applyThrow(const Throw.score(4));
+      g = g.applyThrow(Throw.pins({}));
+      final restored = Game.fromJson(g.toJson());
+      expect(restored.sides, g.sides);
+      expect(restored.rules, g.rules);
+      expect(restored.throws, g.throws);
+      expect(restored.sideStates[0].score, g.sideStates[0].score);
+      expect(restored.sideStates[1].missStreak, 0);
+      expect(restored.currentSideIndex, g.currentSideIndex);
+      // Undo still works on the restored game: the log is the history.
+      expect(restored.undo().throws.length, 2);
+    });
+
+    test('pin data survives the round-trip for stats', () {
+      var g = twoPlayer();
+      g = g.applyThrow(Throw.pins({7, 9}));
+      final restored = Game.fromJson(g.toJson());
+      expect(restored.throws.first.pins, {7, 9});
+      expect(restored.throws.first.score, 2);
+    });
+  });
 }

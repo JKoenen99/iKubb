@@ -76,5 +76,15 @@
   "rematch": "Omkamp",
   "skip": "Hopp over",
   "next": "Neste",
-  "tourTryIt": "Prøv selv — trykk på kjeglene som veltet"
+  "tourTryIt": "Prøv selv — trykk på kjeglene som veltet",
+  "historyTitle": "Historikk",
+  "noGamesYet": "Ingen spill ennå — banen venter!",
+  "gamesPlayed": "Spill",
+  "wins": "Seire",
+  "winRate": "Seiersrate",
+  "avgPerThrow": "Snittpoeng per kast",
+  "mostHitPin": "Favorittkjegle",
+  "statMisses": "Bom",
+  "statOvershoots": "Over målet",
+  "statEliminations": "Utslagninger"
 }

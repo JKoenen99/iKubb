@@ -258,4 +258,34 @@ class AppLocalizationsDa extends AppLocalizations {
 
   @override
   String get tourTryIt => 'Prøv det — tryk på de væltede kegler';
+
+  @override
+  String get historyTitle => 'Historik';
+
+  @override
+  String get noGamesYet => 'Ingen spil endnu — banen venter!';
+
+  @override
+  String get gamesPlayed => 'Spil';
+
+  @override
+  String get wins => 'Sejre';
+
+  @override
+  String get winRate => 'Sejrsrate';
+
+  @override
+  String get avgPerThrow => 'Gns. point pr. kast';
+
+  @override
+  String get mostHitPin => 'Favoritkegle';
+
+  @override
+  String get statMisses => 'Forbiere';
+
+  @override
+  String get statOvershoots => 'Over målet';
+
+  @override
+  String get statEliminations => 'Udelukkelser';
 }

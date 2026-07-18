@@ -76,5 +76,15 @@
   "rematch": "Rivincita",
   "skip": "Salta",
   "next": "Avanti",
-  "tourTryIt": "Provaci — tocca i birilli caduti"
+  "tourTryIt": "Provaci — tocca i birilli caduti",
+  "historyTitle": "Cronologia",
+  "noGamesYet": "Ancora nessuna partita — il campo aspetta!",
+  "gamesPlayed": "Partite",
+  "wins": "Vittorie",
+  "winRate": "Percentuale di vittorie",
+  "avgPerThrow": "Punti medi per lancio",
+  "mostHitPin": "Birillo preferito",
+  "statMisses": "Lanci mancati",
+  "statOvershoots": "Superamenti",
+  "statEliminations": "Eliminazioni"
 }

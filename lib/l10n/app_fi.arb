@@ -76,5 +76,15 @@
   "rematch": "Uusintaottelu",
   "skip": "Ohita",
   "next": "Seuraava",
-  "tourTryIt": "Kokeile — napauta kaatuneita keiloja"
+  "tourTryIt": "Kokeile — napauta kaatuneita keiloja",
+  "historyTitle": "Historia",
+  "noGamesYet": "Ei vielä pelejä — kenttä odottaa!",
+  "gamesPlayed": "Pelit",
+  "wins": "Voitot",
+  "winRate": "Voittoprosentti",
+  "avgPerThrow": "Pisteet/heitto keskimäärin",
+  "mostHitPin": "Suosikkikeila",
+  "statMisses": "Ohiheitot",
+  "statOvershoots": "Ylitykset",
+  "statEliminations": "Putoamiset"
 }

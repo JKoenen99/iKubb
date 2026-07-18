@@ -575,6 +575,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Try it — tap the pins that fell'**
   String get tourTryIt;
+
+  /// No description provided for @historyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'History'**
+  String get historyTitle;
+
+  /// No description provided for @noGamesYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No games yet — the field awaits!'**
+  String get noGamesYet;
+
+  /// No description provided for @gamesPlayed.
+  ///
+  /// In en, this message translates to:
+  /// **'Games'**
+  String get gamesPlayed;
+
+  /// No description provided for @wins.
+  ///
+  /// In en, this message translates to:
+  /// **'Wins'**
+  String get wins;
+
+  /// No description provided for @winRate.
+  ///
+  /// In en, this message translates to:
+  /// **'Win rate'**
+  String get winRate;
+
+  /// No description provided for @avgPerThrow.
+  ///
+  /// In en, this message translates to:
+  /// **'Avg points per throw'**
+  String get avgPerThrow;
+
+  /// No description provided for @mostHitPin.
+  ///
+  /// In en, this message translates to:
+  /// **'Favorite pin'**
+  String get mostHitPin;
+
+  /// No description provided for @statMisses.
+  ///
+  /// In en, this message translates to:
+  /// **'Misses'**
+  String get statMisses;
+
+  /// No description provided for @statOvershoots.
+  ///
+  /// In en, this message translates to:
+  /// **'Overshoots'**
+  String get statOvershoots;
+
+  /// No description provided for @statEliminations.
+  ///
+  /// In en, this message translates to:
+  /// **'Eliminations'**
+  String get statEliminations;
 }
 
 class _AppLocalizationsDelegate

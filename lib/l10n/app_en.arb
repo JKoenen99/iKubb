@@ -97,5 +97,15 @@
   "rematch": "Rematch",
   "skip": "Skip",
   "next": "Next",
-  "tourTryIt": "Try it — tap the pins that fell"
+  "tourTryIt": "Try it — tap the pins that fell",
+  "historyTitle": "History",
+  "noGamesYet": "No games yet — the field awaits!",
+  "gamesPlayed": "Games",
+  "wins": "Wins",
+  "winRate": "Win rate",
+  "avgPerThrow": "Avg points per throw",
+  "mostHitPin": "Favorite pin",
+  "statMisses": "Misses",
+  "statOvershoots": "Overshoots",
+  "statEliminations": "Eliminations"
 }
