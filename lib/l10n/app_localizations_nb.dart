@@ -246,4 +246,7 @@ class AppLocalizationsNb extends AppLocalizations {
   @override
   String get ruleTeamsBody =>
       'Spill én mot én eller i to lag — et lag kaster som én side, og medlemmene bytter på.';
+
+  @override
+  String get rematch => 'Omkamp';
 }

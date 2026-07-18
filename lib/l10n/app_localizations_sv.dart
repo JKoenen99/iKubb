@@ -246,4 +246,7 @@ class AppLocalizationsSv extends AppLocalizations {
   @override
   String get ruleTeamsBody =>
       'Spela en mot en eller i två lag — ett lag kastar som en sida och medlemmarna turas om.';
+
+  @override
+  String get rematch => 'Returmatch';
 }

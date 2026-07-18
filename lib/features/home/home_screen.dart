@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../l10n/app_localizations.dart';
+import '../../widgets/viking_mascot.dart';
 
 /// Landing screen after onboarding: quick start front and center.
 class HomeScreen extends StatelessWidget {
@@ -21,7 +22,8 @@ class HomeScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  // TODO(assets): Viking mascot illustration.
+                  const VikingMascot(size: 140),
+                  const SizedBox(height: 8),
                   Text(
                     l10n.appTitle,
                     textAlign: TextAlign.center,

@@ -246,4 +246,7 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get ruleTeamsBody =>
       'Spiele eins gegen eins oder in zwei Teams — ein Team wirft als eine Partei, die Mitglieder wechseln sich ab.';
+
+  @override
+  String get rematch => 'Revanche';
 }

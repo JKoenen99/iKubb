@@ -72,5 +72,6 @@
   "ruleLastStandingTitle": "L'ultimo rimasto",
   "ruleLastStandingBody": "Se tutte le altre parti sono eliminate, vince quella rimasta.",
   "ruleTeamsTitle": "Da soli o in squadra",
-  "ruleTeamsBody": "Gioca uno contro uno o in due squadre — una squadra lancia come un'unica parte e i membri si alternano."
+  "ruleTeamsBody": "Gioca uno contro uno o in due squadre — una squadra lancia come un'unica parte e i membri si alternano.",
+  "rematch": "Rivincita"
 }

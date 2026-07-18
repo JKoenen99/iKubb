@@ -72,5 +72,6 @@
   "ruleLastStandingTitle": "Sidste side tilbage",
   "ruleLastStandingBody": "Hvis alle andre sider er ude, vinder den tilbageværende side.",
   "ruleTeamsTitle": "Solo eller i hold",
-  "ruleTeamsBody": "Spil en mod en eller i to hold — et hold kaster som én side, og medlemmerne skiftes."
+  "ruleTeamsBody": "Spil en mod en eller i to hold — et hold kaster som én side, og medlemmerne skiftes.",
+  "rematch": "Omkamp"
 }

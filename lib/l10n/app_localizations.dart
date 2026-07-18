@@ -551,6 +551,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Play one against one, or in two teams — a team throws as one side, with members taking turns.'**
   String get ruleTeamsBody;
+
+  /// No description provided for @rematch.
+  ///
+  /// In en, this message translates to:
+  /// **'Rematch'**
+  String get rematch;
 }
 
 class _AppLocalizationsDelegate

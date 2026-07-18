@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:scoring_engine/scoring_engine.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../../theme/palette.dart';
+import '../../widgets/rolling_number.dart';
 import '../rules/rules_content.dart';
 import '../rules/rules_view.dart';
+import '../setup/player.dart' show playerColors;
 import 'game_controller.dart';
 import 'pin_diagram.dart';
+import 'win_overlay.dart';
 
 /// The scoring tool: pin-tap input, "needs exactly X" helper, overshoot
 /// warning, miss-streak dots, undo, and a personalized win banner.
@@ -27,6 +31,8 @@ class _GameScreenState extends ConsumerState<GameScreen> {
   void _confirm() {
     ref.read(gameControllerProvider.notifier).confirmPins(_selected);
     setState(_selected.clear);
+    final won = ref.read(gameControllerProvider).winner != null;
+    won ? HapticFeedback.heavyImpact() : HapticFeedback.lightImpact();
   }
 
   @override
@@ -63,77 +69,82 @@ class _GameScreenState extends ConsumerState<GameScreen> {
           ),
         ],
       ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            _Standings(game: game),
-            const Spacer(),
-            if (game.winner != null)
-              Padding(
-                padding: const EdgeInsets.all(24),
-                child: Text(
-                  l10n.winnerBanner(game.winner!.name),
-                  style: Theme.of(context).textTheme.displayLarge,
-                  textAlign: TextAlign.center,
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          SafeArea(
+            child: Column(
+              children: [
+                _Standings(game: game),
+                const Spacer(),
+                PinDiagram(
+                  selected: _selected,
+                  onToggle: game.winner != null
+                      ? null
+                      : (pin) => setState(() {
+                            _selected.contains(pin)
+                                ? _selected.remove(pin)
+                                : _selected.add(pin);
+                          }),
                 ),
-              )
-            else
-              PinDiagram(
-                selected: _selected,
-                onToggle: (pin) => setState(() {
-                  _selected.contains(pin) ? _selected.remove(pin) : _selected.add(pin);
-                }),
-              ),
-            const Spacer(),
-            if (game.winner == null)
-              Padding(
-                padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: FilledButton.tonal(
-                        onPressed: _selected.isEmpty ? _confirm : null,
-                        child: Text(l10n.miss),
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      flex: 2,
-                      child: FilledButton(
-                        onPressed: _selected.isEmpty ? null : _confirm,
-                        style: wouldBust
-                            ? FilledButton.styleFrom(
-                                backgroundColor: IKubbPalette.amber,
-                                foregroundColor: IKubbPalette.ink,
-                              )
-                            : null,
-                        child: Text(
-                          wouldBust
-                              ? l10n.overshootWarning(game.rules.overshootResult()!)
-                              : '${l10n.confirmThrow} (+$throwScore)',
+                const Spacer(),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: FilledButton.tonal(
+                          onPressed: game.winner != null || _selected.isNotEmpty
+                              ? null
+                              : _confirm,
+                          child: Text(l10n.miss),
                         ),
                       ),
-                    ),
-                  ],
+                      const SizedBox(width: 12),
+                      Expanded(
+                        flex: 2,
+                        child: FilledButton(
+                          onPressed: game.winner != null || _selected.isEmpty
+                              ? null
+                              : _confirm,
+                          style: wouldBust
+                              ? FilledButton.styleFrom(
+                                  backgroundColor: IKubbPalette.amber,
+                                  foregroundColor: IKubbPalette.ink,
+                                )
+                              : null,
+                          child: Text(
+                            wouldBust
+                                ? l10n.overshootWarning(
+                                    game.rules.overshootResult()!)
+                                : '${l10n.confirmThrow} (+$throwScore)',
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-          ],
-        ),
+              ],
+            ),
+          ),
+          if (game.winner != null) WinOverlay(game: game),
+        ],
       ),
       backgroundColor: scheme.surface,
     );
   }
 }
 
-class _Standings extends StatelessWidget {
+class _Standings extends ConsumerWidget {
   const _Standings({required this.game});
 
   final Game game;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
     final scheme = Theme.of(context).colorScheme;
+    final sideColors = ref.watch(sideColorsProvider);
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Row(
@@ -156,6 +167,9 @@ class _Standings extends StatelessWidget {
                   isActive: i == game.currentSideIndex,
                   needsLine: l10n.needsExactly(game.pointsNeeded(i)),
                   missLimit: game.rules.missLimit,
+                  color: playerColors[
+                      (sideColors[game.sides[i].id] ?? i) %
+                          playerColors.length],
                 ),
               ),
             ),
@@ -171,12 +185,14 @@ class _SideCard extends StatelessWidget {
     required this.isActive,
     required this.needsLine,
     required this.missLimit,
+    required this.color,
   });
 
   final SideState state;
   final bool isActive;
   final String needsLine;
   final int missLimit;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -185,14 +201,26 @@ class _SideCard extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          state.side.name,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-          style: TextStyle(fontWeight: FontWeight.w600, color: onColor),
+        Row(
+          children: [
+            Container(
+              width: 14,
+              height: 14,
+              margin: const EdgeInsets.only(right: 6),
+              decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+            ),
+            Expanded(
+              child: Text(
+                state.side.name,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(fontWeight: FontWeight.w600, color: onColor),
+              ),
+            ),
+          ],
         ),
-        Text(
-          '${state.score}',
+        RollingNumber(
+          value: state.score,
           style: TextStyle(
             fontSize: 40,
             fontWeight: FontWeight.w800,

@@ -72,5 +72,6 @@
   "ruleLastStandingTitle": "Wer übrig bleibt, gewinnt",
   "ruleLastStandingBody": "Sind alle anderen Parteien ausgeschieden, gewinnt die verbleibende Partei.",
   "ruleTeamsTitle": "Allein oder im Team",
-  "ruleTeamsBody": "Spiele eins gegen eins oder in zwei Teams — ein Team wirft als eine Partei, die Mitglieder wechseln sich ab."
+  "ruleTeamsBody": "Spiele eins gegen eins oder in zwei Teams — ein Team wirft als eine Partei, die Mitglieder wechseln sich ab.",
+  "rematch": "Revanche"
 }

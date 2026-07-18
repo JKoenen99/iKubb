@@ -246,4 +246,7 @@ class AppLocalizationsNl extends AppLocalizations {
   @override
   String get ruleTeamsBody =>
       'Speel één tegen één of in twee teams — een team gooit als één partij, spelers wisselen elkaar af.';
+
+  @override
+  String get rematch => 'Revanche';
 }

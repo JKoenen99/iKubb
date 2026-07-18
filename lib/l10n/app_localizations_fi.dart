@@ -246,4 +246,7 @@ class AppLocalizationsFi extends AppLocalizations {
   @override
   String get ruleTeamsBody =>
       'Pelatkaa yksi vastaan yksi tai kahdessa joukkueessa — joukkue heittää yhtenä puolena ja jäsenet vuorottelevat.';
+
+  @override
+  String get rematch => 'Uusintaottelu';
 }

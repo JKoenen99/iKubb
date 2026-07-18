@@ -1,6 +1,19 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:scoring_engine/scoring_engine.dart';
 
+/// Side id → palette color index for the active game, set at game start
+/// (from player profiles in setup). Sides without an entry fall back to
+/// palette order.
+class SideColors extends Notifier<Map<String, int>> {
+  @override
+  Map<String, int> build() => const {};
+
+  void set(Map<String, int> colors) => state = colors;
+}
+
+final sideColorsProvider =
+    NotifierProvider<SideColors, Map<String, int>>(SideColors.new);
+
 /// Holds the active [Game]. All mutations go through the engine, so the UI
 /// can never drift from the rules.
 class GameController extends Notifier<Game> {

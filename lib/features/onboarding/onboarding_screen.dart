@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../l10n/app_localizations.dart';
+import '../../widgets/viking_mascot.dart';
 
 /// First-launch welcome with the audience fork (SPEC.md §3.1):
 /// experienced players jump straight to setup; newcomers get the tour.
@@ -22,7 +23,8 @@ class OnboardingScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  // TODO(assets): welcome illustration (Viking + pins).
+                  const VikingMascot(size: 160),
+                  const SizedBox(height: 8),
                   Text(
                     l10n.appTitle,
                     textAlign: TextAlign.center,

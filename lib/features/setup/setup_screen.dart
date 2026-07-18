@@ -28,6 +28,14 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
         .read(setupControllerProvider.notifier)
         .buildSides(defaultTeamNames: (l10n.teamA, l10n.teamB));
     if (sides == null) return;
+    // Side colors: individuals keep their profile color; a team takes the
+    // color of its first player.
+    ref.read(sideColorsProvider.notifier).set(setup.teamMode
+        ? {
+            for (final (i, team) in [Team.a, Team.b].indexed)
+              sides[i].id: setup.onTeam(team).first.colorIndex,
+          }
+        : {for (final p in setup.players) p.id: p.colorIndex});
     ref.read(gameControllerProvider.notifier).newGame(
           sides: sides,
           rules: setup.rules,

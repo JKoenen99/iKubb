@@ -246,4 +246,7 @@ class AppLocalizationsDa extends AppLocalizations {
   @override
   String get ruleTeamsBody =>
       'Spil en mod en eller i to hold — et hold kaster som én side, og medlemmerne skiftes.';
+
+  @override
+  String get rematch => 'Omkamp';
 }

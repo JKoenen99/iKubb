@@ -72,5 +72,6 @@
   "ruleLastStandingTitle": "Le dernier en lice",
   "ruleLastStandingBody": "Si tous les autres camps sont éliminés, le camp restant gagne.",
   "ruleTeamsTitle": "En solo ou en équipe",
-  "ruleTeamsBody": "Jouez en un contre un ou en deux équipes — une équipe lance comme un seul camp, ses membres alternent."
+  "ruleTeamsBody": "Jouez en un contre un ou en deux équipes — une équipe lance comme un seul camp, ses membres alternent.",
+  "rematch": "Revanche"
 }

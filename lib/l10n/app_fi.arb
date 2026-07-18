@@ -72,5 +72,6 @@
   "ruleLastStandingTitle": "Viimeinen jäljellä",
   "ruleLastStandingBody": "Jos kaikki muut puolet putoavat, jäljellä oleva puoli voittaa.",
   "ruleTeamsTitle": "Yksin tai joukkueissa",
-  "ruleTeamsBody": "Pelatkaa yksi vastaan yksi tai kahdessa joukkueessa — joukkue heittää yhtenä puolena ja jäsenet vuorottelevat."
+  "ruleTeamsBody": "Pelatkaa yksi vastaan yksi tai kahdessa joukkueessa — joukkue heittää yhtenä puolena ja jäsenet vuorottelevat.",
+  "rematch": "Uusintaottelu"
 }

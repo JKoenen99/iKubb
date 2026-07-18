@@ -246,4 +246,7 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get ruleTeamsBody =>
       'Play one against one, or in two teams — a team throws as one side, with members taking turns.';
+
+  @override
+  String get rematch => 'Rematch';
 }
