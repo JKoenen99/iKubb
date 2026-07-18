@@ -121,4 +121,129 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get custom => 'Custom';
+
+  @override
+  String get rulesSearchHint => 'Search the rules';
+
+  @override
+  String get rulesNoResults => 'No rules match your search';
+
+  @override
+  String get activeRulesLabel => 'This game';
+
+  @override
+  String get catSetup => 'Setup & field';
+
+  @override
+  String get catThrowing => 'Throwing';
+
+  @override
+  String get catScoring => 'Scoring';
+
+  @override
+  String get catOvershoot => 'Overshoot & reset';
+
+  @override
+  String get catMisses => 'Misses & elimination';
+
+  @override
+  String get catWinning => 'Winning';
+
+  @override
+  String get catTeams => 'Teams';
+
+  @override
+  String get ruleFormationTitle => 'The formation';
+
+  @override
+  String get ruleFormationBody =>
+      'The 12 numbered pins start in a tight diamond formation, 3 to 4 metres from the throwing line.';
+
+  @override
+  String get rulePinsStandTitle => 'Pins stand where they fall';
+
+  @override
+  String get rulePinsStandBody =>
+      'After each throw, knocked pins are stood upright on the spot where they landed — the field spreads out as the game goes on.';
+
+  @override
+  String get ruleTurnsTitle => 'Take turns';
+
+  @override
+  String get ruleTurnsBody =>
+      'Sides throw one stick per turn, always in the same order.';
+
+  @override
+  String get ruleUnderhandTitle => 'Throw underhand';
+
+  @override
+  String get ruleUnderhandBody => 'The stick is always thrown underhand.';
+
+  @override
+  String get ruleOnePinTitle => 'One pin down';
+
+  @override
+  String get ruleOnePinBody =>
+      'Knock over exactly one pin and you score that pin\'s number.';
+
+  @override
+  String get ruleManyPinsTitle => 'Several pins down';
+
+  @override
+  String get ruleManyPinsBody =>
+      'Knock over several pins and you score the number of pins, not their sum.';
+
+  @override
+  String get ruleManyPinsDetail =>
+      'Example: knocking over pins 7, 9 and 12 scores 3 points.';
+
+  @override
+  String get ruleLeaningTitle => 'Leaning pins don\'t count';
+
+  @override
+  String get ruleLeaningBody =>
+      'A pin resting on another pin or on the stick doesn\'t count as fallen.';
+
+  @override
+  String get ruleOvershootTitle => 'Don\'t overshoot';
+
+  @override
+  String get ruleOvershootBody =>
+      'If your score would pass the target, it drops back down instead (classic: overshooting 50 puts you on 25).';
+
+  @override
+  String get ruleOvershootDetail =>
+      'House rules can change this: reset to half of the target, or no penalty at all.';
+
+  @override
+  String get ruleMissesTitle => 'Three misses and you\'re out';
+
+  @override
+  String get ruleMissesBody =>
+      'Score nothing three turns in a row and you\'re eliminated (when elimination is enabled).';
+
+  @override
+  String get ruleMissesDetail =>
+      'The dots on your player card track your miss streak.';
+
+  @override
+  String get ruleExactTitle => 'Hit the target exactly';
+
+  @override
+  String get ruleExactBody =>
+      'The first side to reach exactly the target score wins the game.';
+
+  @override
+  String get ruleLastStandingTitle => 'Last one standing';
+
+  @override
+  String get ruleLastStandingBody =>
+      'If every other side is eliminated, the remaining side wins.';
+
+  @override
+  String get ruleTeamsTitle => 'Solo or in teams';
+
+  @override
+  String get ruleTeamsBody =>
+      'Play one against one, or in two teams — a team throws as one side, with members taking turns.';
 }

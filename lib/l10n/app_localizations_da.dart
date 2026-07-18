@@ -121,4 +121,129 @@ class AppLocalizationsDa extends AppLocalizations {
 
   @override
   String get custom => 'Tilpasset';
+
+  @override
+  String get rulesSearchHint => 'Søg i reglerne';
+
+  @override
+  String get rulesNoResults => 'Ingen regler matcher';
+
+  @override
+  String get activeRulesLabel => 'Dette spil';
+
+  @override
+  String get catSetup => 'Opstilling & bane';
+
+  @override
+  String get catThrowing => 'Kast';
+
+  @override
+  String get catScoring => 'Point';
+
+  @override
+  String get catOvershoot => 'Over målet & nulstilling';
+
+  @override
+  String get catMisses => 'Forbiere & udelukkelse';
+
+  @override
+  String get catWinning => 'At vinde';
+
+  @override
+  String get catTeams => 'Hold';
+
+  @override
+  String get ruleFormationTitle => 'Opstillingen';
+
+  @override
+  String get ruleFormationBody =>
+      'De 12 nummererede kegler starter i en tæt rombe, 3 til 4 meter fra kastelinjen.';
+
+  @override
+  String get rulePinsStandTitle => 'Keglerne står, hvor de falder';
+
+  @override
+  String get rulePinsStandBody =>
+      'Efter hvert kast rejses væltede kegler op, hvor de landede — banen spreder sig i løbet af spillet.';
+
+  @override
+  String get ruleTurnsTitle => 'Skiftes til at kaste';
+
+  @override
+  String get ruleTurnsBody =>
+      'Hver side kaster én pind pr. tur, altid i samme rækkefølge.';
+
+  @override
+  String get ruleUnderhandTitle => 'Kast underhånds';
+
+  @override
+  String get ruleUnderhandBody => 'Pinden kastes altid underhånds.';
+
+  @override
+  String get ruleOnePinTitle => 'Én kegle vælter';
+
+  @override
+  String get ruleOnePinBody =>
+      'Vælt præcis én kegle, og du scorer keglens nummer.';
+
+  @override
+  String get ruleManyPinsTitle => 'Flere kegler vælter';
+
+  @override
+  String get ruleManyPinsBody =>
+      'Vælt flere kegler, og du scorer antallet af kegler, ikke summen.';
+
+  @override
+  String get ruleManyPinsDetail =>
+      'Eksempel: at vælte kegle 7, 9 og 12 giver 3 point.';
+
+  @override
+  String get ruleLeaningTitle => 'Skæve kegler tæller ikke';
+
+  @override
+  String get ruleLeaningBody =>
+      'En kegle, der hviler på en anden kegle eller på pinden, tæller ikke som væltet.';
+
+  @override
+  String get ruleOvershootTitle => 'Gå ikke over målet';
+
+  @override
+  String get ruleOvershootBody =>
+      'Hvis din score ville passere målet, falder du tilbage (klassisk: over 50 sætter dig på 25).';
+
+  @override
+  String get ruleOvershootDetail =>
+      'Husregler kan ændre dette: tilbage til halvdelen af målet eller slet ingen straf.';
+
+  @override
+  String get ruleMissesTitle => 'Tre forbiere, og du er ude';
+
+  @override
+  String get ruleMissesBody =>
+      'Scorer du intet tre ture i træk, er du ude (når udelukkelse er slået til).';
+
+  @override
+  String get ruleMissesDetail =>
+      'Prikkerne på dit spillerkort viser din forbierstribe.';
+
+  @override
+  String get ruleExactTitle => 'Ram målet præcist';
+
+  @override
+  String get ruleExactBody =>
+      'Den første side, der når præcis målscoren, vinder spillet.';
+
+  @override
+  String get ruleLastStandingTitle => 'Sidste side tilbage';
+
+  @override
+  String get ruleLastStandingBody =>
+      'Hvis alle andre sider er ude, vinder den tilbageværende side.';
+
+  @override
+  String get ruleTeamsTitle => 'Solo eller i hold';
+
+  @override
+  String get ruleTeamsBody =>
+      'Spil en mod en eller i to hold — et hold kaster som én side, og medlemmerne skiftes.';
 }

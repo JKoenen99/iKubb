@@ -121,4 +121,129 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get custom => 'Aangepast';
+
+  @override
+  String get rulesSearchHint => 'Zoek in de regels';
+
+  @override
+  String get rulesNoResults => 'Geen regels gevonden';
+
+  @override
+  String get activeRulesLabel => 'Dit spel';
+
+  @override
+  String get catSetup => 'Opstelling & veld';
+
+  @override
+  String get catThrowing => 'Werpen';
+
+  @override
+  String get catScoring => 'Scoren';
+
+  @override
+  String get catOvershoot => 'Te veel & terugvallen';
+
+  @override
+  String get catMisses => 'Missers & uitschakeling';
+
+  @override
+  String get catWinning => 'Winnen';
+
+  @override
+  String get catTeams => 'Teams';
+
+  @override
+  String get ruleFormationTitle => 'De opstelling';
+
+  @override
+  String get ruleFormationBody =>
+      'De 12 genummerde kegels beginnen in een dichte ruitopstelling, op 3 tot 4 meter van de werplijn.';
+
+  @override
+  String get rulePinsStandTitle => 'Kegels blijven waar ze vallen';
+
+  @override
+  String get rulePinsStandBody =>
+      'Na elke worp worden omgevallen kegels rechtop gezet op de plek waar ze terechtkwamen — het veld verspreidt zich tijdens het spel.';
+
+  @override
+  String get ruleTurnsTitle => 'Om de beurt';
+
+  @override
+  String get ruleTurnsBody =>
+      'Elke partij gooit één stok per beurt, steeds in dezelfde volgorde.';
+
+  @override
+  String get ruleUnderhandTitle => 'Onderhands werpen';
+
+  @override
+  String get ruleUnderhandBody => 'De stok wordt altijd onderhands gegooid.';
+
+  @override
+  String get ruleOnePinTitle => 'Eén kegel om';
+
+  @override
+  String get ruleOnePinBody =>
+      'Gooi precies één kegel om en je scoort het nummer van die kegel.';
+
+  @override
+  String get ruleManyPinsTitle => 'Meerdere kegels om';
+
+  @override
+  String get ruleManyPinsBody =>
+      'Gooi meerdere kegels om en je scoort het aantal kegels, niet de som.';
+
+  @override
+  String get ruleManyPinsDetail =>
+      'Voorbeeld: kegels 7, 9 en 12 omgooien levert 3 punten op.';
+
+  @override
+  String get ruleLeaningTitle => 'Leunende kegels tellen niet';
+
+  @override
+  String get ruleLeaningBody =>
+      'Een kegel die op een andere kegel of op de stok rust, telt niet als omgevallen.';
+
+  @override
+  String get ruleOvershootTitle => 'Niet te veel gooien';
+
+  @override
+  String get ruleOvershootBody =>
+      'Zou je score boven het doel uitkomen, dan val je terug (klassiek: boven de 50 gooien zet je op 25).';
+
+  @override
+  String get ruleOvershootDetail =>
+      'Huisregels kunnen dit aanpassen: terug naar de helft van het doel, of helemaal geen straf.';
+
+  @override
+  String get ruleMissesTitle => 'Drie keer mis en je ligt eruit';
+
+  @override
+  String get ruleMissesBody =>
+      'Scoor drie beurten op rij niets en je bent uitgeschakeld (als uitschakeling aanstaat).';
+
+  @override
+  String get ruleMissesDetail =>
+      'De stippen op je spelerskaart houden je misserreeks bij.';
+
+  @override
+  String get ruleExactTitle => 'Raak het doel precies';
+
+  @override
+  String get ruleExactBody =>
+      'De eerste partij die precies de doelscore haalt, wint het spel.';
+
+  @override
+  String get ruleLastStandingTitle => 'De laatst overgeblevene';
+
+  @override
+  String get ruleLastStandingBody =>
+      'Als alle andere partijen zijn uitgeschakeld, wint de overgebleven partij.';
+
+  @override
+  String get ruleTeamsTitle => 'Solo of in teams';
+
+  @override
+  String get ruleTeamsBody =>
+      'Speel één tegen één of in twee teams — een team gooit als één partij, spelers wisselen elkaar af.';
 }

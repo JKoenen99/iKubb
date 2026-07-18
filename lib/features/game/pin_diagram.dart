@@ -10,6 +10,7 @@ class PinDiagram extends StatelessWidget {
     super.key,
     required this.selected,
     required this.onToggle,
+    this.pinSize = 60,
   });
 
   /// Pin rows exactly as on the rules sheet.
@@ -21,7 +22,12 @@ class PinDiagram extends StatelessWidget {
   ];
 
   final Set<int> selected;
-  final ValueChanged<int> onToggle;
+
+  /// Null renders a static, non-interactive diagram (e.g. in rule cards).
+  final ValueChanged<int>? onToggle;
+
+  /// Diameter of one pin; the default suits the scoring screen.
+  final double pinSize;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +42,8 @@ class PinDiagram extends StatelessWidget {
                 _Pin(
                   number: pin,
                   isDown: selected.contains(pin),
-                  onTap: () => onToggle(pin),
+                  onTap: onToggle == null ? null : () => onToggle!(pin),
+                  size: pinSize,
                 ),
             ],
           ),
@@ -50,17 +57,19 @@ class _Pin extends StatelessWidget {
     required this.number,
     required this.isDown,
     required this.onTap,
+    required this.size,
   });
 
   final int number;
   final bool isDown;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
+  final double size;
 
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     return Semantics(
-      button: true,
+      button: onTap != null,
       label: 'Pin $number',
       selected: isDown,
       child: GestureDetector(
@@ -68,9 +77,9 @@ class _Pin extends StatelessWidget {
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 250),
           curve: Curves.easeOutBack,
-          width: 60,
-          height: 60,
-          margin: const EdgeInsets.all(5),
+          width: size,
+          height: size,
+          margin: EdgeInsets.all(size / 12),
           transform: Matrix4.rotationZ(isDown ? 0.35 : 0),
           transformAlignment: Alignment.bottomCenter,
           decoration: BoxDecoration(
@@ -85,7 +94,7 @@ class _Pin extends StatelessWidget {
             child: Text(
               '$number',
               style: TextStyle(
-                fontSize: 22,
+                fontSize: size * 0.37,
                 fontWeight: FontWeight.w700,
                 color: isDown ? IKubbPalette.ink : scheme.onSurface,
               ),

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 import '../../l10n/app_localizations.dart';
+import 'rules_view.dart';
 
-/// Categorized rules reference with progressive disclosure (SPEC.md §3.6).
-/// Placeholder — will become the slide-over panel reachable from every
-/// screen, with one-rule-one-card categories and search.
+/// Full-screen rules reference — the target of the onboarding
+/// "Teach me the game" fork and the Home rules button. In-game, the same
+/// content opens as a slide-over panel via [showRulesPanel].
 class RulesScreen extends StatelessWidget {
   const RulesScreen({super.key});
 
@@ -13,7 +14,12 @@ class RulesScreen extends StatelessWidget {
     final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(title: Text(l10n.rules)),
-      body: Center(child: Text(l10n.comingSoon)),
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 640),
+          child: const RulesView(),
+        ),
+      ),
     );
   }
 }

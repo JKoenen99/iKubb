@@ -5,6 +5,7 @@ import 'package:scoring_engine/scoring_engine.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../game/game_controller.dart';
+import '../rules/rules_view.dart';
 import 'player.dart';
 import 'setup_controller.dart';
 
@@ -47,7 +48,16 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
     ];
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.newGame)),
+      appBar: AppBar(
+        title: Text(l10n.newGame),
+        actions: [
+          IconButton(
+            tooltip: l10n.rules,
+            onPressed: () => showRulesPanel(context),
+            icon: const Icon(Icons.help_outline),
+          ),
+        ],
+      ),
       body: SafeArea(
         child: Center(
           child: ConstrainedBox(

@@ -4,6 +4,8 @@ import 'package:scoring_engine/scoring_engine.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../../theme/palette.dart';
+import '../rules/rules_content.dart';
+import '../rules/rules_view.dart';
 import 'game_controller.dart';
 import 'pin_diagram.dart';
 
@@ -43,6 +45,11 @@ class _GameScreenState extends ConsumerState<GameScreen> {
       appBar: AppBar(
         title: Text(l10n.appTitle),
         actions: [
+          IconButton(
+            tooltip: l10n.rules,
+            onPressed: () => showRulesPanel(context),
+            icon: const Icon(Icons.help_outline),
+          ),
           IconButton(
             tooltip: l10n.undo,
             onPressed:
@@ -195,17 +202,23 @@ class _SideCard extends StatelessWidget {
         ),
         if (isActive)
           Text(needsLine, style: TextStyle(fontSize: 12, color: onColor)),
-        Row(
-          children: [
-            for (var m = 0; m < missLimit; m++)
-              Icon(
-                Icons.circle,
-                size: 10,
-                color: m < state.missStreak
-                    ? IKubbPalette.berry
-                    : onColor.withValues(alpha: 0.3),
-              ),
-          ],
+        // Miss dots deep-link to their exact rule card (SPEC.md §3.6).
+        InkWell(
+          onTap: () =>
+              showRulesPanel(context, categoryId: RuleCategoryIds.misses),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              for (var m = 0; m < missLimit; m++)
+                Icon(
+                  Icons.circle,
+                  size: 10,
+                  color: m < state.missStreak
+                      ? IKubbPalette.berry
+                      : onColor.withValues(alpha: 0.3),
+                ),
+            ],
+          ),
         ),
       ],
     );

@@ -121,4 +121,129 @@ class AppLocalizationsSv extends AppLocalizations {
 
   @override
   String get custom => 'Anpassad';
+
+  @override
+  String get rulesSearchHint => 'Sök bland reglerna';
+
+  @override
+  String get rulesNoResults => 'Inga regler matchar';
+
+  @override
+  String get activeRulesLabel => 'Denna match';
+
+  @override
+  String get catSetup => 'Uppställning & plan';
+
+  @override
+  String get catThrowing => 'Kast';
+
+  @override
+  String get catScoring => 'Poäng';
+
+  @override
+  String get catOvershoot => 'Över målet & återställning';
+
+  @override
+  String get catMisses => 'Missar & utslagning';
+
+  @override
+  String get catWinning => 'Vinna';
+
+  @override
+  String get catTeams => 'Lag';
+
+  @override
+  String get ruleFormationTitle => 'Uppställningen';
+
+  @override
+  String get ruleFormationBody =>
+      'De 12 numrerade käglorna börjar i en tät romb, 3 till 4 meter från kastlinjen.';
+
+  @override
+  String get rulePinsStandTitle => 'Käglorna står där de faller';
+
+  @override
+  String get rulePinsStandBody =>
+      'Efter varje kast ställs fallna käglor upp där de landade — planen sprider sig under spelets gång.';
+
+  @override
+  String get ruleTurnsTitle => 'Turas om';
+
+  @override
+  String get ruleTurnsBody =>
+      'Varje sida kastar en pinne per tur, alltid i samma ordning.';
+
+  @override
+  String get ruleUnderhandTitle => 'Kasta underifrån';
+
+  @override
+  String get ruleUnderhandBody => 'Pinnen kastas alltid underifrån.';
+
+  @override
+  String get ruleOnePinTitle => 'En kägla faller';
+
+  @override
+  String get ruleOnePinBody =>
+      'Fäll exakt en kägla och du får käglans nummer i poäng.';
+
+  @override
+  String get ruleManyPinsTitle => 'Flera käglor faller';
+
+  @override
+  String get ruleManyPinsBody =>
+      'Fäll flera käglor och du får antalet käglor, inte summan.';
+
+  @override
+  String get ruleManyPinsDetail =>
+      'Exempel: att fälla 7, 9 och 12 ger 3 poäng.';
+
+  @override
+  String get ruleLeaningTitle => 'Lutande käglor räknas inte';
+
+  @override
+  String get ruleLeaningBody =>
+      'En kägla som vilar mot en annan kägla eller pinnen räknas inte som fälld.';
+
+  @override
+  String get ruleOvershootTitle => 'Gå inte över målet';
+
+  @override
+  String get ruleOvershootBody =>
+      'Om din poäng skulle passera målet faller du tillbaka (klassiskt: över 50 sätter dig på 25).';
+
+  @override
+  String get ruleOvershootDetail =>
+      'Husregler kan ändra detta: tillbaka till halva målet, eller ingen påföljd alls.';
+
+  @override
+  String get ruleMissesTitle => 'Tre missar och du åker ut';
+
+  @override
+  String get ruleMissesBody =>
+      'Missa tre turer i rad och du är utslagen (när utslagning är på).';
+
+  @override
+  String get ruleMissesDetail =>
+      'Prickarna på ditt spelarkort visar din missvit.';
+
+  @override
+  String get ruleExactTitle => 'Träffa målet exakt';
+
+  @override
+  String get ruleExactBody =>
+      'Den första sidan som når exakt målpoängen vinner matchen.';
+
+  @override
+  String get ruleLastStandingTitle => 'Sist kvar vinner';
+
+  @override
+  String get ruleLastStandingBody =>
+      'Om alla andra sidor slagits ut vinner den som är kvar.';
+
+  @override
+  String get ruleTeamsTitle => 'Solo eller i lag';
+
+  @override
+  String get ruleTeamsBody =>
+      'Spela en mot en eller i två lag — ett lag kastar som en sida och medlemmarna turas om.';
 }

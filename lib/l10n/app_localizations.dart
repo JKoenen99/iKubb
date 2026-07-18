@@ -329,6 +329,228 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Custom'**
   String get custom;
+
+  /// No description provided for @rulesSearchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search the rules'**
+  String get rulesSearchHint;
+
+  /// No description provided for @rulesNoResults.
+  ///
+  /// In en, this message translates to:
+  /// **'No rules match your search'**
+  String get rulesNoResults;
+
+  /// No description provided for @activeRulesLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'This game'**
+  String get activeRulesLabel;
+
+  /// No description provided for @catSetup.
+  ///
+  /// In en, this message translates to:
+  /// **'Setup & field'**
+  String get catSetup;
+
+  /// No description provided for @catThrowing.
+  ///
+  /// In en, this message translates to:
+  /// **'Throwing'**
+  String get catThrowing;
+
+  /// No description provided for @catScoring.
+  ///
+  /// In en, this message translates to:
+  /// **'Scoring'**
+  String get catScoring;
+
+  /// No description provided for @catOvershoot.
+  ///
+  /// In en, this message translates to:
+  /// **'Overshoot & reset'**
+  String get catOvershoot;
+
+  /// No description provided for @catMisses.
+  ///
+  /// In en, this message translates to:
+  /// **'Misses & elimination'**
+  String get catMisses;
+
+  /// No description provided for @catWinning.
+  ///
+  /// In en, this message translates to:
+  /// **'Winning'**
+  String get catWinning;
+
+  /// No description provided for @catTeams.
+  ///
+  /// In en, this message translates to:
+  /// **'Teams'**
+  String get catTeams;
+
+  /// No description provided for @ruleFormationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'The formation'**
+  String get ruleFormationTitle;
+
+  /// No description provided for @ruleFormationBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The 12 numbered pins start in a tight diamond formation, 3 to 4 metres from the throwing line.'**
+  String get ruleFormationBody;
+
+  /// No description provided for @rulePinsStandTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Pins stand where they fall'**
+  String get rulePinsStandTitle;
+
+  /// No description provided for @rulePinsStandBody.
+  ///
+  /// In en, this message translates to:
+  /// **'After each throw, knocked pins are stood upright on the spot where they landed — the field spreads out as the game goes on.'**
+  String get rulePinsStandBody;
+
+  /// No description provided for @ruleTurnsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Take turns'**
+  String get ruleTurnsTitle;
+
+  /// No description provided for @ruleTurnsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Sides throw one stick per turn, always in the same order.'**
+  String get ruleTurnsBody;
+
+  /// No description provided for @ruleUnderhandTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Throw underhand'**
+  String get ruleUnderhandTitle;
+
+  /// No description provided for @ruleUnderhandBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The stick is always thrown underhand.'**
+  String get ruleUnderhandBody;
+
+  /// No description provided for @ruleOnePinTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'One pin down'**
+  String get ruleOnePinTitle;
+
+  /// No description provided for @ruleOnePinBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Knock over exactly one pin and you score that pin\'s number.'**
+  String get ruleOnePinBody;
+
+  /// No description provided for @ruleManyPinsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Several pins down'**
+  String get ruleManyPinsTitle;
+
+  /// No description provided for @ruleManyPinsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Knock over several pins and you score the number of pins, not their sum.'**
+  String get ruleManyPinsBody;
+
+  /// No description provided for @ruleManyPinsDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Example: knocking over pins 7, 9 and 12 scores 3 points.'**
+  String get ruleManyPinsDetail;
+
+  /// No description provided for @ruleLeaningTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Leaning pins don\'t count'**
+  String get ruleLeaningTitle;
+
+  /// No description provided for @ruleLeaningBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A pin resting on another pin or on the stick doesn\'t count as fallen.'**
+  String get ruleLeaningBody;
+
+  /// No description provided for @ruleOvershootTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t overshoot'**
+  String get ruleOvershootTitle;
+
+  /// No description provided for @ruleOvershootBody.
+  ///
+  /// In en, this message translates to:
+  /// **'If your score would pass the target, it drops back down instead (classic: overshooting 50 puts you on 25).'**
+  String get ruleOvershootBody;
+
+  /// No description provided for @ruleOvershootDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'House rules can change this: reset to half of the target, or no penalty at all.'**
+  String get ruleOvershootDetail;
+
+  /// No description provided for @ruleMissesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Three misses and you\'re out'**
+  String get ruleMissesTitle;
+
+  /// No description provided for @ruleMissesBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Score nothing three turns in a row and you\'re eliminated (when elimination is enabled).'**
+  String get ruleMissesBody;
+
+  /// No description provided for @ruleMissesDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'The dots on your player card track your miss streak.'**
+  String get ruleMissesDetail;
+
+  /// No description provided for @ruleExactTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Hit the target exactly'**
+  String get ruleExactTitle;
+
+  /// No description provided for @ruleExactBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The first side to reach exactly the target score wins the game.'**
+  String get ruleExactBody;
+
+  /// No description provided for @ruleLastStandingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Last one standing'**
+  String get ruleLastStandingTitle;
+
+  /// No description provided for @ruleLastStandingBody.
+  ///
+  /// In en, this message translates to:
+  /// **'If every other side is eliminated, the remaining side wins.'**
+  String get ruleLastStandingBody;
+
+  /// No description provided for @ruleTeamsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Solo or in teams'**
+  String get ruleTeamsTitle;
+
+  /// No description provided for @ruleTeamsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Play one against one, or in two teams — a team throws as one side, with members taking turns.'**
+  String get ruleTeamsBody;
 }
 
 class _AppLocalizationsDelegate
