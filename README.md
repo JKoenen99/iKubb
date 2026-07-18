@@ -17,6 +17,22 @@ flutter gen-l10n
 flutter run                      # on a connected device or simulator
 ```
 
+## Preview on iPad (or any browser)
+
+Every push runs the **Web preview** GitHub Actions workflow, which builds the
+app for the web and deploys it to GitHub Pages:
+
+> https://jkoenen99.github.io/iKubb/
+
+One-time setup: in the GitHub repo go to **Settings → Pages** and set
+**Source** to **GitHub Actions** (the workflow also tries to enable this
+automatically on its first run). Open the URL in Safari and use
+*Share → Add to Home Screen* for an app-like fullscreen experience.
+Note: a GitHub Pages site is publicly reachable by anyone with the URL.
+
+The web build is a development preview only — releases ship as native
+iOS/Android apps.
+
 ## Tests
 
 ```sh

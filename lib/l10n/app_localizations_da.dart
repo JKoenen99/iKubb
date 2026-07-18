@@ -58,4 +58,67 @@ class AppLocalizationsDa extends AppLocalizations {
 
   @override
   String get comingSoon => 'Kommer snart';
+
+  @override
+  String get players => 'Spillere';
+
+  @override
+  String get addPlayer => 'Tilføj spiller';
+
+  @override
+  String get playerName => 'Navn';
+
+  @override
+  String get recentPlayers => 'Seneste spillere';
+
+  @override
+  String get teams => 'Hold';
+
+  @override
+  String get teamA => 'Hold A';
+
+  @override
+  String get teamB => 'Hold B';
+
+  @override
+  String get autoBalance => 'Fordel automatisk';
+
+  @override
+  String get houseRules => 'Husregler';
+
+  @override
+  String get targetScore => 'Målscore';
+
+  @override
+  String get overshootRule => 'Over målet';
+
+  @override
+  String get policyReset => 'Nulstil';
+
+  @override
+  String get policyHalf => 'Halvdelen af målet';
+
+  @override
+  String get policyNone => 'Ingen straf';
+
+  @override
+  String get eliminationRule => 'Udelukkelse';
+
+  @override
+  String get missLimit => 'Forbiere før udelukkelse';
+
+  @override
+  String get shuffleOrder => 'Bland rækkefølgen';
+
+  @override
+  String get startGame => 'Start spil';
+
+  @override
+  String get needTwoPlayers => 'Tilføj mindst 2 spillere';
+
+  @override
+  String get needBothTeams => 'Begge hold skal have en spiller';
+
+  @override
+  String get custom => 'Tilpasset';
 }

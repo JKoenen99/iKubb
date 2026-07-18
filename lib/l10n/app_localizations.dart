@@ -203,6 +203,132 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Coming soon'**
   String get comingSoon;
+
+  /// No description provided for @players.
+  ///
+  /// In en, this message translates to:
+  /// **'Players'**
+  String get players;
+
+  /// No description provided for @addPlayer.
+  ///
+  /// In en, this message translates to:
+  /// **'Add player'**
+  String get addPlayer;
+
+  /// No description provided for @playerName.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get playerName;
+
+  /// No description provided for @recentPlayers.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent players'**
+  String get recentPlayers;
+
+  /// No description provided for @teams.
+  ///
+  /// In en, this message translates to:
+  /// **'Teams'**
+  String get teams;
+
+  /// No description provided for @teamA.
+  ///
+  /// In en, this message translates to:
+  /// **'Team A'**
+  String get teamA;
+
+  /// No description provided for @teamB.
+  ///
+  /// In en, this message translates to:
+  /// **'Team B'**
+  String get teamB;
+
+  /// No description provided for @autoBalance.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto-balance'**
+  String get autoBalance;
+
+  /// No description provided for @houseRules.
+  ///
+  /// In en, this message translates to:
+  /// **'House rules'**
+  String get houseRules;
+
+  /// No description provided for @targetScore.
+  ///
+  /// In en, this message translates to:
+  /// **'Target score'**
+  String get targetScore;
+
+  /// No description provided for @overshootRule.
+  ///
+  /// In en, this message translates to:
+  /// **'Overshoot'**
+  String get overshootRule;
+
+  /// No description provided for @policyReset.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get policyReset;
+
+  /// No description provided for @policyHalf.
+  ///
+  /// In en, this message translates to:
+  /// **'Half of target'**
+  String get policyHalf;
+
+  /// No description provided for @policyNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No penalty'**
+  String get policyNone;
+
+  /// No description provided for @eliminationRule.
+  ///
+  /// In en, this message translates to:
+  /// **'Elimination'**
+  String get eliminationRule;
+
+  /// No description provided for @missLimit.
+  ///
+  /// In en, this message translates to:
+  /// **'Misses to eliminate'**
+  String get missLimit;
+
+  /// No description provided for @shuffleOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'Shuffle order'**
+  String get shuffleOrder;
+
+  /// No description provided for @startGame.
+  ///
+  /// In en, this message translates to:
+  /// **'Start game'**
+  String get startGame;
+
+  /// No description provided for @needTwoPlayers.
+  ///
+  /// In en, this message translates to:
+  /// **'Add at least 2 players'**
+  String get needTwoPlayers;
+
+  /// No description provided for @needBothTeams.
+  ///
+  /// In en, this message translates to:
+  /// **'Both teams need a player'**
+  String get needBothTeams;
+
+  /// No description provided for @custom.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom'**
+  String get custom;
 }
 
 class _AppLocalizationsDelegate

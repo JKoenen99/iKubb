@@ -1,0 +1,59 @@
+# Builds the Flutter web preview and deploys it to GitHub Pages so the app
+# can be tested on any device (iPad Safari included) without a native build.
+# Web is a dev-preview target only — releases ship native iOS/Android.
+name: Web preview
+
+on:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One Pages deployment at a time; the latest push wins.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.44.6
+          channel: stable
+          cache: true
+
+      - run: flutter pub get
+      - run: flutter gen-l10n
+      - run: flutter analyze
+
+      - name: Engine tests
+        working-directory: packages/scoring_engine
+        run: |
+          dart pub get
+          dart test
+
+      - name: Widget tests
+        run: flutter test
+
+      - run: flutter build web --release --base-href /iKubb/
+
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/web
+
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -14,20 +14,47 @@
   "needsExactly": "Needs exactly {points}",
   "@needsExactly": {
     "placeholders": {
-      "points": {"type": "int"}
+      "points": {
+        "type": "int"
+      }
     }
   },
   "overshootWarning": "Overshoot — back to {resetScore}",
   "@overshootWarning": {
     "placeholders": {
-      "resetScore": {"type": "int"}
+      "resetScore": {
+        "type": "int"
+      }
     }
   },
   "winnerBanner": "{name} wins!",
   "@winnerBanner": {
     "placeholders": {
-      "name": {"type": "String"}
+      "name": {
+        "type": "String"
+      }
     }
   },
-  "comingSoon": "Coming soon"
+  "comingSoon": "Coming soon",
+  "players": "Players",
+  "addPlayer": "Add player",
+  "playerName": "Name",
+  "recentPlayers": "Recent players",
+  "teams": "Teams",
+  "teamA": "Team A",
+  "teamB": "Team B",
+  "autoBalance": "Auto-balance",
+  "houseRules": "House rules",
+  "targetScore": "Target score",
+  "overshootRule": "Overshoot",
+  "policyReset": "Reset",
+  "policyHalf": "Half of target",
+  "policyNone": "No penalty",
+  "eliminationRule": "Elimination",
+  "missLimit": "Misses to eliminate",
+  "shuffleOrder": "Shuffle order",
+  "startGame": "Start game",
+  "needTwoPlayers": "Add at least 2 players",
+  "needBothTeams": "Both teams need a player",
+  "custom": "Custom"
 }

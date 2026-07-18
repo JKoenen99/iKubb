@@ -58,4 +58,67 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get comingSoon => 'Bald verfügbar';
+
+  @override
+  String get players => 'Spieler';
+
+  @override
+  String get addPlayer => 'Spieler hinzufügen';
+
+  @override
+  String get playerName => 'Name';
+
+  @override
+  String get recentPlayers => 'Zuletzt gespielt';
+
+  @override
+  String get teams => 'Teams';
+
+  @override
+  String get teamA => 'Team A';
+
+  @override
+  String get teamB => 'Team B';
+
+  @override
+  String get autoBalance => 'Automatisch aufteilen';
+
+  @override
+  String get houseRules => 'Hausregeln';
+
+  @override
+  String get targetScore => 'Zielpunktzahl';
+
+  @override
+  String get overshootRule => 'Überwerfen';
+
+  @override
+  String get policyReset => 'Zurücksetzen';
+
+  @override
+  String get policyHalf => 'Hälfte des Ziels';
+
+  @override
+  String get policyNone => 'Keine Strafe';
+
+  @override
+  String get eliminationRule => 'Ausscheiden';
+
+  @override
+  String get missLimit => 'Fehlwürfe bis zum Aus';
+
+  @override
+  String get shuffleOrder => 'Reihenfolge mischen';
+
+  @override
+  String get startGame => 'Spiel starten';
+
+  @override
+  String get needTwoPlayers => 'Mindestens 2 Spieler hinzufügen';
+
+  @override
+  String get needBothTeams => 'Beide Teams brauchen einen Spieler';
+
+  @override
+  String get custom => 'Eigener Wert';
 }

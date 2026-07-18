@@ -1,10 +1,14 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ikubb/app.dart';
 import 'package:ikubb/features/game/game_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
-  testWidgets('quick start scores a pin-tap throw end to end', (tester) async {
+  setUp(() => SharedPreferences.setMockInitialValues({}));
+
+  testWidgets('set up and score a pin-tap throw end to end', (tester) async {
     await tester.pumpWidget(const ProviderScope(child: IKubbApp()));
     await tester.pumpAndSettle();
 
@@ -13,8 +17,13 @@ void main() {
     await tester.tap(find.text('I know the rules — start scoring'));
     await tester.pumpAndSettle();
 
-    // Setup placeholder → quick start.
-    await tester.tap(find.text('Quick start'));
+    // Set up a classic 2-player game.
+    for (final name in ['Player 1', 'Player 2']) {
+      await tester.enterText(find.byType(TextField).first, name);
+      await tester.tap(find.text('Add player'));
+      await tester.pumpAndSettle();
+    }
+    await tester.tap(find.text('Start game'));
     await tester.pumpAndSettle();
     expect(find.byType(GameScreen), findsOneWidget);
 

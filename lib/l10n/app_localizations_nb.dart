@@ -58,4 +58,67 @@ class AppLocalizationsNb extends AppLocalizations {
 
   @override
   String get comingSoon => 'Kommer snart';
+
+  @override
+  String get players => 'Spillere';
+
+  @override
+  String get addPlayer => 'Legg til spiller';
+
+  @override
+  String get playerName => 'Navn';
+
+  @override
+  String get recentPlayers => 'Nylige spillere';
+
+  @override
+  String get teams => 'Lag';
+
+  @override
+  String get teamA => 'Lag A';
+
+  @override
+  String get teamB => 'Lag B';
+
+  @override
+  String get autoBalance => 'Fordel automatisk';
+
+  @override
+  String get houseRules => 'Husregler';
+
+  @override
+  String get targetScore => 'Målpoeng';
+
+  @override
+  String get overshootRule => 'Over målet';
+
+  @override
+  String get policyReset => 'Tilbakestill';
+
+  @override
+  String get policyHalf => 'Halvparten av målet';
+
+  @override
+  String get policyNone => 'Ingen straff';
+
+  @override
+  String get eliminationRule => 'Utslagning';
+
+  @override
+  String get missLimit => 'Bom før utslagning';
+
+  @override
+  String get shuffleOrder => 'Stokk rekkefølgen';
+
+  @override
+  String get startGame => 'Start spill';
+
+  @override
+  String get needTwoPlayers => 'Legg til minst 2 spillere';
+
+  @override
+  String get needBothTeams => 'Begge lag trenger en spiller';
+
+  @override
+  String get custom => 'Egendefinert';
 }

@@ -58,4 +58,67 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get comingSoon => 'Coming soon';
+
+  @override
+  String get players => 'Players';
+
+  @override
+  String get addPlayer => 'Add player';
+
+  @override
+  String get playerName => 'Name';
+
+  @override
+  String get recentPlayers => 'Recent players';
+
+  @override
+  String get teams => 'Teams';
+
+  @override
+  String get teamA => 'Team A';
+
+  @override
+  String get teamB => 'Team B';
+
+  @override
+  String get autoBalance => 'Auto-balance';
+
+  @override
+  String get houseRules => 'House rules';
+
+  @override
+  String get targetScore => 'Target score';
+
+  @override
+  String get overshootRule => 'Overshoot';
+
+  @override
+  String get policyReset => 'Reset';
+
+  @override
+  String get policyHalf => 'Half of target';
+
+  @override
+  String get policyNone => 'No penalty';
+
+  @override
+  String get eliminationRule => 'Elimination';
+
+  @override
+  String get missLimit => 'Misses to eliminate';
+
+  @override
+  String get shuffleOrder => 'Shuffle order';
+
+  @override
+  String get startGame => 'Start game';
+
+  @override
+  String get needTwoPlayers => 'Add at least 2 players';
+
+  @override
+  String get needBothTeams => 'Both teams need a player';
+
+  @override
+  String get custom => 'Custom';
 }
