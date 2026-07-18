@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../theme/palette.dart';
 
-enum MascotPose { idle, cheer }
+enum MascotPose { idle, cheer, oops }
 
 /// The iKubb Viking mascot as code-drawn vector art: flat shapes, chunky
 /// rounded linework, brand palette, no text (SPEC.md §4).
@@ -22,19 +22,26 @@ class VikingMascot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final reduceMotion = MediaQuery.disableAnimationsOf(context);
+    final duration =
+        reduceMotion ? Duration.zero : const Duration(milliseconds: 450);
     return TweenAnimationBuilder<double>(
       tween: Tween(end: pose == MascotPose.cheer ? 1.0 : 0.0),
-      duration: reduceMotion ? Duration.zero : const Duration(milliseconds: 450),
+      duration: duration,
       curve: Curves.elasticOut,
-      // Center loosens tight constraints (e.g. stretch columns) so the
-      // painter's box is always exactly [size] — it must never scale to a
-      // forced width and paint outside its bounds.
-      builder: (context, cheer, _) => Center(
-        child: SizedBox.square(
-          dimension: size,
-          child: CustomPaint(
-            size: Size.square(size),
-            painter: _VikingPainter(cheer: cheer),
+      builder: (context, cheer, _) => TweenAnimationBuilder<double>(
+        tween: Tween(end: pose == MascotPose.oops ? 1.0 : 0.0),
+        duration: duration,
+        curve: Curves.easeOut,
+        // Center loosens tight constraints (e.g. stretch columns) so the
+        // painter's box is always exactly [size] — it must never scale to
+        // a forced width and paint outside its bounds.
+        builder: (context, oops, _) => Center(
+          child: SizedBox.square(
+            dimension: size,
+            child: CustomPaint(
+              size: Size.square(size),
+              painter: _VikingPainter(cheer: cheer, oops: oops),
+            ),
           ),
         ),
       ),
@@ -43,10 +50,13 @@ class VikingMascot extends StatelessWidget {
 }
 
 class _VikingPainter extends CustomPainter {
-  const _VikingPainter({required this.cheer});
+  const _VikingPainter({required this.cheer, this.oops = 0});
 
   /// 0 = idle (arms down), 1 = full cheer (arms and stick raised).
   final double cheer;
+
+  /// 0 = normal, 1 = full wince: frown, slight sag and tilt.
+  final double oops;
 
   static const _skin = Color(0xFFF0C9A5);
   static const _cheek = Color(0x33A84A3F);
@@ -57,8 +67,13 @@ class _VikingPainter extends CustomPainter {
     canvas.scale(s);
     final fill = Paint()..style = PaintingStyle.fill;
 
-    // Cheer lifts the whole figure a touch.
-    canvas.translate(0, 2 - 2 * cheer);
+    // Cheer lifts the whole figure a touch; oops sags and tilts it.
+    canvas.translate(0, 2 - 2 * cheer + 2.5 * oops);
+    if (oops > 0) {
+      canvas.translate(50, 50);
+      canvas.rotate(0.07 * oops);
+      canvas.translate(-50, -50);
+    }
 
     // Boots.
     fill.color = IKubbPalette.walnut;
@@ -95,14 +110,21 @@ class _VikingPainter extends CustomPainter {
     canvas.drawCircle(const Offset(41, 58), 3.4, fill);
     canvas.drawCircle(const Offset(59, 58), 3.4, fill);
 
-    // Mouth (a happy gap in the beard).
-    fill.color = IKubbPalette.ink;
-    canvas.drawArc(Rect.fromCircle(center: const Offset(50, 46), radius: 4.5),
-        0.3, math.pi - 0.6, false, Paint()
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = 1.8
-          ..strokeCap = StrokeCap.round
-          ..color = IKubbPalette.ink);
+    // Mouth: happy arc normally, flipped to a wince when oops.
+    final mouthPaint = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1.8
+      ..strokeCap = StrokeCap.round
+      ..color = IKubbPalette.ink;
+    if (oops > 0.5) {
+      canvas.drawArc(
+          Rect.fromCircle(center: const Offset(50, 50.5), radius: 4.5),
+          math.pi + 0.3, math.pi - 0.6, false, mouthPaint);
+    } else {
+      canvas.drawArc(
+          Rect.fromCircle(center: const Offset(50, 46), radius: 4.5),
+          0.3, math.pi - 0.6, false, mouthPaint);
+    }
 
     // Eyes and cheeks.
     fill.color = IKubbPalette.ink;
@@ -166,5 +188,6 @@ class _VikingPainter extends CustomPainter {
   static double _lerp(double a, double b, double t) => a + (b - a) * t;
 
   @override
-  bool shouldRepaint(_VikingPainter oldDelegate) => oldDelegate.cheer != cheer;
+  bool shouldRepaint(_VikingPainter oldDelegate) =>
+      oldDelegate.cheer != cheer || oldDelegate.oops != oops;
 }

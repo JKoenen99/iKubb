@@ -13,6 +13,7 @@ import '../rules/rules_view.dart';
 import '../setup/player.dart' show playerColors;
 import 'game_controller.dart';
 import 'input_mode.dart';
+import 'mascot_reaction.dart';
 import 'number_pad.dart';
 import 'pin_diagram.dart';
 import 'win_overlay.dart';
@@ -32,6 +33,43 @@ class GameScreen extends ConsumerStatefulWidget {
 class _GameScreenState extends ConsumerState<GameScreen> {
   final Set<int> _selected = {};
 
+  // Mascot reactions (SPEC.md §3.7): occasional, varied, never blocking.
+  ReactionKind? _reaction;
+  int _reactionSeq = 0;
+  int _lastCheerThrow = -100;
+
+  /// Derives a reaction from the newest throw. Oops moments (overshoot,
+  /// elimination) always show — they're rare. Cheers are frequency-capped
+  /// so they stay delightful.
+  void _maybeReact(Game? previous, Game next) {
+    if (previous == null ||
+        next.throws.length != previous.throws.length + 1 ||
+        next.records.isEmpty) {
+      return; // undo, edit, or new game — never react to those.
+    }
+    final record = next.records.last;
+    ReactionKind? kind;
+    switch (record.outcome) {
+      case ThrowOutcome.overshoot || ThrowOutcome.eliminated:
+        kind = ReactionKind.oops;
+      case ThrowOutcome.scored:
+        final escapedElimination = next.rules.eliminationEnabled &&
+            previous.sideStates[record.sideIndex].missStreak ==
+                next.rules.missLimit - 1;
+        final bigThrow = record.thrown.score >= 10 &&
+            next.throws.length - _lastCheerThrow >= 5;
+        if (escapedElimination || bigThrow) kind = ReactionKind.cheer;
+      case ThrowOutcome.win || ThrowOutcome.miss:
+        break; // the win has its own celebration; misses stay quiet.
+    }
+    if (kind == null) return;
+    if (kind == ReactionKind.cheer) _lastCheerThrow = next.throws.length;
+    setState(() {
+      _reaction = kind;
+      _reactionSeq++;
+    });
+  }
+
   void _confirm() {
     ref.read(gameControllerProvider.notifier).confirmPins(_selected);
     setState(_selected.clear);
@@ -50,6 +88,7 @@ class _GameScreenState extends ConsumerState<GameScreen> {
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(gameControllerProvider, _maybeReact);
     final game = ref.watch(gameControllerProvider);
     final inputMode = ref.watch(inputModeProvider);
     final l10n = AppLocalizations.of(context)!;
@@ -126,6 +165,16 @@ class _GameScreenState extends ConsumerState<GameScreen> {
                     ),
             ),
           ),
+          if (_reaction != null && game.winner == null)
+            Positioned(
+              right: 16,
+              bottom: 96,
+              child: MascotReaction(
+                key: ValueKey(_reactionSeq),
+                kind: _reaction!,
+                onDone: () => setState(() => _reaction = null),
+              ),
+            ),
           if (game.winner != null) WinOverlay(game: game),
         ],
       ),

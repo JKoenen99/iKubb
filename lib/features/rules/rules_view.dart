@@ -59,9 +59,7 @@ class _RulesViewState extends ConsumerState<RulesView> {
 
     final searchResults = query.isEmpty
         ? const <RuleCard>[]
-        : [
-            for (final cat in categories) ...cat.cards.where(matches),
-          ];
+        : [for (final cat in categories) ...cat.cards.where(matches)];
 
     return ListView(
       controller: widget.scrollController,
@@ -90,7 +88,10 @@ class _RulesViewState extends ConsumerState<RulesView> {
           for (final category in categories)
             ExpansionTile(
               key: PageStorageKey(category.id),
-              leading: Icon(category.icon),
+              leading: Icon(
+                category.icon,
+                color: Theme.of(context).colorScheme.primary,
+              ),
               title: Text(
                 category.title,
                 style: const TextStyle(fontWeight: FontWeight.w700),
@@ -134,9 +135,11 @@ class _ActiveRulesChips extends StatelessWidget {
         Chip(label: Text('${l10n.targetScore}: ${rules.targetScore}')),
         Chip(label: Text(policyLabel)),
         Chip(
-          label: Text(rules.eliminationEnabled
-              ? '${l10n.eliminationRule}: ${rules.missLimit}'
-              : '${l10n.eliminationRule}: —'),
+          label: Text(
+            rules.eliminationEnabled
+                ? '${l10n.eliminationRule}: ${rules.missLimit}'
+                : '${l10n.eliminationRule}: —',
+          ),
         ),
       ],
     );
@@ -179,9 +182,9 @@ class _RuleCardTile extends StatelessWidget {
               ),
             if (card.detail != null)
               Theme(
-                data: Theme.of(context).copyWith(
-                  dividerColor: Colors.transparent,
-                ),
+                data: Theme.of(
+                  context,
+                ).copyWith(dividerColor: Colors.transparent),
                 child: ExpansionTile(
                   tilePadding: EdgeInsets.zero,
                   dense: true,

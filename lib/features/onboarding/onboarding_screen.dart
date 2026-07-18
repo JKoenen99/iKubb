@@ -47,12 +47,13 @@ class OnboardingScreen extends StatelessWidget {
                         child: Text(l10n.startScoring),
                       ),
                       const SizedBox(height: 12),
-                      FilledButton.tonal(
+                      OutlinedButton.icon(
                         onPressed: () {
                           markOnboardingSeen();
                           context.go('/tour');
                         },
-                        child: Text(l10n.teachMe),
+                        icon: const Icon(Icons.school_outlined),
+                        label: Text(l10n.teachMe),
                       ),
                     ],
                   ),

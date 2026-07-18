@@ -57,10 +57,7 @@ class _TourScreenState extends State<TourScreen> {
       appBar: AppBar(
         actions: [
           // Skip stays visible on every card (SPEC.md §3.1).
-          TextButton(
-            onPressed: () => _finish(context),
-            child: Text(l10n.skip),
-          ),
+          TextButton(onPressed: () => _finish(context), child: Text(l10n.skip)),
         ],
       ),
       body: SafeArea(
@@ -78,7 +75,10 @@ class _TourScreenState extends State<TourScreen> {
                         title: l10n.ruleFormationTitle,
                         body: l10n.ruleFormationBody,
                         child: const PinDiagram(
-                            selected: {}, onToggle: null, pinSize: 48),
+                          selected: {},
+                          onToggle: null,
+                          pinSize: 48,
+                        ),
                       ),
                       const _ScoringDemoCard(),
                       _TourCard(
@@ -94,8 +94,10 @@ class _TourScreenState extends State<TourScreen> {
                       _TourCard(
                         title: l10n.ruleExactTitle,
                         body: l10n.ruleExactBody,
-                        child:
-                            const VikingMascot(pose: MascotPose.cheer, size: 150),
+                        child: const VikingMascot(
+                          pose: MascotPose.cheer,
+                          size: 150,
+                        ),
                       ),
                     ],
                   ),
@@ -112,10 +114,9 @@ class _TourScreenState extends State<TourScreen> {
                         decoration: BoxDecoration(
                           color: i == _page
                               ? Theme.of(context).colorScheme.primary
-                              : Theme.of(context)
-                                  .colorScheme
-                                  .primary
-                                  .withValues(alpha: 0.3),
+                              : Theme.of(
+                                  context,
+                                ).colorScheme.primary.withValues(alpha: 0.3),
                           borderRadius: BorderRadius.circular(4),
                         ),
                       ),
@@ -149,23 +150,28 @@ class _TourCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        children: [
-          if (child != null) ...[child!, const SizedBox(height: 24)],
-          Text(
-            title,
-            textAlign: TextAlign.center,
-            style: Theme.of(context)
-                .textTheme
-                .headlineMedium
-                ?.copyWith(fontWeight: FontWeight.w800),
-          ),
-          const SizedBox(height: 12),
-          Text(body, textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 16, height: 1.4)),
-        ],
+    // Center the card content vertically (UX audit #5) — scrolls only
+    // when it genuinely doesn't fit.
+    return Center(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (child != null) ...[child!, const SizedBox(height: 24)],
+            Text(
+              title,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            const SizedBox(height: 12),
+            Text(
+              body,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 16, height: 1.4),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -192,46 +198,45 @@ class _ScoringDemoCardState extends State<_ScoringDemoCard> {
       1 => l10n.ruleOnePinBody,
       _ => l10n.ruleManyPinsBody,
     };
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        children: [
-          PinDiagram(
-            selected: _selected,
-            pinSize: 48,
-            onToggle: (pin) => setState(() {
-              _selected.contains(pin)
-                  ? _selected.remove(pin)
-                  : _selected.add(pin);
-            }),
-          ),
-          const SizedBox(height: 16),
-          RollingNumber(
-            value: score,
-            style: Theme.of(context)
-                .textTheme
-                .displayLarge
-                ?.copyWith(color: Theme.of(context).colorScheme.primary),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            l10n.catScoring,
-            style: Theme.of(context)
-                .textTheme
-                .headlineMedium
-                ?.copyWith(fontWeight: FontWeight.w800),
-          ),
-          const SizedBox(height: 12),
-          AnimatedSwitcher(
-            duration: const Duration(milliseconds: 200),
-            child: Text(
-              explanation,
-              key: ValueKey(explanation),
-              textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 16, height: 1.4),
+    return Center(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            PinDiagram(
+              selected: _selected,
+              pinSize: 48,
+              onToggle: (pin) => setState(() {
+                _selected.contains(pin)
+                    ? _selected.remove(pin)
+                    : _selected.add(pin);
+              }),
             ),
-          ),
-        ],
+            const SizedBox(height: 16),
+            RollingNumber(
+              value: score,
+              style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                color: Theme.of(context).colorScheme.primary,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              l10n.catScoring,
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            const SizedBox(height: 12),
+            AnimatedSwitcher(
+              duration: const Duration(milliseconds: 200),
+              child: Text(
+                explanation,
+                key: ValueKey(explanation),
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 16, height: 1.4),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
