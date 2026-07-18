@@ -73,5 +73,8 @@
   "ruleLastStandingBody": "Si todos los demás bandos quedan eliminados, gana el que queda.",
   "ruleTeamsTitle": "Solo o en equipos",
   "ruleTeamsBody": "Juega uno contra uno o en dos equipos — un equipo lanza como un solo bando y sus miembros se alternan.",
-  "rematch": "Revancha"
+  "rematch": "Revancha",
+  "skip": "Omitir",
+  "next": "Siguiente",
+  "tourTryIt": "Pruébalo — toca los bolos caídos"
 }

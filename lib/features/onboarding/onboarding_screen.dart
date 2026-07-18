@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../../widgets/viking_mascot.dart';
+import 'onboarding_state.dart';
 
 /// First-launch welcome with the audience fork (SPEC.md §3.1):
 /// experienced players jump straight to setup; newcomers get the tour.
@@ -33,13 +34,18 @@ class OnboardingScreen extends StatelessWidget {
                   Text(l10n.tagline, textAlign: TextAlign.center),
                   const SizedBox(height: 48),
                   FilledButton(
-                    onPressed: () => context.go('/setup'),
+                    onPressed: () {
+                      markOnboardingSeen();
+                      context.go('/setup');
+                    },
                     child: Text(l10n.startScoring),
                   ),
                   const SizedBox(height: 12),
                   FilledButton.tonal(
-                    // TODO(onboarding): interactive rules tour cards.
-                    onPressed: () => context.go('/rules'),
+                    onPressed: () {
+                      markOnboardingSeen();
+                      context.go('/tour');
+                    },
                     child: Text(l10n.teachMe),
                   ),
                 ],

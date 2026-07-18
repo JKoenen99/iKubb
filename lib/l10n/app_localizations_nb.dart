@@ -249,4 +249,13 @@ class AppLocalizationsNb extends AppLocalizations {
 
   @override
   String get rematch => 'Omkamp';
+
+  @override
+  String get skip => 'Hopp over';
+
+  @override
+  String get next => 'Neste';
+
+  @override
+  String get tourTryIt => 'Prøv selv — trykk på kjeglene som veltet';
 }

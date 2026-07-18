@@ -73,5 +73,8 @@
   "ruleLastStandingBody": "Sind alle anderen Parteien ausgeschieden, gewinnt die verbleibende Partei.",
   "ruleTeamsTitle": "Allein oder im Team",
   "ruleTeamsBody": "Spiele eins gegen eins oder in zwei Teams — ein Team wirft als eine Partei, die Mitglieder wechseln sich ab.",
-  "rematch": "Revanche"
+  "rematch": "Revanche",
+  "skip": "Überspringen",
+  "next": "Weiter",
+  "tourTryIt": "Probier es aus — tippe auf die umgefallenen Kegel"
 }

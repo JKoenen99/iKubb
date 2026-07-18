@@ -557,6 +557,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Rematch'**
   String get rematch;
+
+  /// No description provided for @skip.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip'**
+  String get skip;
+
+  /// No description provided for @next.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get next;
+
+  /// No description provided for @tourTryIt.
+  ///
+  /// In en, this message translates to:
+  /// **'Try it — tap the pins that fell'**
+  String get tourTryIt;
 }
 
 class _AppLocalizationsDelegate

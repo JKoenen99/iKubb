@@ -73,5 +73,8 @@
   "ruleLastStandingBody": "Si tous les autres camps sont éliminés, le camp restant gagne.",
   "ruleTeamsTitle": "En solo ou en équipe",
   "ruleTeamsBody": "Jouez en un contre un ou en deux équipes — une équipe lance comme un seul camp, ses membres alternent.",
-  "rematch": "Revanche"
+  "rematch": "Revanche",
+  "skip": "Passer",
+  "next": "Suivant",
+  "tourTryIt": "Essayez — touchez les quilles tombées"
 }

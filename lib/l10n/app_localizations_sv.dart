@@ -249,4 +249,13 @@ class AppLocalizationsSv extends AppLocalizations {
 
   @override
   String get rematch => 'Returmatch';
+
+  @override
+  String get skip => 'Hoppa över';
+
+  @override
+  String get next => 'Nästa';
+
+  @override
+  String get tourTryIt => 'Prova — tryck på käglorna som föll';
 }

@@ -249,4 +249,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get rematch => 'Rematch';
+
+  @override
+  String get skip => 'Skip';
+
+  @override
+  String get next => 'Next';
+
+  @override
+  String get tourTryIt => 'Try it — tap the pins that fell';
 }

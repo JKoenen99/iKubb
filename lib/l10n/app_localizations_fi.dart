@@ -249,4 +249,13 @@ class AppLocalizationsFi extends AppLocalizations {
 
   @override
   String get rematch => 'Uusintaottelu';
+
+  @override
+  String get skip => 'Ohita';
+
+  @override
+  String get next => 'Seuraava';
+
+  @override
+  String get tourTryIt => 'Kokeile — napauta kaatuneita keiloja';
 }

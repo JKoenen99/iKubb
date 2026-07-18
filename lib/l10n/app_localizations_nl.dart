@@ -249,4 +249,13 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get rematch => 'Revanche';
+
+  @override
+  String get skip => 'Overslaan';
+
+  @override
+  String get next => 'Volgende';
+
+  @override
+  String get tourTryIt => 'Probeer het — tik op de omgevallen kegels';
 }

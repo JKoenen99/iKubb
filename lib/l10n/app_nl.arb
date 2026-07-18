@@ -73,5 +73,8 @@
   "ruleLastStandingBody": "Als alle andere partijen zijn uitgeschakeld, wint de overgebleven partij.",
   "ruleTeamsTitle": "Solo of in teams",
   "ruleTeamsBody": "Speel één tegen één of in twee teams — een team gooit als één partij, spelers wisselen elkaar af.",
-  "rematch": "Revanche"
+  "rematch": "Revanche",
+  "skip": "Overslaan",
+  "next": "Volgende",
+  "tourTryIt": "Probeer het — tik op de omgevallen kegels"
 }

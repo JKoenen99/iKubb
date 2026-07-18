@@ -249,4 +249,13 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get rematch => 'Rivincita';
+
+  @override
+  String get skip => 'Salta';
+
+  @override
+  String get next => 'Avanti';
+
+  @override
+  String get tourTryIt => 'Provaci — tocca i birilli caduti';
 }

@@ -73,5 +73,8 @@
   "ruleLastStandingBody": "Hvis alle andre sider er ude, vinder den tilbageværende side.",
   "ruleTeamsTitle": "Solo eller i hold",
   "ruleTeamsBody": "Spil en mod en eller i to hold — et hold kaster som én side, og medlemmerne skiftes.",
-  "rematch": "Omkamp"
+  "rematch": "Omkamp",
+  "skip": "Spring over",
+  "next": "Næste",
+  "tourTryIt": "Prøv det — tryk på de væltede kegler"
 }

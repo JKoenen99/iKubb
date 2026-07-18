@@ -73,5 +73,8 @@
   "ruleLastStandingBody": "Hvis alle andre sider er slått ut, vinner siden som er igjen.",
   "ruleTeamsTitle": "Alene eller i lag",
   "ruleTeamsBody": "Spill én mot én eller i to lag — et lag kaster som én side, og medlemmene bytter på.",
-  "rematch": "Omkamp"
+  "rematch": "Omkamp",
+  "skip": "Hopp over",
+  "next": "Neste",
+  "tourTryIt": "Prøv selv — trykk på kjeglene som veltet"
 }

@@ -249,4 +249,13 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get rematch => 'Revanche';
+
+  @override
+  String get skip => 'Passer';
+
+  @override
+  String get next => 'Suivant';
+
+  @override
+  String get tourTryIt => 'Essayez — touchez les quilles tombées';
 }

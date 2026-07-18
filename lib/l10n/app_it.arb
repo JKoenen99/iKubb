@@ -73,5 +73,8 @@
   "ruleLastStandingBody": "Se tutte le altre parti sono eliminate, vince quella rimasta.",
   "ruleTeamsTitle": "Da soli o in squadra",
   "ruleTeamsBody": "Gioca uno contro uno o in due squadre — una squadra lancia come un'unica parte e i membri si alternano.",
-  "rematch": "Rivincita"
+  "rematch": "Rivincita",
+  "skip": "Salta",
+  "next": "Avanti",
+  "tourTryIt": "Provaci — tocca i birilli caduti"
 }

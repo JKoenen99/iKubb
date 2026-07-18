@@ -73,5 +73,8 @@
   "ruleLastStandingBody": "Om alla andra sidor slagits ut vinner den som är kvar.",
   "ruleTeamsTitle": "Solo eller i lag",
   "ruleTeamsBody": "Spela en mot en eller i två lag — ett lag kastar som en sida och medlemmarna turas om.",
-  "rematch": "Returmatch"
+  "rematch": "Returmatch",
+  "skip": "Hoppa över",
+  "next": "Nästa",
+  "tourTryIt": "Prova — tryck på käglorna som föll"
 }

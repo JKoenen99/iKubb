@@ -249,4 +249,13 @@ class AppLocalizationsDa extends AppLocalizations {
 
   @override
   String get rematch => 'Omkamp';
+
+  @override
+  String get skip => 'Spring over';
+
+  @override
+  String get next => 'Næste';
+
+  @override
+  String get tourTryIt => 'Prøv det — tryk på de væltede kegler';
 }

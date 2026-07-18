@@ -94,5 +94,8 @@
   "ruleLastStandingBody": "If every other side is eliminated, the remaining side wins.",
   "ruleTeamsTitle": "Solo or in teams",
   "ruleTeamsBody": "Play one against one, or in two teams — a team throws as one side, with members taking turns.",
-  "rematch": "Rematch"
+  "rematch": "Rematch",
+  "skip": "Skip",
+  "next": "Next",
+  "tourTryIt": "Try it — tap the pins that fell"
 }

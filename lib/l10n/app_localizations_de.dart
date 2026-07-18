@@ -249,4 +249,13 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get rematch => 'Revanche';
+
+  @override
+  String get skip => 'Überspringen';
+
+  @override
+  String get next => 'Weiter';
+
+  @override
+  String get tourTryIt => 'Probier es aus — tippe auf die umgefallenen Kegel';
 }
