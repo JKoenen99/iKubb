@@ -57,7 +57,10 @@ void main() {
   testWidgets('miss dots deep-link to the elimination rule', (tester) async {
     await pumpToGame(tester);
 
-    // Tap the miss-streak dots on the active player card.
+    // Dots only appear once a miss exists (audit #6): record one first.
+    await tester.tap(find.text('Miss'));
+    await tester.pumpAndSettle();
+    // Tap the miss-streak dots on the player card.
     await tester.tap(find.byIcon(Icons.circle).first, warnIfMissed: false);
     await tester.pumpAndSettle();
 

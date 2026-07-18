@@ -55,22 +55,11 @@ class _GameScreenState extends ConsumerState<GameScreen> {
     final scheme = Theme.of(context).colorScheme;
 
     return Scaffold(
+      // Three visible actions only (audit #4): rules and undo stay, the
+      // rest lives in an overflow menu with labeled rows.
       appBar: AppBar(
         title: Text(l10n.appTitle),
         actions: [
-          IconButton(
-            tooltip:
-                inputMode == InputMode.pins ? l10n.numberPad : l10n.tapPins,
-            onPressed: ref.read(inputModeProvider.notifier).toggle,
-            icon: Icon(inputMode == InputMode.pins
-                ? Icons.dialpad
-                : Icons.touch_app_outlined),
-          ),
-          IconButton(
-            tooltip: l10n.scoreboardMode,
-            onPressed: () => context.push('/scoreboard'),
-            icon: const Icon(Icons.connected_tv),
-          ),
           IconButton(
             tooltip: l10n.rules,
             onPressed: () => showRulesPanel(context),
@@ -78,14 +67,34 @@ class _GameScreenState extends ConsumerState<GameScreen> {
           ),
           IconButton(
             tooltip: l10n.undo,
-            onPressed:
-                game.throws.isEmpty ? null : ref.read(gameControllerProvider.notifier).undo,
+            onPressed: game.throws.isEmpty
+                ? null
+                : ref.read(gameControllerProvider.notifier).undo,
             icon: const Icon(Icons.undo),
           ),
-          IconButton(
-            tooltip: l10n.newGame,
-            onPressed: () => ref.read(gameControllerProvider.notifier).newGame(),
-            icon: const Icon(Icons.restart_alt),
+          PopupMenuButton<String>(
+            onSelected: (value) => switch (value) {
+              'scoreboard' => context.push('/scoreboard'),
+              _ => ref.read(gameControllerProvider.notifier).newGame(),
+            },
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                value: 'scoreboard',
+                child: ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  leading: const Icon(Icons.scoreboard_outlined),
+                  title: Text(l10n.scoreboardMode),
+                ),
+              ),
+              PopupMenuItem(
+                value: 'newGame',
+                child: ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  leading: const Icon(Icons.restart_alt),
+                  title: Text(l10n.newGame),
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -123,43 +132,91 @@ class _GameScreenState extends ConsumerState<GameScreen> {
     );
   }
 
+  /// The labeled mode switch lives with the input it changes (audit #4).
+  Widget _modeSwitch(InputMode inputMode) {
+    final l10n = AppLocalizations.of(context)!;
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.only(top: 4),
+        child: SegmentedButton<InputMode>(
+          showSelectedIcon: false,
+          style: const ButtonStyle(visualDensity: VisualDensity.compact),
+          segments: [
+            ButtonSegment(
+              value: InputMode.pins,
+              icon: const Icon(Icons.touch_app_outlined, size: 18),
+              label: Text(l10n.tapPins),
+            ),
+            ButtonSegment(
+              value: InputMode.pad,
+              icon: const Icon(Icons.grid_view_rounded, size: 18),
+              label: Text(l10n.numberPad),
+            ),
+          ],
+          selected: {inputMode},
+          onSelectionChanged: (s) {
+            if (s.first != inputMode) {
+              ref.read(inputModeProvider.notifier).toggle();
+            }
+          },
+        ),
+      ),
+    );
+  }
+
   Widget _inputArea(Game game, InputMode inputMode) {
     final l10n = AppLocalizations.of(context)!;
     final current = game.currentSideIndex;
 
     if (inputMode == InputMode.pad) {
-      return Center(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(16),
-          child: NumberPad(
-            pointsNeeded: current == null ? 0 : game.pointsNeeded(current),
-            overshootPenalty:
-                game.rules.overshootPolicy != OvershootPolicy.none,
-            onScore: game.winner != null ? (_) {} : _padScore,
+      return Column(
+        children: [
+          _modeSwitch(inputMode),
+          Expanded(
+            child: Center(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(16),
+                child: NumberPad(
+                  pointsNeeded: current == null
+                      ? 0
+                      : game.pointsNeeded(current),
+                  overshootPenalty:
+                      game.rules.overshootPolicy != OvershootPolicy.none,
+                  onScore: game.winner != null ? (_) {} : _padScore,
+                ),
+              ),
+            ),
           ),
-        ),
+        ],
       );
     }
 
     final throwScore = Throw.pins(_selected).score;
-    final wouldBust = current != null &&
+    final wouldBust =
+        current != null &&
         throwScore > game.pointsNeeded(current) &&
         game.rules.overshootPolicy != OvershootPolicy.none;
 
     return Column(
       children: [
-        const Spacer(),
-        PinDiagram(
-          selected: _selected,
-          onToggle: game.winner != null
-              ? null
-              : (pin) => setState(() {
-                    _selected.contains(pin)
-                        ? _selected.remove(pin)
-                        : _selected.add(pin);
-                  }),
+        _modeSwitch(inputMode),
+        Expanded(
+          child: Center(
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: PinDiagram(
+                selected: _selected,
+                onToggle: game.winner != null
+                    ? null
+                    : (pin) => setState(() {
+                        _selected.contains(pin)
+                            ? _selected.remove(pin)
+                            : _selected.add(pin);
+                      }),
+              ),
+            ),
+          ),
         ),
-        const Spacer(),
         Padding(
           padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
           child: Row(
@@ -218,26 +275,26 @@ class _Standings extends ConsumerWidget {
         _wrap(
           vertical,
           AnimatedContainer(
-                duration: const Duration(milliseconds: 250),
-                curve: Curves.easeOut,
-                margin: const EdgeInsets.symmetric(horizontal: 4),
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: i == game.currentSideIndex
-                      ? scheme.primary
-                      : scheme.surfaceContainerHighest,
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: _SideCard(
-                  state: game.sideStates[i],
-                  isActive: i == game.currentSideIndex,
-                  needsLine: l10n.needsExactly(game.pointsNeeded(i)),
-                  missLimit: game.rules.missLimit,
-                  color: playerColors[
-                      (sideColors[game.sides[i].id] ?? i) %
-                          playerColors.length],
-                ),
-              ),
+            duration: const Duration(milliseconds: 250),
+            curve: Curves.easeOut,
+            margin: const EdgeInsets.symmetric(horizontal: 4),
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: i == game.currentSideIndex
+                  ? scheme.primary
+                  : scheme.surfaceContainerHighest,
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: _SideCard(
+              state: game.sideStates[i],
+              isActive: i == game.currentSideIndex,
+              needsLine: l10n.needsExactly(game.pointsNeeded(i)),
+              missLimit: game.rules.missLimit,
+              color:
+                  playerColors[(sideColors[game.sides[i].id] ?? i) %
+                      playerColors.length],
+            ),
+          ),
         ),
     ];
     return Padding(
@@ -291,7 +348,11 @@ class _SideCard extends StatelessWidget {
               width: 14,
               height: 14,
               margin: const EdgeInsets.only(right: 6),
-              decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+              decoration: BoxDecoration(
+                color: color,
+                shape: BoxShape.circle,
+                border: Border.all(color: IKubbPalette.birchLight, width: 1.5),
+              ),
             ),
             Expanded(
               child: Text(
@@ -314,22 +375,33 @@ class _SideCard extends StatelessWidget {
         ),
         if (isActive)
           Text(needsLine, style: TextStyle(fontSize: 12, color: onColor)),
-        // Miss dots deep-link to their exact rule card (SPEC.md §3.6).
-        InkWell(
-          onTap: () =>
-              showRulesPanel(context, categoryId: RuleCategoryIds.misses),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              for (var m = 0; m < missLimit; m++)
-                Icon(
-                  Icons.circle,
-                  size: 10,
-                  color: m < state.missStreak
-                      ? IKubbPalette.berry
-                      : onColor.withValues(alpha: 0.3),
+        // Miss dots fade in on the first miss (audit #6) and deep-link to
+        // their exact rule card (SPEC.md §3.6). Fixed height: no jump.
+        SizedBox(
+          height: 16,
+          child: IgnorePointer(
+            ignoring: state.missStreak == 0,
+            child: AnimatedOpacity(
+              duration: const Duration(milliseconds: 250),
+              opacity: state.missStreak > 0 ? 1 : 0,
+              child: InkWell(
+                onTap: () =>
+                    showRulesPanel(context, categoryId: RuleCategoryIds.misses),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    for (var m = 0; m < missLimit; m++)
+                      Icon(
+                        Icons.circle,
+                        size: 10,
+                        color: m < state.missStreak
+                            ? IKubbPalette.berry
+                            : onColor.withValues(alpha: 0.3),
+                      ),
+                  ],
                 ),
-            ],
+              ),
+            ),
           ),
         ),
       ],

@@ -25,7 +25,7 @@ void main() {
   testWidgets('number-pad mode scores a throw with one tap', (tester) async {
     await pumpToGame(tester);
 
-    await tester.tap(find.byIcon(Icons.dialpad));
+    await tester.tap(find.text('Number pad'));
     await tester.pumpAndSettle();
     // Pad replaces the pin diagram: no confirm button anymore.
     expect(find.textContaining('Confirm throw'), findsNothing);
@@ -50,7 +50,9 @@ void main() {
     await tester.tap(find.textContaining('Confirm throw'));
     await tester.pumpAndSettle();
 
-    await tester.tap(find.byIcon(Icons.connected_tv));
+    await tester.tap(find.byType(PopupMenuButton<String>));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Scoreboard'));
     await tester.pumpAndSettle();
 
     expect(find.byType(ScoreboardScreen), findsOneWidget);

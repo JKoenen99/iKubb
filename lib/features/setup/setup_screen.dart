@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:scoring_engine/scoring_engine.dart';
 
 import '../../l10n/app_localizations.dart';
+import '../../theme/palette.dart';
 import '../game/game_controller.dart';
 import '../rules/rules_view.dart';
 import 'player.dart';
@@ -240,7 +241,12 @@ class _Avatar extends StatelessWidget {
   Widget build(BuildContext context) => Container(
         width: size,
         height: size,
-        decoration: BoxDecoration(color: player.color, shape: BoxShape.circle),
+        decoration: BoxDecoration(
+          color: player.color,
+          shape: BoxShape.circle,
+          // Contrast ring so identity reads on any surface (audit #1).
+          border: Border.all(color: IKubbPalette.birchLight, width: 1.5),
+        ),
         // TODO(assets): Viking avatar illustrations replace the initial.
         child: Center(
           child: Text(

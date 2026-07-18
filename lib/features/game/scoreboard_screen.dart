@@ -89,7 +89,7 @@ class _ScoreboardColumn extends StatelessWidget {
       margin: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: isActive
-            ? color.withValues(alpha: 0.35)
+            ? color.withValues(alpha: 0.45)
             : Colors.transparent,
         borderRadius: BorderRadius.circular(24),
         border: Border.all(
@@ -125,21 +125,31 @@ class _ScoreboardColumn extends StatelessWidget {
             ),
           ),
           if (showMissDots)
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                for (var m = 0; m < missLimit; m++)
-                  Padding(
-                    padding: const EdgeInsets.all(4),
-                    child: Icon(
-                      Icons.circle,
-                      size: 18,
-                      color: m < state.missStreak
-                          ? IKubbPalette.berry
-                          : IKubbPalette.birchLight.withValues(alpha: 0.3),
-                    ),
-                  ),
-              ],
+            // Bigger dots for across-the-field reading; only shown once a
+            // miss streak exists (audit #6).
+            SizedBox(
+              height: 40,
+              child: AnimatedOpacity(
+                duration: const Duration(milliseconds: 250),
+                opacity: state.missStreak > 0 ? 1 : 0,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    for (var m = 0; m < missLimit; m++)
+                      Padding(
+                        padding: const EdgeInsets.all(4),
+                        child: Icon(
+                          Icons.circle,
+                          size: 26,
+                          color: m < state.missStreak
+                              ? IKubbPalette.berry
+                              : IKubbPalette.birchLight
+                                  .withValues(alpha: 0.3),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
             ),
         ],
       ),

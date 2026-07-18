@@ -1,11 +1,11 @@
 {
-    "name": "ikubb",
-    "short_name": "ikubb",
+    "name": "iKubb",
+    "short_name": "iKubb",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#F5EFE6",
+    "theme_color": "#2F4A3C",
+    "description": "iKubb — the number kubb scoreboard. Score faster than pen and paper, learn the rules, keep player stats.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
