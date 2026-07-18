@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:scoring_engine/scoring_engine.dart';
 
 import '../../l10n/app_localizations.dart';
@@ -10,6 +11,8 @@ import '../rules/rules_content.dart';
 import '../rules/rules_view.dart';
 import '../setup/player.dart' show playerColors;
 import 'game_controller.dart';
+import 'input_mode.dart';
+import 'number_pad.dart';
 import 'pin_diagram.dart';
 import 'win_overlay.dart';
 
@@ -31,6 +34,15 @@ class _GameScreenState extends ConsumerState<GameScreen> {
   void _confirm() {
     ref.read(gameControllerProvider.notifier).confirmPins(_selected);
     setState(_selected.clear);
+    _hapticAfterThrow();
+  }
+
+  void _padScore(int score) {
+    ref.read(gameControllerProvider.notifier).confirmScore(score);
+    _hapticAfterThrow();
+  }
+
+  void _hapticAfterThrow() {
     final won = ref.read(gameControllerProvider).winner != null;
     won ? HapticFeedback.heavyImpact() : HapticFeedback.lightImpact();
   }
@@ -38,19 +50,27 @@ class _GameScreenState extends ConsumerState<GameScreen> {
   @override
   Widget build(BuildContext context) {
     final game = ref.watch(gameControllerProvider);
+    final inputMode = ref.watch(inputModeProvider);
     final l10n = AppLocalizations.of(context)!;
     final scheme = Theme.of(context).colorScheme;
-
-    final throwScore = Throw.pins(_selected).score;
-    final current = game.currentSideIndex;
-    final wouldBust = current != null &&
-        throwScore > game.pointsNeeded(current) &&
-        game.rules.overshootPolicy != OvershootPolicy.none;
 
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.appTitle),
         actions: [
+          IconButton(
+            tooltip:
+                inputMode == InputMode.pins ? l10n.numberPad : l10n.tapPins,
+            onPressed: ref.read(inputModeProvider.notifier).toggle,
+            icon: Icon(inputMode == InputMode.pins
+                ? Icons.dialpad
+                : Icons.touch_app_outlined),
+          ),
+          IconButton(
+            tooltip: l10n.scoreboardMode,
+            onPressed: () => context.push('/scoreboard'),
+            icon: const Icon(Icons.connected_tv),
+          ),
           IconButton(
             tooltip: l10n.rules,
             onPressed: () => showRulesPanel(context),
@@ -73,58 +93,27 @@ class _GameScreenState extends ConsumerState<GameScreen> {
         fit: StackFit.expand,
         children: [
           SafeArea(
-            child: Column(
-              children: [
-                _Standings(game: game),
-                const Spacer(),
-                PinDiagram(
-                  selected: _selected,
-                  onToggle: game.winner != null
-                      ? null
-                      : (pin) => setState(() {
-                            _selected.contains(pin)
-                                ? _selected.remove(pin)
-                                : _selected.add(pin);
-                          }),
-                ),
-                const Spacer(),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: FilledButton.tonal(
-                          onPressed: game.winner != null || _selected.isNotEmpty
-                              ? null
-                              : _confirm,
-                          child: Text(l10n.miss),
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        flex: 2,
-                        child: FilledButton(
-                          onPressed: game.winner != null || _selected.isEmpty
-                              ? null
-                              : _confirm,
-                          style: wouldBust
-                              ? FilledButton.styleFrom(
-                                  backgroundColor: IKubbPalette.amber,
-                                  foregroundColor: IKubbPalette.ink,
-                                )
-                              : null,
-                          child: Text(
-                            wouldBust
-                                ? l10n.overshootWarning(
-                                    game.rules.overshootResult()!)
-                                : '${l10n.confirmThrow} (+$throwScore)',
+            // iPad/wide: standings beside the input area (SPEC.md §3.4);
+            // tall/narrow: standings above it.
+            child: LayoutBuilder(
+              builder: (context, constraints) => constraints.maxWidth >= 840
+                  ? Row(
+                      children: [
+                        Expanded(
+                          flex: 2,
+                          child: SingleChildScrollView(
+                            child: _Standings(game: game, vertical: true),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+                        Expanded(flex: 3, child: _inputArea(game, inputMode)),
+                      ],
+                    )
+                  : Column(
+                      children: [
+                        _Standings(game: game),
+                        Expanded(child: _inputArea(game, inputMode)),
+                      ],
+                    ),
             ),
           ),
           if (game.winner != null) WinOverlay(game: game),
@@ -133,25 +122,102 @@ class _GameScreenState extends ConsumerState<GameScreen> {
       backgroundColor: scheme.surface,
     );
   }
+
+  Widget _inputArea(Game game, InputMode inputMode) {
+    final l10n = AppLocalizations.of(context)!;
+    final current = game.currentSideIndex;
+
+    if (inputMode == InputMode.pad) {
+      return Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          child: NumberPad(
+            pointsNeeded: current == null ? 0 : game.pointsNeeded(current),
+            overshootPenalty:
+                game.rules.overshootPolicy != OvershootPolicy.none,
+            onScore: game.winner != null ? (_) {} : _padScore,
+          ),
+        ),
+      );
+    }
+
+    final throwScore = Throw.pins(_selected).score;
+    final wouldBust = current != null &&
+        throwScore > game.pointsNeeded(current) &&
+        game.rules.overshootPolicy != OvershootPolicy.none;
+
+    return Column(
+      children: [
+        const Spacer(),
+        PinDiagram(
+          selected: _selected,
+          onToggle: game.winner != null
+              ? null
+              : (pin) => setState(() {
+                    _selected.contains(pin)
+                        ? _selected.remove(pin)
+                        : _selected.add(pin);
+                  }),
+        ),
+        const Spacer(),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+          child: Row(
+            children: [
+              Expanded(
+                child: FilledButton.tonal(
+                  onPressed: game.winner != null || _selected.isNotEmpty
+                      ? null
+                      : _confirm,
+                  child: Text(l10n.miss),
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                flex: 2,
+                child: FilledButton(
+                  onPressed: game.winner != null || _selected.isEmpty
+                      ? null
+                      : _confirm,
+                  style: wouldBust
+                      ? FilledButton.styleFrom(
+                          backgroundColor: IKubbPalette.amber,
+                          foregroundColor: IKubbPalette.ink,
+                        )
+                      : null,
+                  child: Text(
+                    wouldBust
+                        ? l10n.overshootWarning(game.rules.overshootResult()!)
+                        : '${l10n.confirmThrow} (+$throwScore)',
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
 }
 
 class _Standings extends ConsumerWidget {
-  const _Standings({required this.game});
+  const _Standings({required this.game, this.vertical = false});
 
   final Game game;
+
+  /// Vertical stacking for the wide (iPad) side-by-side layout.
+  final bool vertical;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
     final scheme = Theme.of(context).colorScheme;
     final sideColors = ref.watch(sideColorsProvider);
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Row(
-        children: [
-          for (var i = 0; i < game.sideStates.length; i++)
-            Expanded(
-              child: AnimatedContainer(
+    final cards = <Widget>[
+      for (var i = 0; i < game.sideStates.length; i++)
+        _wrap(
+          vertical,
+          AnimatedContainer(
                 duration: const Duration(milliseconds: 250),
                 curve: Curves.easeOut,
                 margin: const EdgeInsets.symmetric(horizontal: 4),
@@ -172,11 +238,29 @@ class _Standings extends ConsumerWidget {
                           playerColors.length],
                 ),
               ),
-            ),
-        ],
-      ),
+        ),
+    ];
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: vertical
+          ? Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                for (final card in cards)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 4),
+                    child: card,
+                  ),
+              ],
+            )
+          : Row(children: cards),
     );
   }
+
+  /// In the horizontal strip every card shares the width equally; stacked
+  /// vertically the cards size themselves.
+  Widget _wrap(bool vertical, Widget child) =>
+      vertical ? child : Expanded(child: child);
 }
 
 class _SideCard extends StatelessWidget {

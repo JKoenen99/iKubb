@@ -288,4 +288,13 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get statEliminations => 'Ausscheiden';
+
+  @override
+  String get numberPad => 'Zahlenfeld';
+
+  @override
+  String get tapPins => 'Kegel antippen';
+
+  @override
+  String get scoreboardMode => 'Anzeigetafel';
 }

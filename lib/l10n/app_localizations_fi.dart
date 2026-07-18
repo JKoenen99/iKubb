@@ -288,4 +288,13 @@ class AppLocalizationsFi extends AppLocalizations {
 
   @override
   String get statEliminations => 'Putoamiset';
+
+  @override
+  String get numberPad => 'Numeronäppäimet';
+
+  @override
+  String get tapPins => 'Napauta keiloja';
+
+  @override
+  String get scoreboardMode => 'Tulostaulu';
 }

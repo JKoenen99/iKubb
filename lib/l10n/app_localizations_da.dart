@@ -288,4 +288,13 @@ class AppLocalizationsDa extends AppLocalizations {
 
   @override
   String get statEliminations => 'Udelukkelser';
+
+  @override
+  String get numberPad => 'Taltastatur';
+
+  @override
+  String get tapPins => 'Tryk på kegler';
+
+  @override
+  String get scoreboardMode => 'Resultattavle';
 }

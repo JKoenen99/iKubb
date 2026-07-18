@@ -635,6 +635,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Eliminations'**
   String get statEliminations;
+
+  /// No description provided for @numberPad.
+  ///
+  /// In en, this message translates to:
+  /// **'Number pad'**
+  String get numberPad;
+
+  /// No description provided for @tapPins.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the pins'**
+  String get tapPins;
+
+  /// No description provided for @scoreboardMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Scoreboard'**
+  String get scoreboardMode;
 }
 
 class _AppLocalizationsDelegate

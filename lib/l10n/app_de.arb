@@ -86,5 +86,8 @@
   "mostHitPin": "Lieblingskegel",
   "statMisses": "Fehlwürfe",
   "statOvershoots": "Überwürfe",
-  "statEliminations": "Ausscheiden"
+  "statEliminations": "Ausscheiden",
+  "numberPad": "Zahlenfeld",
+  "tapPins": "Kegel antippen",
+  "scoreboardMode": "Anzeigetafel"
 }

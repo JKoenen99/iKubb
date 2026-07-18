@@ -86,5 +86,8 @@
   "mostHitPin": "Birillo preferito",
   "statMisses": "Lanci mancati",
   "statOvershoots": "Superamenti",
-  "statEliminations": "Eliminazioni"
+  "statEliminations": "Eliminazioni",
+  "numberPad": "Tastierino",
+  "tapPins": "Tocca i birilli",
+  "scoreboardMode": "Tabellone"
 }

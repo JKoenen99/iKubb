@@ -86,5 +86,8 @@
   "mostHitPin": "Suosikkikeila",
   "statMisses": "Ohiheitot",
   "statOvershoots": "Ylitykset",
-  "statEliminations": "Putoamiset"
+  "statEliminations": "Putoamiset",
+  "numberPad": "Numeronäppäimet",
+  "tapPins": "Napauta keiloja",
+  "scoreboardMode": "Tulostaulu"
 }

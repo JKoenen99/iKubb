@@ -86,5 +86,8 @@
   "mostHitPin": "Favoritkegle",
   "statMisses": "Forbiere",
   "statOvershoots": "Over målet",
-  "statEliminations": "Udelukkelser"
+  "statEliminations": "Udelukkelser",
+  "numberPad": "Taltastatur",
+  "tapPins": "Tryk på kegler",
+  "scoreboardMode": "Resultattavle"
 }

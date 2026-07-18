@@ -288,4 +288,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get statEliminations => 'Eliminations';
+
+  @override
+  String get numberPad => 'Number pad';
+
+  @override
+  String get tapPins => 'Tap the pins';
+
+  @override
+  String get scoreboardMode => 'Scoreboard';
 }

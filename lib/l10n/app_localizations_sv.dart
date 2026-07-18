@@ -288,4 +288,13 @@ class AppLocalizationsSv extends AppLocalizations {
 
   @override
   String get statEliminations => 'Utslagningar';
+
+  @override
+  String get numberPad => 'Sifferknappar';
+
+  @override
+  String get tapPins => 'Tryck på käglor';
+
+  @override
+  String get scoreboardMode => 'Resultattavla';
 }

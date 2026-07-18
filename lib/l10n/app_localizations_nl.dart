@@ -288,4 +288,13 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get statEliminations => 'Uitschakelingen';
+
+  @override
+  String get numberPad => 'Cijfertoetsen';
+
+  @override
+  String get tapPins => 'Tik op kegels';
+
+  @override
+  String get scoreboardMode => 'Scorebord';
 }

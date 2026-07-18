@@ -288,4 +288,13 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get statEliminations => 'Eliminazioni';
+
+  @override
+  String get numberPad => 'Tastierino';
+
+  @override
+  String get tapPins => 'Tocca i birilli';
+
+  @override
+  String get scoreboardMode => 'Tabellone';
 }

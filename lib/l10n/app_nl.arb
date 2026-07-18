@@ -86,5 +86,8 @@
   "mostHitPin": "Favoriete kegel",
   "statMisses": "Missers",
   "statOvershoots": "Keer te veel",
-  "statEliminations": "Uitschakelingen"
+  "statEliminations": "Uitschakelingen",
+  "numberPad": "Cijfertoetsen",
+  "tapPins": "Tik op kegels",
+  "scoreboardMode": "Scorebord"
 }

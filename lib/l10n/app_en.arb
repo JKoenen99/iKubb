@@ -107,5 +107,8 @@
   "mostHitPin": "Favorite pin",
   "statMisses": "Misses",
   "statOvershoots": "Overshoots",
-  "statEliminations": "Eliminations"
+  "statEliminations": "Eliminations",
+  "numberPad": "Number pad",
+  "tapPins": "Tap the pins",
+  "scoreboardMode": "Scoreboard"
 }

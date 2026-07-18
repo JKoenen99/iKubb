@@ -86,5 +86,8 @@
   "mostHitPin": "Quille favorite",
   "statMisses": "Ratés",
   "statOvershoots": "Dépassements",
-  "statEliminations": "Éliminations"
+  "statEliminations": "Éliminations",
+  "numberPad": "Pavé numérique",
+  "tapPins": "Toucher les quilles",
+  "scoreboardMode": "Tableau des scores"
 }
