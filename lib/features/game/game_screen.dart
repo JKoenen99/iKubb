@@ -6,6 +6,7 @@ import 'package:scoring_engine/scoring_engine.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../../theme/palette.dart';
+import '../../theme/typography.dart';
 import '../../widgets/rolling_number.dart';
 import '../rules/rules_content.dart';
 import '../rules/rules_view.dart';
@@ -366,10 +367,10 @@ class _SideCard extends StatelessWidget {
         ),
         RollingNumber(
           value: state.score,
-          style: TextStyle(
-            fontSize: 40,
-            fontWeight: FontWeight.w800,
+          style: IKubbType.score(
+            size: 40,
             color: state.isEliminated ? IKubbPalette.berry : onColor,
+          ).copyWith(
             decoration: state.isEliminated ? TextDecoration.lineThrough : null,
           ),
         ),

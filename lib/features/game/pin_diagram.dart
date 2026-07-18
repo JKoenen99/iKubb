@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../theme/palette.dart';
+import '../../theme/typography.dart';
 
 /// The 12 pins in their official diamond formation. Tap to toggle which pins
 /// fell this throw. Selection wobbles the pin over — state updates
@@ -67,7 +68,9 @@ class _Pin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
+    // Wooden pins in both themes (UX audit #3/#8): standing = light oak,
+    // fallen = dark walnut; the number sits on a painted birch disc, like
+    // a number painted on the wood.
     return Semantics(
       button: onTap != null,
       label: 'Pin $number',
@@ -83,20 +86,31 @@ class _Pin extends StatelessWidget {
           transform: Matrix4.rotationZ(isDown ? 0.35 : 0),
           transformAlignment: Alignment.bottomCenter,
           decoration: BoxDecoration(
-            color: isDown ? IKubbPalette.oak : scheme.surfaceContainerHighest,
+            color: isDown ? IKubbPalette.walnut : IKubbPalette.oak,
             shape: BoxShape.circle,
             border: Border.all(
-              color: isDown ? IKubbPalette.walnut : scheme.primary,
+              color: isDown
+                  ? IKubbPalette.ink.withValues(alpha: 0.55)
+                  : IKubbPalette.walnut,
               width: 2.5,
             ),
           ),
           child: Center(
-            child: Text(
-              '$number',
-              style: TextStyle(
-                fontSize: size * 0.37,
-                fontWeight: FontWeight.w700,
-                color: isDown ? IKubbPalette.ink : scheme.onSurface,
+            child: Container(
+              width: size * 0.58,
+              height: size * 0.58,
+              decoration: const BoxDecoration(
+                color: IKubbPalette.birchLight,
+                shape: BoxShape.circle,
+              ),
+              child: Center(
+                child: Text(
+                  '$number',
+                  style: IKubbType.score(
+                    size: size * 0.34,
+                    color: IKubbPalette.ink,
+                  ),
+                ),
               ),
             ),
           ),

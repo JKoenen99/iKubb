@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'palette.dart';
+import 'typography.dart';
 
 /// Light and dark themes built from the [IKubbPalette] tokens.
 abstract final class IKubbTheme {
@@ -40,12 +41,18 @@ abstract final class IKubbTheme {
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           ),
         ),
+        // The wordmark and every screen title carry the brand font.
+        appBarTheme: AppBarTheme(
+          titleTextStyle: IKubbType.heading(size: 22, color: scheme.onSurface),
+        ),
         textTheme: Typography.blackMountainView.copyWith(
-          // Scores use large tabular-lining numerals.
-          displayLarge: const TextStyle(
-            fontSize: 72,
-            fontWeight: FontWeight.w800,
-            fontFeatures: [FontFeature.tabularFigures()],
+          // Wordmark / hero numbers: brand font, tabular-lining numerals.
+          displayLarge: IKubbType.score(size: 72),
+          headlineMedium: IKubbType.heading(size: 28),
+          titleMedium: TextStyle(
+            fontFamily: IKubbType.family,
+            fontVariations: IKubbType.wBold,
+            fontSize: 17,
           ),
         ).apply(
           bodyColor: scheme.onSurface,

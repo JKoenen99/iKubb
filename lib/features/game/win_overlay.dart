@@ -6,6 +6,7 @@ import 'package:scoring_engine/scoring_engine.dart';
 import '../../l10n/app_localizations.dart';
 import '../../theme/palette.dart';
 import '../../widgets/confetti.dart';
+import '../../widgets/wood_grain.dart';
 import '../../widgets/viking_mascot.dart';
 import '../setup/player.dart' show playerColors;
 import 'game_controller.dart';
@@ -37,6 +38,10 @@ class WinOverlay extends ConsumerWidget {
             winnerColor.withValues(alpha: 0.45),
             IKubbPalette.forestDeep,
           ),
+        ),
+        const WoodGrainBackground(
+          color: IKubbPalette.birchLight,
+          opacity: 0.06,
         ),
         SafeArea(
           child: Center(

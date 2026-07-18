@@ -26,9 +26,17 @@ class VikingMascot extends StatelessWidget {
       tween: Tween(end: pose == MascotPose.cheer ? 1.0 : 0.0),
       duration: reduceMotion ? Duration.zero : const Duration(milliseconds: 450),
       curve: Curves.elasticOut,
-      builder: (context, cheer, _) => CustomPaint(
-        size: Size.square(size),
-        painter: _VikingPainter(cheer: cheer),
+      // Center loosens tight constraints (e.g. stretch columns) so the
+      // painter's box is always exactly [size] — it must never scale to a
+      // forced width and paint outside its bounds.
+      builder: (context, cheer, _) => Center(
+        child: SizedBox.square(
+          dimension: size,
+          child: CustomPaint(
+            size: Size.square(size),
+            painter: _VikingPainter(cheer: cheer),
+          ),
+        ),
       ),
     );
   }

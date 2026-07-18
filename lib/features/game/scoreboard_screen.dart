@@ -5,6 +5,7 @@ import 'package:scoring_engine/scoring_engine.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../../theme/palette.dart';
+import '../../theme/typography.dart';
 import '../../widgets/rolling_number.dart';
 import '../../widgets/viking_mascot.dart';
 import '../setup/player.dart' show playerColors;
@@ -36,9 +37,8 @@ class ScoreboardScreen extends ConsumerWidget {
                       Text(
                         l10n.winnerBanner(game.winner!.name),
                         textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          fontSize: 64,
-                          fontWeight: FontWeight.w800,
+                        style: IKubbType.heading(
+                          size: 64,
                           color: IKubbPalette.birchLight,
                         ),
                       ),
@@ -104,21 +104,20 @@ class _ScoreboardColumn extends StatelessWidget {
             state.side.name,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-              fontSize: 36,
-              fontWeight: FontWeight.w700,
+            style: IKubbType.heading(
+              size: 36,
               color: state.isEliminated
                   ? IKubbPalette.berry
                   : IKubbPalette.birchLight,
+            ).copyWith(
               decoration:
                   state.isEliminated ? TextDecoration.lineThrough : null,
             ),
           ),
           RollingNumber(
             value: state.score,
-            style: TextStyle(
-              fontSize: 120,
-              fontWeight: FontWeight.w800,
+            style: IKubbType.score(
+              size: 120,
               color: state.isEliminated
                   ? IKubbPalette.berry
                   : IKubbPalette.birchLight,
