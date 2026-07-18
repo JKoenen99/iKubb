@@ -2,11 +2,13 @@
 
 **Specification & feature list — v1.0 (pre-implementation)**
 
-A native iOS/iPadOS scoreboard app for **number kubb** ("Scandinavisch
-kegelspel", the Mölkky-style game with 12 numbered pins). It replaces
-pen-and-paper scoring with a fast, mistake-proof scoring tool, teaches the
-rules to new players, and keeps long-term player statistics. Scandinavian
-modern design with Viking illustration assets; App Store distribution.
+A scoreboard app for **number kubb** ("Scandinavisch kegelspel", the
+Mölkky-style game with 12 numbered pins). It replaces pen-and-paper scoring
+with a fast, mistake-proof scoring tool, teaches the rules to new players,
+and keeps long-term player statistics. Scandinavian modern design with
+Viking illustration assets. Built with Flutter so one codebase ships to the
+iOS App Store first and Google Play later, with future monetization and an
+animation-heavy experience in mind (see §6).
 
 ---
 
@@ -14,11 +16,11 @@ modern design with Viking illustration assets; App Store distribution.
 
 | | |
 |---|---|
-| **Platforms** | iPhone + iPad (universal app), iOS/iPadOS 17+ |
+| **Platforms** | iPhone + iPad first; Android later from the same Flutter codebase |
 | **Audience** | Casual outdoor players — families, friend groups, clubs |
 | **Core promise** | Score a game faster and more reliably than pen and paper, and never argue about a rule again |
-| **Distribution** | App Store, free at launch (monetization decision deferred) |
-| **Data** | On-device + private iCloud (CloudKit); no accounts, no tracking |
+| **Distribution** | iOS App Store at launch, Google Play as a later release; free at launch, monetization planned (§7) |
+| **Data** | On-device, local-first; no accounts, no tracking (cross-device sync is a v2 topic) |
 
 ---
 
@@ -138,8 +140,9 @@ Shared scoring UX (both modes):
 
 ### 3.5 Players, profiles & stats
 
-- **Player profiles:** name, Viking avatar, color — stored in SwiftData and
-  synced across the user's devices via CloudKit (private database).
+- **Player profiles:** name, Viking avatar, color — stored locally
+  (local-first database); cross-device sync is deferred to v2, when a
+  cross-platform sync backend can serve both iOS and Android.
 - **Game history:** every finished game with date, players, rule set, and
   the full throw-by-throw log.
 - **Stats per player:** games played, win rate, average points per throw,
@@ -192,9 +195,11 @@ never waits for an animation.**
   (Duolingo-style surprise), frequency-capped so they stay delightful.
 - Respects **Reduce Motion** (crossfades replace movement); haptics mirror
   the key beats and can be disabled.
-- Implementation: SwiftUI spring animations and vector keyframe animations
-  (no third-party animation SDK), interruptible by design — animation is
-  driven by state, never by timed waits.
+- Implementation: Flutter's Impeller renderer with state-driven implicit/
+  spring animations for UI motion, and **Rive** for the Viking mascot's
+  character animations — the same tool Duolingo uses for its characters,
+  with tiny file sizes and runtime state machines. Everything is
+  interruptible by design: animation follows state, never timed waits.
 
 ### 3.8 Settings & help
 
@@ -240,38 +245,85 @@ never break the layout:
 - Numerals and the pin diagram carry meaning wherever possible
   (language-neutral by construction).
 - A pseudo-localization pass (+40% string inflation) runs in UI tests.
-- String catalogs (`.xcstrings`) with per-language plural rules; dates and
-  numbers via system formatters.
+- ARB string catalogs (`lib/l10n/app_*.arb`) with per-language plural rules
+  via `flutter_localizations`/`intl`; dates and numbers via locale-aware
+  formatters.
 
 ---
 
 ## 6. Platform & tech
 
-- **SwiftUI**, iOS/iPadOS 17+, universal app, Swift 6 concurrency.
-- **SwiftData + CloudKit** (private database) for profiles, history, sync.
-- The scoring engine is a **pure, unit-tested Swift package**: rule
-  variants, overshoot, elimination, and undo/recompute are all pure
-  functions over the throw log.
-- No backend, no accounts, no third-party SDKs.
+**Flutter** was chosen over native SwiftUI for three explicit product goals:
+
+1. **Android someday** — one codebase ships native iOS and Play Store
+   builds; no rewrite when the Android release happens.
+2. **Lots of animations** — Flutter's Impeller renderer is built for
+   animation-heavy UIs, and **Rive** (Duolingo's character-animation tool)
+   drives the Viking mascot with runtime state machines.
+3. **Monetization someday** — the `in_app_purchase` package wraps StoreKit 2
+   and Google Play Billing behind a single API.
+
+Stack:
+
+- **Flutter** (stable channel, currently 3.44), Dart 3.12. Targets: iOS
+  (App Store) and Android (pre-created, released later).
+- **Riverpod** for state management, **go_router** for navigation,
+  **Rive** for character animation, **shared_preferences** for lightweight
+  settings; a local-first database (e.g. Drift) is added with the
+  profiles/history feature.
+- The scoring engine is a **pure Dart package**
+  (`packages/scoring_engine`) with zero Flutter dependencies: a game is an
+  immutable value replayed from its throw list, so rule variants,
+  overshoot, elimination, undo, and throw-editing are pure functions that
+  can never disagree with the UI — and it is exhaustively unit-tested.
+- No backend, no accounts, no analytics/tracking SDKs.
+
+### Repository layout
+
+```
+lib/
+  main.dart, app.dart, router.dart
+  theme/          design tokens (palette.dart) + light/dark themes
+  l10n/           ARB string catalogs, 10 languages
+  features/
+    onboarding/   welcome + audience fork
+    setup/        players, teams, house rules
+    game/         scoring screen, pin diagram, game controller
+    rules/        categorized rules panel
+    stats/        history & statistics
+packages/
+  scoring_engine/ pure Dart rules engine + tests
+ios/ android/     platform shells
+```
 
 ---
 
-## 7. App Store readiness
+## 7. Store readiness & monetization
 
-- Privacy manifest; "Data Not Collected" nutrition label; no tracking/ATT.
-- **Accessibility:** Dynamic Type through XL, VoiceOver labels on pins and
-  score events ("Pin 7 down — Jasper scores 7, needs 12"), Reduce Motion
-  respected, WCAG-AA contrast in both themes.
+- **iOS first:** privacy manifest, "Data Not Collected" nutrition label, no
+  tracking/ATT. **Google Play later:** data-safety form equivalent; the
+  Android shell is kept building from day one so the later release is a
+  packaging exercise, not a port.
+- **Monetization (someday, planned for now):** launch free. The likely
+  model is a one-time "Pro" unlock (e.g. advanced stats, extra themes/
+  avatar packs) via `in_app_purchase` — no ads, no subscriptions for a
+  casual outdoor game. Until then, any pro-gated surface is kept behind a
+  single feature-flag module so flipping monetization on later touches one
+  place.
+- **Accessibility:** large text scaling, screen-reader labels on pins and
+  score events ("Pin 7 down — Jasper scores 7, needs 12") via Flutter
+  Semantics, Reduce Motion respected, WCAG-AA contrast in both themes.
 - App icon (Viking/pin motif), screenshots in all 10 locales, keywords,
-  age rating 4+.
-- Monetization: free at launch; paid/tip-jar decision deferred.
+  age rating 4+/PEGI 3.
 
 ---
 
 ## 8. Out of scope for v1 (v2 candidates)
 
-Online multiplayer · Apple Watch app · widgets/Live Activities · tournament
-brackets · classic kubb (block-throwing variant) rule set · Android/web.
+Online multiplayer · watch apps · widgets/Live Activities · tournament
+brackets · classic kubb (block-throwing variant) rule set · cross-device
+sync · web. (Android is **not** out of scope — it's a planned later
+release; the Android build is kept green from the start.)
 
 ---
 
@@ -293,4 +345,6 @@ brackets · classic kubb (block-throwing variant) rule set · Android/web.
   category disclosure, deep-linked from in-game warnings — any disputed
   rule is found in two taps (recognition over recall).
 - **Rejected:** camera/AR pin detection (unreliable outdoors, huge scope);
-  watch-first scoring (deferred to v2).
+  watch-first scoring (deferred to v2); native SwiftUI (dropped once
+  Android, monetization, and animation-heavy goals were added — Flutter +
+  Rive serves all three from one codebase).

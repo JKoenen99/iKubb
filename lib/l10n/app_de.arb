@@ -1,0 +1,18 @@
+{
+  "@@locale": "de",
+  "appTitle": "iKubb",
+  "tagline": "Die Anzeigetafel für Nummern-Kubb",
+  "startScoring": "Ich kenne die Regeln — Punkte zählen",
+  "teachMe": "Bring mir das Spiel bei",
+  "quickStart": "Schnellstart",
+  "newGame": "Neues Spiel",
+  "rules": "Regeln",
+  "stats": "Statistiken",
+  "confirmThrow": "Wurf bestätigen",
+  "miss": "Fehlwurf",
+  "undo": "Rückgängig",
+  "needsExactly": "Braucht genau {points}",
+  "overshootWarning": "Überworfen — zurück auf {resetScore}",
+  "winnerBanner": "{name} gewinnt!",
+  "comingSoon": "Bald verfügbar"
+}

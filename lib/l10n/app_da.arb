@@ -1,0 +1,18 @@
+{
+  "@@locale": "da",
+  "appTitle": "iKubb",
+  "tagline": "Resultattavlen til nummerkubb",
+  "startScoring": "Jeg kender reglerne — begynd at score",
+  "teachMe": "Lær mig spillet",
+  "quickStart": "Hurtig start",
+  "newGame": "Nyt spil",
+  "rules": "Regler",
+  "stats": "Statistik",
+  "confirmThrow": "Bekræft kast",
+  "miss": "Forbier",
+  "undo": "Fortryd",
+  "needsExactly": "Skal bruge præcis {points}",
+  "overshootWarning": "Over målet — tilbage til {resetScore}",
+  "winnerBanner": "{name} vinder!",
+  "comingSoon": "Kommer snart"
+}

@@ -1,0 +1,18 @@
+{
+  "@@locale": "it",
+  "appTitle": "iKubb",
+  "tagline": "Il segnapunti del kubb numerato",
+  "startScoring": "Conosco le regole — inizia a segnare",
+  "teachMe": "Insegnami il gioco",
+  "quickStart": "Avvio rapido",
+  "newGame": "Nuova partita",
+  "rules": "Regole",
+  "stats": "Statistiche",
+  "confirmThrow": "Conferma il lancio",
+  "miss": "Mancato",
+  "undo": "Annulla",
+  "needsExactly": "Servono esattamente {points}",
+  "overshootWarning": "Superato — si torna a {resetScore}",
+  "winnerBanner": "{name} vince!",
+  "comingSoon": "In arrivo"
+}

@@ -1,0 +1,33 @@
+{
+  "@@locale": "en",
+  "appTitle": "iKubb",
+  "tagline": "The number kubb scoreboard",
+  "startScoring": "I know the rules — start scoring",
+  "teachMe": "Teach me the game",
+  "quickStart": "Quick start",
+  "newGame": "New game",
+  "rules": "Rules",
+  "stats": "Stats",
+  "confirmThrow": "Confirm throw",
+  "miss": "Miss",
+  "undo": "Undo",
+  "needsExactly": "Needs exactly {points}",
+  "@needsExactly": {
+    "placeholders": {
+      "points": {"type": "int"}
+    }
+  },
+  "overshootWarning": "Overshoot — back to {resetScore}",
+  "@overshootWarning": {
+    "placeholders": {
+      "resetScore": {"type": "int"}
+    }
+  },
+  "winnerBanner": "{name} wins!",
+  "@winnerBanner": {
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "comingSoon": "Coming soon"
+}

@@ -1,0 +1,18 @@
+{
+  "@@locale": "fi",
+  "appTitle": "iKubb",
+  "tagline": "Numerokubbin tulostaulu",
+  "startScoring": "Osaan säännöt — aloita pisteytys",
+  "teachMe": "Opeta minulle peli",
+  "quickStart": "Pikastartti",
+  "newGame": "Uusi peli",
+  "rules": "Säännöt",
+  "stats": "Tilastot",
+  "confirmThrow": "Vahvista heitto",
+  "miss": "Ohi",
+  "undo": "Kumoa",
+  "needsExactly": "Tarvitsee tasan {points}",
+  "overshootWarning": "Yli meni — takaisin pisteisiin {resetScore}",
+  "winnerBanner": "{name} voittaa!",
+  "comingSoon": "Tulossa pian"
+}

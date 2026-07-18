@@ -1,0 +1,18 @@
+{
+  "@@locale": "nl",
+  "appTitle": "iKubb",
+  "tagline": "Het nummerkubb-scorebord",
+  "startScoring": "Ik ken de regels — begin met scoren",
+  "teachMe": "Leer mij het spel",
+  "quickStart": "Snel starten",
+  "newGame": "Nieuw spel",
+  "rules": "Regels",
+  "stats": "Statistieken",
+  "confirmThrow": "Worp bevestigen",
+  "miss": "Mis",
+  "undo": "Ongedaan maken",
+  "needsExactly": "Heeft precies {points} nodig",
+  "overshootWarning": "Te veel — terug naar {resetScore}",
+  "winnerBanner": "{name} wint!",
+  "comingSoon": "Binnenkort beschikbaar"
+}

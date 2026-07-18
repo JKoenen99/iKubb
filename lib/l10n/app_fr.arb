@@ -1,0 +1,18 @@
+{
+  "@@locale": "fr",
+  "appTitle": "iKubb",
+  "tagline": "Le tableau de score du kubb à numéros",
+  "startScoring": "Je connais les règles — commencer à compter",
+  "teachMe": "Apprends-moi le jeu",
+  "quickStart": "Démarrage rapide",
+  "newGame": "Nouvelle partie",
+  "rules": "Règles",
+  "stats": "Statistiques",
+  "confirmThrow": "Valider le lancer",
+  "miss": "Raté",
+  "undo": "Annuler",
+  "needsExactly": "Il faut exactement {points}",
+  "overshootWarning": "Dépassement — retour à {resetScore}",
+  "winnerBanner": "{name} gagne !",
+  "comingSoon": "Bientôt disponible"
+}
