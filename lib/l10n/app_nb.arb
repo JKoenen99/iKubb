@@ -97,5 +97,8 @@
   "haptics": "Haptikk",
   "keepAwake": "Hold skjermen på",
   "homeLabel": "Hjem",
-  "pinSemantics": "Kjegle {number}"
+  "pinSemantics": "Kjegle {number}",
+  "cancel": "Avbryt",
+  "newGameConfirmTitle": "Starte et nytt spill?",
+  "newGameConfirmBody": "Det pågående spillet forkastes."
 }

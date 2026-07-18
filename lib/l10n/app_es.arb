@@ -97,5 +97,8 @@
   "haptics": "Vibración",
   "keepAwake": "Mantener la pantalla encendida",
   "homeLabel": "Inicio",
-  "pinSemantics": "Bolo {number}"
+  "pinSemantics": "Bolo {number}",
+  "cancel": "Cancelar",
+  "newGameConfirmTitle": "¿Empezar una partida nueva?",
+  "newGameConfirmBody": "La partida actual se descartará."
 }

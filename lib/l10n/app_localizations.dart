@@ -701,6 +701,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Pin {number}'**
   String pinSemantics(int number);
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @newGameConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Start a new game?'**
+  String get newGameConfirmTitle;
+
+  /// No description provided for @newGameConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The current game will be discarded.'**
+  String get newGameConfirmBody;
 }
 
 class _AppLocalizationsDelegate

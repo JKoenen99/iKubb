@@ -97,5 +97,8 @@
   "haptics": "Trillingen",
   "keepAwake": "Scherm aan houden",
   "homeLabel": "Start",
-  "pinSemantics": "Kegel {number}"
+  "pinSemantics": "Kegel {number}",
+  "cancel": "Annuleren",
+  "newGameConfirmTitle": "Nieuw spel starten?",
+  "newGameConfirmBody": "Het huidige spel wordt gewist."
 }

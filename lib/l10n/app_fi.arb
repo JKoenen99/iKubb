@@ -97,5 +97,8 @@
   "haptics": "Värinäpalaute",
   "keepAwake": "Pidä näyttö päällä",
   "homeLabel": "Koti",
-  "pinSemantics": "Keila {number}"
+  "pinSemantics": "Keila {number}",
+  "cancel": "Peruuta",
+  "newGameConfirmTitle": "Aloitetaanko uusi peli?",
+  "newGameConfirmBody": "Nykyinen peli hylätään."
 }

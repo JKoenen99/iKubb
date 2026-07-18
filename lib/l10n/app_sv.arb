@@ -97,5 +97,8 @@
   "haptics": "Haptik",
   "keepAwake": "Håll skärmen tänd",
   "homeLabel": "Hem",
-  "pinSemantics": "Kägla {number}"
+  "pinSemantics": "Kägla {number}",
+  "cancel": "Avbryt",
+  "newGameConfirmTitle": "Starta en ny match?",
+  "newGameConfirmBody": "Den pågående matchen kastas."
 }

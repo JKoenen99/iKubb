@@ -30,10 +30,7 @@ class SettingsScreen extends ConsumerWidget {
     final l10n = AppLocalizations.of(context)!;
     final locale = ref.watch(localeControllerProvider);
     return Scaffold(
-      appBar: AppBar(
-        title: Text(l10n.settings),
-        leading: homeLeading(context),
-      ),
+      appBar: AppBar(title: Text(l10n.settings), leading: homeLeading(context)),
       body: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 560),
@@ -51,21 +48,25 @@ class SettingsScreen extends ConsumerWidget {
                       .set(code == null || code.isEmpty ? null : Locale(code)),
                   items: [
                     DropdownMenuItem(
-                        value: '', child: Text(l10n.systemDefault)),
+                      value: '',
+                      child: Text(l10n.systemDefault),
+                    ),
                     for (final entry in _languageNames.entries)
                       DropdownMenuItem(
-                          value: entry.key, child: Text(entry.value)),
+                        value: entry.key,
+                        child: Text(entry.value),
+                      ),
                   ],
                 ),
               ),
-              SwitchListTile(
+              SwitchListTile.adaptive(
                 contentPadding: EdgeInsets.zero,
                 secondary: const Icon(Icons.vibration),
                 title: Text(l10n.haptics),
                 value: ref.watch(hapticsEnabledProvider),
                 onChanged: ref.read(hapticsEnabledProvider.notifier).set,
               ),
-              SwitchListTile(
+              SwitchListTile.adaptive(
                 contentPadding: EdgeInsets.zero,
                 secondary: const Icon(Icons.light_mode_outlined),
                 title: Text(l10n.keepAwake),

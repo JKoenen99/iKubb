@@ -97,5 +97,8 @@
   "haptics": "Haptik",
   "keepAwake": "Bildschirm anlassen",
   "homeLabel": "Start",
-  "pinSemantics": "Kegel {number}"
+  "pinSemantics": "Kegel {number}",
+  "cancel": "Abbrechen",
+  "newGameConfirmTitle": "Neues Spiel starten?",
+  "newGameConfirmBody": "Das laufende Spiel wird verworfen."
 }

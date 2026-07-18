@@ -323,4 +323,13 @@ class AppLocalizationsIt extends AppLocalizations {
   String pinSemantics(int number) {
     return 'Birillo $number';
   }
+
+  @override
+  String get cancel => 'Annulla';
+
+  @override
+  String get newGameConfirmTitle => 'Iniziare una nuova partita?';
+
+  @override
+  String get newGameConfirmBody => 'La partita in corso verrà scartata.';
 }

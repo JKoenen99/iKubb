@@ -97,5 +97,8 @@
   "haptics": "Haptik",
   "keepAwake": "Hold skærmen tændt",
   "homeLabel": "Hjem",
-  "pinSemantics": "Kegle {number}"
+  "pinSemantics": "Kegle {number}",
+  "cancel": "Annuller",
+  "newGameConfirmTitle": "Start et nyt spil?",
+  "newGameConfirmBody": "Det igangværende spil kasseres."
 }

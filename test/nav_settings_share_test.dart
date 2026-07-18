@@ -107,4 +107,37 @@ void main() {
             of: find.byType(ShareCard), matching: find.text('Anna wins!')),
         findsOneWidget);
   });
+
+  testWidgets('new game asks for confirmation only mid-game', (tester) async {
+    await pumpHome(tester);
+    await tester.tap(find.text('Quick start'));
+    await tester.pumpAndSettle();
+
+    // Score a throw so the game is genuinely in progress.
+    await tester.tap(find.text('5'));
+    await tester.pump();
+    await tester.tap(find.textContaining('Confirm throw'));
+    await tester.pumpAndSettle();
+
+    // New game from the overflow now needs consent.
+    await tester.tap(find.byType(PopupMenuButton<String>));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('New game'));
+    await tester.pumpAndSettle();
+    expect(find.text('Start a new game?'), findsOneWidget);
+
+    // Cancel keeps the game...
+    await tester.tap(find.text('Cancel'));
+    await tester.pumpAndSettle();
+    expect(find.text('5'), findsWidgets); // score still on the board
+
+    // ...confirming resets it.
+    await tester.tap(find.byType(PopupMenuButton<String>));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('New game'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('New game').last); // dialog action
+    await tester.pumpAndSettle();
+    expect(find.text('Needs exactly 50'), findsOneWidget);
+  });
 }

@@ -41,7 +41,7 @@ Future<void> showShareDialog(
                 foregroundColor: IKubbPalette.forestDeep,
               ),
               onPressed: () => _captureAndShare(boundaryKey),
-              icon: const Icon(Icons.ios_share),
+              icon: Icon(Icons.adaptive.share),
               label: Text(l10n.share),
             ),
           ],
@@ -53,21 +53,21 @@ Future<void> showShareDialog(
 
 Future<void> _captureAndShare(GlobalKey boundaryKey) async {
   try {
-    final boundary = boundaryKey.currentContext?.findRenderObject()
-        as RenderRepaintBoundary?;
+    final boundary =
+        boundaryKey.currentContext?.findRenderObject()
+            as RenderRepaintBoundary?;
     if (boundary == null) return;
     final image = await boundary.toImage(pixelRatio: 3);
     final bytes = await image.toByteData(format: ui.ImageByteFormat.png);
     if (bytes == null) return;
-    await SharePlus.instance.share(ShareParams(
-      files: [
-        XFile.fromData(
-          bytes.buffer.asUint8List(),
-          mimeType: 'image/png',
-        ),
-      ],
-      fileNameOverrides: ['ikubb-result.png'],
-    ));
+    await SharePlus.instance.share(
+      ShareParams(
+        files: [
+          XFile.fromData(bytes.buffer.asUint8List(), mimeType: 'image/png'),
+        ],
+        fileNameOverrides: ['ikubb-result.png'],
+      ),
+    );
   } on Object {
     // Sharing is best-effort: platforms without a share sheet just no-op.
   }
@@ -95,8 +95,7 @@ class ShareCard extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       child: Stack(
         children: [
-          const WoodGrainBackground(
-              color: IKubbPalette.walnut, opacity: 0.05),
+          const WoodGrainBackground(color: IKubbPalette.walnut, opacity: 0.05),
           Padding(
             padding: const EdgeInsets.all(20),
             child: Column(
@@ -132,9 +131,13 @@ class ShareCard extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Text('${state.score}',
-                            style: IKubbType.score(
-                                size: 16, color: IKubbPalette.ink)),
+                        Text(
+                          '${state.score}',
+                          style: IKubbType.score(
+                            size: 16,
+                            color: IKubbPalette.ink,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -149,9 +152,13 @@ class ShareCard extends StatelessWidget {
                         color: IKubbPalette.ink.withValues(alpha: 0.6),
                       ),
                     ),
-                    Text('iKubb',
-                        style: IKubbType.heading(
-                            size: 18, color: IKubbPalette.forest)),
+                    Text(
+                      'iKubb',
+                      style: IKubbType.heading(
+                        size: 18,
+                        color: IKubbPalette.forest,
+                      ),
+                    ),
                   ],
                 ),
               ],

@@ -323,4 +323,13 @@ class AppLocalizationsSv extends AppLocalizations {
   String pinSemantics(int number) {
     return 'Kägla $number';
   }
+
+  @override
+  String get cancel => 'Avbryt';
+
+  @override
+  String get newGameConfirmTitle => 'Starta en ny match?';
+
+  @override
+  String get newGameConfirmBody => 'Den pågående matchen kastas.';
 }

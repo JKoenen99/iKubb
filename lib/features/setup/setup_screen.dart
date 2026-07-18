@@ -134,7 +134,7 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
                         onAdd: controller.addPlayer,
                       ),
                       const SizedBox(height: 8),
-                      SwitchListTile(
+                      SwitchListTile.adaptive(
                         contentPadding: EdgeInsets.zero,
                         title: _SectionHeader(l10n.teams),
                         value: setup.teamMode,
@@ -457,7 +457,7 @@ class _HouseRules extends StatelessWidget {
           selected: {setup.overshootPolicy},
           onSelectionChanged: (s) => controller.setOvershootPolicy(s.first),
         ),
-        SwitchListTile(
+        SwitchListTile.adaptive(
           contentPadding: EdgeInsets.zero,
           title: Text(l10n.eliminationRule),
           value: setup.eliminationEnabled,

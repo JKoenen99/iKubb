@@ -125,5 +125,8 @@
         "type": "int"
       }
     }
-  }
+  },
+  "cancel": "Cancel",
+  "newGameConfirmTitle": "Start a new game?",
+  "newGameConfirmBody": "The current game will be discarded."
 }

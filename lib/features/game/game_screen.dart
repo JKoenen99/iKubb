@@ -79,10 +79,12 @@ class _GameScreenState extends ConsumerState<GameScreen> {
       case ThrowOutcome.overshoot || ThrowOutcome.eliminated:
         kind = ReactionKind.oops;
       case ThrowOutcome.scored:
-        final escapedElimination = next.rules.eliminationEnabled &&
+        final escapedElimination =
+            next.rules.eliminationEnabled &&
             previous.sideStates[record.sideIndex].missStreak ==
                 next.rules.missLimit - 1;
-        final bigThrow = record.thrown.score >= 10 &&
+        final bigThrow =
+            record.thrown.score >= 10 &&
             next.throws.length - _lastCheerThrow >= 5;
         if (escapedElimination || bigThrow) kind = ReactionKind.cheer;
       case ThrowOutcome.win || ThrowOutcome.miss:
@@ -105,6 +107,35 @@ class _GameScreenState extends ConsumerState<GameScreen> {
   void _padScore(int score) {
     ref.read(gameControllerProvider.notifier).confirmScore(score);
     _hapticAfterThrow();
+  }
+
+  /// New game discards a running game — confirm first (HIG/Material:
+  /// destructive actions need consent). Finished or empty games reset
+  /// silently.
+  Future<void> _confirmNewGame() async {
+    final game = ref.read(gameControllerProvider);
+    if (game.throws.isNotEmpty && game.winner == null) {
+      final l10n = AppLocalizations.of(context)!;
+      final confirmed = await showAdaptiveDialog<bool>(
+        context: context,
+        builder: (context) => AlertDialog.adaptive(
+          title: Text(l10n.newGameConfirmTitle),
+          content: Text(l10n.newGameConfirmBody),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: Text(l10n.cancel),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: Text(l10n.newGame),
+            ),
+          ],
+        ),
+      );
+      if (confirmed != true) return;
+    }
+    ref.read(gameControllerProvider.notifier).newGame();
   }
 
   void _hapticAfterThrow() {
@@ -142,10 +173,11 @@ class _GameScreenState extends ConsumerState<GameScreen> {
             icon: const Icon(Icons.undo),
           ),
           PopupMenuButton<String>(
+            icon: Icon(Icons.adaptive.more),
             onSelected: (value) => switch (value) {
               'scoreboard' => context.push('/scoreboard'),
               'stats' => context.push('/stats'),
-              _ => ref.read(gameControllerProvider.notifier).newGame(),
+              _ => _confirmNewGame(),
             },
             itemBuilder: (context) => [
               PopupMenuItem(
@@ -454,12 +486,15 @@ class _SideCard extends StatelessWidget {
         ),
         RollingNumber(
           value: state.score,
-          style: IKubbType.score(
-            size: 40,
-            color: state.isEliminated ? IKubbPalette.berry : onColor,
-          ).copyWith(
-            decoration: state.isEliminated ? TextDecoration.lineThrough : null,
-          ),
+          style:
+              IKubbType.score(
+                size: 40,
+                color: state.isEliminated ? IKubbPalette.berry : onColor,
+              ).copyWith(
+                decoration: state.isEliminated
+                    ? TextDecoration.lineThrough
+                    : null,
+              ),
         ),
         if (isActive)
           Text(needsLine, style: TextStyle(fontSize: 12, color: onColor)),

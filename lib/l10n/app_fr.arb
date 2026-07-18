@@ -97,5 +97,8 @@
   "haptics": "Vibrations",
   "keepAwake": "Garder l’écran allumé",
   "homeLabel": "Accueil",
-  "pinSemantics": "Quille {number}"
+  "pinSemantics": "Quille {number}",
+  "cancel": "Annuler",
+  "newGameConfirmTitle": "Commencer une nouvelle partie ?",
+  "newGameConfirmBody": "La partie en cours sera abandonnée."
 }

@@ -323,4 +323,13 @@ class AppLocalizationsFi extends AppLocalizations {
   String pinSemantics(int number) {
     return 'Keila $number';
   }
+
+  @override
+  String get cancel => 'Peruuta';
+
+  @override
+  String get newGameConfirmTitle => 'Aloitetaanko uusi peli?';
+
+  @override
+  String get newGameConfirmBody => 'Nykyinen peli hylätään.';
 }

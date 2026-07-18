@@ -97,5 +97,8 @@
   "haptics": "Vibrazione",
   "keepAwake": "Mantieni lo schermo acceso",
   "homeLabel": "Home",
-  "pinSemantics": "Birillo {number}"
+  "pinSemantics": "Birillo {number}",
+  "cancel": "Annulla",
+  "newGameConfirmTitle": "Iniziare una nuova partita?",
+  "newGameConfirmBody": "La partita in corso verrà scartata."
 }

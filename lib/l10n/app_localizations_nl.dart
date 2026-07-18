@@ -323,4 +323,13 @@ class AppLocalizationsNl extends AppLocalizations {
   String pinSemantics(int number) {
     return 'Kegel $number';
   }
+
+  @override
+  String get cancel => 'Annuleren';
+
+  @override
+  String get newGameConfirmTitle => 'Nieuw spel starten?';
+
+  @override
+  String get newGameConfirmBody => 'Het huidige spel wordt gewist.';
 }
