@@ -297,4 +297,30 @@ class AppLocalizationsFi extends AppLocalizations {
 
   @override
   String get scoreboardMode => 'Tulostaulu';
+
+  @override
+  String get share => 'Jaa';
+
+  @override
+  String get settings => 'Asetukset';
+
+  @override
+  String get language => 'Kieli';
+
+  @override
+  String get systemDefault => 'Järjestelmän oletus';
+
+  @override
+  String get haptics => 'Värinäpalaute';
+
+  @override
+  String get keepAwake => 'Pidä näyttö päällä';
+
+  @override
+  String get homeLabel => 'Koti';
+
+  @override
+  String pinSemantics(int number) {
+    return 'Keila $number';
+  }
 }

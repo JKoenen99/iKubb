@@ -297,4 +297,30 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get scoreboardMode => 'Scoreboard';
+
+  @override
+  String get share => 'Share';
+
+  @override
+  String get settings => 'Settings';
+
+  @override
+  String get language => 'Language';
+
+  @override
+  String get systemDefault => 'System default';
+
+  @override
+  String get haptics => 'Haptics';
+
+  @override
+  String get keepAwake => 'Keep screen awake';
+
+  @override
+  String get homeLabel => 'Home';
+
+  @override
+  String pinSemantics(int number) {
+    return 'Pin $number';
+  }
 }

@@ -653,6 +653,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Scoreboard'**
   String get scoreboardMode;
+
+  /// No description provided for @share.
+  ///
+  /// In en, this message translates to:
+  /// **'Share'**
+  String get share;
+
+  /// No description provided for @settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settings;
+
+  /// No description provided for @language.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get language;
+
+  /// No description provided for @systemDefault.
+  ///
+  /// In en, this message translates to:
+  /// **'System default'**
+  String get systemDefault;
+
+  /// No description provided for @haptics.
+  ///
+  /// In en, this message translates to:
+  /// **'Haptics'**
+  String get haptics;
+
+  /// No description provided for @keepAwake.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep screen awake'**
+  String get keepAwake;
+
+  /// No description provided for @homeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get homeLabel;
+
+  /// No description provided for @pinSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Pin {number}'**
+  String pinSemantics(int number);
 }
 
 class _AppLocalizationsDelegate

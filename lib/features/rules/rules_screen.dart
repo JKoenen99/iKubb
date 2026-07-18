@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../l10n/app_localizations.dart';
+import '../../widgets/home_leading.dart';
 import 'rules_view.dart';
 
 /// Full-screen rules reference — the target of the onboarding
@@ -16,6 +17,7 @@ class RulesScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.rules),
+        leading: homeLeading(context),
         actions: [
           // Replay the "Teach me the game" tour any time (SPEC.md §3.1).
           IconButton(

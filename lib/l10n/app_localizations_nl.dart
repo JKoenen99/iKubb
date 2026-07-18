@@ -297,4 +297,30 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get scoreboardMode => 'Scorebord';
+
+  @override
+  String get share => 'Delen';
+
+  @override
+  String get settings => 'Instellingen';
+
+  @override
+  String get language => 'Taal';
+
+  @override
+  String get systemDefault => 'Systeemstandaard';
+
+  @override
+  String get haptics => 'Trillingen';
+
+  @override
+  String get keepAwake => 'Scherm aan houden';
+
+  @override
+  String get homeLabel => 'Start';
+
+  @override
+  String pinSemantics(int number) {
+    return 'Kegel $number';
+  }
 }

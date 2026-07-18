@@ -110,5 +110,20 @@
   "statEliminations": "Eliminations",
   "numberPad": "Number pad",
   "tapPins": "Tap the pins",
-  "scoreboardMode": "Scoreboard"
+  "scoreboardMode": "Scoreboard",
+  "share": "Share",
+  "settings": "Settings",
+  "language": "Language",
+  "systemDefault": "System default",
+  "haptics": "Haptics",
+  "keepAwake": "Keep screen awake",
+  "homeLabel": "Home",
+  "pinSemantics": "Pin {number}",
+  "@pinSemantics": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  }
 }

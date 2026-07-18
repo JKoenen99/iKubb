@@ -89,5 +89,13 @@
   "statEliminations": "Eliminaciones",
   "numberPad": "Teclado numérico",
   "tapPins": "Tocar los bolos",
-  "scoreboardMode": "Marcador"
+  "scoreboardMode": "Marcador",
+  "share": "Compartir",
+  "settings": "Ajustes",
+  "language": "Idioma",
+  "systemDefault": "Predeterminado del sistema",
+  "haptics": "Vibración",
+  "keepAwake": "Mantener la pantalla encendida",
+  "homeLabel": "Inicio",
+  "pinSemantics": "Bolo {number}"
 }

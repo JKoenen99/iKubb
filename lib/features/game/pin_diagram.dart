@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../l10n/app_localizations.dart';
 import '../../theme/palette.dart';
 import '../../theme/typography.dart';
 
@@ -73,7 +74,7 @@ class _Pin extends StatelessWidget {
     // a number painted on the wood.
     return Semantics(
       button: onTap != null,
-      label: 'Pin $number',
+      label: AppLocalizations.of(context)!.pinSemantics(number),
       selected: isDown,
       child: GestureDetector(
         onTap: onTap,

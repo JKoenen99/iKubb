@@ -8,6 +8,7 @@ import 'features/onboarding/onboarding_screen.dart';
 import 'features/onboarding/onboarding_state.dart';
 import 'features/onboarding/tour_screen.dart';
 import 'features/rules/rules_screen.dart';
+import 'features/settings/settings_screen.dart';
 import 'features/setup/setup_screen.dart';
 import 'features/stats/game_records_repository.dart';
 import 'features/stats/stats_screen.dart';
@@ -19,26 +20,35 @@ import 'features/stats/stats_screen.dart';
 String _initialLocation(Ref ref) {
   if (!ref.watch(onboardingSeenProvider)) return '/onboarding';
   final restored = ref.watch(restoredGameProvider);
-  final resumable = restored != null &&
+  final resumable =
+      restored != null &&
       restored.game.winner == null &&
       restored.game.throws.isNotEmpty;
   return resumable ? '/game' : '/';
 }
 
-final routerProvider = Provider<GoRouter>((ref) => GoRouter(
-  initialLocation: _initialLocation(ref),
-  routes: [
-    GoRoute(path: '/', builder: (context, state) => const HomeScreen()),
-    GoRoute(
+final routerProvider = Provider<GoRouter>(
+  (ref) => GoRouter(
+    initialLocation: _initialLocation(ref),
+    routes: [
+      GoRoute(path: '/', builder: (context, state) => const HomeScreen()),
+      GoRoute(
         path: '/onboarding',
-        builder: (context, state) => const OnboardingScreen()),
-    GoRoute(path: '/tour', builder: (context, state) => const TourScreen()),
-    GoRoute(path: '/setup', builder: (context, state) => const SetupScreen()),
-    GoRoute(path: '/game', builder: (context, state) => const GameScreen()),
-    GoRoute(
+        builder: (context, state) => const OnboardingScreen(),
+      ),
+      GoRoute(path: '/tour', builder: (context, state) => const TourScreen()),
+      GoRoute(path: '/setup', builder: (context, state) => const SetupScreen()),
+      GoRoute(path: '/game', builder: (context, state) => const GameScreen()),
+      GoRoute(
         path: '/scoreboard',
-        builder: (context, state) => const ScoreboardScreen()),
-    GoRoute(path: '/rules', builder: (context, state) => const RulesScreen()),
-    GoRoute(path: '/stats', builder: (context, state) => const StatsScreen()),
-  ],
-));
+        builder: (context, state) => const ScoreboardScreen(),
+      ),
+      GoRoute(path: '/rules', builder: (context, state) => const RulesScreen()),
+      GoRoute(path: '/stats', builder: (context, state) => const StatsScreen()),
+      GoRoute(
+        path: '/settings',
+        builder: (context, state) => const SettingsScreen(),
+      ),
+    ],
+  ),
+);

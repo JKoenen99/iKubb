@@ -89,5 +89,13 @@
   "statEliminations": "Éliminations",
   "numberPad": "Pavé numérique",
   "tapPins": "Toucher les quilles",
-  "scoreboardMode": "Tableau des scores"
+  "scoreboardMode": "Tableau des scores",
+  "share": "Partager",
+  "settings": "Réglages",
+  "language": "Langue",
+  "systemDefault": "Valeur du système",
+  "haptics": "Vibrations",
+  "keepAwake": "Garder l’écran allumé",
+  "homeLabel": "Accueil",
+  "pinSemantics": "Quille {number}"
 }

@@ -89,5 +89,13 @@
   "statEliminations": "Utslagningar",
   "numberPad": "Sifferknappar",
   "tapPins": "Tryck på käglor",
-  "scoreboardMode": "Resultattavla"
+  "scoreboardMode": "Resultattavla",
+  "share": "Dela",
+  "settings": "Inställningar",
+  "language": "Språk",
+  "systemDefault": "Systemstandard",
+  "haptics": "Haptik",
+  "keepAwake": "Håll skärmen tänd",
+  "homeLabel": "Hem",
+  "pinSemantics": "Kägla {number}"
 }

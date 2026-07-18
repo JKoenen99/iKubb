@@ -297,4 +297,30 @@ class AppLocalizationsDa extends AppLocalizations {
 
   @override
   String get scoreboardMode => 'Resultattavle';
+
+  @override
+  String get share => 'Del';
+
+  @override
+  String get settings => 'Indstillinger';
+
+  @override
+  String get language => 'Sprog';
+
+  @override
+  String get systemDefault => 'Systemstandard';
+
+  @override
+  String get haptics => 'Haptik';
+
+  @override
+  String get keepAwake => 'Hold skærmen tændt';
+
+  @override
+  String get homeLabel => 'Hjem';
+
+  @override
+  String pinSemantics(int number) {
+    return 'Kegle $number';
+  }
 }

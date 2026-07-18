@@ -297,4 +297,30 @@ class AppLocalizationsSv extends AppLocalizations {
 
   @override
   String get scoreboardMode => 'Resultattavla';
+
+  @override
+  String get share => 'Dela';
+
+  @override
+  String get settings => 'Inställningar';
+
+  @override
+  String get language => 'Språk';
+
+  @override
+  String get systemDefault => 'Systemstandard';
+
+  @override
+  String get haptics => 'Haptik';
+
+  @override
+  String get keepAwake => 'Håll skärmen tänd';
+
+  @override
+  String get homeLabel => 'Hem';
+
+  @override
+  String pinSemantics(int number) {
+    return 'Kägla $number';
+  }
 }

@@ -3,13 +3,16 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:scoring_engine/scoring_engine.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../../theme/palette.dart';
 import '../../theme/typography.dart';
 import '../../widgets/rolling_number.dart';
+import '../../widgets/home_leading.dart';
 import '../rules/rules_content.dart';
 import '../rules/rules_view.dart';
+import '../settings/settings_controller.dart';
 import '../setup/player.dart' show playerColors;
 import 'game_controller.dart';
 import 'input_mode.dart';
@@ -32,6 +35,29 @@ class GameScreen extends ConsumerStatefulWidget {
 
 class _GameScreenState extends ConsumerState<GameScreen> {
   final Set<int> _selected = {};
+
+  @override
+  void initState() {
+    super.initState();
+    _setWakelock(ref.read(keepAwakeProvider));
+  }
+
+  @override
+  void dispose() {
+    _setWakelock(false);
+    super.dispose();
+  }
+
+  /// Keeps the screen on during a game (SPEC.md §3.3) when enabled in
+  /// settings. Best-effort: never let a platform without the plugin
+  /// (tests, unsupported targets) break scoring.
+  void _setWakelock(bool enable) {
+    try {
+      WakelockPlus.toggle(enable: enable).catchError((_) {});
+    } on Object {
+      // ignore: wakelock is a nicety, not a requirement.
+    }
+  }
 
   // Mascot reactions (SPEC.md §3.7): occasional, varied, never blocking.
   ReactionKind? _reaction;
@@ -82,6 +108,7 @@ class _GameScreenState extends ConsumerState<GameScreen> {
   }
 
   void _hapticAfterThrow() {
+    if (!ref.read(hapticsEnabledProvider)) return;
     final won = ref.read(gameControllerProvider).winner != null;
     won ? HapticFeedback.heavyImpact() : HapticFeedback.lightImpact();
   }
@@ -89,6 +116,7 @@ class _GameScreenState extends ConsumerState<GameScreen> {
   @override
   Widget build(BuildContext context) {
     ref.listen(gameControllerProvider, _maybeReact);
+    ref.listen(keepAwakeProvider, (_, enabled) => _setWakelock(enabled));
     final game = ref.watch(gameControllerProvider);
     final inputMode = ref.watch(inputModeProvider);
     final l10n = AppLocalizations.of(context)!;
@@ -99,6 +127,7 @@ class _GameScreenState extends ConsumerState<GameScreen> {
       // rest lives in an overflow menu with labeled rows.
       appBar: AppBar(
         title: Text(l10n.appTitle),
+        leading: homeLeading(context),
         actions: [
           IconButton(
             tooltip: l10n.rules,
@@ -115,6 +144,7 @@ class _GameScreenState extends ConsumerState<GameScreen> {
           PopupMenuButton<String>(
             onSelected: (value) => switch (value) {
               'scoreboard' => context.push('/scoreboard'),
+              'stats' => context.push('/stats'),
               _ => ref.read(gameControllerProvider.notifier).newGame(),
             },
             itemBuilder: (context) => [
@@ -124,6 +154,14 @@ class _GameScreenState extends ConsumerState<GameScreen> {
                   contentPadding: EdgeInsets.zero,
                   leading: const Icon(Icons.scoreboard_outlined),
                   title: Text(l10n.scoreboardMode),
+                ),
+              ),
+              PopupMenuItem(
+                value: 'stats',
+                child: ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  leading: const Icon(Icons.bar_chart),
+                  title: Text(l10n.stats),
                 ),
               ),
               PopupMenuItem(

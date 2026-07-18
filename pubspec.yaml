@@ -17,7 +17,9 @@ dependencies:
   rive: ^0.14.9
   scoring_engine:
     path: packages/scoring_engine
+  share_plus: ^13.2.1
   shared_preferences: ^2.5.5
+  wakelock_plus: ^1.6.1
 
 dev_dependencies:
   flutter_test:

@@ -297,4 +297,30 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get scoreboardMode => 'Tableau des scores';
+
+  @override
+  String get share => 'Partager';
+
+  @override
+  String get settings => 'Réglages';
+
+  @override
+  String get language => 'Langue';
+
+  @override
+  String get systemDefault => 'Valeur du système';
+
+  @override
+  String get haptics => 'Vibrations';
+
+  @override
+  String get keepAwake => 'Garder l’écran allumé';
+
+  @override
+  String get homeLabel => 'Accueil';
+
+  @override
+  String pinSemantics(int number) {
+    return 'Quille $number';
+  }
 }

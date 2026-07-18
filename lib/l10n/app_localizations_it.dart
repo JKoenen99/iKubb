@@ -297,4 +297,30 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get scoreboardMode => 'Tabellone';
+
+  @override
+  String get share => 'Condividi';
+
+  @override
+  String get settings => 'Impostazioni';
+
+  @override
+  String get language => 'Lingua';
+
+  @override
+  String get systemDefault => 'Predefinito di sistema';
+
+  @override
+  String get haptics => 'Vibrazione';
+
+  @override
+  String get keepAwake => 'Mantieni lo schermo acceso';
+
+  @override
+  String get homeLabel => 'Home';
+
+  @override
+  String pinSemantics(int number) {
+    return 'Birillo $number';
+  }
 }

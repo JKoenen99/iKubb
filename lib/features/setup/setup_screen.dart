@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:scoring_engine/scoring_engine.dart';
 
 import '../../l10n/app_localizations.dart';
+import '../../widgets/home_leading.dart';
 import '../../theme/palette.dart';
 import '../game/game_controller.dart';
 import '../rules/rules_view.dart';
@@ -31,16 +32,19 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
     if (sides == null) return;
     // Side colors: individuals keep their profile color; a team takes the
     // color of its first player.
-    ref.read(sideColorsProvider.notifier).set(setup.teamMode
-        ? {
-            for (final (i, team) in [Team.a, Team.b].indexed)
-              sides[i].id: setup.onTeam(team).first.colorIndex,
-          }
-        : {for (final p in setup.players) p.id: p.colorIndex});
-    ref.read(gameControllerProvider.notifier).newGame(
-          sides: sides,
-          rules: setup.rules,
+    ref
+        .read(sideColorsProvider.notifier)
+        .set(
+          setup.teamMode
+              ? {
+                  for (final (i, team) in [Team.a, Team.b].indexed)
+                    sides[i].id: setup.onTeam(team).first.colorIndex,
+                }
+              : {for (final p in setup.players) p.id: p.colorIndex},
         );
+    ref
+        .read(gameControllerProvider.notifier)
+        .newGame(sides: sides, rules: setup.rules);
     context.go('/game');
   }
 
@@ -59,6 +63,7 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.newGame),
+        leading: homeLeading(context),
         actions: [
           IconButton(
             tooltip: l10n.rules,
@@ -189,15 +194,12 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
                             : Padding(
                                 key: ValueKey(problem),
                                 padding: const EdgeInsets.only(bottom: 8),
-                                child: Text(
-                                  switch (problem) {
-                                    SetupProblem.needTwoPlayers =>
-                                      l10n.needTwoPlayers,
-                                    SetupProblem.needBothTeams =>
-                                      l10n.needBothTeams,
-                                  },
-                                  textAlign: TextAlign.center,
-                                ),
+                                child: Text(switch (problem) {
+                                  SetupProblem.needTwoPlayers =>
+                                    l10n.needTwoPlayers,
+                                  SetupProblem.needBothTeams =>
+                                    l10n.needBothTeams,
+                                }, textAlign: TextAlign.center),
                               ),
                       ),
                       FilledButton(
@@ -223,12 +225,11 @@ class _SectionHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Text(
-        text,
-        style: Theme.of(context)
-            .textTheme
-            .titleMedium
-            ?.copyWith(fontWeight: FontWeight.w700),
-      );
+    text,
+    style: Theme.of(
+      context,
+    ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+  );
 }
 
 class _Avatar extends StatelessWidget {
@@ -239,26 +240,26 @@ class _Avatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        width: size,
-        height: size,
-        decoration: BoxDecoration(
-          color: player.color,
-          shape: BoxShape.circle,
-          // Contrast ring so identity reads on any surface (audit #1).
-          border: Border.all(color: IKubbPalette.birchLight, width: 1.5),
+    width: size,
+    height: size,
+    decoration: BoxDecoration(
+      color: player.color,
+      shape: BoxShape.circle,
+      // Contrast ring so identity reads on any surface (audit #1).
+      border: Border.all(color: IKubbPalette.birchLight, width: 1.5),
+    ),
+    // TODO(assets): Viking avatar illustrations replace the initial.
+    child: Center(
+      child: Text(
+        player.name.isEmpty ? '?' : player.name[0].toUpperCase(),
+        style: TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.w700,
+          fontSize: size * 0.45,
         ),
-        // TODO(assets): Viking avatar illustrations replace the initial.
-        child: Center(
-          child: Text(
-            player.name.isEmpty ? '?' : player.name[0].toUpperCase(),
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w700,
-              fontSize: size * 0.45,
-            ),
-          ),
-        ),
-      );
+      ),
+    ),
+  );
 }
 
 class _PlayerRow extends StatelessWidget {
@@ -290,9 +291,7 @@ class _PlayerRow extends StatelessWidget {
           if (teamMode)
             SegmentedButton<Team>(
               showSelectedIcon: false,
-              style: const ButtonStyle(
-                visualDensity: VisualDensity.compact,
-              ),
+              style: const ButtonStyle(visualDensity: VisualDensity.compact),
               segments: [
                 ButtonSegment(value: Team.a, label: Text(l10n.teamA)),
                 ButtonSegment(value: Team.b, label: Text(l10n.teamB)),
@@ -300,10 +299,7 @@ class _PlayerRow extends StatelessWidget {
               selected: {team},
               onSelectionChanged: (s) => onTeamChanged(s.first),
             ),
-          IconButton(
-            onPressed: onRemove,
-            icon: const Icon(Icons.close),
-          ),
+          IconButton(onPressed: onRemove, icon: const Icon(Icons.close)),
         ],
       ),
     );
@@ -370,9 +366,9 @@ class _TeamNameField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => TextField(
-        decoration: InputDecoration(hintText: hint),
-        onChanged: onChanged,
-      );
+    decoration: InputDecoration(hintText: hint),
+    onChanged: onChanged,
+  );
 }
 
 /// House rules behind progressive disclosure: a one-line summary that
@@ -401,7 +397,8 @@ class _HouseRules extends StatelessWidget {
     final summary = [
       '${l10n.targetScore}: ${setup.targetScore}',
       policyLabel,
-      if (setup.eliminationEnabled) '${l10n.eliminationRule}: ${setup.missLimit}',
+      if (setup.eliminationEnabled)
+        '${l10n.eliminationRule}: ${setup.missLimit}',
     ].join(' · ');
 
     final presetTargets = {25, 50, 100};
@@ -474,9 +471,13 @@ class _HouseRules extends StatelessWidget {
                 onPressed: () => controller.setMissLimit(setup.missLimit - 1),
                 icon: const Icon(Icons.remove_circle_outline),
               ),
-              Text('${setup.missLimit}',
-                  style: const TextStyle(
-                      fontSize: 18, fontWeight: FontWeight.w700)),
+              Text(
+                '${setup.missLimit}',
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
               IconButton(
                 onPressed: () => controller.setMissLimit(setup.missLimit + 1),
                 icon: const Icon(Icons.add_circle_outline),
@@ -496,10 +497,10 @@ class _RuleLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Align(
-        alignment: Alignment.centerLeft,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          child: Text(text, style: Theme.of(context).textTheme.titleSmall),
-        ),
-      );
+    alignment: Alignment.centerLeft,
+    child: Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Text(text, style: Theme.of(context).textTheme.titleSmall),
+    ),
+  );
 }

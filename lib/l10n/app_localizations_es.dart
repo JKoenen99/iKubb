@@ -297,4 +297,30 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get scoreboardMode => 'Marcador';
+
+  @override
+  String get share => 'Compartir';
+
+  @override
+  String get settings => 'Ajustes';
+
+  @override
+  String get language => 'Idioma';
+
+  @override
+  String get systemDefault => 'Predeterminado del sistema';
+
+  @override
+  String get haptics => 'Vibración';
+
+  @override
+  String get keepAwake => 'Mantener la pantalla encendida';
+
+  @override
+  String get homeLabel => 'Inicio';
+
+  @override
+  String pinSemantics(int number) {
+    return 'Bolo $number';
+  }
 }

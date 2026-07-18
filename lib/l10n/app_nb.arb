@@ -89,5 +89,13 @@
   "statEliminations": "Utslagninger",
   "numberPad": "Talltastatur",
   "tapPins": "Trykk på kjegler",
-  "scoreboardMode": "Resultattavle"
+  "scoreboardMode": "Resultattavle",
+  "share": "Del",
+  "settings": "Innstillinger",
+  "language": "Språk",
+  "systemDefault": "Systemstandard",
+  "haptics": "Haptikk",
+  "keepAwake": "Hold skjermen på",
+  "homeLabel": "Hjem",
+  "pinSemantics": "Kjegle {number}"
 }

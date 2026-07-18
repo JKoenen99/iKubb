@@ -10,6 +10,7 @@ import '../../widgets/wood_grain.dart';
 import '../../widgets/viking_mascot.dart';
 import '../setup/player.dart' show playerColors;
 import 'game_controller.dart';
+import 'share_card.dart';
 
 /// Full-screen, personalized win celebration (SPEC.md §3.3): the winner's
 /// name and color star in it, the mascot cheers, confetti falls — and per
@@ -115,6 +116,19 @@ class WinOverlay extends ConsumerWidget {
                               .read(gameControllerProvider.notifier)
                               .newGame(),
                           child: Text(l10n.rematch),
+                        ),
+                        const SizedBox(height: 12),
+                        OutlinedButton.icon(
+                          style: OutlinedButton.styleFrom(
+                            foregroundColor: IKubbPalette.birchLight,
+                            side: const BorderSide(
+                              color: IKubbPalette.birchLight,
+                            ),
+                          ),
+                          onPressed: () => showShareDialog(context,
+                              game: game, winnerColor: winnerColor),
+                          icon: const Icon(Icons.ios_share),
+                          label: Text(l10n.share),
                         ),
                         const SizedBox(height: 12),
                         OutlinedButton(

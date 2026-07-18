@@ -89,5 +89,13 @@
   "statEliminations": "Uitschakelingen",
   "numberPad": "Cijfertoetsen",
   "tapPins": "Tik op kegels",
-  "scoreboardMode": "Scorebord"
+  "scoreboardMode": "Scorebord",
+  "share": "Delen",
+  "settings": "Instellingen",
+  "language": "Taal",
+  "systemDefault": "Systeemstandaard",
+  "haptics": "Trillingen",
+  "keepAwake": "Scherm aan houden",
+  "homeLabel": "Start",
+  "pinSemantics": "Kegel {number}"
 }

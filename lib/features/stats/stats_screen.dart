@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
 import '../../l10n/app_localizations.dart';
+import '../../widgets/home_leading.dart';
 import '../../theme/palette.dart';
 import '../../widgets/viking_mascot.dart';
 import 'game_records_repository.dart';
@@ -18,7 +19,7 @@ class StatsScreen extends ConsumerWidget {
     final l10n = AppLocalizations.of(context)!;
     final history = ref.watch(gameHistoryProvider);
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.stats)),
+      appBar: AppBar(title: Text(l10n.stats), leading: homeLeading(context)),
       body: history.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (e, _) => Center(child: Text('$e')),
@@ -47,7 +48,8 @@ class StatsScreen extends ConsumerWidget {
                   for (final stats in players) _PlayerCard(stats: stats),
                   const SizedBox(height: 16),
                   _SectionHeader(l10n.historyTitle),
-                  for (final finished in games) _HistoryTile(finished: finished),
+                  for (final finished in games)
+                    _HistoryTile(finished: finished),
                 ],
               ),
             ),
@@ -65,15 +67,14 @@ class _SectionHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8),
-        child: Text(
-          text,
-          style: Theme.of(context)
-              .textTheme
-              .titleMedium
-              ?.copyWith(fontWeight: FontWeight.w700),
-        ),
-      );
+    padding: const EdgeInsets.symmetric(vertical: 8),
+    child: Text(
+      text,
+      style: Theme.of(
+        context,
+      ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+    ),
+  );
 }
 
 class _PlayerCard extends StatelessWidget {
@@ -90,8 +91,7 @@ class _PlayerCard extends StatelessWidget {
       (l10n.wins, '${stats.wins}'),
       (l10n.winRate, '${(stats.winRate * 100).round()}%'),
       (l10n.avgPerThrow, stats.avgPerThrow.toStringAsFixed(1)),
-      if (stats.favoritePin != null)
-        (l10n.mostHitPin, '${stats.favoritePin}'),
+      if (stats.favoritePin != null) (l10n.mostHitPin, '${stats.favoritePin}'),
       (l10n.statMisses, '${stats.misses}'),
       if (stats.overshoots > 0) (l10n.statOvershoots, '${stats.overshoots}'),
       if (stats.eliminations > 0)
@@ -106,9 +106,10 @@ class _PlayerCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(stats.name,
-                style: const TextStyle(
-                    fontSize: 18, fontWeight: FontWeight.w800)),
+            Text(
+              stats.name,
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
+            ),
             const SizedBox(height: 8),
             Wrap(
               spacing: 12,
@@ -118,13 +119,18 @@ class _PlayerCard extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(value,
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w700,
-                              color: scheme.primary)),
-                      Text(label,
-                          style: Theme.of(context).textTheme.labelSmall),
+                      Text(
+                        value,
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                          color: scheme.primary,
+                        ),
+                      ),
+                      Text(
+                        label,
+                        style: Theme.of(context).textTheme.labelSmall,
+                      ),
                     ],
                   ),
               ],

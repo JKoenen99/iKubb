@@ -73,6 +73,8 @@ void main() {
     await tester.tap(find.textContaining('Confirm throw'));
     await tester.pumpAndSettle();
 
+    await tester.ensureVisible(find.text('New game'));
+    await tester.pumpAndSettle();
     await tester.tap(find.text('New game'));
     await tester.pumpAndSettle();
     expect(find.text('Start game'), findsOneWidget);

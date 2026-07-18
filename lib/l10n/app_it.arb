@@ -89,5 +89,13 @@
   "statEliminations": "Eliminazioni",
   "numberPad": "Tastierino",
   "tapPins": "Tocca i birilli",
-  "scoreboardMode": "Tabellone"
+  "scoreboardMode": "Tabellone",
+  "share": "Condividi",
+  "settings": "Impostazioni",
+  "language": "Lingua",
+  "systemDefault": "Predefinito di sistema",
+  "haptics": "Vibrazione",
+  "keepAwake": "Mantieni lo schermo acceso",
+  "homeLabel": "Home",
+  "pinSemantics": "Birillo {number}"
 }

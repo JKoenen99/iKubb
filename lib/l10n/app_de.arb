@@ -89,5 +89,13 @@
   "statEliminations": "Ausscheiden",
   "numberPad": "Zahlenfeld",
   "tapPins": "Kegel antippen",
-  "scoreboardMode": "Anzeigetafel"
+  "scoreboardMode": "Anzeigetafel",
+  "share": "Teilen",
+  "settings": "Einstellungen",
+  "language": "Sprache",
+  "systemDefault": "Systemstandard",
+  "haptics": "Haptik",
+  "keepAwake": "Bildschirm anlassen",
+  "homeLabel": "Start",
+  "pinSemantics": "Kegel {number}"
 }

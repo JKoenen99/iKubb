@@ -89,5 +89,13 @@
   "statEliminations": "Putoamiset",
   "numberPad": "Numeronäppäimet",
   "tapPins": "Napauta keiloja",
-  "scoreboardMode": "Tulostaulu"
+  "scoreboardMode": "Tulostaulu",
+  "share": "Jaa",
+  "settings": "Asetukset",
+  "language": "Kieli",
+  "systemDefault": "Järjestelmän oletus",
+  "haptics": "Värinäpalaute",
+  "keepAwake": "Pidä näyttö päällä",
+  "homeLabel": "Koti",
+  "pinSemantics": "Keila {number}"
 }

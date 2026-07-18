@@ -297,4 +297,30 @@ class AppLocalizationsNb extends AppLocalizations {
 
   @override
   String get scoreboardMode => 'Resultattavle';
+
+  @override
+  String get share => 'Del';
+
+  @override
+  String get settings => 'Innstillinger';
+
+  @override
+  String get language => 'Språk';
+
+  @override
+  String get systemDefault => 'Systemstandard';
+
+  @override
+  String get haptics => 'Haptikk';
+
+  @override
+  String get keepAwake => 'Hold skjermen på';
+
+  @override
+  String get homeLabel => 'Hjem';
+
+  @override
+  String pinSemantics(int number) {
+    return 'Kjegle $number';
+  }
 }

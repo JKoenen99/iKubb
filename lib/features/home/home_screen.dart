@@ -19,6 +19,19 @@ class HomeScreen extends StatelessWidget {
         children: [
           const WoodGrainBackground(color: IKubbPalette.walnut),
           SafeArea(
+            child: Align(
+              alignment: Alignment.topRight,
+              child: Padding(
+                padding: const EdgeInsets.all(8),
+                child: IconButton(
+                  tooltip: l10n.settings,
+                  onPressed: () => context.push('/settings'),
+                  icon: const Icon(Icons.settings_outlined),
+                ),
+              ),
+            ),
+          ),
+          SafeArea(
             child: Center(
               child: ConstrainedBox(
                 constraints: const BoxConstraints(maxWidth: 420),
@@ -43,7 +56,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 12),
                       FilledButton.tonal(
-                        onPressed: () => context.go('/setup'),
+                        onPressed: () => context.push('/setup'),
                         child: Text(l10n.newGame),
                       ),
                       const SizedBox(height: 12),
@@ -51,14 +64,14 @@ class HomeScreen extends StatelessWidget {
                         children: [
                           Expanded(
                             child: OutlinedButton(
-                              onPressed: () => context.go('/rules'),
+                              onPressed: () => context.push('/rules'),
                               child: Text(l10n.rules),
                             ),
                           ),
                           const SizedBox(width: 12),
                           Expanded(
                             child: OutlinedButton(
-                              onPressed: () => context.go('/stats'),
+                              onPressed: () => context.push('/stats'),
                               child: Text(l10n.stats),
                             ),
                           ),
