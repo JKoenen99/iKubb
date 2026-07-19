@@ -24,16 +24,16 @@ class FinishedGame {
   final Game game;
 
   Map<String, Object?> toJson() => {
-        'id': id,
-        'finishedAt': finishedAt.toIso8601String(),
-        'game': game.toJson(),
-      };
+    'id': id,
+    'finishedAt': finishedAt.toIso8601String(),
+    'game': game.toJson(),
+  };
 
   factory FinishedGame.fromJson(Map<String, Object?> json) => FinishedGame(
-        id: json['id'] as String,
-        finishedAt: DateTime.parse(json['finishedAt'] as String),
-        game: Game.fromJson((json['game'] as Map).cast<String, Object?>()),
-      );
+    id: json['id'] as String,
+    finishedAt: DateTime.parse(json['finishedAt'] as String),
+    game: Game.fromJson((json['game'] as Map).cast<String, Object?>()),
+  );
 }
 
 /// Persists the active game (for exact resume, undo history included — the
@@ -55,8 +55,9 @@ class GameRecordsRepository {
       return (
         id: json['id'] as String,
         game: Game.fromJson((json['game'] as Map).cast<String, Object?>()),
-        sideColors: ((json['sideColors'] as Map?) ?? {})
-            .map((k, v) => MapEntry(k as String, (v as num).toInt())),
+        sideColors: ((json['sideColors'] as Map?) ?? {}).map(
+          (k, v) => MapEntry(k as String, (v as num).toInt()),
+        ),
       );
     } on Object {
       return null; // A corrupt record must never brick the app.
@@ -89,6 +90,22 @@ class GameRecordsRepository {
     }
   }
 
+  Future<void> deleteFinished(String id) async {
+    final history = await loadHistory();
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(
+      _historyKey,
+      jsonEncode([
+        for (final g in history.where((g) => g.id != id)) g.toJson(),
+      ]),
+    );
+  }
+
+  Future<void> clearHistory() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_historyKey);
+  }
+
   /// Adds [entry] to the front of the history. An existing entry with the
   /// same id is replaced — winning, undoing, and winning again must not
   /// duplicate the game.
@@ -105,8 +122,9 @@ class GameRecordsRepository {
   }
 }
 
-final gameRecordsRepositoryProvider =
-    Provider<GameRecordsRepository>((ref) => GameRecordsRepository());
+final gameRecordsRepositoryProvider = Provider<GameRecordsRepository>(
+  (ref) => GameRecordsRepository(),
+);
 
 /// The game restored at startup (resolved in main() before runApp), or null
 /// on a fresh start. Tests and cold starts use the default.
@@ -115,4 +133,5 @@ final restoredGameProvider = Provider<ActiveGameRecord?>((ref) => null);
 /// Finished games, newest first. autoDispose so the stats screen re-reads
 /// on every visit.
 final gameHistoryProvider = FutureProvider.autoDispose<List<FinishedGame>>(
-    (ref) => ref.watch(gameRecordsRepositoryProvider).loadHistory());
+  (ref) => ref.watch(gameRecordsRepositoryProvider).loadHistory(),
+);

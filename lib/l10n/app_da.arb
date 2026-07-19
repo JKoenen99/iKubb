@@ -100,5 +100,12 @@
   "pinSemantics": "Kegle {number}",
   "cancel": "Annuller",
   "newGameConfirmTitle": "Start et nyt spil?",
-  "newGameConfirmBody": "Det igangværende spil kasseres."
+  "newGameConfirmBody": "Det igangværende spil kasseres.",
+  "resumeGame": "Fortsæt spillet",
+  "theme": "Tema",
+  "themeLight": "Lyst",
+  "themeDark": "Mørkt",
+  "delete": "Slet",
+  "clearHistory": "Ryd historik",
+  "clearHistoryConfirmBody": "Alle spil og statistikker slettes."
 }

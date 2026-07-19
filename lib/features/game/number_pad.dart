@@ -59,17 +59,24 @@ class NumberPad extends StatelessWidget {
     final busts = overshootPenalty && score > pointsNeeded;
     final style = wins
         ? FilledButton.styleFrom(
-            backgroundColor: Theme.of(context).colorScheme.primary)
+            backgroundColor: Theme.of(context).colorScheme.primary,
+          )
         : busts
-            ? FilledButton.styleFrom(
-                backgroundColor: IKubbPalette.amber,
-                foregroundColor: IKubbPalette.ink)
-            : null;
+        ? FilledButton.styleFrom(
+            backgroundColor: IKubbPalette.amber,
+            foregroundColor: IKubbPalette.ink,
+          )
+        : null;
     final button = wins || busts
         ? FilledButton(
-            style: style, onPressed: () => onScore(score), child: Text('$score'))
+            style: style,
+            onPressed: () => onScore(score),
+            child: Text('$score'),
+          )
         : FilledButton.tonal(
-            onPressed: () => onScore(score), child: Text('$score'));
+            onPressed: () => onScore(score),
+            child: Text('$score'),
+          );
     return button;
   }
 }

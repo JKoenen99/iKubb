@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+
 /// Design tokens: "Scandinavian modern, Viking soul".
 ///
 /// Light birchwood neutrals for surfaces, deep forest greens for primary
@@ -14,6 +15,7 @@ abstract final class IKubbPalette {
   static const forest = Color(0xFF2F4A3C);
   static const forestDeep = Color(0xFF1E332A);
   static const pine = Color(0xFF4A6B58);
+  static const sage = Color(0xFF86AA93); // dark-theme primary (AA as text)
 
   // Oak & walnut (accents, pin illustrations)
   static const oak = Color(0xFFB98A4E);
@@ -22,9 +24,15 @@ abstract final class IKubbPalette {
   // Text
   static const ink = Color(0xFF22201B);
 
-  // Signals
+  // Signals. berry passes AA as text on birch surfaces; berryLight is its
+  // counterpart for dark surfaces (scoreboard, dark cards).
   static const amber = Color(0xFFD9A441); // overshoot warning
-  static const berry = Color(0xFFA84A3F); // elimination / danger
+  static const berry = Color(0xFF9E4136); // elimination / danger (light)
+  static const berryLight = Color(0xFFE39C8F); // danger on dark surfaces
+
+  /// Danger color with AA contrast on the current theme's surfaces.
+  static Color danger(Brightness brightness) =>
+      brightness == Brightness.dark ? berryLight : berry;
 
   // Dark theme (night-forest greens on charcoal-wood)
   static const charcoalWood = Color(0xFF181C18);

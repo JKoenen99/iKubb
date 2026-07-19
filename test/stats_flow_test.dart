@@ -87,7 +87,12 @@ void main() {
     ));
     await tester.pumpAndSettle();
 
-    // Straight back into the game: score, names, and turn are intact.
+    // The app opens on Home with Resume as the primary action, showing
+    // the standings inline; tapping it lands in the exact game.
+    expect(find.textContaining('Resume game'), findsOneWidget);
+    expect(find.textContaining('Anna 5'), findsOneWidget);
+    await tester.tap(find.textContaining('Resume game'));
+    await tester.pumpAndSettle();
     expect(find.byType(GameScreen), findsOneWidget);
     expect(find.text('Anna'), findsOneWidget);
     expect(find.text('Needs exactly 45'), findsNothing); // Anna threw 5...

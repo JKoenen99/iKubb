@@ -332,4 +332,26 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get newGameConfirmBody => 'La partida actual se descartará.';
+
+  @override
+  String get resumeGame => 'Reanudar la partida';
+
+  @override
+  String get theme => 'Tema';
+
+  @override
+  String get themeLight => 'Claro';
+
+  @override
+  String get themeDark => 'Oscuro';
+
+  @override
+  String get delete => 'Eliminar';
+
+  @override
+  String get clearHistory => 'Borrar historial';
+
+  @override
+  String get clearHistoryConfirmBody =>
+      'Se eliminarán todas las partidas y estadísticas.';
 }

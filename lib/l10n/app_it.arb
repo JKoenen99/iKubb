@@ -100,5 +100,12 @@
   "pinSemantics": "Birillo {number}",
   "cancel": "Annulla",
   "newGameConfirmTitle": "Iniziare una nuova partita?",
-  "newGameConfirmBody": "La partita in corso verrà scartata."
+  "newGameConfirmBody": "La partita in corso verrà scartata.",
+  "resumeGame": "Riprendi la partita",
+  "theme": "Tema",
+  "themeLight": "Chiaro",
+  "themeDark": "Scuro",
+  "delete": "Elimina",
+  "clearHistory": "Cancella cronologia",
+  "clearHistoryConfirmBody": "Tutte le partite e le statistiche saranno eliminate."
 }

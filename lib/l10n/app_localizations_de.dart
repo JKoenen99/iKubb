@@ -332,4 +332,26 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get newGameConfirmBody => 'Das laufende Spiel wird verworfen.';
+
+  @override
+  String get resumeGame => 'Spiel fortsetzen';
+
+  @override
+  String get theme => 'Design';
+
+  @override
+  String get themeLight => 'Hell';
+
+  @override
+  String get themeDark => 'Dunkel';
+
+  @override
+  String get delete => 'Löschen';
+
+  @override
+  String get clearHistory => 'Verlauf löschen';
+
+  @override
+  String get clearHistoryConfirmBody =>
+      'Alle Spiele und Statistiken werden gelöscht.';
 }

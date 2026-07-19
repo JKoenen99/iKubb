@@ -149,7 +149,7 @@ class ShareCard extends StatelessWidget {
                       DateFormat.yMMMd(locale).format(DateTime.now()),
                       style: TextStyle(
                         fontSize: 12,
-                        color: IKubbPalette.ink.withValues(alpha: 0.6),
+                        color: IKubbPalette.ink.withValues(alpha: 0.7),
                       ),
                     ),
                     Text(

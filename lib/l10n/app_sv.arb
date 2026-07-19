@@ -100,5 +100,12 @@
   "pinSemantics": "Kägla {number}",
   "cancel": "Avbryt",
   "newGameConfirmTitle": "Starta en ny match?",
-  "newGameConfirmBody": "Den pågående matchen kastas."
+  "newGameConfirmBody": "Den pågående matchen kastas.",
+  "resumeGame": "Fortsätt matchen",
+  "theme": "Tema",
+  "themeLight": "Ljust",
+  "themeDark": "Mörkt",
+  "delete": "Radera",
+  "clearHistory": "Rensa historik",
+  "clearHistoryConfirmBody": "Alla matcher och all statistik raderas."
 }

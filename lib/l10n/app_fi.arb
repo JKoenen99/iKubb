@@ -100,5 +100,12 @@
   "pinSemantics": "Keila {number}",
   "cancel": "Peruuta",
   "newGameConfirmTitle": "Aloitetaanko uusi peli?",
-  "newGameConfirmBody": "Nykyinen peli hylätään."
+  "newGameConfirmBody": "Nykyinen peli hylätään.",
+  "resumeGame": "Jatka peliä",
+  "theme": "Teema",
+  "themeLight": "Vaalea",
+  "themeDark": "Tumma",
+  "delete": "Poista",
+  "clearHistory": "Tyhjennä historia",
+  "clearHistoryConfirmBody": "Kaikki pelit ja tilastot poistetaan."
 }

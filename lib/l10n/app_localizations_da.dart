@@ -332,4 +332,25 @@ class AppLocalizationsDa extends AppLocalizations {
 
   @override
   String get newGameConfirmBody => 'Det igangværende spil kasseres.';
+
+  @override
+  String get resumeGame => 'Fortsæt spillet';
+
+  @override
+  String get theme => 'Tema';
+
+  @override
+  String get themeLight => 'Lyst';
+
+  @override
+  String get themeDark => 'Mørkt';
+
+  @override
+  String get delete => 'Slet';
+
+  @override
+  String get clearHistory => 'Ryd historik';
+
+  @override
+  String get clearHistoryConfirmBody => 'Alle spil og statistikker slettes.';
 }

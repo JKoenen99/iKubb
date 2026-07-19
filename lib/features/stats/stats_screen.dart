@@ -19,7 +19,18 @@ class StatsScreen extends ConsumerWidget {
     final l10n = AppLocalizations.of(context)!;
     final history = ref.watch(gameHistoryProvider);
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.stats), leading: homeLeading(context)),
+      appBar: AppBar(
+        title: Text(l10n.stats),
+        leading: homeLeading(context),
+        actions: [
+          if (history.value?.isNotEmpty ?? false)
+            IconButton(
+              tooltip: l10n.clearHistory,
+              icon: const Icon(Icons.delete_sweep_outlined),
+              onPressed: () => _confirmClearHistory(context, ref, l10n),
+            ),
+        ],
+      ),
       body: history.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (e, _) => Center(child: Text('$e')),
@@ -49,7 +60,29 @@ class StatsScreen extends ConsumerWidget {
                   const SizedBox(height: 16),
                   _SectionHeader(l10n.historyTitle),
                   for (final finished in games)
-                    _HistoryTile(finished: finished),
+                    Dismissible(
+                      key: ValueKey(finished.id),
+                      direction: DismissDirection.endToStart,
+                      background: Container(
+                        alignment: Alignment.centerRight,
+                        padding: const EdgeInsets.only(right: 16),
+                        decoration: BoxDecoration(
+                          color: IKubbPalette.berry,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: const Icon(
+                          Icons.delete_outline,
+                          color: IKubbPalette.birchLight,
+                        ),
+                      ),
+                      onDismissed: (_) async {
+                        await ref
+                            .read(gameRecordsRepositoryProvider)
+                            .deleteFinished(finished.id);
+                        ref.invalidate(gameHistoryProvider);
+                      },
+                      child: _HistoryTile(finished: finished),
+                    ),
                 ],
               ),
             ),
@@ -57,6 +90,34 @@ class StatsScreen extends ConsumerWidget {
         },
       ),
     );
+  }
+}
+
+Future<void> _confirmClearHistory(
+  BuildContext context,
+  WidgetRef ref,
+  AppLocalizations l10n,
+) async {
+  final confirmed = await showAdaptiveDialog<bool>(
+    context: context,
+    builder: (context) => AlertDialog.adaptive(
+      title: Text(l10n.clearHistory),
+      content: Text(l10n.clearHistoryConfirmBody),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(false),
+          child: Text(l10n.cancel),
+        ),
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(true),
+          child: Text(l10n.delete),
+        ),
+      ],
+    ),
+  );
+  if (confirmed == true) {
+    await ref.read(gameRecordsRepositoryProvider).clearHistory();
+    ref.invalidate(gameHistoryProvider);
   }
 }
 

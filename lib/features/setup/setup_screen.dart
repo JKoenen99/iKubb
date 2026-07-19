@@ -23,8 +23,31 @@ class SetupScreen extends ConsumerStatefulWidget {
 class _SetupScreenState extends ConsumerState<SetupScreen> {
   bool _customTarget = false;
 
-  void _start() {
+  Future<void> _start() async {
     final l10n = AppLocalizations.of(context)!;
+    // Starting replaces the running game — warn first (same consent flow
+    // as the in-game new-game action).
+    final active = ref.read(gameControllerProvider);
+    if (active.throws.isNotEmpty && active.winner == null) {
+      final confirmed = await showAdaptiveDialog<bool>(
+        context: context,
+        builder: (context) => AlertDialog.adaptive(
+          title: Text(l10n.newGameConfirmTitle),
+          content: Text(l10n.newGameConfirmBody),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: Text(l10n.cancel),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: Text(l10n.startGame),
+            ),
+          ],
+        ),
+      );
+      if (confirmed != true || !mounted) return;
+    }
     final setup = ref.read(setupControllerProvider);
     final sides = ref
         .read(setupControllerProvider.notifier)
@@ -253,7 +276,7 @@ class _Avatar extends StatelessWidget {
       child: Text(
         player.name.isEmpty ? '?' : player.name[0].toUpperCase(),
         style: TextStyle(
-          color: Colors.white,
+          color: IKubbPalette.birchLight,
           fontWeight: FontWeight.w700,
           fontSize: size * 0.45,
         ),

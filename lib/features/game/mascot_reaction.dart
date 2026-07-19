@@ -29,14 +29,18 @@ class _MascotReactionState extends State<MascotReaction>
 
   late final Animation<double> _scale = TweenSequence<double>([
     TweenSequenceItem(
-      tween: Tween(begin: 0.0, end: 1.0)
-          .chain(CurveTween(curve: Curves.easeOutBack)),
+      tween: Tween(
+        begin: 0.0,
+        end: 1.0,
+      ).chain(CurveTween(curve: Curves.easeOutBack)),
       weight: 15,
     ),
     TweenSequenceItem(tween: ConstantTween(1.0), weight: 70),
     TweenSequenceItem(
-      tween:
-          Tween(begin: 1.0, end: 0.0).chain(CurveTween(curve: Curves.easeIn)),
+      tween: Tween(
+        begin: 1.0,
+        end: 0.0,
+      ).chain(CurveTween(curve: Curves.easeIn)),
       weight: 15,
     ),
   ]).animate(_controller);

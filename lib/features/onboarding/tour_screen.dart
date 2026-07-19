@@ -3,10 +3,10 @@ import 'package:go_router/go_router.dart';
 import 'package:scoring_engine/scoring_engine.dart';
 
 import '../../l10n/app_localizations.dart';
-import '../../theme/palette.dart';
 import '../../widgets/rolling_number.dart';
 import '../../widgets/viking_mascot.dart';
 import '../game/pin_diagram.dart';
+import '../rules/rule_illustrations.dart';
 import 'onboarding_state.dart';
 
 /// "Teach me the game": swipeable illustrated rule cards, skippable at
@@ -84,12 +84,12 @@ class _TourScreenState extends State<TourScreen> {
                       _TourCard(
                         title: l10n.ruleOvershootTitle,
                         body: l10n.ruleOvershootBody,
-                        child: const _OvershootIllustration(),
+                        child: const OvershootIllustration(),
                       ),
                       _TourCard(
                         title: l10n.ruleMissesTitle,
                         body: l10n.ruleMissesBody,
-                        child: const _MissDotsIllustration(),
+                        child: const MissDotsIllustration(),
                       ),
                       _TourCard(
                         title: l10n.ruleExactTitle,
@@ -238,44 +238,6 @@ class _ScoringDemoCardState extends State<_ScoringDemoCard> {
           ],
         ),
       ),
-    );
-  }
-}
-
-class _OvershootIllustration extends StatelessWidget {
-  const _OvershootIllustration();
-
-  @override
-  Widget build(BuildContext context) {
-    const style = TextStyle(fontSize: 32, fontWeight: FontWeight.w800);
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Text('47 + 8', style: style),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 12),
-          child: Icon(Icons.arrow_forward, size: 32, color: IKubbPalette.amber),
-        ),
-        Text('25', style: style.copyWith(color: IKubbPalette.amber)),
-      ],
-    );
-  }
-}
-
-class _MissDotsIllustration extends StatelessWidget {
-  const _MissDotsIllustration();
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        for (var i = 0; i < 3; i++)
-          const Padding(
-            padding: EdgeInsets.all(6),
-            child: Icon(Icons.circle, size: 22, color: IKubbPalette.berry),
-          ),
-      ],
     );
   }
 }

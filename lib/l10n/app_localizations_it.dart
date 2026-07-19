@@ -332,4 +332,26 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get newGameConfirmBody => 'La partita in corso verrà scartata.';
+
+  @override
+  String get resumeGame => 'Riprendi la partita';
+
+  @override
+  String get theme => 'Tema';
+
+  @override
+  String get themeLight => 'Chiaro';
+
+  @override
+  String get themeDark => 'Scuro';
+
+  @override
+  String get delete => 'Elimina';
+
+  @override
+  String get clearHistory => 'Cancella cronologia';
+
+  @override
+  String get clearHistoryConfirmBody =>
+      'Tutte le partite e le statistiche saranno eliminate.';
 }

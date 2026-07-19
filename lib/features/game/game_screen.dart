@@ -459,6 +459,7 @@ class _SideCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final onColor = isActive ? scheme.onPrimary : scheme.onSurface;
+    final danger = IKubbPalette.danger(Theme.of(context).brightness);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -489,7 +490,7 @@ class _SideCard extends StatelessWidget {
           style:
               IKubbType.score(
                 size: 40,
-                color: state.isEliminated ? IKubbPalette.berry : onColor,
+                color: state.isEliminated ? danger : onColor,
               ).copyWith(
                 decoration: state.isEliminated
                     ? TextDecoration.lineThrough

@@ -332,4 +332,25 @@ class AppLocalizationsFi extends AppLocalizations {
 
   @override
   String get newGameConfirmBody => 'Nykyinen peli hylätään.';
+
+  @override
+  String get resumeGame => 'Jatka peliä';
+
+  @override
+  String get theme => 'Teema';
+
+  @override
+  String get themeLight => 'Vaalea';
+
+  @override
+  String get themeDark => 'Tumma';
+
+  @override
+  String get delete => 'Poista';
+
+  @override
+  String get clearHistory => 'Tyhjennä historia';
+
+  @override
+  String get clearHistoryConfirmBody => 'Kaikki pelit ja tilastot poistetaan.';
 }

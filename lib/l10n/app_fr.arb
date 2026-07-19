@@ -100,5 +100,12 @@
   "pinSemantics": "Quille {number}",
   "cancel": "Annuler",
   "newGameConfirmTitle": "Commencer une nouvelle partie ?",
-  "newGameConfirmBody": "La partie en cours sera abandonnée."
+  "newGameConfirmBody": "La partie en cours sera abandonnée.",
+  "resumeGame": "Reprendre la partie",
+  "theme": "Thème",
+  "themeLight": "Clair",
+  "themeDark": "Sombre",
+  "delete": "Supprimer",
+  "clearHistory": "Effacer l’historique",
+  "clearHistoryConfirmBody": "Toutes les parties et statistiques seront supprimées."
 }

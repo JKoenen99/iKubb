@@ -128,5 +128,12 @@
   },
   "cancel": "Cancel",
   "newGameConfirmTitle": "Start a new game?",
-  "newGameConfirmBody": "The current game will be discarded."
+  "newGameConfirmBody": "The current game will be discarded.",
+  "resumeGame": "Resume game",
+  "theme": "Theme",
+  "themeLight": "Light",
+  "themeDark": "Dark",
+  "delete": "Delete",
+  "clearHistory": "Clear history",
+  "clearHistoryConfirmBody": "All games and stats will be deleted."
 }

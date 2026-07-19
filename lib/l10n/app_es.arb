@@ -100,5 +100,12 @@
   "pinSemantics": "Bolo {number}",
   "cancel": "Cancelar",
   "newGameConfirmTitle": "¿Empezar una partida nueva?",
-  "newGameConfirmBody": "La partida actual se descartará."
+  "newGameConfirmBody": "La partida actual se descartará.",
+  "resumeGame": "Reanudar la partida",
+  "theme": "Tema",
+  "themeLight": "Claro",
+  "themeDark": "Oscuro",
+  "delete": "Eliminar",
+  "clearHistory": "Borrar historial",
+  "clearHistoryConfirmBody": "Se eliminarán todas las partidas y estadísticas."
 }

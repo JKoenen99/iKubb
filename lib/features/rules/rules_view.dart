@@ -4,7 +4,7 @@ import 'package:scoring_engine/scoring_engine.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../game/game_controller.dart';
-import '../game/pin_diagram.dart';
+import 'rule_illustrations.dart';
 import 'rules_content.dart';
 
 /// Opens the rules reference as a slide-over panel — reachable from any
@@ -163,23 +163,17 @@ class _RuleCardTile extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            if (ruleIllustration(card.id) case final illustration?)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10, top: 2),
+                child: Center(child: illustration),
+              ),
             Text(
               card.title,
               style: const TextStyle(fontWeight: FontWeight.w700),
             ),
             const SizedBox(height: 4),
             Text(card.body),
-            if (card.showFormation)
-              Padding(
-                padding: const EdgeInsets.only(top: 8),
-                child: Center(
-                  child: PinDiagram(
-                    selected: const {},
-                    onToggle: null,
-                    pinSize: 36,
-                  ),
-                ),
-              ),
             if (card.detail != null)
               Theme(
                 data: Theme.of(

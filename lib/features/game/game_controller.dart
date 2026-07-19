@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:scoring_engine/scoring_engine.dart';
 
 import '../stats/game_records_repository.dart';
+import 'live_score/live_score.dart';
 
 /// Side id → palette color index for the active game, set at game start
 /// (from player profiles in setup). Sides without an entry fall back to
@@ -14,8 +15,9 @@ class SideColors extends Notifier<Map<String, int>> {
   void set(Map<String, int> colors) => state = colors;
 }
 
-final sideColorsProvider =
-    NotifierProvider<SideColors, Map<String, int>>(SideColors.new);
+final sideColorsProvider = NotifierProvider<SideColors, Map<String, int>>(
+  SideColors.new,
+);
 
 /// Holds the active [Game]. All mutations go through the engine, so the UI
 /// can never drift from the rules. Every change is persisted so an
@@ -69,6 +71,7 @@ class GameController extends Notifier<Game> {
 
   /// Fire and forget: persistence must never delay the next throw.
   void _persist() {
+    liveScore.sync(state);
     final repo = ref.read(gameRecordsRepositoryProvider);
     repo.saveActive((
       id: _gameId,
@@ -76,14 +79,13 @@ class GameController extends Notifier<Game> {
       sideColors: ref.read(sideColorsProvider),
     ));
     if (state.winner != null) {
-      repo.recordFinished(FinishedGame(
-        id: _gameId,
-        finishedAt: DateTime.now(),
-        game: state,
-      ));
+      repo.recordFinished(
+        FinishedGame(id: _gameId, finishedAt: DateTime.now(), game: state),
+      );
     }
   }
 }
 
-final gameControllerProvider =
-    NotifierProvider<GameController, Game>(GameController.new);
+final gameControllerProvider = NotifierProvider<GameController, Game>(
+  GameController.new,
+);

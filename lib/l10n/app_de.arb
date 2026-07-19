@@ -100,5 +100,12 @@
   "pinSemantics": "Kegel {number}",
   "cancel": "Abbrechen",
   "newGameConfirmTitle": "Neues Spiel starten?",
-  "newGameConfirmBody": "Das laufende Spiel wird verworfen."
+  "newGameConfirmBody": "Das laufende Spiel wird verworfen.",
+  "resumeGame": "Spiel fortsetzen",
+  "theme": "Design",
+  "themeLight": "Hell",
+  "themeDark": "Dunkel",
+  "delete": "Löschen",
+  "clearHistory": "Verlauf löschen",
+  "clearHistoryConfirmBody": "Alle Spiele und Statistiken werden gelöscht."
 }

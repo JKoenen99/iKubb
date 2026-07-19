@@ -57,7 +57,7 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Settings'), findsOneWidget);
 
-    await tester.tap(find.text('System default'));
+    await tester.tap(find.byType(DropdownButton<String>));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Nederlands').last);
     await tester.pumpAndSettle();

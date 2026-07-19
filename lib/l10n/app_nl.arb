@@ -100,5 +100,12 @@
   "pinSemantics": "Kegel {number}",
   "cancel": "Annuleren",
   "newGameConfirmTitle": "Nieuw spel starten?",
-  "newGameConfirmBody": "Het huidige spel wordt gewist."
+  "newGameConfirmBody": "Het huidige spel wordt gewist.",
+  "resumeGame": "Spel hervatten",
+  "theme": "Thema",
+  "themeLight": "Licht",
+  "themeDark": "Donker",
+  "delete": "Verwijderen",
+  "clearHistory": "Geschiedenis wissen",
+  "clearHistoryConfirmBody": "Alle partijen en statistieken worden verwijderd."
 }

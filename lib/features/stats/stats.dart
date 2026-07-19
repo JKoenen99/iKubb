@@ -25,9 +25,7 @@ class PlayerStats {
   /// The most-hit pin, or null before any pin-tap throws.
   int? get favoritePin => pinHits.isEmpty
       ? null
-      : pinHits.entries
-          .reduce((a, b) => b.value > a.value ? b : a)
-          .key;
+      : pinHits.entries.reduce((a, b) => b.value > a.value ? b : a).key;
 }
 
 /// Computes per-player lifetime stats by replaying every stored game

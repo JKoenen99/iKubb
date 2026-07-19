@@ -332,4 +332,26 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get newGameConfirmBody => 'Het huidige spel wordt gewist.';
+
+  @override
+  String get resumeGame => 'Spel hervatten';
+
+  @override
+  String get theme => 'Thema';
+
+  @override
+  String get themeLight => 'Licht';
+
+  @override
+  String get themeDark => 'Donker';
+
+  @override
+  String get delete => 'Verwijderen';
+
+  @override
+  String get clearHistory => 'Geschiedenis wissen';
+
+  @override
+  String get clearHistoryConfirmBody =>
+      'Alle partijen en statistieken worden verwijderd.';
 }

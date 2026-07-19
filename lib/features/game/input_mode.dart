@@ -20,10 +20,12 @@ class InputModeController extends Notifier<InputMode> {
 
   void toggle() {
     state = state == InputMode.pins ? InputMode.pad : InputMode.pins;
-    SharedPreferences.getInstance()
-        .then((prefs) => prefs.setString(_prefsKey, state.name));
+    SharedPreferences.getInstance().then(
+      (prefs) => prefs.setString(_prefsKey, state.name),
+    );
   }
 }
 
-final inputModeProvider =
-    NotifierProvider<InputModeController, InputMode>(InputModeController.new);
+final inputModeProvider = NotifierProvider<InputModeController, InputMode>(
+  InputModeController.new,
+);

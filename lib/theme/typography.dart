@@ -13,18 +13,18 @@ abstract final class IKubbType {
 
   /// Display style for scores and numbers: rounded + tabular figures.
   static TextStyle score({required double size, Color? color}) => TextStyle(
-        fontFamily: family,
-        fontVariations: wXBold,
-        fontSize: size,
-        color: color,
-        fontFeatures: const [FontFeature.tabularFigures()],
-        height: 1.1,
-      );
+    fontFamily: family,
+    fontVariations: wXBold,
+    fontSize: size,
+    color: color,
+    fontFeatures: const [FontFeature.tabularFigures()],
+    height: 1.1,
+  );
 
   static TextStyle heading({required double size, Color? color}) => TextStyle(
-        fontFamily: family,
-        fontVariations: wXBold,
-        fontSize: size,
-        color: color,
-      );
+    fontFamily: family,
+    fontVariations: wXBold,
+    fontSize: size,
+    color: color,
+  );
 }

@@ -332,4 +332,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get newGameConfirmBody => 'The current game will be discarded.';
+
+  @override
+  String get resumeGame => 'Resume game';
+
+  @override
+  String get theme => 'Theme';
+
+  @override
+  String get themeLight => 'Light';
+
+  @override
+  String get themeDark => 'Dark';
+
+  @override
+  String get delete => 'Delete';
+
+  @override
+  String get clearHistory => 'Clear history';
+
+  @override
+  String get clearHistoryConfirmBody => 'All games and stats will be deleted.';
 }

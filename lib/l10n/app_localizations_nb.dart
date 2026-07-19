@@ -332,4 +332,25 @@ class AppLocalizationsNb extends AppLocalizations {
 
   @override
   String get newGameConfirmBody => 'Det pågående spillet forkastes.';
+
+  @override
+  String get resumeGame => 'Fortsett spillet';
+
+  @override
+  String get theme => 'Tema';
+
+  @override
+  String get themeLight => 'Lyst';
+
+  @override
+  String get themeDark => 'Mørkt';
+
+  @override
+  String get delete => 'Slett';
+
+  @override
+  String get clearHistory => 'Tøm historikk';
+
+  @override
+  String get clearHistoryConfirmBody => 'Alle spill og all statistikk slettes.';
 }

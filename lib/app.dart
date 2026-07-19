@@ -15,6 +15,7 @@ class IKubbApp extends ConsumerWidget {
     return MaterialApp.router(
       onGenerateTitle: (context) => AppLocalizations.of(context)!.appTitle,
       locale: ref.watch(localeControllerProvider),
+      themeMode: ref.watch(themeModeProvider),
       theme: IKubbTheme.light,
       darkTheme: IKubbTheme.dark,
       localizationsDelegates: AppLocalizations.localizationsDelegates,

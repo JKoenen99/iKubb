@@ -719,6 +719,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The current game will be discarded.'**
   String get newGameConfirmBody;
+
+  /// No description provided for @resumeGame.
+  ///
+  /// In en, this message translates to:
+  /// **'Resume game'**
+  String get resumeGame;
+
+  /// No description provided for @theme.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme'**
+  String get theme;
+
+  /// No description provided for @themeLight.
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get themeLight;
+
+  /// No description provided for @themeDark.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark'**
+  String get themeDark;
+
+  /// No description provided for @delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get delete;
+
+  /// No description provided for @clearHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear history'**
+  String get clearHistory;
+
+  /// No description provided for @clearHistoryConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'All games and stats will be deleted.'**
+  String get clearHistoryConfirmBody;
 }
 
 class _AppLocalizationsDelegate

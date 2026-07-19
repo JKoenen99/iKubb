@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../../theme/palette.dart';
 import '../../widgets/viking_mascot.dart';
 import '../../widgets/wood_grain.dart';
+import '../game/game_controller.dart';
 
 /// Landing screen after onboarding: quick start front and center.
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
+    final game = ref.watch(gameControllerProvider);
+    final resumable = game.throws.isNotEmpty && game.winner == null;
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
@@ -50,10 +54,24 @@ class HomeScreen extends StatelessWidget {
                       ),
                       Text(l10n.tagline, textAlign: TextAlign.center),
                       const SizedBox(height: 48),
-                      FilledButton(
-                        onPressed: () => context.go('/game'),
-                        child: Text(l10n.quickStart),
-                      ),
+                      // An interrupted game takes over as the primary
+                      // action: resuming beats restarting (SPEC.md §3.5).
+                      if (resumable)
+                        FilledButton.icon(
+                          onPressed: () => context.go('/game'),
+                          icon: const Icon(Icons.play_arrow),
+                          label: Text(
+                            '${l10n.resumeGame} — '
+                            '${game.sideStates.map((s) => '${s.side.name} ${s.score}').join(' · ')}',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        )
+                      else
+                        FilledButton(
+                          onPressed: () => context.go('/game'),
+                          child: Text(l10n.quickStart),
+                        ),
                       const SizedBox(height: 12),
                       FilledButton.tonal(
                         onPressed: () => context.push('/setup'),

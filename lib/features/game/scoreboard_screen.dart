@@ -54,8 +54,8 @@ class ScoreboardScreen extends ConsumerWidget {
                           isActive: i == game.currentSideIndex,
                           missLimit: game.rules.missLimit,
                           showMissDots: game.rules.eliminationEnabled,
-                          color: playerColors[
-                              (sideColors[game.sides[i].id] ?? i) %
+                          color:
+                              playerColors[(sideColors[game.sides[i].id] ?? i) %
                                   playerColors.length],
                         ),
                       ),
@@ -88,9 +88,7 @@ class _ScoreboardColumn extends StatelessWidget {
       duration: const Duration(milliseconds: 250),
       margin: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: isActive
-            ? color.withValues(alpha: 0.45)
-            : Colors.transparent,
+        color: isActive ? color.withValues(alpha: 0.45) : Colors.transparent,
         borderRadius: BorderRadius.circular(24),
         border: Border.all(
           color: isActive ? color : IKubbPalette.pine,
@@ -104,22 +102,24 @@ class _ScoreboardColumn extends StatelessWidget {
             state.side.name,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: IKubbType.heading(
-              size: 36,
-              color: state.isEliminated
-                  ? IKubbPalette.berry
-                  : IKubbPalette.birchLight,
-            ).copyWith(
-              decoration:
-                  state.isEliminated ? TextDecoration.lineThrough : null,
-            ),
+            style:
+                IKubbType.heading(
+                  size: 36,
+                  color: state.isEliminated
+                      ? IKubbPalette.berryLight
+                      : IKubbPalette.birchLight,
+                ).copyWith(
+                  decoration: state.isEliminated
+                      ? TextDecoration.lineThrough
+                      : null,
+                ),
           ),
           RollingNumber(
             value: state.score,
             style: IKubbType.score(
               size: 120,
               color: state.isEliminated
-                  ? IKubbPalette.berry
+                  ? IKubbPalette.berryLight
                   : IKubbPalette.birchLight,
             ),
           ),
@@ -141,9 +141,8 @@ class _ScoreboardColumn extends StatelessWidget {
                           Icons.circle,
                           size: 26,
                           color: m < state.missStreak
-                              ? IKubbPalette.berry
-                              : IKubbPalette.birchLight
-                                  .withValues(alpha: 0.3),
+                              ? IKubbPalette.berryLight
+                              : IKubbPalette.birchLight.withValues(alpha: 0.3),
                         ),
                       ),
                   ],

@@ -100,5 +100,12 @@
   "pinSemantics": "Kjegle {number}",
   "cancel": "Avbryt",
   "newGameConfirmTitle": "Starte et nytt spill?",
-  "newGameConfirmBody": "Det pågående spillet forkastes."
+  "newGameConfirmBody": "Det pågående spillet forkastes.",
+  "resumeGame": "Fortsett spillet",
+  "theme": "Tema",
+  "themeLight": "Lyst",
+  "themeDark": "Mørkt",
+  "delete": "Slett",
+  "clearHistory": "Tøm historikk",
+  "clearHistoryConfirmBody": "Alle spill og all statistikk slettes."
 }

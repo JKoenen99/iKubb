@@ -332,4 +332,26 @@ class AppLocalizationsSv extends AppLocalizations {
 
   @override
   String get newGameConfirmBody => 'Den pågående matchen kastas.';
+
+  @override
+  String get resumeGame => 'Fortsätt matchen';
+
+  @override
+  String get theme => 'Tema';
+
+  @override
+  String get themeLight => 'Ljust';
+
+  @override
+  String get themeDark => 'Mörkt';
+
+  @override
+  String get delete => 'Radera';
+
+  @override
+  String get clearHistory => 'Rensa historik';
+
+  @override
+  String get clearHistoryConfirmBody =>
+      'Alla matcher och all statistik raderas.';
 }

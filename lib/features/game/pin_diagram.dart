@@ -90,9 +90,7 @@ class _Pin extends StatelessWidget {
             color: isDown ? IKubbPalette.walnut : IKubbPalette.oak,
             shape: BoxShape.circle,
             border: Border.all(
-              color: isDown
-                  ? IKubbPalette.ink.withValues(alpha: 0.55)
-                  : IKubbPalette.walnut,
+              color: isDown ? IKubbPalette.birch : IKubbPalette.walnut,
               width: 2.5,
             ),
           ),

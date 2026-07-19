@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:flutter/material.dart' show ThemeMode;
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -22,13 +24,15 @@ class LocaleController extends Notifier<Locale?> {
 
   void set(Locale? locale) {
     state = locale;
-    SharedPreferences.getInstance()
-        .then((p) => p.setString(_key, locale?.languageCode ?? ''));
+    SharedPreferences.getInstance().then(
+      (p) => p.setString(_key, locale?.languageCode ?? ''),
+    );
   }
 }
 
-final localeControllerProvider =
-    NotifierProvider<LocaleController, Locale?>(LocaleController.new);
+final localeControllerProvider = NotifierProvider<LocaleController, Locale?>(
+  LocaleController.new,
+);
 
 /// A persisted boolean setting.
 class _BoolSetting extends Notifier<bool> {
@@ -52,10 +56,36 @@ class _BoolSetting extends Notifier<bool> {
   }
 }
 
+/// Theme override: follows the system by default, or forces light/dark.
+class ThemeModeController extends Notifier<ThemeMode> {
+  static const _key = 'theme_mode_v1';
+
+  @override
+  ThemeMode build() {
+    SharedPreferences.getInstance().then((prefs) {
+      final stored = prefs.getString(_key);
+      final mode = ThemeMode.values.asNameMap()[stored];
+      if (mode != null && mode != state) state = mode;
+    });
+    return ThemeMode.system;
+  }
+
+  void set(ThemeMode mode) {
+    state = mode;
+    SharedPreferences.getInstance().then((p) => p.setString(_key, mode.name));
+  }
+}
+
+final themeModeProvider = NotifierProvider<ThemeModeController, ThemeMode>(
+  ThemeModeController.new,
+);
+
 /// Haptic feedback on throws (SPEC.md §3.7 "haptics can be disabled").
 final hapticsEnabledProvider = NotifierProvider<_BoolSetting, bool>(
-    () => _BoolSetting('haptics_enabled_v1', true));
+  () => _BoolSetting('haptics_enabled_v1', true),
+);
 
 /// Keep the screen awake during an active game (SPEC.md §3.3).
 final keepAwakeProvider = NotifierProvider<_BoolSetting, bool>(
-    () => _BoolSetting('keep_awake_v1', true));
+  () => _BoolSetting('keep_awake_v1', true),
+);

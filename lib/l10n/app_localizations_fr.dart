@@ -332,4 +332,26 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get newGameConfirmBody => 'La partie en cours sera abandonnée.';
+
+  @override
+  String get resumeGame => 'Reprendre la partie';
+
+  @override
+  String get theme => 'Thème';
+
+  @override
+  String get themeLight => 'Clair';
+
+  @override
+  String get themeDark => 'Sombre';
+
+  @override
+  String get delete => 'Supprimer';
+
+  @override
+  String get clearHistory => 'Effacer l’historique';
+
+  @override
+  String get clearHistoryConfirmBody =>
+      'Toutes les parties et statistiques seront supprimées.';
 }

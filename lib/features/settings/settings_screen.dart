@@ -39,6 +39,32 @@ class SettingsScreen extends ConsumerWidget {
             children: [
               ListTile(
                 contentPadding: EdgeInsets.zero,
+                leading: const Icon(Icons.brightness_6_outlined),
+                title: Text(l10n.theme),
+              ),
+              SegmentedButton<ThemeMode>(
+                showSelectedIcon: false,
+                segments: [
+                  ButtonSegment(
+                    value: ThemeMode.system,
+                    label: Text(l10n.systemDefault),
+                  ),
+                  ButtonSegment(
+                    value: ThemeMode.light,
+                    label: Text(l10n.themeLight),
+                  ),
+                  ButtonSegment(
+                    value: ThemeMode.dark,
+                    label: Text(l10n.themeDark),
+                  ),
+                ],
+                selected: {ref.watch(themeModeProvider)},
+                onSelectionChanged: (s) =>
+                    ref.read(themeModeProvider.notifier).set(s.first),
+              ),
+              const SizedBox(height: 12),
+              ListTile(
+                contentPadding: EdgeInsets.zero,
                 leading: const Icon(Icons.language),
                 title: Text(l10n.language),
                 trailing: DropdownButton<String>(
