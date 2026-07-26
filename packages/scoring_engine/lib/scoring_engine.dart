@@ -8,6 +8,10 @@
 library;
 
 export 'src/game.dart';
+export 'src/kubb/kubb_event.dart';
+export 'src/kubb/kubb_game.dart';
+export 'src/kubb/kubb_match.dart';
+export 'src/kubb/kubb_rules.dart';
 export 'src/rules.dart';
 export 'src/side.dart';
 export 'src/throw.dart';
