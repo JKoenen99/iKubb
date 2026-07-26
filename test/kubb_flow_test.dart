@@ -120,6 +120,33 @@ void main() {
     expect(find.text('Field kubbs'), findsNothing);
   });
 
+  testWidgets('the scoreboard shows kubbs remaining for a kubb match', (
+    tester,
+  ) async {
+    await pumpToKubb(tester);
+
+    // Fell one baseline kubb so the two counters differ.
+    await tester.tap(blocksIn('baselineRow').first);
+    await tester.pump();
+    await tester.tap(find.text('Confirm throw (+1)'));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.byType(PopupMenuButton<String>));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Scoreboard'));
+    await tester.pumpAndSettle();
+
+    // Kubbs remaining, not scores: 5 for Team A, 4 for Team B.
+    expect(find.text('Team A'), findsOneWidget);
+    expect(find.text('5'), findsOneWidget);
+    expect(find.text('4'), findsOneWidget);
+
+    // Tap anywhere returns to the game.
+    await tester.tap(find.text('Team A'));
+    await tester.pumpAndSettle();
+    expect(find.byType(KubbScreen), findsOneWidget);
+  });
+
   testWidgets('a running kubb match resumes from Home as the primary action', (
     tester,
   ) async {

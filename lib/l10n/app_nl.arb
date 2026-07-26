@@ -155,5 +155,10 @@
   "tourModePickTitle": "Welk spel speel je?",
   "tourModePickBody": "Beide zitten in deze app. Kies er één om te leren — wisselen kan altijd.",
   "tourModeNumberDesc": "Twaalf genummerde kegels. Race naar precies 50.",
-  "tourModeKubbDesc": "Twee teams, elk vijf kubbs — en de koning."
+  "tourModeKubbDesc": "Twee teams, elk vijf kubbs — en de koning.",
+  "statKingsFelled": "Koningen geveld",
+  "statKubbsPerBaton": "Kubbs per houtje",
+  "statAdvantageTurns": "Voordeelbeurten",
+  "statEarlyKings": "Vroege koningen",
+  "filterAll": "Alles"
 }

@@ -8,7 +8,10 @@ import '../theme/palette.dart';
 /// palette colors. Purely decorative — wrapped in [IgnorePointer] so it can
 /// never block input (SPEC.md §3.7) — and skipped under Reduce Motion.
 class ConfettiBurst extends StatefulWidget {
-  const ConfettiBurst({super.key, this.duration = const Duration(milliseconds: 2500)});
+  const ConfettiBurst({
+    super.key,
+    this.duration = const Duration(milliseconds: 2500),
+  });
 
   final Duration duration;
 
@@ -18,8 +21,10 @@ class ConfettiBurst extends StatefulWidget {
 
 class _ConfettiBurstState extends State<ConfettiBurst>
     with SingleTickerProviderStateMixin {
-  late final AnimationController _controller =
-      AnimationController(vsync: this, duration: widget.duration);
+  late final AnimationController _controller = AnimationController(
+    vsync: this,
+    duration: widget.duration,
+  );
   late final List<_Particle> _particles;
 
   @override
@@ -53,14 +58,14 @@ class _ConfettiBurstState extends State<ConfettiBurst>
 
 class _Particle {
   _Particle.random(math.Random random)
-      : x = random.nextDouble(),
-        speed = 0.7 + random.nextDouble() * 0.6,
-        sway = 0.02 + random.nextDouble() * 0.05,
-        phase = random.nextDouble() * 2 * math.pi,
-        spin = (random.nextDouble() - 0.5) * 6,
-        sizeFactor = 6 + random.nextDouble() * 7,
-        isLeaf = random.nextBool(),
-        color = _colors[random.nextInt(_colors.length)];
+    : x = random.nextDouble(),
+      speed = 0.7 + random.nextDouble() * 0.6,
+      sway = 0.02 + random.nextDouble() * 0.05,
+      phase = random.nextDouble() * 2 * math.pi,
+      spin = (random.nextDouble() - 0.5) * 6,
+      sizeFactor = 6 + random.nextDouble() * 7,
+      isLeaf = random.nextBool(),
+      color = _colors[random.nextInt(_colors.length)];
 
   static const _colors = [
     IKubbPalette.forest,
@@ -97,9 +102,13 @@ class _ConfettiPainter extends CustomPainter {
       canvas.rotate(p.phase + t * p.spin);
       if (p.isLeaf) {
         canvas.drawOval(
-            Rect.fromCenter(
-                center: Offset.zero, width: p.sizeFactor, height: p.sizeFactor * 0.55),
-            paint);
+          Rect.fromCenter(
+            center: Offset.zero,
+            width: p.sizeFactor,
+            height: p.sizeFactor * 0.55,
+          ),
+          paint,
+        );
       } else {
         // A minimal rune-like stroke pair.
         final h = p.sizeFactor;

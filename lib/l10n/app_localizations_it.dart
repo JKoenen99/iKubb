@@ -518,4 +518,19 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get tourModeKubbDesc => 'Due squadre, cinque kubb ciascuna — e il re.';
+
+  @override
+  String get statKingsFelled => 'Re abbattuti';
+
+  @override
+  String get statKubbsPerBaton => 'Kubb per bastone';
+
+  @override
+  String get statAdvantageTurns => 'Turni in vantaggio';
+
+  @override
+  String get statEarlyKings => 'Re anticipati';
+
+  @override
+  String get filterAll => 'Tutti';
 }

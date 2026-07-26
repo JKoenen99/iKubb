@@ -22,25 +22,9 @@ class _LiveScoreIos implements LiveScore {
   @override
   void sync(Game game) {
     if (!Platform.isIOS) return;
-    _syncAsync(game);
-  }
-
-  Future<void> _syncAsync(Game game) async {
-    if (_busy) return; // last-write-wins; the next sync carries fresh state
-    _busy = true;
-    try {
-      if (!_initialized) {
-        await _plugin.init(appGroupId: _appGroupId);
-        _initialized = true;
-      }
-      if (game.winner != null || game.throws.isEmpty) {
-        if (_activityId != null) {
-          await _plugin.endActivity(_activityId!);
-          _activityId = null;
-        }
-        return;
-      }
-      final data = <String, dynamic>{
+    _syncAsync(
+      ended: game.winner != null || game.throws.isEmpty,
+      data: {
         for (final (i, state) in game.sideStates.indexed) ...{
           'name$i': state.side.name,
           'score$i': '${state.score}',
@@ -48,7 +32,48 @@ class _LiveScoreIos implements LiveScore {
         'sideCount': '${game.sideStates.length}',
         'activeIndex': '${game.currentSideIndex ?? 0}',
         'target': '${game.rules.targetScore}',
-      };
+      },
+    );
+  }
+
+  @override
+  void syncKubb(KubbMatch match) {
+    if (!Platform.isIOS) return;
+    final game = match.currentGame;
+    _syncAsync(
+      ended: match.isFinished || !match.hasEvents,
+      // Same widget schema as number kubb: the "score" a passer-by wants
+      // is baseline kubbs still standing per team.
+      data: {
+        for (final (i, side) in match.sides.indexed) ...{
+          'name$i': side.name,
+          'score$i': '${game.baseline[i]}',
+        },
+        'sideCount': '2',
+        'activeIndex': '${game.attackerIndex}',
+        'target': '0',
+      },
+    );
+  }
+
+  Future<void> _syncAsync({
+    required bool ended,
+    required Map<String, dynamic> data,
+  }) async {
+    if (_busy) return; // last-write-wins; the next sync carries fresh state
+    _busy = true;
+    try {
+      if (!_initialized) {
+        await _plugin.init(appGroupId: _appGroupId);
+        _initialized = true;
+      }
+      if (ended) {
+        if (_activityId != null) {
+          await _plugin.endActivity(_activityId!);
+          _activityId = null;
+        }
+        return;
+      }
       if (_activityId == null) {
         _activityId = await _plugin.createActivity(
           'ikubb-live-score',

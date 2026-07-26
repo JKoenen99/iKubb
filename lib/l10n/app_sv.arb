@@ -155,5 +155,10 @@
   "tourModePickTitle": "Vilket spel spelar ni?",
   "tourModePickBody": "Båda finns i den här appen. Välj ett att lära dig — du kan byta när som helst.",
   "tourModeNumberDesc": "Tolv numrerade käglor. Först till exakt 50.",
-  "tourModeKubbDesc": "Två lag, fem kubbar var — och kungen."
+  "tourModeKubbDesc": "Två lag, fem kubbar var — och kungen.",
+  "statKingsFelled": "Fällda kungar",
+  "statKubbsPerBaton": "Kubbar per pinne",
+  "statAdvantageTurns": "Fördelsomgångar",
+  "statEarlyKings": "För tidiga kungar",
+  "filterAll": "Alla"
 }

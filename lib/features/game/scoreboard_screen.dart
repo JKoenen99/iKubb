@@ -8,14 +8,29 @@ import '../../theme/palette.dart';
 import '../../theme/typography.dart';
 import '../../widgets/rolling_number.dart';
 import '../../widgets/viking_mascot.dart';
+import '../kubb/kubb_controller.dart';
 import '../setup/player.dart' show playerColors;
 import 'game_controller.dart';
+import 'game_mode.dart';
 
 /// Big, glanceable field-side scoreboard (SPEC.md §3.4): prop the iPad up
-/// and read scores from across the pitch. Scores update live from the
-/// same game state as the scoring screen. Tap anywhere to return.
+/// and read scores from across the pitch. It mirrors whichever game mode
+/// is running — scores for number kubb, kubbs remaining for classic —
+/// live from the same state as the play screen. Tap anywhere to return.
 class ScoreboardScreen extends ConsumerWidget {
   const ScoreboardScreen({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    if (ref.watch(lastModeProvider) == GameMode.classicKubb) {
+      return const _KubbScoreboard();
+    }
+    return const _NumberScoreboard();
+  }
+}
+
+class _NumberScoreboard extends ConsumerWidget {
+  const _NumberScoreboard();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -62,6 +77,134 @@ class ScoreboardScreen extends ConsumerWidget {
                   ],
                 ),
         ),
+      ),
+    );
+  }
+}
+
+/// The classic-kubb variant: baseline kubbs remaining per team, match
+/// dots for best-of, the attacker highlighted — the numbers a team wants
+/// from across a 8-metre field.
+class _KubbScoreboard extends ConsumerWidget {
+  const _KubbScoreboard();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final match = ref.watch(kubbControllerProvider);
+    final game = match.currentGame;
+    final sideColors = ref.watch(sideColorsProvider);
+    final l10n = AppLocalizations.of(context)!;
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () => context.pop(),
+      child: Scaffold(
+        backgroundColor: IKubbPalette.forestDeep,
+        body: SafeArea(
+          child: match.isFinished
+              ? Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const VikingMascot(pose: MascotPose.cheer, size: 140),
+                      Text(
+                        l10n.winnerBanner(match.matchWinner!.name),
+                        textAlign: TextAlign.center,
+                        style: IKubbType.heading(
+                          size: 64,
+                          color: IKubbPalette.birchLight,
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              : Row(
+                  children: [
+                    for (var i = 0; i < 2; i++)
+                      Expanded(
+                        child: _KubbColumn(
+                          name: match.sides[i].name,
+                          standing: game.baseline[i],
+                          wins: match.wins[i],
+                          gamesToWin: match.rules.bestOf > 1
+                              ? match.rules.gamesToWin
+                              : 0,
+                          isAttacker:
+                              i == game.attackerIndex && !game.isFinished,
+                          color:
+                              playerColors[(sideColors[match.sides[i].id] ??
+                                      i) %
+                                  playerColors.length],
+                        ),
+                      ),
+                  ],
+                ),
+        ),
+      ),
+    );
+  }
+}
+
+class _KubbColumn extends StatelessWidget {
+  const _KubbColumn({
+    required this.name,
+    required this.standing,
+    required this.wins,
+    required this.gamesToWin,
+    required this.isAttacker,
+    required this.color,
+  });
+
+  final String name;
+  final int standing;
+  final int wins;
+  final int gamesToWin;
+  final bool isAttacker;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 250),
+      margin: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: isAttacker ? color.withValues(alpha: 0.45) : Colors.transparent,
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(
+          color: isAttacker ? color : IKubbPalette.pine,
+          width: isAttacker ? 4 : 2,
+        ),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            name,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: IKubbType.heading(size: 36, color: IKubbPalette.birchLight),
+          ),
+          RollingNumber(
+            value: standing,
+            style: IKubbType.score(size: 120, color: IKubbPalette.birchLight),
+          ),
+          if (gamesToWin > 0)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                for (var w = 0; w < gamesToWin; w++)
+                  Padding(
+                    padding: const EdgeInsets.all(4),
+                    child: Icon(
+                      Icons.circle,
+                      size: 26,
+                      color: w < wins
+                          ? IKubbPalette.amber
+                          : IKubbPalette.birchLight.withValues(alpha: 0.3),
+                    ),
+                  ),
+              ],
+            ),
+        ],
       ),
     );
   }

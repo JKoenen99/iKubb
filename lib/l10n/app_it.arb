@@ -155,5 +155,10 @@
   "tourModePickTitle": "A quale gioco giocate?",
   "tourModePickBody": "Sono entrambi in questa app. Scegline uno da imparare — puoi cambiare quando vuoi.",
   "tourModeNumberDesc": "Dodici birilli numerati. Corsa a 50 esatti.",
-  "tourModeKubbDesc": "Due squadre, cinque kubb ciascuna — e il re."
+  "tourModeKubbDesc": "Due squadre, cinque kubb ciascuna — e il re.",
+  "statKingsFelled": "Re abbattuti",
+  "statKubbsPerBaton": "Kubb per bastone",
+  "statAdvantageTurns": "Turni in vantaggio",
+  "statEarlyKings": "Re anticipati",
+  "filterAll": "Tutti"
 }

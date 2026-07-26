@@ -6,7 +6,11 @@ import 'package:flutter/material.dart';
 /// win screen) — never behind body text (SPEC.md §4). Deterministic wavy
 /// strokes, low alpha, purely decorative.
 class WoodGrainBackground extends StatelessWidget {
-  const WoodGrainBackground({super.key, required this.color, this.opacity = 0.05});
+  const WoodGrainBackground({
+    super.key,
+    required this.color,
+    this.opacity = 0.05,
+  });
 
   final Color color;
   final double opacity;
@@ -45,15 +49,19 @@ class _WoodGrainPainter extends CustomPainter {
       final wavelength = 140.0 + (row % 4) * 35;
       final phase = row * 1.7;
       for (var x = -10.0; x <= size.width + 10; x += 12) {
-        path.lineTo(x, y + amplitude * math.sin(x / wavelength * 2 * math.pi + phase));
+        path.lineTo(
+          x,
+          y + amplitude * math.sin(x / wavelength * 2 * math.pi + phase),
+        );
       }
       canvas.drawPath(path, paint);
       // Occasional knot.
       if (row % 5 == 2) {
         final cx = size.width * ((row * 37) % 100) / 100;
         canvas.drawOval(
-            Rect.fromCenter(center: Offset(cx, y), width: 16, height: 7),
-            paint);
+          Rect.fromCenter(center: Offset(cx, y), width: 16, height: 7),
+          paint,
+        );
       }
     }
   }

@@ -6,16 +6,27 @@ import '../../l10n/app_localizations.dart';
 import '../../widgets/home_leading.dart';
 import '../../theme/palette.dart';
 import '../../widgets/viking_mascot.dart';
+import '../game/game_mode.dart';
 import 'game_records_repository.dart';
 import 'stats.dart';
 
 /// Player statistics and game history (SPEC.md §3.5), computed by
-/// replaying the stored throw logs through the engine.
-class StatsScreen extends ConsumerWidget {
+/// replaying the stored logs through the engine. One evening, one log:
+/// both modes mix chronologically in the history (filterable), while a
+/// player card shares only what is honestly comparable — games, wins,
+/// win rate — and keeps each mode's own numbers in its own section.
+class StatsScreen extends ConsumerStatefulWidget {
   const StatsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<StatsScreen> createState() => _StatsScreenState();
+}
+
+class _StatsScreenState extends ConsumerState<StatsScreen> {
+  GameMode? _filter;
+
+  @override
+  Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final history = ref.watch(gameHistoryProvider);
     return Scaffold(
@@ -47,8 +58,22 @@ class StatsScreen extends ConsumerWidget {
               ),
             );
           }
-          final players = aggregateStats(games).values.toList()
-            ..sort((a, b) => b.wins.compareTo(a.wins));
+          final molkky = aggregateStats(games);
+          final kubb = aggregateKubbStats(games);
+          final names = {...molkky.keys, ...kubb.keys}.toList()
+            ..sort((a, b) {
+              int wins(String n) =>
+                  (molkky[n]?.wins ?? 0) + (kubb[n]?.matchWins ?? 0);
+              return wins(b).compareTo(wins(a));
+            });
+          final hasBothModes =
+              games.any((g) => g.isKubb) && games.any((g) => !g.isKubb);
+          final filtered = [
+            for (final g in games)
+              if (_filter == null ||
+                  (_filter == GameMode.classicKubb) == g.isKubb)
+                g,
+          ];
           return Center(
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 640),
@@ -56,10 +81,36 @@ class StatsScreen extends ConsumerWidget {
                 padding: const EdgeInsets.all(16),
                 children: [
                   _SectionHeader(l10n.players),
-                  for (final stats in players) _PlayerCard(stats: stats),
+                  for (final name in names)
+                    _PlayerCard(
+                      name: name,
+                      molkky: molkky[name],
+                      kubb: kubb[name],
+                      showSections: hasBothModes,
+                    ),
                   const SizedBox(height: 16),
                   _SectionHeader(l10n.historyTitle),
-                  for (final finished in games)
+                  if (hasBothModes)
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 8),
+                      child: Wrap(
+                        spacing: 8,
+                        children: [
+                          for (final (label, value) in [
+                            (l10n.filterAll, null),
+                            (l10n.modeNumber, GameMode.numberKubb),
+                            (l10n.modeKubb, GameMode.classicKubb),
+                          ])
+                            FilterChip(
+                              label: Text(label),
+                              selected: _filter == value,
+                              onSelected: (_) =>
+                                  setState(() => _filter = value),
+                            ),
+                        ],
+                      ),
+                    ),
+                  for (final finished in filtered)
                     Dismissible(
                       key: ValueKey(finished.id),
                       direction: DismissDirection.endToStart,
@@ -138,25 +189,51 @@ class _SectionHeader extends StatelessWidget {
   );
 }
 
+/// One card per name. The header carries what both modes can honestly
+/// share (games, wins, win rate); the mode sections never mix numbers.
 class _PlayerCard extends StatelessWidget {
-  const _PlayerCard({required this.stats});
+  const _PlayerCard({
+    required this.name,
+    this.molkky,
+    this.kubb,
+    required this.showSections,
+  });
 
-  final PlayerStats stats;
+  final String name;
+  final PlayerStats? molkky;
+  final KubbSideStats? kubb;
+
+  /// Section labels only earn their space once both modes have history.
+  final bool showSections;
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final scheme = Theme.of(context).colorScheme;
-    final chips = <(String, String)>[
-      (l10n.gamesPlayed, '${stats.games}'),
-      (l10n.wins, '${stats.wins}'),
-      (l10n.winRate, '${(stats.winRate * 100).round()}%'),
-      (l10n.avgPerThrow, stats.avgPerThrow.toStringAsFixed(1)),
-      if (stats.favoritePin != null) (l10n.mostHitPin, '${stats.favoritePin}'),
-      (l10n.statMisses, '${stats.misses}'),
-      if (stats.overshoots > 0) (l10n.statOvershoots, '${stats.overshoots}'),
-      if (stats.eliminations > 0)
-        (l10n.statEliminations, '${stats.eliminations}'),
+    final games = (molkky?.games ?? 0) + (kubb?.matches ?? 0);
+    final wins = (molkky?.wins ?? 0) + (kubb?.matchWins ?? 0);
+    final header = <(String, String)>[
+      (l10n.gamesPlayed, '$games'),
+      (l10n.wins, '$wins'),
+      (l10n.winRate, '${games == 0 ? 0 : (wins / games * 100).round()}%'),
+    ];
+    final numberChips = <(String, String)>[
+      if (molkky case final m?) ...[
+        (l10n.avgPerThrow, m.avgPerThrow.toStringAsFixed(1)),
+        if (m.favoritePin != null) (l10n.mostHitPin, '${m.favoritePin}'),
+        (l10n.statMisses, '${m.misses}'),
+        if (m.overshoots > 0) (l10n.statOvershoots, '${m.overshoots}'),
+        if (m.eliminations > 0) (l10n.statEliminations, '${m.eliminations}'),
+      ],
+    ];
+    final kubbChips = <(String, String)>[
+      if (kubb case final k?) ...[
+        (l10n.statKingsFelled, '${k.kingsFelled}'),
+        (l10n.statKubbsPerBaton, k.kubbsPerBaton.toStringAsFixed(1)),
+        if (k.advantageTurns > 0)
+          (l10n.statAdvantageTurns, '${k.advantageTurns}'),
+        if (k.earlyKings > 0) (l10n.statEarlyKings, '${k.earlyKings}'),
+      ],
     ];
     return Card(
       elevation: 0,
@@ -168,37 +245,74 @@ class _PlayerCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              stats.name,
+              name,
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
             ),
             const SizedBox(height: 8),
-            Wrap(
-              spacing: 12,
-              runSpacing: 8,
-              children: [
-                for (final (label, value) in chips)
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        value,
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
-                          color: scheme.primary,
-                        ),
-                      ),
-                      Text(
-                        label,
-                        style: Theme.of(context).textTheme.labelSmall,
-                      ),
-                    ],
-                  ),
-              ],
-            ),
+            _ChipWrap(chips: header),
+            if (numberChips.isNotEmpty) ...[
+              if (showSections) _ModeLabel(l10n.modeNumber),
+              const SizedBox(height: 8),
+              _ChipWrap(chips: numberChips),
+            ],
+            if (kubbChips.isNotEmpty) ...[
+              if (showSections) _ModeLabel(l10n.modeKubb),
+              const SizedBox(height: 8),
+              _ChipWrap(chips: kubbChips),
+            ],
           ],
         ),
       ),
+    );
+  }
+}
+
+class _ModeLabel extends StatelessWidget {
+  const _ModeLabel(this.text);
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) => Padding(
+    padding: const EdgeInsets.only(top: 10),
+    child: Text(
+      text,
+      style: Theme.of(context).textTheme.labelMedium?.copyWith(
+        color: Theme.of(context).colorScheme.primary,
+        fontWeight: FontWeight.w700,
+      ),
+    ),
+  );
+}
+
+class _ChipWrap extends StatelessWidget {
+  const _ChipWrap({required this.chips});
+
+  final List<(String, String)> chips;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    return Wrap(
+      spacing: 12,
+      runSpacing: 8,
+      children: [
+        for (final (label, value) in chips)
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                value,
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                  color: scheme.primary,
+                ),
+              ),
+              Text(label, style: Theme.of(context).textTheme.labelSmall),
+            ],
+          ),
+      ],
     );
   }
 }
@@ -216,7 +330,7 @@ class _HistoryTile extends StatelessWidget {
     final summary = game != null
         ? game.sideStates.map((s) => '${s.side.name} ${s.score}').join('  ·  ')
         : '${kubb!.sides[0].name} ${kubb.wins[0]} – '
-            '${kubb.wins[1]} ${kubb.sides[1].name}';
+              '${kubb.wins[1]} ${kubb.sides[1].name}';
     final winnerName = game?.winner?.name ?? kubb?.matchWinner?.name ?? '';
     return ListTile(
       contentPadding: EdgeInsets.zero,

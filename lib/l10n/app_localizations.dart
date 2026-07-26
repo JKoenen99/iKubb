@@ -1049,6 +1049,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Two teams, five kubbs each — and the king.'**
   String get tourModeKubbDesc;
+
+  /// No description provided for @statKingsFelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Kings toppled'**
+  String get statKingsFelled;
+
+  /// No description provided for @statKubbsPerBaton.
+  ///
+  /// In en, this message translates to:
+  /// **'Kubbs per baton'**
+  String get statKubbsPerBaton;
+
+  /// No description provided for @statAdvantageTurns.
+  ///
+  /// In en, this message translates to:
+  /// **'Advantage turns'**
+  String get statAdvantageTurns;
+
+  /// No description provided for @statEarlyKings.
+  ///
+  /// In en, this message translates to:
+  /// **'Early kings'**
+  String get statEarlyKings;
+
+  /// No description provided for @filterAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get filterAll;
 }
 
 class _AppLocalizationsDelegate

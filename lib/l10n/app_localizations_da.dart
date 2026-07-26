@@ -516,4 +516,19 @@ class AppLocalizationsDa extends AppLocalizations {
 
   @override
   String get tourModeKubbDesc => 'To hold, fem kubber hver — og kongen.';
+
+  @override
+  String get statKingsFelled => 'Konger væltet';
+
+  @override
+  String get statKubbsPerBaton => 'Kubber pr. pind';
+
+  @override
+  String get statAdvantageTurns => 'Fordelsture';
+
+  @override
+  String get statEarlyKings => 'For tidlige konger';
+
+  @override
+  String get filterAll => 'Alle';
 }

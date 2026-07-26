@@ -8,4 +8,7 @@ LiveScore createLiveScore() => _NoopLiveScore();
 class _NoopLiveScore implements LiveScore {
   @override
   void sync(Game game) {}
+
+  @override
+  void syncKubb(KubbMatch match) {}
 }

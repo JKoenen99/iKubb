@@ -155,5 +155,10 @@
   "tourModePickTitle": "Welches Spiel spielt ihr?",
   "tourModePickBody": "Beide stecken in dieser App. Wähle eines zum Lernen — wechseln geht jederzeit.",
   "tourModeNumberDesc": "Zwölf nummerierte Kegel. Wettlauf auf genau 50.",
-  "tourModeKubbDesc": "Zwei Teams, je fünf Kubbs — und der König."
+  "tourModeKubbDesc": "Zwei Teams, je fünf Kubbs — und der König.",
+  "statKingsFelled": "Könige gefällt",
+  "statKubbsPerBaton": "Kubbs pro Holz",
+  "statAdvantageTurns": "Vorteilszüge",
+  "statEarlyKings": "Frühe Könige",
+  "filterAll": "Alle"
 }

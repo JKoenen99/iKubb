@@ -22,8 +22,9 @@ class VikingMascot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final reduceMotion = MediaQuery.disableAnimationsOf(context);
-    final duration =
-        reduceMotion ? Duration.zero : const Duration(milliseconds: 450);
+    final duration = reduceMotion
+        ? Duration.zero
+        : const Duration(milliseconds: 450);
     return TweenAnimationBuilder<double>(
       tween: Tween(end: pose == MascotPose.cheer ? 1.0 : 0.0),
       duration: duration,
@@ -78,18 +79,26 @@ class _VikingPainter extends CustomPainter {
     // Boots.
     fill.color = IKubbPalette.walnut;
     canvas.drawRRect(
-        RRect.fromLTRBR(38, 88, 47, 96, const Radius.circular(4)), fill);
+      RRect.fromLTRBR(38, 88, 47, 96, const Radius.circular(4)),
+      fill,
+    );
     canvas.drawRRect(
-        RRect.fromLTRBR(53, 88, 62, 96, const Radius.circular(4)), fill);
+      RRect.fromLTRBR(53, 88, 62, 96, const Radius.circular(4)),
+      fill,
+    );
 
     // Tunic.
     fill.color = IKubbPalette.forest;
     canvas.drawRRect(
-        RRect.fromLTRBR(33, 58, 67, 90, const Radius.circular(14)), fill);
+      RRect.fromLTRBR(33, 58, 67, 90, const Radius.circular(14)),
+      fill,
+    );
     // Belt.
     fill.color = IKubbPalette.oak;
     canvas.drawRRect(
-        RRect.fromLTRBR(33, 74, 67, 80, const Radius.circular(3)), fill);
+      RRect.fromLTRBR(33, 74, 67, 80, const Radius.circular(3)),
+      fill,
+    );
 
     // Arms: rotate from hanging (idle) to raised (cheer).
     final armAngle = _lerp(0.35, -2.35, cheer); // radians from vertical-down
@@ -103,8 +112,11 @@ class _VikingPainter extends CustomPainter {
     // Beard: lower half of the face, with two braid tips.
     fill.color = IKubbPalette.oak;
     final beard = Path()
-      ..addArc(Rect.fromCircle(center: const Offset(50, 42), radius: 15.5),
-          0, math.pi)
+      ..addArc(
+        Rect.fromCircle(center: const Offset(50, 42), radius: 15.5),
+        0,
+        math.pi,
+      )
       ..close();
     canvas.drawPath(beard, fill);
     canvas.drawCircle(const Offset(41, 58), 3.4, fill);
@@ -118,12 +130,20 @@ class _VikingPainter extends CustomPainter {
       ..color = IKubbPalette.ink;
     if (oops > 0.5) {
       canvas.drawArc(
-          Rect.fromCircle(center: const Offset(50, 50.5), radius: 4.5),
-          math.pi + 0.3, math.pi - 0.6, false, mouthPaint);
+        Rect.fromCircle(center: const Offset(50, 50.5), radius: 4.5),
+        math.pi + 0.3,
+        math.pi - 0.6,
+        false,
+        mouthPaint,
+      );
     } else {
       canvas.drawArc(
-          Rect.fromCircle(center: const Offset(50, 46), radius: 4.5),
-          0.3, math.pi - 0.6, false, mouthPaint);
+        Rect.fromCircle(center: const Offset(50, 46), radius: 4.5),
+        0.3,
+        math.pi - 0.6,
+        false,
+        mouthPaint,
+      );
     }
 
     // Eyes and cheeks.
@@ -137,50 +157,65 @@ class _VikingPainter extends CustomPainter {
     // Helmet dome + rim.
     fill.color = IKubbPalette.forestDeep;
     canvas.drawPath(
-        Path()
-          ..addArc(Rect.fromCircle(center: const Offset(50, 36), radius: 15),
-              math.pi, math.pi)
-          ..close(),
-        fill);
+      Path()
+        ..addArc(
+          Rect.fromCircle(center: const Offset(50, 36), radius: 15),
+          math.pi,
+          math.pi,
+        )
+        ..close(),
+      fill,
+    );
     canvas.drawRRect(
-        RRect.fromLTRBR(34, 33, 66, 38, const Radius.circular(2.5)), fill);
+      RRect.fromLTRBR(34, 33, 66, 38, const Radius.circular(2.5)),
+      fill,
+    );
 
     // Horns.
     fill.color = IKubbPalette.birchLight;
     canvas.drawPath(
-        Path()
-          ..moveTo(34, 34)
-          ..quadraticBezierTo(26, 30, 27, 20)
-          ..quadraticBezierTo(33, 26, 37, 30)
-          ..close(),
-        fill);
+      Path()
+        ..moveTo(34, 34)
+        ..quadraticBezierTo(26, 30, 27, 20)
+        ..quadraticBezierTo(33, 26, 37, 30)
+        ..close(),
+      fill,
+    );
     canvas.drawPath(
-        Path()
-          ..moveTo(66, 34)
-          ..quadraticBezierTo(74, 30, 73, 20)
-          ..quadraticBezierTo(67, 26, 63, 30)
-          ..close(),
-        fill);
+      Path()
+        ..moveTo(66, 34)
+        ..quadraticBezierTo(74, 30, 73, 20)
+        ..quadraticBezierTo(67, 26, 63, 30)
+        ..close(),
+      fill,
+    );
   }
 
   /// One arm as a rounded capsule rotating around the shoulder; the right
   /// hand holds the throwing stick.
-  void _arm(Canvas canvas, Offset shoulder, double angle,
-      {required bool holdsStick}) {
+  void _arm(
+    Canvas canvas,
+    Offset shoulder,
+    double angle, {
+    required bool holdsStick,
+  }) {
     canvas.save();
     canvas.translate(shoulder.dx, shoulder.dy);
     canvas.rotate(angle);
     final fill = Paint()..color = IKubbPalette.forest;
     canvas.drawRRect(
-        RRect.fromLTRBR(-3.5, 0, 3.5, 18, const Radius.circular(3.5)), fill);
+      RRect.fromLTRBR(-3.5, 0, 3.5, 18, const Radius.circular(3.5)),
+      fill,
+    );
     // Hand.
     fill.color = _skin;
     canvas.drawCircle(const Offset(0, 18), 4, fill);
     if (holdsStick) {
       fill.color = IKubbPalette.walnut;
       canvas.drawRRect(
-          RRect.fromLTRBR(-2.5, 8, 2.5, 34, const Radius.circular(2.5)),
-          fill);
+        RRect.fromLTRBR(-2.5, 8, 2.5, 34, const Radius.circular(2.5)),
+        fill,
+      );
     }
     canvas.restore();
   }

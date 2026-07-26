@@ -518,4 +518,19 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get tourModeKubbDesc => 'Zwei Teams, je fünf Kubbs — und der König.';
+
+  @override
+  String get statKingsFelled => 'Könige gefällt';
+
+  @override
+  String get statKubbsPerBaton => 'Kubbs pro Holz';
+
+  @override
+  String get statAdvantageTurns => 'Vorteilszüge';
+
+  @override
+  String get statEarlyKings => 'Frühe Könige';
+
+  @override
+  String get filterAll => 'Alle';
 }

@@ -190,5 +190,10 @@
   "tourModePickTitle": "Which game are you playing?",
   "tourModePickBody": "Both live in this app. Pick one to learn — you can switch any time.",
   "tourModeNumberDesc": "Twelve numbered pins. Race to exactly 50.",
-  "tourModeKubbDesc": "Two teams, five kubbs each — and the king."
+  "tourModeKubbDesc": "Two teams, five kubbs each — and the king.",
+  "statKingsFelled": "Kings toppled",
+  "statKubbsPerBaton": "Kubbs per baton",
+  "statAdvantageTurns": "Advantage turns",
+  "statEarlyKings": "Early kings",
+  "filterAll": "All"
 }

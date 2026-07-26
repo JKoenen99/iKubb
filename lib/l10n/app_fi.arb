@@ -155,5 +155,10 @@
   "tourModePickTitle": "Mitä peliä pelaatte?",
   "tourModePickBody": "Molemmat löytyvät tästä sovelluksesta. Valitse toinen opeteltavaksi — voit vaihtaa milloin vain.",
   "tourModeNumberDesc": "Kaksitoista numeroitua keilaa. Kilpajuoksu tasan 50:een.",
-  "tourModeKubbDesc": "Kaksi joukkuetta, viisi kubbia kummallakin — ja kuningas."
+  "tourModeKubbDesc": "Kaksi joukkuetta, viisi kubbia kummallakin — ja kuningas.",
+  "statKingsFelled": "Kaadetut kuninkaat",
+  "statKubbsPerBaton": "Kubbeja per kapula",
+  "statAdvantageTurns": "Etulinjavuorot",
+  "statEarlyKings": "Liian aikaiset kuninkaat",
+  "filterAll": "Kaikki"
 }

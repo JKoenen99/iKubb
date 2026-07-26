@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-
 /// Design tokens: "Scandinavian modern, Viking soul".
 ///
 /// Light birchwood neutrals for surfaces, deep forest greens for primary

@@ -517,4 +517,19 @@ class AppLocalizationsSv extends AppLocalizations {
 
   @override
   String get tourModeKubbDesc => 'Två lag, fem kubbar var — och kungen.';
+
+  @override
+  String get statKingsFelled => 'Fällda kungar';
+
+  @override
+  String get statKubbsPerBaton => 'Kubbar per pinne';
+
+  @override
+  String get statAdvantageTurns => 'Fördelsomgångar';
+
+  @override
+  String get statEarlyKings => 'För tidiga kungar';
+
+  @override
+  String get filterAll => 'Alla';
 }

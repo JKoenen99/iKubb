@@ -155,5 +155,10 @@
   "tourModePickTitle": "À quel jeu jouez-vous ?",
   "tourModePickBody": "Les deux sont dans cette appli. Choisissez-en un à apprendre — vous pourrez changer à tout moment.",
   "tourModeNumberDesc": "Douze quilles numérotées. Premier à 50 pile.",
-  "tourModeKubbDesc": "Deux équipes, cinq kubbs chacune — et le roi."
+  "tourModeKubbDesc": "Deux équipes, cinq kubbs chacune — et le roi.",
+  "statKingsFelled": "Rois renversés",
+  "statKubbsPerBaton": "Kubbs par bâton",
+  "statAdvantageTurns": "Tours avec avantage",
+  "statEarlyKings": "Rois prématurés",
+  "filterAll": "Tout"
 }

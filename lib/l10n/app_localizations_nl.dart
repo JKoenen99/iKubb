@@ -518,4 +518,19 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get tourModeKubbDesc => 'Twee teams, elk vijf kubbs — en de koning.';
+
+  @override
+  String get statKingsFelled => 'Koningen geveld';
+
+  @override
+  String get statKubbsPerBaton => 'Kubbs per houtje';
+
+  @override
+  String get statAdvantageTurns => 'Voordeelbeurten';
+
+  @override
+  String get statEarlyKings => 'Vroege koningen';
+
+  @override
+  String get filterAll => 'Alles';
 }

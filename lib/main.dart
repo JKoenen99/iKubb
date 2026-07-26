@@ -10,11 +10,13 @@ Future<void> main() async {
   final onboardingSeen = await loadOnboardingSeen();
   // Restore an interrupted game exactly, undo history included (§3.5).
   final restored = await GameRecordsRepository().loadActive();
-  runApp(ProviderScope(
-    overrides: [
-      onboardingSeenProvider.overrideWithValue(onboardingSeen),
-      restoredGameProvider.overrideWithValue(restored),
-    ],
-    child: const IKubbApp(),
-  ));
+  runApp(
+    ProviderScope(
+      overrides: [
+        onboardingSeenProvider.overrideWithValue(onboardingSeen),
+        restoredGameProvider.overrideWithValue(restored),
+      ],
+      child: const IKubbApp(),
+    ),
+  );
 }

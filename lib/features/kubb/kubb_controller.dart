@@ -3,6 +3,7 @@ import 'package:scoring_engine/scoring_engine.dart';
 
 import '../game/game_controller.dart' show sideColorsProvider;
 import '../game/game_mode.dart';
+import '../game/live_score/live_score.dart';
 import '../stats/game_records_repository.dart';
 
 /// Holds the active classic-kubb match. Mirrors GameController: every
@@ -55,6 +56,7 @@ class KubbController extends Notifier<KubbMatch> {
   }
 
   void _persist() {
+    liveScore.syncKubb(state);
     ref.read(lastModeProvider.notifier).set(GameMode.classicKubb);
     final repo = ref.read(gameRecordsRepositoryProvider);
     repo.saveActive(

@@ -3,9 +3,10 @@
 **Specification & feature list — v1.0 (pre-implementation)**
 
 A scoreboard app for **number kubb** ("Scandinavisch kegelspel", the
-Mölkky-style game with 12 numbered pins). It replaces pen-and-paper scoring
-with a fast, mistake-proof scoring tool, teaches the rules to new players,
-and keeps long-term player statistics. Scandinavian modern design with
+Mölkky-style game with 12 numbered pins) and **classic kubb** (the team
+game with baseline kubbs and a king — §3.9). It replaces pen-and-paper
+scoring with a fast, mistake-proof scoring tool, teaches the rules to new
+players, and keeps long-term player statistics. Scandinavian modern design with
 Viking illustration assets. Built with Flutter so one codebase ships to the
 iOS App Store first and Google Play later, with future monetization and an
 animation-heavy experience in mind (see §6).
@@ -209,6 +210,31 @@ never waits for an animation.**
 - Privacy: everything on-device or in the user's private iCloud — no
   accounts, no tracking.
 
+### 3.9 Classic kubb mode (teams + king)
+
+The second game mode: two teams, five baseline kubbs each, a king in the
+middle, six batons per turn — full tournament reglement (field kubbs,
+field-first order, advantage line, penalty kubbs, early-king loss,
+best-of-N with an indicative turn clock).
+
+- **One app, one grammar.** Mode choice lives at the top of Setup (and in
+  the tour's first card); Home's quick start remembers the last mode. One
+  active game across both modes; `/kubb` mirrors `/game`'s screen pattern
+  (home leading, rules, undo, overflow, win overlay).
+- **Field visual, tap per kubb.** Attacker always at the bottom; tap the
+  blocks a baton felled and confirm per baton. Throw-in panel with a
+  penalty stepper after the six batons; king taps that would lose the
+  game get an adaptive guardrail dialog.
+- **Engine.** `KubbGame`/`KubbMatch` in the same replay-from-event-log
+  style as `Game`: the event list is the single source of truth, undo and
+  resume come free, illegal events (baseline before field) are rejected.
+- **Everything else repeats.** Rules panel with a mode switcher and
+  cross-mode search, kubb rule cards with code-drawn illustrations,
+  scoreboard mode (kubbs remaining + match dots), share card, Live
+  Activity, stats (mixed chronological history with filter chips; player
+  cards share only games/wins/win-rate across modes — mode-specific
+  numbers stay in their own sections).
+
 ---
 
 ## 4. Design system — "Scandinavian modern, Viking soul"
@@ -320,9 +346,9 @@ ios/ android/     platform shells
 
 ## 8. Out of scope for v1 (v2 candidates)
 
-Online multiplayer · watch apps · widgets/Live Activities · tournament
-brackets · classic kubb (block-throwing variant) rule set · cross-device
-sync · web. (Android is **not** out of scope — it's a planned later
+Online multiplayer · watch apps · tournament brackets · cross-device
+sync · web. (Classic kubb and the Live Activity, both once v2 candidates,
+shipped in v1 after all.) (Android is **not** out of scope — it's a planned later
 release; the Android build is kept green from the start.)
 
 ---

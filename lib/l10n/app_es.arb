@@ -155,5 +155,10 @@
   "tourModePickTitle": "¿A qué juego jugáis?",
   "tourModePickBody": "Ambos están en esta app. Elige uno para aprender: puedes cambiar cuando quieras.",
   "tourModeNumberDesc": "Doce bolos numerados. Carrera hasta 50 exactos.",
-  "tourModeKubbDesc": "Dos equipos, cinco kubbs cada uno — y el rey."
+  "tourModeKubbDesc": "Dos equipos, cinco kubbs cada uno — y el rey.",
+  "statKingsFelled": "Reyes derribados",
+  "statKubbsPerBaton": "Kubbs por bastón",
+  "statAdvantageTurns": "Turnos con ventaja",
+  "statEarlyKings": "Reyes prematuros",
+  "filterAll": "Todo"
 }

@@ -518,4 +518,19 @@ class AppLocalizationsFi extends AppLocalizations {
   @override
   String get tourModeKubbDesc =>
       'Kaksi joukkuetta, viisi kubbia kummallakin — ja kuningas.';
+
+  @override
+  String get statKingsFelled => 'Kaadetut kuninkaat';
+
+  @override
+  String get statKubbsPerBaton => 'Kubbeja per kapula';
+
+  @override
+  String get statAdvantageTurns => 'Etulinjavuorot';
+
+  @override
+  String get statEarlyKings => 'Liian aikaiset kuninkaat';
+
+  @override
+  String get filterAll => 'Kaikki';
 }

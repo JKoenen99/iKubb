@@ -24,5 +24,6 @@ class LastModeController extends Notifier<GameMode> {
   }
 }
 
-final lastModeProvider =
-    NotifierProvider<LastModeController, GameMode>(LastModeController.new);
+final lastModeProvider = NotifierProvider<LastModeController, GameMode>(
+  LastModeController.new,
+);

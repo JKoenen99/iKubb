@@ -155,5 +155,10 @@
   "tourModePickTitle": "Hvilket spill spiller dere?",
   "tourModePickBody": "Begge finnes i denne appen. Velg ett å lære — du kan bytte når som helst.",
   "tourModeNumberDesc": "Tolv nummererte kjegler. Kappløp til nøyaktig 50.",
-  "tourModeKubbDesc": "To lag, fem kubber hver — og kongen."
+  "tourModeKubbDesc": "To lag, fem kubber hver — og kongen.",
+  "statKingsFelled": "Konger veltet",
+  "statKubbsPerBaton": "Kubber per pinne",
+  "statAdvantageTurns": "Fordelsturer",
+  "statEarlyKings": "For tidlige konger",
+  "filterAll": "Alle"
 }

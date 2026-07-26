@@ -53,7 +53,8 @@ class FinishedGame {
     kubbMatch: json['kubbMatch'] == null
         ? null
         : KubbMatch.fromJson(
-            (json['kubbMatch'] as Map).cast<String, Object?>()),
+            (json['kubbMatch'] as Map).cast<String, Object?>(),
+          ),
   );
 }
 
@@ -85,7 +86,8 @@ class GameRecordsRepository {
         kubb: json['kubbMatch'] == null
             ? null
             : KubbMatch.fromJson(
-                (json['kubbMatch'] as Map).cast<String, Object?>()),
+                (json['kubbMatch'] as Map).cast<String, Object?>(),
+              ),
       );
     } on Object {
       return null; // A corrupt record must never brick the app.

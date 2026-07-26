@@ -20,11 +20,7 @@ const playerColors = <Color>[
 /// An app-level player. The scoring engine only sees a [Side]; avatar and
 /// color are presentation concerns kept here.
 class Player {
-  const Player({
-    required this.id,
-    required this.name,
-    this.colorIndex = 0,
-  });
+  const Player({required this.id, required this.name, this.colorIndex = 0});
 
   final String id;
   final String name;
@@ -33,17 +29,20 @@ class Player {
   Color get color => playerColors[colorIndex % playerColors.length];
 
   Player copyWith({String? name, int? colorIndex}) => Player(
-        id: id,
-        name: name ?? this.name,
-        colorIndex: colorIndex ?? this.colorIndex,
-      );
+    id: id,
+    name: name ?? this.name,
+    colorIndex: colorIndex ?? this.colorIndex,
+  );
 
-  Map<String, Object?> toJson() =>
-      {'id': id, 'name': name, 'colorIndex': colorIndex};
+  Map<String, Object?> toJson() => {
+    'id': id,
+    'name': name,
+    'colorIndex': colorIndex,
+  };
 
   factory Player.fromJson(Map<String, Object?> json) => Player(
-        id: json['id'] as String,
-        name: json['name'] as String,
-        colorIndex: (json['colorIndex'] as num?)?.toInt() ?? 0,
-      );
+    id: json['id'] as String,
+    name: json['name'] as String,
+    colorIndex: (json['colorIndex'] as num?)?.toInt() ?? 0,
+  );
 }

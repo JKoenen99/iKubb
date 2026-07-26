@@ -15,6 +15,7 @@ import '../../widgets/viking_mascot.dart';
 import '../../widgets/wood_grain.dart';
 import '../game/game_controller.dart' show sideColorsProvider;
 import '../game/game_mode.dart';
+import '../game/share_card.dart';
 import '../rules/rules_content.dart';
 import '../rules/rules_view.dart';
 import '../settings/settings_controller.dart';
@@ -164,10 +165,19 @@ class _KubbScreenState extends ConsumerState<KubbScreen> {
           PopupMenuButton<String>(
             icon: Icon(Icons.adaptive.more),
             onSelected: (value) => switch (value) {
+              'scoreboard' => context.push('/scoreboard'),
               'stats' => context.push('/stats'),
               _ => _confirmNewMatch(),
             },
             itemBuilder: (context) => [
+              PopupMenuItem(
+                value: 'scoreboard',
+                child: ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  leading: const Icon(Icons.scoreboard_outlined),
+                  title: Text(l10n.scoreboardMode),
+                ),
+              ),
               PopupMenuItem(
                 value: 'stats',
                 child: ListTile(
@@ -589,6 +599,20 @@ class _KubbMatchOverlay extends ConsumerWidget {
                     ),
                     onPressed: onRematch,
                     child: Text(l10n.rematch),
+                  ),
+                  const SizedBox(height: 12),
+                  OutlinedButton.icon(
+                    style: OutlinedButton.styleFrom(
+                      foregroundColor: IKubbPalette.birchLight,
+                      side: const BorderSide(color: IKubbPalette.birchLight),
+                    ),
+                    onPressed: () => showKubbShareDialog(
+                      context,
+                      match: match,
+                      winnerColor: winnerColor,
+                    ),
+                    icon: Icon(Icons.adaptive.share),
+                    label: Text(l10n.share),
                   ),
                   const SizedBox(height: 12),
                   OutlinedButton(
