@@ -353,4 +353,56 @@ class AppLocalizationsNb extends AppLocalizations {
 
   @override
   String get clearHistoryConfirmBody => 'Alle spill og all statistikk slettes.';
+
+  @override
+  String get modeNumber => 'Nummerkubb';
+
+  @override
+  String get modeKubb => 'Kubb';
+
+  @override
+  String get matchLabel => 'Match';
+
+  @override
+  String get bestOfSingle => 'Ett parti';
+
+  @override
+  String get bestOfThree => 'Best av 3';
+
+  @override
+  String get turnClockLabel => 'Kasteklokke';
+
+  @override
+  String get offLabel => 'Av';
+
+  @override
+  String get kingLabel => 'Kongen';
+
+  @override
+  String get kingWarningTitle => 'Velte kongen?';
+
+  @override
+  String get kingWarningBody =>
+      'Alt er ikke nede ennå — å treffe kongen nå taper partiet.';
+
+  @override
+  String get advantageLine => 'Fordelslinje';
+
+  @override
+  String get throwInTitle =>
+      'Kast de veltede kubbene inn i angriperens halvdel';
+
+  @override
+  String get outTwice => 'Ute to ganger';
+
+  @override
+  String get done => 'Ferdig';
+
+  @override
+  String get nextGameLabel => 'Neste parti';
+
+  @override
+  String earlyKingBanner(String name) {
+    return '$name veltet kongen for tidlig!';
+  }
 }

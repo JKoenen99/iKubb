@@ -6,51 +6,58 @@ import 'package:ikubb/features/game/share_card.dart';
 import 'package:ikubb/features/onboarding/onboarding_state.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'test_utils.dart';
+
 Future<void> pumpHome(WidgetTester tester) async {
-  await tester.pumpWidget(ProviderScope(
-    overrides: [onboardingSeenProvider.overrideWithValue(true)],
-    child: const IKubbApp(),
-  ));
+  await tester.pumpWidget(
+    ProviderScope(
+      overrides: [onboardingSeenProvider.overrideWithValue(true)],
+      child: const IKubbApp(),
+    ),
+  );
   await tester.pumpAndSettle();
 }
 
 void main() {
   setUp(() => SharedPreferences.setMockInitialValues({}));
 
-  testWidgets('no screen is a dead end: game exits home, stats always reachable',
-      (tester) async {
-    await pumpHome(tester);
+  testWidgets(
+    'no screen is a dead end: game exits home, stats always reachable',
+    (tester) async {
+      await pumpHome(tester);
 
-    // Home → game via quick start (replaces the stack)...
-    await tester.tap(find.text('Quick start'));
-    await tester.pumpAndSettle();
-    expect(find.text('Confirm throw (+0)'), findsOneWidget);
+      // Home → game via quick start (replaces the stack)...
+      await tester.tap(find.text('Quick start'));
+      await tester.pumpAndSettle();
+      expect(find.text('Confirm throw (+0)'), findsOneWidget);
 
-    // ...stats is reachable from the game's overflow menu...
-    await tester.tap(find.byType(PopupMenuButton<String>));
-    await tester.pumpAndSettle();
-    await tester.tap(find.text('Stats'));
-    await tester.pumpAndSettle();
-    expect(find.text('No games yet — the field awaits!'), findsOneWidget);
-    await tester.tap(find.byType(BackButton));
-    await tester.pumpAndSettle();
+      // ...stats is reachable from the game's overflow menu...
+      await tester.tap(find.byType(PopupMenuButton<String>));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Stats'));
+      await tester.pumpAndSettle();
+      expect(find.text('No games yet — the field awaits!'), findsOneWidget);
+      await tester.tap(find.byType(BackButton));
+      await tester.pumpAndSettle();
 
-    // ...and the home leading always exits the game.
-    await tester.tap(find.byIcon(Icons.home_outlined));
-    await tester.pumpAndSettle();
-    expect(find.text('Quick start'), findsOneWidget);
+      // ...and the home leading always exits the game.
+      await tester.tap(find.byIcon(Icons.home_outlined));
+      await tester.pumpAndSettle();
+      expect(find.text('Quick start'), findsOneWidget);
 
-    // Hub screens pushed from home keep a back button.
-    await tester.tap(find.text('Stats'));
-    await tester.pumpAndSettle();
-    expect(find.byType(BackButton), findsOneWidget);
-    await tester.tap(find.byType(BackButton));
-    await tester.pumpAndSettle();
-    expect(find.text('Quick start'), findsOneWidget);
-  });
+      // Hub screens pushed from home keep a back button.
+      await tester.tap(find.text('Stats'));
+      await tester.pumpAndSettle();
+      expect(find.byType(BackButton), findsOneWidget);
+      await tester.tap(find.byType(BackButton));
+      await tester.pumpAndSettle();
+      expect(find.text('Quick start'), findsOneWidget);
+    },
+  );
 
-  testWidgets('settings: language override switches the app language',
-      (tester) async {
+  testWidgets('settings: language override switches the app language', (
+    tester,
+  ) async {
     await pumpHome(tester);
 
     await tester.tap(find.byIcon(Icons.settings_outlined));
@@ -85,12 +92,12 @@ void main() {
       await tester.tap(find.text('Add player'));
       await tester.pumpAndSettle();
     }
-    await tester.tap(find.text('House rules'));
+    await tester.tapVisible(find.text('House rules'));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('Custom'));
+    await tester.tapVisible(find.text('Custom'));
     await tester.pumpAndSettle();
     await tester.enterText(find.widgetWithText(TextFormField, 'Custom'), '12');
-    await tester.tap(find.text('Start game'));
+    await tester.tapVisible(find.text('Start game'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('12'));
     await tester.pump();
@@ -103,9 +110,12 @@ void main() {
     // The preview shows the branded result card with the standings.
     expect(find.byType(ShareCard), findsOneWidget);
     expect(
-        find.descendant(
-            of: find.byType(ShareCard), matching: find.text('Anna wins!')),
-        findsOneWidget);
+      find.descendant(
+        of: find.byType(ShareCard),
+        matching: find.text('Anna wins!'),
+      ),
+      findsOneWidget,
+    );
   });
 
   testWidgets('new game asks for confirmation only mid-game', (tester) async {

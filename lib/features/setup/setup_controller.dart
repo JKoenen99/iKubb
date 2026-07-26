@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:scoring_engine/scoring_engine.dart';
 
+import '../game/game_mode.dart';
 import 'player.dart';
 import 'recent_players_repository.dart';
 
@@ -11,6 +12,9 @@ enum Team { a, b }
 
 class SetupState {
   const SetupState({
+    this.mode = GameMode.numberKubb,
+    this.kubbBestOf = 1,
+    this.kubbClockSeconds,
     this.players = const [],
     this.recents = const [],
     this.teamMode = false,
@@ -22,6 +26,10 @@ class SetupState {
     this.eliminationEnabled = true,
     this.missLimit = 3,
   });
+
+  final GameMode mode;
+  final int kubbBestOf;
+  final int? kubbClockSeconds;
 
   /// Selected players, in throw order.
   final List<Player> players;
@@ -42,8 +50,10 @@ class SetupState {
 
   Team teamFor(Player p) => teamOf[p.id] ?? Team.values[players.indexOf(p) % 2];
 
-  List<Player> onTeam(Team t) =>
-      [for (final p in players) if (teamFor(p) == t) p];
+  List<Player> onTeam(Team t) => [
+    for (final p in players)
+      if (teamFor(p) == t) p,
+  ];
 
   bool get isClassic =>
       targetScore == 50 &&
@@ -60,16 +70,22 @@ class SetupState {
     return null;
   }
 
+  KubbRules get kubbRules =>
+      KubbRules(bestOf: kubbBestOf, turnClockSeconds: kubbClockSeconds);
+
   GameRules get rules => GameRules(
-        targetScore: targetScore,
-        overshootPolicy: overshootPolicy,
-        // Classic pairs 50 with 25; other targets fall back to half.
-        overshootResetValue: targetScore == 50 ? 25 : max(1, targetScore ~/ 2),
-        eliminationEnabled: eliminationEnabled,
-        missLimit: missLimit,
-      );
+    targetScore: targetScore,
+    overshootPolicy: overshootPolicy,
+    // Classic pairs 50 with 25; other targets fall back to half.
+    overshootResetValue: targetScore == 50 ? 25 : max(1, targetScore ~/ 2),
+    eliminationEnabled: eliminationEnabled,
+    missLimit: missLimit,
+  );
 
   SetupState copyWith({
+    GameMode? mode,
+    int? kubbBestOf,
+    Object? kubbClockSeconds = _sentinel,
     List<Player>? players,
     List<Player>? recents,
     bool? teamMode,
@@ -80,25 +96,32 @@ class SetupState {
     OvershootPolicy? overshootPolicy,
     bool? eliminationEnabled,
     int? missLimit,
-  }) =>
-      SetupState(
-        players: players ?? this.players,
-        recents: recents ?? this.recents,
-        teamMode: teamMode ?? this.teamMode,
-        teamOf: teamOf ?? this.teamOf,
-        teamAName: teamAName ?? this.teamAName,
-        teamBName: teamBName ?? this.teamBName,
-        targetScore: targetScore ?? this.targetScore,
-        overshootPolicy: overshootPolicy ?? this.overshootPolicy,
-        eliminationEnabled: eliminationEnabled ?? this.eliminationEnabled,
-        missLimit: missLimit ?? this.missLimit,
-      );
+  }) => SetupState(
+    mode: mode ?? this.mode,
+    kubbBestOf: kubbBestOf ?? this.kubbBestOf,
+    kubbClockSeconds: kubbClockSeconds == _sentinel
+        ? this.kubbClockSeconds
+        : kubbClockSeconds as int?,
+    players: players ?? this.players,
+    recents: recents ?? this.recents,
+    teamMode: teamMode ?? this.teamMode,
+    teamOf: teamOf ?? this.teamOf,
+    teamAName: teamAName ?? this.teamAName,
+    teamBName: teamBName ?? this.teamBName,
+    targetScore: targetScore ?? this.targetScore,
+    overshootPolicy: overshootPolicy ?? this.overshootPolicy,
+    eliminationEnabled: eliminationEnabled ?? this.eliminationEnabled,
+    missLimit: missLimit ?? this.missLimit,
+  );
 }
 
 enum SetupProblem { needTwoPlayers, needBothTeams }
 
-final recentPlayersRepositoryProvider =
-    Provider<RecentPlayersRepository>((ref) => RecentPlayersRepository());
+const _sentinel = Object();
+
+final recentPlayersRepositoryProvider = Provider<RecentPlayersRepository>(
+  (ref) => RecentPlayersRepository(),
+);
 
 class SetupController extends Notifier<SetupState> {
   final _random = Random();
@@ -132,8 +155,8 @@ class SetupController extends Notifier<SetupState> {
   }
 
   void removePlayer(Player player) => state = state.copyWith(
-        players: [...state.players]..removeWhere((p) => p.id == player.id),
-      );
+    players: [...state.players]..removeWhere((p) => p.id == player.id),
+  );
 
   void reorder(int oldIndex, int newIndex) {
     final players = [...state.players];
@@ -146,13 +169,26 @@ class SetupController extends Notifier<SetupState> {
 
   void setTeamMode(bool enabled) => state = state.copyWith(teamMode: enabled);
 
+  /// Classic kubb is a team game: switching to it forces team mode on.
+  void setMode(GameMode mode) => state = state.copyWith(
+    mode: mode,
+    teamMode: mode == GameMode.classicKubb ? true : state.teamMode,
+  );
+
+  void setKubbBestOf(int bestOf) => state = state.copyWith(kubbBestOf: bestOf);
+
+  void setKubbClock(int? seconds) =>
+      state = state.copyWith(kubbClockSeconds: seconds);
+
   void assignTeam(Player player, Team team) =>
       state = state.copyWith(teamOf: {...state.teamOf, player.id: team});
 
   /// Alternates players over both teams, evening out the sizes.
-  void autoBalance() => state = state.copyWith(teamOf: {
-        for (final (i, p) in state.players.indexed) p.id: Team.values[i % 2],
-      });
+  void autoBalance() => state = state.copyWith(
+    teamOf: {
+      for (final (i, p) in state.players.indexed) p.id: Team.values[i % 2],
+    },
+  );
 
   void setTeamName(Team team, String name) => state = team == Team.a
       ? state.copyWith(teamAName: name)
@@ -182,10 +218,12 @@ class SetupController extends Notifier<SetupState> {
     if (!state.teamMode) {
       return [for (final p in state.players) Side(id: p.id, name: p.name)];
     }
-    final aName =
-        state.teamAName.trim().isEmpty ? defaultTeamNames.$1 : state.teamAName;
-    final bName =
-        state.teamBName.trim().isEmpty ? defaultTeamNames.$2 : state.teamBName;
+    final aName = state.teamAName.trim().isEmpty
+        ? defaultTeamNames.$1
+        : state.teamAName;
+    final bName = state.teamBName.trim().isEmpty
+        ? defaultTeamNames.$2
+        : state.teamBName;
     return [
       Side(id: 'team-a', name: aName.trim()),
       Side(id: 'team-b', name: bName.trim()),
@@ -198,5 +236,6 @@ class SetupController extends Notifier<SetupState> {
   }
 }
 
-final setupControllerProvider =
-    NotifierProvider<SetupController, SetupState>(SetupController.new);
+final setupControllerProvider = NotifierProvider<SetupController, SetupState>(
+  SetupController.new,
+);

@@ -5,6 +5,8 @@ import 'package:ikubb/app.dart';
 import 'package:ikubb/features/game/game_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'test_utils.dart';
+
 Future<void> pumpToSetup(WidgetTester tester) async {
   await tester.pumpWidget(const ProviderScope(child: IKubbApp()));
   await tester.pumpAndSettle();
@@ -30,12 +32,12 @@ void main() {
     await addPlayer(tester, 'Freya');
 
     // House rules: expand, pick target 25.
-    await tester.tap(find.text('House rules'));
+    await tester.tapVisible(find.text('House rules'));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('25'));
+    await tester.tapVisible(find.text('25'));
     await tester.pumpAndSettle();
 
-    await tester.tap(find.text('Start game'));
+    await tester.tapVisible(find.text('Start game'));
     await tester.pumpAndSettle();
 
     expect(find.byType(GameScreen), findsOneWidget);
@@ -44,8 +46,7 @@ void main() {
     expect(find.text('Needs exactly 25'), findsOneWidget);
   });
 
-  testWidgets('team mode plays as two sides with custom names',
-      (tester) async {
+  testWidgets('team mode plays as two sides with custom names', (tester) async {
     await pumpToSetup(tester);
 
     for (final name in ['Jasper', 'Freya', 'Erik', 'Saga']) {
@@ -53,13 +54,12 @@ void main() {
     }
 
     // Enable teams; default alternating assignment covers both teams.
-    await tester.tap(find.text('Teams'));
+    await tester.tapVisible(find.text('Teams'));
     await tester.pumpAndSettle();
-    await tester.enterText(
-        find.widgetWithText(TextField, 'Team A'), 'Ravens');
+    await tester.enterText(find.widgetWithText(TextField, 'Team A'), 'Ravens');
     await tester.pumpAndSettle();
 
-    await tester.tap(find.text('Start game'));
+    await tester.tapVisible(find.text('Start game'));
     await tester.pumpAndSettle();
 
     expect(find.byType(GameScreen), findsOneWidget);
@@ -68,16 +68,19 @@ void main() {
     expect(find.text('Jasper'), findsNothing); // sides are teams, not players
   });
 
-  testWidgets('players are remembered as recents for the next setup',
-      (tester) async {
+  testWidgets('players are remembered as recents for the next setup', (
+    tester,
+  ) async {
     await pumpToSetup(tester);
     await addPlayer(tester, 'Jasper');
     await addPlayer(tester, 'Freya');
-    await tester.tap(find.text('Start game'));
+    await tester.tapVisible(find.text('Start game'));
     await tester.pumpAndSettle();
 
     // Relaunch the app: a fresh scope must offer the players as chips.
-    await tester.pumpWidget(ProviderScope(key: UniqueKey(), child: const IKubbApp()));
+    await tester.pumpWidget(
+      ProviderScope(key: UniqueKey(), child: const IKubbApp()),
+    );
     await tester.pumpAndSettle();
     await tester.tap(find.text('I know the rules — start scoring'));
     await tester.pumpAndSettle();

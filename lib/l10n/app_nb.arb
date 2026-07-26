@@ -107,5 +107,21 @@
   "themeDark": "Mørkt",
   "delete": "Slett",
   "clearHistory": "Tøm historikk",
-  "clearHistoryConfirmBody": "Alle spill og all statistikk slettes."
+  "clearHistoryConfirmBody": "Alle spill og all statistikk slettes.",
+  "modeNumber": "Nummerkubb",
+  "modeKubb": "Kubb",
+  "matchLabel": "Match",
+  "bestOfSingle": "Ett parti",
+  "bestOfThree": "Best av 3",
+  "turnClockLabel": "Kasteklokke",
+  "offLabel": "Av",
+  "kingLabel": "Kongen",
+  "kingWarningTitle": "Velte kongen?",
+  "kingWarningBody": "Alt er ikke nede ennå — å treffe kongen nå taper partiet.",
+  "advantageLine": "Fordelslinje",
+  "throwInTitle": "Kast de veltede kubbene inn i angriperens halvdel",
+  "outTwice": "Ute to ganger",
+  "done": "Ferdig",
+  "nextGameLabel": "Neste parti",
+  "earlyKingBanner": "{name} veltet kongen for tidlig!"
 }

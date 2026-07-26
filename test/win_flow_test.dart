@@ -6,6 +6,8 @@ import 'package:ikubb/features/game/win_overlay.dart';
 import 'package:ikubb/widgets/viking_mascot.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'test_utils.dart';
+
 /// Sets up Anna vs Björn with a custom target of 12, so a single throw on
 /// pin 12 wins the game.
 Future<void> pumpToGameWithTarget12(WidgetTester tester) async {
@@ -18,12 +20,12 @@ Future<void> pumpToGameWithTarget12(WidgetTester tester) async {
     await tester.tap(find.text('Add player'));
     await tester.pumpAndSettle();
   }
-  await tester.tap(find.text('House rules'));
+  await tester.tapVisible(find.text('House rules'));
   await tester.pumpAndSettle();
-  await tester.tap(find.text('Custom'));
+  await tester.tapVisible(find.text('Custom'));
   await tester.pumpAndSettle();
   await tester.enterText(find.widgetWithText(TextFormField, 'Custom'), '12');
-  await tester.tap(find.text('Start game'));
+  await tester.tapVisible(find.text('Start game'));
   await tester.pumpAndSettle();
 }
 
@@ -43,13 +45,17 @@ void main() {
     expect(find.byType(VikingMascot), findsOneWidget);
     // Final standings show both sides.
     expect(
-        find.descendant(
-            of: find.byType(WinOverlay), matching: find.text('Björn')),
-        findsOneWidget);
+      find.descendant(
+        of: find.byType(WinOverlay),
+        matching: find.text('Björn'),
+      ),
+      findsOneWidget,
+    );
   });
 
-  testWidgets('celebration buttons are live on the very first frame',
-      (tester) async {
+  testWidgets('celebration buttons are live on the very first frame', (
+    tester,
+  ) async {
     await pumpToGameWithTarget12(tester);
     await tester.tap(find.text('12'));
     await tester.pump();

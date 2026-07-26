@@ -353,4 +353,56 @@ class AppLocalizationsFi extends AppLocalizations {
 
   @override
   String get clearHistoryConfirmBody => 'Kaikki pelit ja tilastot poistetaan.';
+
+  @override
+  String get modeNumber => 'Numerokubb';
+
+  @override
+  String get modeKubb => 'Kubb';
+
+  @override
+  String get matchLabel => 'Ottelu';
+
+  @override
+  String get bestOfSingle => 'Yksi peli';
+
+  @override
+  String get bestOfThree => 'Paras kolmesta';
+
+  @override
+  String get turnClockLabel => 'Heittokello';
+
+  @override
+  String get offLabel => 'Pois';
+
+  @override
+  String get kingLabel => 'Kuningas';
+
+  @override
+  String get kingWarningTitle => 'Kaadetaanko kuningas?';
+
+  @override
+  String get kingWarningBody =>
+      'Kaikki ei ole vielä nurin — kuninkaan osuminen nyt häviää pelin.';
+
+  @override
+  String get advantageLine => 'Etulinja';
+
+  @override
+  String get throwInTitle =>
+      'Heitä kaadetut kubbit hyökkääjän kenttäpuoliskolle';
+
+  @override
+  String get outTwice => 'Kahdesti ulkona';
+
+  @override
+  String get done => 'Valmis';
+
+  @override
+  String get nextGameLabel => 'Seuraava peli';
+
+  @override
+  String earlyKingBanner(String name) {
+    return '$name kaatoi kuninkaan liian aikaisin!';
+  }
 }

@@ -761,6 +761,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'All games and stats will be deleted.'**
   String get clearHistoryConfirmBody;
+
+  /// No description provided for @modeNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Number kubb'**
+  String get modeNumber;
+
+  /// No description provided for @modeKubb.
+  ///
+  /// In en, this message translates to:
+  /// **'Kubb'**
+  String get modeKubb;
+
+  /// No description provided for @matchLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Match'**
+  String get matchLabel;
+
+  /// No description provided for @bestOfSingle.
+  ///
+  /// In en, this message translates to:
+  /// **'Single game'**
+  String get bestOfSingle;
+
+  /// No description provided for @bestOfThree.
+  ///
+  /// In en, this message translates to:
+  /// **'Best of 3'**
+  String get bestOfThree;
+
+  /// No description provided for @turnClockLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn clock'**
+  String get turnClockLabel;
+
+  /// No description provided for @offLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Off'**
+  String get offLabel;
+
+  /// No description provided for @kingLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'King'**
+  String get kingLabel;
+
+  /// No description provided for @kingWarningTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Topple the king?'**
+  String get kingWarningTitle;
+
+  /// No description provided for @kingWarningBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Not everything is down yet — hitting the king now loses the game.'**
+  String get kingWarningBody;
+
+  /// No description provided for @advantageLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Advantage line'**
+  String get advantageLine;
+
+  /// No description provided for @throwInTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Throw the felled kubbs into the attacker\'s half'**
+  String get throwInTitle;
+
+  /// No description provided for @outTwice.
+  ///
+  /// In en, this message translates to:
+  /// **'Out of bounds twice'**
+  String get outTwice;
+
+  /// No description provided for @done.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get done;
+
+  /// No description provided for @nextGameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Next game'**
+  String get nextGameLabel;
+
+  /// No description provided for @earlyKingBanner.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} toppled the king too early!'**
+  String earlyKingBanner(String name);
 }
 
 class _AppLocalizationsDelegate

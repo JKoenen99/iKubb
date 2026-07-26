@@ -37,6 +37,7 @@ Map<String, PlayerStats> aggregateStats(List<FinishedGame> history) {
 
   for (final finished in history) {
     final game = finished.game;
+    if (game == null) continue; // kubb matches aggregate separately
     for (final side in game.sides) {
       statsFor(side.name).games++;
     }

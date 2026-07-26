@@ -354,4 +354,56 @@ class AppLocalizationsNl extends AppLocalizations {
   @override
   String get clearHistoryConfirmBody =>
       'Alle partijen en statistieken worden verwijderd.';
+
+  @override
+  String get modeNumber => 'Nummerkubb';
+
+  @override
+  String get modeKubb => 'Kubb';
+
+  @override
+  String get matchLabel => 'Match';
+
+  @override
+  String get bestOfSingle => 'Eén partij';
+
+  @override
+  String get bestOfThree => 'Best of 3';
+
+  @override
+  String get turnClockLabel => 'Beurtklok';
+
+  @override
+  String get offLabel => 'Uit';
+
+  @override
+  String get kingLabel => 'Koning';
+
+  @override
+  String get kingWarningTitle => 'Koning omgooien?';
+
+  @override
+  String get kingWarningBody =>
+      'Nog niet alles ligt om — de koning nu raken verliest de partij.';
+
+  @override
+  String get advantageLine => 'Voordeellijn';
+
+  @override
+  String get throwInTitle =>
+      'Gooi de gevelde kubbs in de helft van de aanvaller';
+
+  @override
+  String get outTwice => 'Twee keer uit';
+
+  @override
+  String get done => 'Klaar';
+
+  @override
+  String get nextGameLabel => 'Volgende partij';
+
+  @override
+  String earlyKingBanner(String name) {
+    return '$name gooide de koning te vroeg om!';
+  }
 }

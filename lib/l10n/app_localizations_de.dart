@@ -354,4 +354,56 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get clearHistoryConfirmBody =>
       'Alle Spiele und Statistiken werden gelöscht.';
+
+  @override
+  String get modeNumber => 'Nummern-Kubb';
+
+  @override
+  String get modeKubb => 'Kubb';
+
+  @override
+  String get matchLabel => 'Match';
+
+  @override
+  String get bestOfSingle => 'Ein Spiel';
+
+  @override
+  String get bestOfThree => 'Best of 3';
+
+  @override
+  String get turnClockLabel => 'Wurfuhr';
+
+  @override
+  String get offLabel => 'Aus';
+
+  @override
+  String get kingLabel => 'König';
+
+  @override
+  String get kingWarningTitle => 'König umwerfen?';
+
+  @override
+  String get kingWarningBody =>
+      'Noch liegt nicht alles — den König jetzt zu treffen verliert das Spiel.';
+
+  @override
+  String get advantageLine => 'Vorteilslinie';
+
+  @override
+  String get throwInTitle =>
+      'Wirf die gefällten Kubbs in die Hälfte des Angreifers';
+
+  @override
+  String get outTwice => 'Zweimal raus';
+
+  @override
+  String get done => 'Fertig';
+
+  @override
+  String get nextGameLabel => 'Nächstes Spiel';
+
+  @override
+  String earlyKingBanner(String name) {
+    return '$name hat den König zu früh gefällt!';
+  }
 }

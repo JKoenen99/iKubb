@@ -4,35 +4,56 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:scoring_engine/scoring_engine.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// The active game plus its presentation extras, as persisted.
-typedef ActiveGameRecord = ({
-  String id,
-  Game game,
-  Map<String, int> sideColors,
-});
+/// The active game plus its presentation extras, as persisted. Exactly one
+/// of [molkky]/[kubb] is set — the app tracks a single active game across
+/// both modes.
+class ActiveRecord {
+  const ActiveRecord({
+    required this.id,
+    required this.sideColors,
+    this.molkky,
+    this.kubb,
+  }) : assert((molkky == null) != (kubb == null), 'exactly one mode');
 
-/// A finished game in the history list.
+  final String id;
+  final Map<String, int> sideColors;
+  final Game? molkky;
+  final KubbMatch? kubb;
+}
+
+/// A finished game in the history list — number kubb or classic kubb.
 class FinishedGame {
   const FinishedGame({
     required this.id,
     required this.finishedAt,
-    required this.game,
-  });
+    this.game,
+    this.kubbMatch,
+  }) : assert((game == null) != (kubbMatch == null), 'exactly one mode');
 
   final String id;
   final DateTime finishedAt;
-  final Game game;
+  final Game? game;
+  final KubbMatch? kubbMatch;
+
+  bool get isKubb => kubbMatch != null;
 
   Map<String, Object?> toJson() => {
     'id': id,
     'finishedAt': finishedAt.toIso8601String(),
-    'game': game.toJson(),
+    if (game != null) 'game': game!.toJson(),
+    if (kubbMatch != null) 'kubbMatch': kubbMatch!.toJson(),
   };
 
   factory FinishedGame.fromJson(Map<String, Object?> json) => FinishedGame(
     id: json['id'] as String,
     finishedAt: DateTime.parse(json['finishedAt'] as String),
-    game: Game.fromJson((json['game'] as Map).cast<String, Object?>()),
+    game: json['game'] == null
+        ? null
+        : Game.fromJson((json['game'] as Map).cast<String, Object?>()),
+    kubbMatch: json['kubbMatch'] == null
+        ? null
+        : KubbMatch.fromJson(
+            (json['kubbMatch'] as Map).cast<String, Object?>()),
   );
 }
 
@@ -46,31 +67,39 @@ class GameRecordsRepository {
   static const _historyKey = 'game_history_v1';
   static const _historyCap = 200;
 
-  Future<ActiveGameRecord?> loadActive() async {
+  Future<ActiveRecord?> loadActive() async {
     final prefs = await SharedPreferences.getInstance();
     final raw = prefs.getString(_activeKey);
     if (raw == null) return null;
     try {
       final json = (jsonDecode(raw) as Map).cast<String, Object?>();
-      return (
+      final colors = ((json['sideColors'] as Map?) ?? {}).map(
+        (k, v) => MapEntry(k as String, (v as num).toInt()),
+      );
+      return ActiveRecord(
         id: json['id'] as String,
-        game: Game.fromJson((json['game'] as Map).cast<String, Object?>()),
-        sideColors: ((json['sideColors'] as Map?) ?? {}).map(
-          (k, v) => MapEntry(k as String, (v as num).toInt()),
-        ),
+        sideColors: colors,
+        molkky: json['game'] == null
+            ? null
+            : Game.fromJson((json['game'] as Map).cast<String, Object?>()),
+        kubb: json['kubbMatch'] == null
+            ? null
+            : KubbMatch.fromJson(
+                (json['kubbMatch'] as Map).cast<String, Object?>()),
       );
     } on Object {
       return null; // A corrupt record must never brick the app.
     }
   }
 
-  Future<void> saveActive(ActiveGameRecord record) async {
+  Future<void> saveActive(ActiveRecord record) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(
       _activeKey,
       jsonEncode({
         'id': record.id,
-        'game': record.game.toJson(),
+        if (record.molkky != null) 'game': record.molkky!.toJson(),
+        if (record.kubb != null) 'kubbMatch': record.kubb!.toJson(),
         'sideColors': record.sideColors,
       }),
     );
@@ -128,7 +157,7 @@ final gameRecordsRepositoryProvider = Provider<GameRecordsRepository>(
 
 /// The game restored at startup (resolved in main() before runApp), or null
 /// on a fresh start. Tests and cold starts use the default.
-final restoredGameProvider = Provider<ActiveGameRecord?>((ref) => null);
+final restoredGameProvider = Provider<ActiveRecord?>((ref) => null);
 
 /// Finished games, newest first. autoDispose so the stats screen re-reads
 /// on every visit.

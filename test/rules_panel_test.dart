@@ -21,8 +21,9 @@ Future<void> pumpToGame(WidgetTester tester) async {
 void main() {
   setUp(() => SharedPreferences.setMockInitialValues({}));
 
-  testWidgets('rules panel opens in-game with categories and active rules',
-      (tester) async {
+  testWidgets('rules panel opens in-game with categories and active rules', (
+    tester,
+  ) async {
     await pumpToGame(tester);
 
     await tester.tap(find.byIcon(Icons.help_outline));

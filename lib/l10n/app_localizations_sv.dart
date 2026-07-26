@@ -354,4 +354,55 @@ class AppLocalizationsSv extends AppLocalizations {
   @override
   String get clearHistoryConfirmBody =>
       'Alla matcher och all statistik raderas.';
+
+  @override
+  String get modeNumber => 'Nummerkubb';
+
+  @override
+  String get modeKubb => 'Kubb';
+
+  @override
+  String get matchLabel => 'Match';
+
+  @override
+  String get bestOfSingle => 'Ett parti';
+
+  @override
+  String get bestOfThree => 'Bäst av 3';
+
+  @override
+  String get turnClockLabel => 'Kastklocka';
+
+  @override
+  String get offLabel => 'Av';
+
+  @override
+  String get kingLabel => 'Kungen';
+
+  @override
+  String get kingWarningTitle => 'Fälla kungen?';
+
+  @override
+  String get kingWarningBody =>
+      'Allt är inte nere än — att träffa kungen nu förlorar partiet.';
+
+  @override
+  String get advantageLine => 'Fördelslinje';
+
+  @override
+  String get throwInTitle => 'Kasta in de fällda kubbarna i anfallarens halva';
+
+  @override
+  String get outTwice => 'Ut två gånger';
+
+  @override
+  String get done => 'Klar';
+
+  @override
+  String get nextGameLabel => 'Nästa parti';
+
+  @override
+  String earlyKingBanner(String name) {
+    return '$name fällde kungen för tidigt!';
+  }
 }

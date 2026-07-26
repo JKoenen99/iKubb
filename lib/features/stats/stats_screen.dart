@@ -212,16 +212,22 @@ class _HistoryTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final locale = Localizations.localeOf(context).toString();
     final game = finished.game;
-    final summary = game.sideStates
-        .map((s) => '${s.side.name} ${s.score}')
-        .join('  ·  ');
+    final kubb = finished.kubbMatch;
+    final summary = game != null
+        ? game.sideStates.map((s) => '${s.side.name} ${s.score}').join('  ·  ')
+        : '${kubb!.sides[0].name} ${kubb.wins[0]} – '
+            '${kubb.wins[1]} ${kubb.sides[1].name}';
+    final winnerName = game?.winner?.name ?? kubb?.matchWinner?.name ?? '';
     return ListTile(
       contentPadding: EdgeInsets.zero,
-      leading: const Icon(Icons.emoji_events, color: IKubbPalette.oak),
+      leading: Icon(
+        finished.isKubb ? Icons.crop_square : Icons.emoji_events,
+        color: IKubbPalette.oak,
+      ),
       title: Text(summary, maxLines: 1, overflow: TextOverflow.ellipsis),
       subtitle: Text(
         '${DateFormat.yMMMd(locale).add_Hm().format(finished.finishedAt)}'
-        '  —  ${game.winner?.name ?? ''}',
+        '  —  $winnerName',
       ),
     );
   }

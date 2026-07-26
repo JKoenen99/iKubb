@@ -107,5 +107,21 @@
   "themeDark": "Mørkt",
   "delete": "Slet",
   "clearHistory": "Ryd historik",
-  "clearHistoryConfirmBody": "Alle spil og statistikker slettes."
+  "clearHistoryConfirmBody": "Alle spil og statistikker slettes.",
+  "modeNumber": "Nummerkubb",
+  "modeKubb": "Kubb",
+  "matchLabel": "Match",
+  "bestOfSingle": "Ét parti",
+  "bestOfThree": "Bedst af 3",
+  "turnClockLabel": "Kasteur",
+  "offLabel": "Fra",
+  "kingLabel": "Kongen",
+  "kingWarningTitle": "Vælt kongen?",
+  "kingWarningBody": "Alt er ikke nede endnu — at ramme kongen nu taber partiet.",
+  "advantageLine": "Fordelslinje",
+  "throwInTitle": "Kast de væltede kubber ind i angriberens halvdel",
+  "outTwice": "Ude to gange",
+  "done": "Færdig",
+  "nextGameLabel": "Næste parti",
+  "earlyKingBanner": "{name} væltede kongen for tidligt!"
 }

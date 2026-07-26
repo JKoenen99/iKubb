@@ -42,8 +42,9 @@ void main() {
     expect(prefs.getString('input_mode_v1'), 'pad');
   });
 
-  testWidgets('scoreboard mode shows big live scores and taps back',
-      (tester) async {
+  testWidgets('scoreboard mode shows big live scores and taps back', (
+    tester,
+  ) async {
     await pumpToGame(tester);
     await tester.tap(find.text('5'));
     await tester.pump();

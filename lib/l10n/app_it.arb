@@ -107,5 +107,21 @@
   "themeDark": "Scuro",
   "delete": "Elimina",
   "clearHistory": "Cancella cronologia",
-  "clearHistoryConfirmBody": "Tutte le partite e le statistiche saranno eliminate."
+  "clearHistoryConfirmBody": "Tutte le partite e le statistiche saranno eliminate.",
+  "modeNumber": "Kubb numerato",
+  "modeKubb": "Kubb",
+  "matchLabel": "Match",
+  "bestOfSingle": "Partita secca",
+  "bestOfThree": "Al meglio di 3",
+  "turnClockLabel": "Timer del turno",
+  "offLabel": "Spento",
+  "kingLabel": "Il re",
+  "kingWarningTitle": "Abbattere il re?",
+  "kingWarningBody": "Non è ancora caduto tutto — colpire il re ora fa perdere la partita.",
+  "advantageLine": "Linea di vantaggio",
+  "throwInTitle": "Lancia i kubb abbattuti nella metà dell’attaccante",
+  "outTwice": "Fuori due volte",
+  "done": "Fatto",
+  "nextGameLabel": "Prossima partita",
+  "earlyKingBanner": "{name} ha abbattuto il re troppo presto!"
 }

@@ -5,11 +5,14 @@ import 'package:ikubb/app.dart';
 import 'package:ikubb/features/game/mascot_reaction.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'test_utils.dart';
+
 void main() {
   setUp(() => SharedPreferences.setMockInitialValues({}));
 
-  testWidgets('an overshoot triggers a brief, self-dismissing mascot wince',
-      (tester) async {
+  testWidgets('an overshoot triggers a brief, self-dismissing mascot wince', (
+    tester,
+  ) async {
     await tester.pumpWidget(const ProviderScope(child: IKubbApp()));
     await tester.pumpAndSettle();
     await tester.tap(find.text('I know the rules — start scoring'));
@@ -19,12 +22,12 @@ void main() {
       await tester.tap(find.text('Add player'));
       await tester.pumpAndSettle();
     }
-    await tester.tap(find.text('House rules'));
+    await tester.tapVisible(find.text('House rules'));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('Custom'));
+    await tester.tapVisible(find.text('Custom'));
     await tester.pumpAndSettle();
     await tester.enterText(find.widgetWithText(TextFormField, 'Custom'), '12');
-    await tester.tap(find.text('Start game'));
+    await tester.tapVisible(find.text('Start game'));
     await tester.pumpAndSettle();
 
     // Anna 10, Björn 1, then Anna busts with a 3-pin throw (13 > 12).

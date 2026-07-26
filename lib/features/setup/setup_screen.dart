@@ -7,6 +7,8 @@ import '../../l10n/app_localizations.dart';
 import '../../widgets/home_leading.dart';
 import '../../theme/palette.dart';
 import '../game/game_controller.dart';
+import '../game/game_mode.dart';
+import '../kubb/kubb_controller.dart';
 import '../rules/rules_view.dart';
 import 'player.dart';
 import 'setup_controller.dart';
@@ -25,10 +27,13 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
 
   Future<void> _start() async {
     final l10n = AppLocalizations.of(context)!;
-    // Starting replaces the running game — warn first (same consent flow
-    // as the in-game new-game action).
+    // Starting replaces the running game (either mode) — warn first.
     final active = ref.read(gameControllerProvider);
-    if (active.throws.isNotEmpty && active.winner == null) {
+    final activeKubb = ref.read(kubbControllerProvider);
+    final running =
+        (active.throws.isNotEmpty && active.winner == null) ||
+        (activeKubb.hasEvents && !activeKubb.isFinished);
+    if (running) {
       final confirmed = await showAdaptiveDialog<bool>(
         context: context,
         builder: (context) => AlertDialog.adaptive(
@@ -65,10 +70,17 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
                 }
               : {for (final p in setup.players) p.id: p.colorIndex},
         );
-    ref
-        .read(gameControllerProvider.notifier)
-        .newGame(sides: sides, rules: setup.rules);
-    context.go('/game');
+    if (setup.mode == GameMode.classicKubb) {
+      ref
+          .read(kubbControllerProvider.notifier)
+          .newMatch(sides: sides, rules: setup.kubbRules);
+      context.go('/kubb');
+    } else {
+      ref
+          .read(gameControllerProvider.notifier)
+          .newGame(sides: sides, rules: setup.rules);
+      context.go('/game');
+    }
   }
 
   @override
@@ -105,6 +117,27 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
                   child: ListView(
                     padding: const EdgeInsets.all(16),
                     children: [
+                      // The mode decides everything below (audience,
+                      // teams, rules) — so it comes first.
+                      Center(
+                        child: SegmentedButton<GameMode>(
+                          showSelectedIcon: false,
+                          segments: [
+                            ButtonSegment(
+                              value: GameMode.numberKubb,
+                              label: Text(l10n.modeNumber),
+                            ),
+                            ButtonSegment(
+                              value: GameMode.classicKubb,
+                              label: Text(l10n.modeKubb),
+                            ),
+                          ],
+                          selected: {setup.mode},
+                          onSelectionChanged: (s) =>
+                              controller.setMode(s.first),
+                        ),
+                      ),
+                      const SizedBox(height: 12),
                       if (unselectedRecents.isNotEmpty) ...[
                         _SectionHeader(l10n.recentPlayers),
                         Wrap(
@@ -157,12 +190,18 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
                         onAdd: controller.addPlayer,
                       ),
                       const SizedBox(height: 8),
-                      SwitchListTile.adaptive(
-                        contentPadding: EdgeInsets.zero,
-                        title: _SectionHeader(l10n.teams),
-                        value: setup.teamMode,
-                        onChanged: controller.setTeamMode,
-                      ),
+                      if (setup.mode == GameMode.numberKubb)
+                        SwitchListTile.adaptive(
+                          contentPadding: EdgeInsets.zero,
+                          title: _SectionHeader(l10n.teams),
+                          value: setup.teamMode,
+                          onChanged: controller.setTeamMode,
+                        )
+                      else
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          child: _SectionHeader(l10n.teams),
+                        ),
                       if (setup.teamMode) ...[
                         Row(
                           children: [
@@ -195,13 +234,16 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
                         ),
                       ],
                       const SizedBox(height: 8),
-                      _HouseRules(
-                        setup: setup,
-                        controller: controller,
-                        customTarget: _customTarget,
-                        onCustomTargetChanged: (v) =>
-                            setState(() => _customTarget = v),
-                      ),
+                      if (setup.mode == GameMode.numberKubb)
+                        _HouseRules(
+                          setup: setup,
+                          controller: controller,
+                          customTarget: _customTarget,
+                          onCustomTargetChanged: (v) =>
+                              setState(() => _customTarget = v),
+                        )
+                      else
+                        _KubbOptions(setup: setup, controller: controller),
                     ],
                   ),
                 ),
@@ -526,4 +568,48 @@ class _RuleLabel extends StatelessWidget {
       child: Text(text, style: Theme.of(context).textTheme.titleSmall),
     ),
   );
+}
+
+/// Classic-kubb match options: length and the advisory turn clock.
+class _KubbOptions extends StatelessWidget {
+  const _KubbOptions({required this.setup, required this.controller});
+
+  final SetupState setup;
+  final SetupController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _SectionHeader(l10n.matchLabel),
+        const SizedBox(height: 8),
+        SegmentedButton<int>(
+          showSelectedIcon: false,
+          segments: [
+            ButtonSegment(value: 1, label: Text(l10n.bestOfSingle)),
+            ButtonSegment(value: 3, label: Text(l10n.bestOfThree)),
+          ],
+          selected: {setup.kubbBestOf},
+          onSelectionChanged: (s) => controller.setKubbBestOf(s.first),
+        ),
+        const SizedBox(height: 16),
+        _SectionHeader(l10n.turnClockLabel),
+        const SizedBox(height: 8),
+        SegmentedButton<int>(
+          showSelectedIcon: false,
+          segments: [
+            ButtonSegment(value: 0, label: Text(l10n.offLabel)),
+            const ButtonSegment(value: 30, label: Text('30s')),
+            const ButtonSegment(value: 60, label: Text('60s')),
+          ],
+          selected: {setup.kubbClockSeconds ?? 0},
+          onSelectionChanged: (s) =>
+              controller.setKubbClock(s.first == 0 ? null : s.first),
+        ),
+        const SizedBox(height: 8),
+      ],
+    );
+  }
 }

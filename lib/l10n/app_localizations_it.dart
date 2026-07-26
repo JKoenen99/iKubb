@@ -354,4 +354,56 @@ class AppLocalizationsIt extends AppLocalizations {
   @override
   String get clearHistoryConfirmBody =>
       'Tutte le partite e le statistiche saranno eliminate.';
+
+  @override
+  String get modeNumber => 'Kubb numerato';
+
+  @override
+  String get modeKubb => 'Kubb';
+
+  @override
+  String get matchLabel => 'Match';
+
+  @override
+  String get bestOfSingle => 'Partita secca';
+
+  @override
+  String get bestOfThree => 'Al meglio di 3';
+
+  @override
+  String get turnClockLabel => 'Timer del turno';
+
+  @override
+  String get offLabel => 'Spento';
+
+  @override
+  String get kingLabel => 'Il re';
+
+  @override
+  String get kingWarningTitle => 'Abbattere il re?';
+
+  @override
+  String get kingWarningBody =>
+      'Non è ancora caduto tutto — colpire il re ora fa perdere la partita.';
+
+  @override
+  String get advantageLine => 'Linea di vantaggio';
+
+  @override
+  String get throwInTitle =>
+      'Lancia i kubb abbattuti nella metà dell’attaccante';
+
+  @override
+  String get outTwice => 'Fuori due volte';
+
+  @override
+  String get done => 'Fatto';
+
+  @override
+  String get nextGameLabel => 'Prossima partita';
+
+  @override
+  String earlyKingBanner(String name) {
+    return '$name ha abbattuto il re troppo presto!';
+  }
 }

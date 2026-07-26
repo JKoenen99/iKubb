@@ -107,5 +107,21 @@
   "themeDark": "Mörkt",
   "delete": "Radera",
   "clearHistory": "Rensa historik",
-  "clearHistoryConfirmBody": "Alla matcher och all statistik raderas."
+  "clearHistoryConfirmBody": "Alla matcher och all statistik raderas.",
+  "modeNumber": "Nummerkubb",
+  "modeKubb": "Kubb",
+  "matchLabel": "Match",
+  "bestOfSingle": "Ett parti",
+  "bestOfThree": "Bäst av 3",
+  "turnClockLabel": "Kastklocka",
+  "offLabel": "Av",
+  "kingLabel": "Kungen",
+  "kingWarningTitle": "Fälla kungen?",
+  "kingWarningBody": "Allt är inte nere än — att träffa kungen nu förlorar partiet.",
+  "advantageLine": "Fördelslinje",
+  "throwInTitle": "Kasta in de fällda kubbarna i anfallarens halva",
+  "outTwice": "Ut två gånger",
+  "done": "Klar",
+  "nextGameLabel": "Nästa parti",
+  "earlyKingBanner": "{name} fällde kungen för tidigt!"
 }

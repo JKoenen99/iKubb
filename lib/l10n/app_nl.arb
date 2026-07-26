@@ -107,5 +107,21 @@
   "themeDark": "Donker",
   "delete": "Verwijderen",
   "clearHistory": "Geschiedenis wissen",
-  "clearHistoryConfirmBody": "Alle partijen en statistieken worden verwijderd."
+  "clearHistoryConfirmBody": "Alle partijen en statistieken worden verwijderd.",
+  "modeNumber": "Nummerkubb",
+  "modeKubb": "Kubb",
+  "matchLabel": "Match",
+  "bestOfSingle": "Eén partij",
+  "bestOfThree": "Best of 3",
+  "turnClockLabel": "Beurtklok",
+  "offLabel": "Uit",
+  "kingLabel": "Koning",
+  "kingWarningTitle": "Koning omgooien?",
+  "kingWarningBody": "Nog niet alles ligt om — de koning nu raken verliest de partij.",
+  "advantageLine": "Voordeellijn",
+  "throwInTitle": "Gooi de gevelde kubbs in de helft van de aanvaller",
+  "outTwice": "Twee keer uit",
+  "done": "Klaar",
+  "nextGameLabel": "Volgende partij",
+  "earlyKingBanner": "{name} gooide de koning te vroeg om!"
 }

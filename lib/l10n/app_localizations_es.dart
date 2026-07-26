@@ -354,4 +354,56 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get clearHistoryConfirmBody =>
       'Se eliminarán todas las partidas y estadísticas.';
+
+  @override
+  String get modeNumber => 'Kubb numérico';
+
+  @override
+  String get modeKubb => 'Kubb';
+
+  @override
+  String get matchLabel => 'Partido';
+
+  @override
+  String get bestOfSingle => 'Una partida';
+
+  @override
+  String get bestOfThree => 'Al mejor de 3';
+
+  @override
+  String get turnClockLabel => 'Reloj de turno';
+
+  @override
+  String get offLabel => 'Apagado';
+
+  @override
+  String get kingLabel => 'El rey';
+
+  @override
+  String get kingWarningTitle => '¿Derribar el rey?';
+
+  @override
+  String get kingWarningBody =>
+      'Aún no ha caído todo — golpear el rey ahora pierde la partida.';
+
+  @override
+  String get advantageLine => 'Línea de ventaja';
+
+  @override
+  String get throwInTitle =>
+      'Lanza los kubbs derribados a la mitad del atacante';
+
+  @override
+  String get outTwice => 'Dos veces fuera';
+
+  @override
+  String get done => 'Hecho';
+
+  @override
+  String get nextGameLabel => 'Siguiente partida';
+
+  @override
+  String earlyKingBanner(String name) {
+    return '¡$name derribó el rey demasiado pronto!';
+  }
 }

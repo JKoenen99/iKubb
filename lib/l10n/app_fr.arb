@@ -107,5 +107,21 @@
   "themeDark": "Sombre",
   "delete": "Supprimer",
   "clearHistory": "Effacer l’historique",
-  "clearHistoryConfirmBody": "Toutes les parties et statistiques seront supprimées."
+  "clearHistoryConfirmBody": "Toutes les parties et statistiques seront supprimées.",
+  "modeNumber": "Kubb à numéros",
+  "modeKubb": "Kubb",
+  "matchLabel": "Match",
+  "bestOfSingle": "Une manche",
+  "bestOfThree": "Au meilleur des 3",
+  "turnClockLabel": "Horloge de tour",
+  "offLabel": "Désactivée",
+  "kingLabel": "Le roi",
+  "kingWarningTitle": "Renverser le roi ?",
+  "kingWarningBody": "Tout n'est pas encore tombé — toucher le roi maintenant fait perdre la manche.",
+  "advantageLine": "Ligne d'avantage",
+  "throwInTitle": "Lancez les kubbs abattus dans la moitié de l'attaquant",
+  "outTwice": "Deux fois dehors",
+  "done": "Terminé",
+  "nextGameLabel": "Manche suivante",
+  "earlyKingBanner": "{name} a renversé le roi trop tôt !"
 }

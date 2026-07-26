@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:scoring_engine/scoring_engine.dart';
 
 import '../stats/game_records_repository.dart';
+import 'game_mode.dart';
 import 'live_score/live_score.dart';
 
 /// Side id → palette color index for the active game, set at game start
@@ -29,9 +30,9 @@ class GameController extends Notifier<Game> {
   @override
   Game build() {
     final restored = ref.read(restoredGameProvider);
-    if (restored != null) {
-      _gameId = restored.id;
-      return restored.game;
+    if (restored?.molkky != null) {
+      _gameId = restored!.id;
+      return restored.molkky!;
     }
     _gameId = _newId();
     return Game.start(
@@ -71,13 +72,16 @@ class GameController extends Notifier<Game> {
 
   /// Fire and forget: persistence must never delay the next throw.
   void _persist() {
+    ref.read(lastModeProvider.notifier).set(GameMode.numberKubb);
     liveScore.sync(state);
     final repo = ref.read(gameRecordsRepositoryProvider);
-    repo.saveActive((
-      id: _gameId,
-      game: state,
-      sideColors: ref.read(sideColorsProvider),
-    ));
+    repo.saveActive(
+      ActiveRecord(
+        id: _gameId,
+        molkky: state,
+        sideColors: ref.read(sideColorsProvider),
+      ),
+    );
     if (state.winner != null) {
       repo.recordFinished(
         FinishedGame(id: _gameId, finishedAt: DateTime.now(), game: state),

@@ -107,5 +107,21 @@
   "themeDark": "Tumma",
   "delete": "Poista",
   "clearHistory": "Tyhjennä historia",
-  "clearHistoryConfirmBody": "Kaikki pelit ja tilastot poistetaan."
+  "clearHistoryConfirmBody": "Kaikki pelit ja tilastot poistetaan.",
+  "modeNumber": "Numerokubb",
+  "modeKubb": "Kubb",
+  "matchLabel": "Ottelu",
+  "bestOfSingle": "Yksi peli",
+  "bestOfThree": "Paras kolmesta",
+  "turnClockLabel": "Heittokello",
+  "offLabel": "Pois",
+  "kingLabel": "Kuningas",
+  "kingWarningTitle": "Kaadetaanko kuningas?",
+  "kingWarningBody": "Kaikki ei ole vielä nurin — kuninkaan osuminen nyt häviää pelin.",
+  "advantageLine": "Etulinja",
+  "throwInTitle": "Heitä kaadetut kubbit hyökkääjän kenttäpuoliskolle",
+  "outTwice": "Kahdesti ulkona",
+  "done": "Valmis",
+  "nextGameLabel": "Seuraava peli",
+  "earlyKingBanner": "{name} kaatoi kuninkaan liian aikaisin!"
 }

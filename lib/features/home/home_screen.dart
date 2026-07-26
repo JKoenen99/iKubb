@@ -7,6 +7,8 @@ import '../../theme/palette.dart';
 import '../../widgets/viking_mascot.dart';
 import '../../widgets/wood_grain.dart';
 import '../game/game_controller.dart';
+import '../game/game_mode.dart';
+import '../kubb/kubb_controller.dart';
 
 /// Landing screen after onboarding: quick start front and center.
 class HomeScreen extends ConsumerWidget {
@@ -16,7 +18,23 @@ class HomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
     final game = ref.watch(gameControllerProvider);
-    final resumable = game.throws.isNotEmpty && game.winner == null;
+    final match = ref.watch(kubbControllerProvider);
+    final mode = ref.watch(lastModeProvider);
+    // One active game across both modes: the last-played mode owns Home's
+    // primary action.
+    final kubbResumable =
+        mode == GameMode.classicKubb && match.hasEvents && !match.isFinished;
+    final resumable =
+        kubbResumable ||
+        (mode == GameMode.numberKubb &&
+            game.throws.isNotEmpty &&
+            game.winner == null);
+    final resumeRoute = kubbResumable ? '/kubb' : '/game';
+    final resumeSummary = kubbResumable
+        ? match.sides.indexed
+              .map((e) => '${e.$2.name} ${match.currentGame.baseline[e.$1]}')
+              .join(' · ')
+        : game.sideStates.map((s) => '${s.side.name} ${s.score}').join(' · ');
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
@@ -58,18 +76,19 @@ class HomeScreen extends ConsumerWidget {
                       // action: resuming beats restarting (SPEC.md §3.5).
                       if (resumable)
                         FilledButton.icon(
-                          onPressed: () => context.go('/game'),
+                          onPressed: () => context.go(resumeRoute),
                           icon: const Icon(Icons.play_arrow),
                           label: Text(
-                            '${l10n.resumeGame} — '
-                            '${game.sideStates.map((s) => '${s.side.name} ${s.score}').join(' · ')}',
+                            '${l10n.resumeGame} — $resumeSummary',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
                         )
                       else
                         FilledButton(
-                          onPressed: () => context.go('/game'),
+                          onPressed: () => context.go(
+                            mode == GameMode.classicKubb ? '/kubb' : '/game',
+                          ),
                           child: Text(l10n.quickStart),
                         ),
                       const SizedBox(height: 12),

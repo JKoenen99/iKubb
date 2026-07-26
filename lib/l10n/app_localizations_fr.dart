@@ -354,4 +354,56 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get clearHistoryConfirmBody =>
       'Toutes les parties et statistiques seront supprimées.';
+
+  @override
+  String get modeNumber => 'Kubb à numéros';
+
+  @override
+  String get modeKubb => 'Kubb';
+
+  @override
+  String get matchLabel => 'Match';
+
+  @override
+  String get bestOfSingle => 'Une manche';
+
+  @override
+  String get bestOfThree => 'Au meilleur des 3';
+
+  @override
+  String get turnClockLabel => 'Horloge de tour';
+
+  @override
+  String get offLabel => 'Désactivée';
+
+  @override
+  String get kingLabel => 'Le roi';
+
+  @override
+  String get kingWarningTitle => 'Renverser le roi ?';
+
+  @override
+  String get kingWarningBody =>
+      'Tout n\'est pas encore tombé — toucher le roi maintenant fait perdre la manche.';
+
+  @override
+  String get advantageLine => 'Ligne d\'avantage';
+
+  @override
+  String get throwInTitle =>
+      'Lancez les kubbs abattus dans la moitié de l\'attaquant';
+
+  @override
+  String get outTwice => 'Deux fois dehors';
+
+  @override
+  String get done => 'Terminé';
+
+  @override
+  String get nextGameLabel => 'Manche suivante';
+
+  @override
+  String earlyKingBanner(String name) {
+    return '$name a renversé le roi trop tôt !';
+  }
 }

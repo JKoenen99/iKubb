@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'features/game/game_screen.dart';
 import 'features/game/scoreboard_screen.dart';
 import 'features/home/home_screen.dart';
+import 'features/kubb/kubb_screen.dart';
 import 'features/onboarding/onboarding_screen.dart';
 import 'features/onboarding/onboarding_state.dart';
 import 'features/onboarding/tour_screen.dart';
@@ -31,6 +32,7 @@ final routerProvider = Provider<GoRouter>(
       GoRoute(path: '/tour', builder: (context, state) => const TourScreen()),
       GoRoute(path: '/setup', builder: (context, state) => const SetupScreen()),
       GoRoute(path: '/game', builder: (context, state) => const GameScreen()),
+      GoRoute(path: '/kubb', builder: (context, state) => const KubbScreen()),
       GoRoute(
         path: '/scoreboard',
         builder: (context, state) => const ScoreboardScreen(),

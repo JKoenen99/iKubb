@@ -43,20 +43,24 @@ void main() {
     expect(find.text('Start game'), findsOneWidget); // landed in setup
   });
 
-  testWidgets('skip is available on every card and exits to setup',
-      (tester) async {
+  testWidgets('skip is available on every card and exits to setup', (
+    tester,
+  ) async {
     await pumpToTour(tester);
     await tester.tap(find.text('Skip'));
     await tester.pumpAndSettle();
     expect(find.text('Start game'), findsOneWidget);
   });
 
-  testWidgets('after onboarding was seen the app opens on Home',
-      (tester) async {
-    await tester.pumpWidget(ProviderScope(
-      overrides: [onboardingSeenProvider.overrideWithValue(true)],
-      child: const IKubbApp(),
-    ));
+  testWidgets('after onboarding was seen the app opens on Home', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [onboardingSeenProvider.overrideWithValue(true)],
+        child: const IKubbApp(),
+      ),
+    );
     await tester.pumpAndSettle();
     expect(find.text('Quick start'), findsOneWidget);
     expect(find.text('Teach me the game'), findsNothing);
