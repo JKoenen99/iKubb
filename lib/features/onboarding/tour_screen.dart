@@ -250,11 +250,17 @@ class _ModeOption extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
-    return Material(
-      color: selected
-          ? scheme.primaryContainer
-          : scheme.surfaceContainerHighest,
-      borderRadius: BorderRadius.circular(16),
+    // Selection by border, not fill: the custom scheme has no
+    // primaryContainer pair, and a border keeps AA contrast in both themes.
+    return Container(
+      decoration: BoxDecoration(
+        color: scheme.surfaceContainerHighest,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: selected ? scheme.primary : Colors.transparent,
+          width: 3,
+        ),
+      ),
       child: InkWell(
         borderRadius: BorderRadius.circular(16),
         onTap: onTap,
