@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../theme/palette.dart';
 import '../../theme/typography.dart';
 import '../game/pin_diagram.dart';
+import '../kubb/kubb_field.dart';
 import '../setup/player.dart' show playerColors;
 
 /// One small, text-free illustration per rule card — the visual carries
@@ -21,6 +22,17 @@ Widget? ruleIllustration(String ruleId) => switch (ruleId) {
   'exact' => const _ExactTarget(),
   'lastStanding' => const _LastStanding(),
   'teams' => const _TeamClusters(),
+  // Classic kubb — drawn with the same wooden blocks as the /kubb field.
+  'kubbField' => const KubbFieldSchematic(),
+  'kubbTeams' => const _TeamClusters(),
+  'kubbBatons' => const _BatonRow(),
+  'kubbThrowIn' => const _ThrowInArc(),
+  'kubbFieldFirst' => const _FieldFirstOrder(),
+  'kubbPenalty' => const _PenaltyKubb(),
+  'kubbAdvantage' => const _AdvantageIllustration(),
+  'kubbKing' => const _KingWins(),
+  'kubbEarlyKing' => const _EarlyKingLoses(),
+  'kubbMatch' => const _MatchDots(),
   _ => null,
 };
 
@@ -373,6 +385,221 @@ class _LastStanding extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+/// The kubb field in miniature: two baselines of five, the king alone in
+/// the middle. Public: the tour's kubb branch opens with it at full size.
+class KubbFieldSchematic extends StatelessWidget {
+  const KubbFieldSchematic({super.key, this.scale = 1});
+
+  final double scale;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        KubbBlockRow(
+          standing: 5,
+          felled: 0,
+          blockWidth: 16 * scale,
+          blockHeight: 22 * scale,
+        ),
+        SizedBox(height: 14 * scale),
+        const KubbKing(),
+        SizedBox(height: 14 * scale),
+        KubbBlockRow(
+          standing: 5,
+          felled: 0,
+          blockWidth: 16 * scale,
+          blockHeight: 22 * scale,
+        ),
+      ],
+    );
+  }
+}
+
+/// The six batons of a turn.
+class _BatonRow extends StatelessWidget {
+  const _BatonRow();
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        for (var i = 0; i < 6; i++)
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5),
+            child: Transform.rotate(
+              angle: 0.35,
+              child: Container(
+                width: 7,
+                height: 34,
+                decoration: BoxDecoration(
+                  color: IKubbPalette.walnut,
+                  borderRadius: BorderRadius.circular(4),
+                ),
+              ),
+            ),
+          ),
+      ],
+    );
+  }
+}
+
+/// A felled kubb arcs back into the other half and stands up again.
+class _ThrowInArc extends StatelessWidget {
+  const _ThrowInArc();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        KubbBlock(felled: true),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10),
+          child: Icon(Icons.redo, size: 28, color: IKubbPalette.pine),
+        ),
+        KubbBlock(),
+      ],
+    );
+  }
+}
+
+/// Field kubbs are target number one, the baseline number two.
+class _FieldFirstOrder extends StatelessWidget {
+  const _FieldFirstOrder();
+
+  @override
+  Widget build(BuildContext context) {
+    Widget numbered(Widget block, String label) => Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [block, const SizedBox(height: 4), _ScoreChip(label)],
+    );
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        numbered(const KubbBlock(width: 22, height: 30), '1'),
+        const Padding(
+          padding: EdgeInsets.only(bottom: 26, left: 8, right: 8),
+          child: Icon(
+            Icons.arrow_forward,
+            size: 20,
+            color: IKubbPalette.walnut,
+          ),
+        ),
+        numbered(const KubbBlock(), '2'),
+      ],
+    );
+  }
+}
+
+/// Thrown out twice: the kubb becomes a penalty placement.
+class _PenaltyKubb extends StatelessWidget {
+  const _PenaltyKubb();
+
+  @override
+  Widget build(BuildContext context) {
+    final danger = IKubbPalette.danger(Theme.of(context).brightness);
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const KubbBlock(felled: true),
+        const SizedBox(width: 10),
+        Icon(Icons.cancel, size: 24, color: danger),
+        Icon(Icons.cancel, size: 24, color: danger),
+        const SizedBox(width: 10),
+        const Icon(Icons.arrow_forward, size: 20, color: IKubbPalette.walnut),
+        const SizedBox(width: 10),
+        const KubbBlock(),
+        const KubbKing(),
+      ],
+    );
+  }
+}
+
+/// A field kubb ahead of the baseline marks the new throwing line.
+class _AdvantageIllustration extends StatelessWidget {
+  const _AdvantageIllustration();
+
+  @override
+  Widget build(BuildContext context) {
+    return const SizedBox(
+      width: 190,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          KubbBlock(),
+          SizedBox(height: 4),
+          AdvantageLine(label: '→'),
+        ],
+      ),
+    );
+  }
+}
+
+/// A rightful king throw wins.
+class _KingWins extends StatelessWidget {
+  const _KingWins();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        KubbKing(),
+        SizedBox(width: 12),
+        Icon(Icons.emoji_events, size: 30, color: IKubbPalette.oak),
+      ],
+    );
+  }
+}
+
+/// The king down too soon: instant loss.
+class _EarlyKingLoses extends StatelessWidget {
+  const _EarlyKingLoses();
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Transform.rotate(angle: 0.9, child: const KubbKing()),
+        const SizedBox(width: 12),
+        Icon(
+          Icons.cancel,
+          size: 28,
+          color: IKubbPalette.danger(Theme.of(context).brightness),
+        ),
+      ],
+    );
+  }
+}
+
+/// Best-of-three match dots: two games taken, one to spare.
+class _MatchDots extends StatelessWidget {
+  const _MatchDots();
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        for (var i = 0; i < 3; i++)
+          Padding(
+            padding: const EdgeInsets.all(4),
+            child: Icon(
+              i < 2 ? Icons.circle : Icons.circle_outlined,
+              size: 20,
+              color: IKubbPalette.amber,
+            ),
+          ),
+      ],
     );
   }
 }

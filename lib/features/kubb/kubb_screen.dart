@@ -14,6 +14,8 @@ import '../../widgets/home_leading.dart';
 import '../../widgets/viking_mascot.dart';
 import '../../widgets/wood_grain.dart';
 import '../game/game_controller.dart' show sideColorsProvider;
+import '../game/game_mode.dart';
+import '../rules/rules_content.dart';
 import '../rules/rules_view.dart';
 import '../settings/settings_controller.dart';
 import '../setup/player.dart' show playerColors;
@@ -145,7 +147,8 @@ class _KubbScreenState extends ConsumerState<KubbScreen> {
         actions: [
           IconButton(
             tooltip: l10n.rules,
-            onPressed: () => showRulesPanel(context),
+            onPressed: () =>
+                showRulesPanel(context, mode: GameMode.classicKubb),
             icon: const Icon(Icons.help_outline),
           ),
           IconButton(
@@ -279,7 +282,15 @@ class _KubbScreenState extends ConsumerState<KubbScreen> {
           KubbKing(onTap: () => _tapKing(game)),
           const SizedBox(height: 16),
           if (game.advantageActive) ...[
-            AdvantageLine(label: l10n.advantageLine),
+            // The chip doubles as a deep link into the advantage rule.
+            GestureDetector(
+              onTap: () => showRulesPanel(
+                context,
+                mode: GameMode.classicKubb,
+                categoryId: KubbRuleCategoryIds.advantage,
+              ),
+              child: AdvantageLine(label: l10n.advantageLine),
+            ),
             const SizedBox(height: 8),
           ],
           if (game.field[game.attackerIndex] > 0)

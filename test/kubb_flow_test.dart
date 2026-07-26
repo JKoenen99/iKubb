@@ -101,6 +101,25 @@ void main() {
     expect(find.text('Team B wins!'), findsOneWidget);
   });
 
+  testWidgets('the rules panel opens on kubb rules and can switch modes', (
+    tester,
+  ) async {
+    await pumpToKubb(tester);
+
+    await tester.tap(find.byIcon(Icons.help_outline));
+    await tester.pumpAndSettle();
+
+    // Kubb categories with the active match rules as chips.
+    expect(find.text('Field kubbs'), findsOneWidget);
+    expect(find.text('Single game'), findsOneWidget);
+
+    // One tap switches the reference to the other game.
+    await tester.tap(find.text('Number kubb'));
+    await tester.pumpAndSettle();
+    expect(find.text('Scoring'), findsOneWidget);
+    expect(find.text('Field kubbs'), findsNothing);
+  });
+
   testWidgets('a running kubb match resumes from Home as the primary action', (
     tester,
   ) async {

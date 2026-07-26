@@ -406,4 +406,117 @@ class AppLocalizationsFr extends AppLocalizations {
   String earlyKingBanner(String name) {
     return '$name a renversé le roi trop tôt !';
   }
+
+  @override
+  String get catKubbSetup => 'Mise en place & équipes';
+
+  @override
+  String get catKubbBatons => 'Bâtons de lancer';
+
+  @override
+  String get catKubbFieldKubbs => 'Kubbs de terrain';
+
+  @override
+  String get catKubbKing => 'Le roi';
+
+  @override
+  String get ruleKubbFieldTitle => 'Le terrain';
+
+  @override
+  String get ruleKubbFieldBody =>
+      'Deux équipes se font face sur le terrain. Chacune aligne cinq kubbs sur sa ligne de fond ; le roi trône seul au centre.';
+
+  @override
+  String get ruleKubbFieldDetail =>
+      'Les terrains de tournoi mesurent 5 × 8 mètres. Au parc, deux vestes et un bon œil suffisent — gardez simplement des moitiés à peu près égales.';
+
+  @override
+  String get ruleKubbTeamsTitle => 'De un à six par équipe';
+
+  @override
+  String get ruleKubbTeamsBody =>
+      'Le kubb est un jeu d\'équipe : de un à six joueurs par camp. Les coéquipiers se partagent les six bâtons et lancent à tour de rôle.';
+
+  @override
+  String get ruleKubbBatonsTitle => 'Six bâtons par tour';
+
+  @override
+  String get ruleKubbBatonsBody =>
+      'L\'équipe attaquante lance six bâtons sur les kubbs adverses — par en dessous, en rotation verticale.';
+
+  @override
+  String get ruleKubbBatonsDetail =>
+      'Pas de lancer hélicoptère : le bâton doit tourner verticalement, jamais de côté. Les kubbs tombés restent au sol jusqu\'à la fin du tour.';
+
+  @override
+  String get ruleKubbThrowInTitle => 'Les kubbs tombés reviennent';
+
+  @override
+  String get ruleKubbThrowInBody =>
+      'Après les bâtons, les défenseurs lancent chaque kubb tombé dans la moitié des attaquants. Là où il atterrit, le kubb est redressé en kubb de terrain.';
+
+  @override
+  String get ruleKubbThrowInDetail =>
+      'Les défenseurs choisissent où viser — des kubbs regroupés sont bien plus faciles à abattre d\'un seul bâton.';
+
+  @override
+  String get ruleKubbFieldFirstTitle => 'Les kubbs de terrain d\'abord';
+
+  @override
+  String get ruleKubbFieldFirstBody =>
+      'Les attaquants doivent abattre tous les kubbs de terrain debout avant de pouvoir toucher un kubb de fond. Un kubb de fond tombé trop tôt est redressé.';
+
+  @override
+  String get ruleKubbPenaltyTitle => 'Deux fois dehors = pénalité';
+
+  @override
+  String get ruleKubbPenaltyBody =>
+      'Un kubb lancé deux fois hors du terrain devient un kubb de pénalité : l\'autre équipe le place où elle veut dans sa moitié — même juste à côté du roi.';
+
+  @override
+  String get ruleKubbAdvantageTitle => 'La ligne d\'avantage';
+
+  @override
+  String get ruleKubbAdvantageBody =>
+      'Si vos adversaires laissent des kubbs de terrain debout dans votre moitié, votre équipe peut lancer depuis le kubb le plus proche du roi.';
+
+  @override
+  String get ruleKubbKingTitle => 'Le roi décide';
+
+  @override
+  String get ruleKubbKingBody =>
+      'Ce n\'est que lorsque tous les kubbs de la moitié adverse sont tombés que vous pouvez viser le roi. Renversez-le, et la partie est à vous.';
+
+  @override
+  String get ruleKubbEarlyKingTitle => 'Jamais trop tôt';
+
+  @override
+  String get ruleKubbEarlyKingBody =>
+      'Renversez le roi avant que tout le reste ne soit tombé — même par accident — et votre équipe perd la partie sur-le-champ.';
+
+  @override
+  String get ruleKubbMatchTitle => 'Au meilleur des trois';
+
+  @override
+  String get ruleKubbMatchBody =>
+      'En tournoi, un match se joue au meilleur des trois manches. Les équipes alternent l\'entame de chaque manche.';
+
+  @override
+  String get ruleKubbMatchDetail =>
+      'Avec l\'horloge de tour activée, l\'équipe dispose d\'un temps fixe pour ses six bâtons. C\'est un repère — l\'appli ne bloque jamais un lancer.';
+
+  @override
+  String get tourModePickTitle => 'À quel jeu jouez-vous ?';
+
+  @override
+  String get tourModePickBody =>
+      'Les deux sont dans cette appli. Choisissez-en un à apprendre — vous pourrez changer à tout moment.';
+
+  @override
+  String get tourModeNumberDesc =>
+      'Douze quilles numérotées. Premier à 50 pile.';
+
+  @override
+  String get tourModeKubbDesc =>
+      'Deux équipes, cinq kubbs chacune — et le roi.';
 }

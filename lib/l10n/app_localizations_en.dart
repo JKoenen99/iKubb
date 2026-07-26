@@ -404,4 +404,115 @@ class AppLocalizationsEn extends AppLocalizations {
   String earlyKingBanner(String name) {
     return '$name toppled the king too early!';
   }
+
+  @override
+  String get catKubbSetup => 'Setup & teams';
+
+  @override
+  String get catKubbBatons => 'Throwing batons';
+
+  @override
+  String get catKubbFieldKubbs => 'Field kubbs';
+
+  @override
+  String get catKubbKing => 'The king';
+
+  @override
+  String get ruleKubbFieldTitle => 'The field';
+
+  @override
+  String get ruleKubbFieldBody =>
+      'Two teams face each other across the field. Each lines up five kubbs on its baseline, and the king stands alone in the middle.';
+
+  @override
+  String get ruleKubbFieldDetail =>
+      'Tournament fields measure 5 × 8 metres. In the park, two jackets and a good guess work fine — just keep the halves roughly equal.';
+
+  @override
+  String get ruleKubbTeamsTitle => 'One to six a side';
+
+  @override
+  String get ruleKubbTeamsBody =>
+      'Kubb is a team game: one to six players per side. Teammates share the six batons and take turns throwing.';
+
+  @override
+  String get ruleKubbBatonsTitle => 'Six batons per turn';
+
+  @override
+  String get ruleKubbBatonsBody =>
+      'The attacking team throws six batons at the other team\'s kubbs — underhand, spinning end over end.';
+
+  @override
+  String get ruleKubbBatonsDetail =>
+      'No helicopter throws: the baton must spin vertically, never sideways. Kubbs felled by the batons stay down until the turn ends.';
+
+  @override
+  String get ruleKubbThrowInTitle => 'Felled kubbs come back';
+
+  @override
+  String get ruleKubbThrowInBody =>
+      'After the batons, the defenders throw every felled kubb into the attackers\' half. Where a kubb lands, it is stood up as a field kubb.';
+
+  @override
+  String get ruleKubbThrowInDetail =>
+      'The defenders choose where to aim — kubbs standing close together are far easier to clear with one baton.';
+
+  @override
+  String get ruleKubbFieldFirstTitle => 'Field kubbs first';
+
+  @override
+  String get ruleKubbFieldFirstBody =>
+      'Attackers must fell every standing field kubb before any baseline kubb may be hit. A baseline kubb felled too early is raised again.';
+
+  @override
+  String get ruleKubbPenaltyTitle => 'Out twice = penalty';
+
+  @override
+  String get ruleKubbPenaltyBody =>
+      'A kubb thrown out of bounds twice becomes a penalty kubb: the other team places it anywhere in their half — even right next to the king.';
+
+  @override
+  String get ruleKubbAdvantageTitle => 'The advantage line';
+
+  @override
+  String get ruleKubbAdvantageBody =>
+      'If your opponents leave field kubbs standing in your half, your team may throw its batons from level with the one closest to the king.';
+
+  @override
+  String get ruleKubbKingTitle => 'The king decides it';
+
+  @override
+  String get ruleKubbKingBody =>
+      'Only when every kubb in the defending half is down may you aim for the king. Topple it, and the game is yours.';
+
+  @override
+  String get ruleKubbEarlyKingTitle => 'Never too early';
+
+  @override
+  String get ruleKubbEarlyKingBody =>
+      'Knock the king over before everything else is down — even by accident — and your team loses the game on the spot.';
+
+  @override
+  String get ruleKubbMatchTitle => 'Best of three';
+
+  @override
+  String get ruleKubbMatchBody =>
+      'Tournaments play a match as best of three games. The teams alternate which side opens each game.';
+
+  @override
+  String get ruleKubbMatchDetail =>
+      'With the turn clock on, a team has a fixed time to throw its six batons. The clock is a guide — the app never blocks a throw.';
+
+  @override
+  String get tourModePickTitle => 'Which game are you playing?';
+
+  @override
+  String get tourModePickBody =>
+      'Both live in this app. Pick one to learn — you can switch any time.';
+
+  @override
+  String get tourModeNumberDesc => 'Twelve numbered pins. Race to exactly 50.';
+
+  @override
+  String get tourModeKubbDesc => 'Two teams, five kubbs each — and the king.';
 }

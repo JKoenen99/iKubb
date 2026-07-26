@@ -11,6 +11,7 @@ import '../../theme/typography.dart';
 import '../../widgets/rolling_number.dart';
 import '../../widgets/home_leading.dart';
 import '../rules/rules_content.dart';
+import 'game_mode.dart';
 import '../rules/rules_view.dart';
 import '../settings/settings_controller.dart';
 import '../setup/player.dart' show playerColors;
@@ -162,7 +163,7 @@ class _GameScreenState extends ConsumerState<GameScreen> {
         actions: [
           IconButton(
             tooltip: l10n.rules,
-            onPressed: () => showRulesPanel(context),
+            onPressed: () => showRulesPanel(context, mode: GameMode.numberKubb),
             icon: const Icon(Icons.help_outline),
           ),
           IconButton(
@@ -509,8 +510,11 @@ class _SideCard extends StatelessWidget {
               duration: const Duration(milliseconds: 250),
               opacity: state.missStreak > 0 ? 1 : 0,
               child: InkWell(
-                onTap: () =>
-                    showRulesPanel(context, categoryId: RuleCategoryIds.misses),
+                onTap: () => showRulesPanel(
+                  context,
+                  mode: GameMode.numberKubb,
+                  categoryId: RuleCategoryIds.misses,
+                ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [

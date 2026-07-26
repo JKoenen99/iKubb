@@ -406,4 +406,117 @@ class AppLocalizationsEs extends AppLocalizations {
   String earlyKingBanner(String name) {
     return '¡$name derribó el rey demasiado pronto!';
   }
+
+  @override
+  String get catKubbSetup => 'Preparación y equipos';
+
+  @override
+  String get catKubbBatons => 'Bastones de lanzamiento';
+
+  @override
+  String get catKubbFieldKubbs => 'Kubbs de campo';
+
+  @override
+  String get catKubbKing => 'El rey';
+
+  @override
+  String get ruleKubbFieldTitle => 'El campo';
+
+  @override
+  String get ruleKubbFieldBody =>
+      'Dos equipos se enfrentan en el campo. Cada uno coloca cinco kubbs en su línea de fondo; el rey queda solo en el centro.';
+
+  @override
+  String get ruleKubbFieldDetail =>
+      'Los campos de torneo miden 5 × 8 metros. En el parque bastan dos chaquetas y buen ojo: mantén las mitades más o menos iguales.';
+
+  @override
+  String get ruleKubbTeamsTitle => 'De uno a seis por equipo';
+
+  @override
+  String get ruleKubbTeamsBody =>
+      'El kubb es un juego de equipo: de uno a seis jugadores por lado. Los compañeros se reparten los seis bastones y lanzan por turnos.';
+
+  @override
+  String get ruleKubbBatonsTitle => 'Seis bastones por turno';
+
+  @override
+  String get ruleKubbBatonsBody =>
+      'El equipo atacante lanza seis bastones contra los kubbs rivales, por debajo del hombro y girando de punta a punta.';
+
+  @override
+  String get ruleKubbBatonsDetail =>
+      'Nada de lanzamientos en helicóptero: el bastón debe girar en vertical, nunca de lado. Los kubbs derribados quedan en el suelo hasta acabar el turno.';
+
+  @override
+  String get ruleKubbThrowInTitle => 'Los kubbs caídos vuelven';
+
+  @override
+  String get ruleKubbThrowInBody =>
+      'Tras los bastones, los defensores lanzan cada kubb derribado a la mitad de los atacantes. Donde cae, el kubb se levanta como kubb de campo.';
+
+  @override
+  String get ruleKubbThrowInDetail =>
+      'Los defensores eligen dónde apuntar: los kubbs agrupados son mucho más fáciles de derribar con un solo bastón.';
+
+  @override
+  String get ruleKubbFieldFirstTitle => 'Primero los kubbs de campo';
+
+  @override
+  String get ruleKubbFieldFirstBody =>
+      'Los atacantes deben derribar todos los kubbs de campo en pie antes de poder golpear un kubb de fondo. Un kubb de fondo derribado antes de tiempo se vuelve a levantar.';
+
+  @override
+  String get ruleKubbPenaltyTitle => 'Dos veces fuera = castigo';
+
+  @override
+  String get ruleKubbPenaltyBody =>
+      'Un kubb lanzado fuera del campo dos veces se convierte en kubb de castigo: el otro equipo lo coloca donde quiera en su mitad, incluso justo al lado del rey.';
+
+  @override
+  String get ruleKubbAdvantageTitle => 'La línea de ventaja';
+
+  @override
+  String get ruleKubbAdvantageBody =>
+      'Si los rivales dejan kubbs de campo en pie en vuestra mitad, vuestro equipo puede lanzar los bastones desde la altura del kubb más cercano al rey.';
+
+  @override
+  String get ruleKubbKingTitle => 'El rey decide';
+
+  @override
+  String get ruleKubbKingBody =>
+      'Solo cuando todos los kubbs de la mitad defensora estén caídos puedes apuntar al rey. Derríbalo y la partida es vuestra.';
+
+  @override
+  String get ruleKubbEarlyKingTitle => 'Nunca antes de tiempo';
+
+  @override
+  String get ruleKubbEarlyKingBody =>
+      'Derriba al rey antes de que todo lo demás haya caído —aunque sea sin querer— y tu equipo pierde la partida al instante.';
+
+  @override
+  String get ruleKubbMatchTitle => 'Al mejor de tres';
+
+  @override
+  String get ruleKubbMatchBody =>
+      'En los torneos, un encuentro se juega al mejor de tres partidas. Los equipos se alternan para abrir cada partida.';
+
+  @override
+  String get ruleKubbMatchDetail =>
+      'Con el reloj de turno activado, el equipo tiene un tiempo fijo para sus seis bastones. El reloj es orientativo: la app nunca bloquea un lanzamiento.';
+
+  @override
+  String get tourModePickTitle => '¿A qué juego jugáis?';
+
+  @override
+  String get tourModePickBody =>
+      'Ambos están en esta app. Elige uno para aprender: puedes cambiar cuando quieras.';
+
+  @override
+  String get tourModeNumberDesc =>
+      'Doce bolos numerados. Carrera hasta 50 exactos.';
+
+  @override
+  String get tourModeKubbDesc =>
+      'Dos equipos, cinco kubbs cada uno — y el rey.';
 }

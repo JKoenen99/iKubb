@@ -405,4 +405,117 @@ class AppLocalizationsFi extends AppLocalizations {
   String earlyKingBanner(String name) {
     return '$name kaatoi kuninkaan liian aikaisin!';
   }
+
+  @override
+  String get catKubbSetup => 'Aloitus ja joukkueet';
+
+  @override
+  String get catKubbBatons => 'Heittokapulat';
+
+  @override
+  String get catKubbFieldKubbs => 'Kenttäkubbit';
+
+  @override
+  String get catKubbKing => 'Kuningas';
+
+  @override
+  String get ruleKubbFieldTitle => 'Kenttä';
+
+  @override
+  String get ruleKubbFieldBody =>
+      'Kaksi joukkuetta seisoo vastakkain kentällä. Kumpikin asettaa viisi kubbia takarajalleen, ja kuningas seisoo yksin keskellä.';
+
+  @override
+  String get ruleKubbFieldDetail =>
+      'Turnauskentät ovat 5 × 8 metriä. Puistossa riittävät kaksi takkia ja hyvä arvio — pidä puoliskot suunnilleen yhtä suurina.';
+
+  @override
+  String get ruleKubbTeamsTitle => 'Yhdestä kuuteen pelaajaa';
+
+  @override
+  String get ruleKubbTeamsBody =>
+      'Kubb on joukkuepeli: yhdestä kuuteen pelaajaa per puoli. Joukkuetoverit jakavat kuusi kapulaa ja heittävät vuorotellen.';
+
+  @override
+  String get ruleKubbBatonsTitle => 'Kuusi kapulaa vuorossa';
+
+  @override
+  String get ruleKubbBatonsBody =>
+      'Hyökkäävä joukkue heittää kuusi kapulaa vastustajan kubbeja kohti — alakautta, pystysuunnassa pyörien.';
+
+  @override
+  String get ruleKubbBatonsDetail =>
+      'Ei helikopteriheittoja: kapulan on pyörittävä pystysuunnassa, ei koskaan sivuttain. Kaatuneet kubbit jäävät maahan vuoron loppuun asti.';
+
+  @override
+  String get ruleKubbThrowInTitle => 'Kaatuneet kubbit palaavat';
+
+  @override
+  String get ruleKubbThrowInBody =>
+      'Kapuloiden jälkeen puolustajat heittävät jokaisen kaatuneen kubbin hyökkääjien puoliskolle. Sinne minne kubbi laskeutuu, se nostetaan kenttäkubbiksi.';
+
+  @override
+  String get ruleKubbThrowInDetail =>
+      'Puolustajat valitsevat mihin tähtäävät — lähekkäin seisovat kubbit on paljon helpompi kaataa yhdellä kapulalla.';
+
+  @override
+  String get ruleKubbFieldFirstTitle => 'Kenttäkubbit ensin';
+
+  @override
+  String get ruleKubbFieldFirstBody =>
+      'Hyökkääjien on kaadettava kaikki pystyssä olevat kenttäkubbit ennen kuin takarajan kubbiin saa osua. Liian aikaisin kaadettu takarajan kubbi nostetaan takaisin.';
+
+  @override
+  String get ruleKubbPenaltyTitle => 'Kahdesti ulos = rangaistus';
+
+  @override
+  String get ruleKubbPenaltyBody =>
+      'Kubb, joka heitetään kahdesti kentän ulkopuolelle, muuttuu rangaistuskubbiksi: toinen joukkue asettaa sen minne tahansa puoliskolleen — vaikka aivan kuninkaan viereen.';
+
+  @override
+  String get ruleKubbAdvantageTitle => 'Etulinja';
+
+  @override
+  String get ruleKubbAdvantageBody =>
+      'Jos vastustajat jättävät kenttäkubbeja pystyyn puoliskollesi, joukkueesi saa heittää kapulat lähimpänä kuningasta seisovan kubbin tasalta.';
+
+  @override
+  String get ruleKubbKingTitle => 'Kuningas ratkaisee';
+
+  @override
+  String get ruleKubbKingBody =>
+      'Vasta kun jokainen kubb puolustavalla puoliskolla on kaatunut, saat tähdätä kuninkaaseen. Kaada se, ja peli on teidän.';
+
+  @override
+  String get ruleKubbEarlyKingTitle => 'Ei koskaan liian aikaisin';
+
+  @override
+  String get ruleKubbEarlyKingBody =>
+      'Jos kaadat kuninkaan ennen kuin kaikki muu on kaatunut — vaikka vahingossa — joukkueesi häviää pelin siihen paikkaan.';
+
+  @override
+  String get ruleKubbMatchTitle => 'Paras kolmesta';
+
+  @override
+  String get ruleKubbMatchBody =>
+      'Turnauksissa ottelu pelataan paras kolmesta -muodossa. Joukkueet vuorottelevat siitä, kumpi aloittaa kunkin pelin.';
+
+  @override
+  String get ruleKubbMatchDetail =>
+      'Vuorokellon ollessa päällä joukkueella on kiinteä aika kuuden kapulan heittoon. Kello on ohjeellinen — sovellus ei koskaan estä heittoa.';
+
+  @override
+  String get tourModePickTitle => 'Mitä peliä pelaatte?';
+
+  @override
+  String get tourModePickBody =>
+      'Molemmat löytyvät tästä sovelluksesta. Valitse toinen opeteltavaksi — voit vaihtaa milloin vain.';
+
+  @override
+  String get tourModeNumberDesc =>
+      'Kaksitoista numeroitua keilaa. Kilpajuoksu tasan 50:een.';
+
+  @override
+  String get tourModeKubbDesc =>
+      'Kaksi joukkuetta, viisi kubbia kummallakin — ja kuningas.';
 }

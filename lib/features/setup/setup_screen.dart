@@ -102,7 +102,8 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
         actions: [
           IconButton(
             tooltip: l10n.rules,
-            onPressed: () => showRulesPanel(context),
+            // The panel opens on whichever mode is being set up.
+            onPressed: () => showRulesPanel(context, mode: setup.mode),
             icon: const Icon(Icons.help_outline),
           ),
         ],

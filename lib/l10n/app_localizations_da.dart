@@ -404,4 +404,116 @@ class AppLocalizationsDa extends AppLocalizations {
   String earlyKingBanner(String name) {
     return '$name væltede kongen for tidligt!';
   }
+
+  @override
+  String get catKubbSetup => 'Opstilling & hold';
+
+  @override
+  String get catKubbBatons => 'Kastepinde';
+
+  @override
+  String get catKubbFieldKubbs => 'Feltkubber';
+
+  @override
+  String get catKubbKing => 'Kongen';
+
+  @override
+  String get ruleKubbFieldTitle => 'Banen';
+
+  @override
+  String get ruleKubbFieldBody =>
+      'To hold står over for hinanden på banen. Hvert hold stiller fem kubber på sin baglinje, og kongen står alene i midten.';
+
+  @override
+  String get ruleKubbFieldDetail =>
+      'Turneringsbaner måler 5 × 8 meter. I parken er to jakker og et godt øjemål nok — hold bare halvdelene nogenlunde lige store.';
+
+  @override
+  String get ruleKubbTeamsTitle => 'En til seks pr. hold';
+
+  @override
+  String get ruleKubbTeamsBody =>
+      'Kubb er et holdspil: en til seks spillere pr. side. Holdkammeraterne deler de seks kastepinde og skiftes til at kaste.';
+
+  @override
+  String get ruleKubbBatonsTitle => 'Seks pinde pr. tur';
+
+  @override
+  String get ruleKubbBatonsBody =>
+      'Det angribende hold kaster seks pinde mod modstandernes kubber — underhånds og roterende om den korte akse.';
+
+  @override
+  String get ruleKubbBatonsDetail =>
+      'Ingen helikopterkast: pinden skal rotere lodret, aldrig sidelæns. Væltede kubber bliver liggende, til turen er slut.';
+
+  @override
+  String get ruleKubbThrowInTitle => 'Væltede kubber kommer tilbage';
+
+  @override
+  String get ruleKubbThrowInBody =>
+      'Efter pindene kaster forsvarerne hver væltet kubb ind i angribernes halvdel. Hvor en kubb lander, rejses den som feltkubb.';
+
+  @override
+  String get ruleKubbThrowInDetail =>
+      'Forsvarerne vælger, hvor de sigter — kubber, der står tæt sammen, er langt lettere at rydde med én pind.';
+
+  @override
+  String get ruleKubbFieldFirstTitle => 'Feltkubber først';
+
+  @override
+  String get ruleKubbFieldFirstBody =>
+      'Angriberne skal vælte alle stående feltkubber, før en baglinjekubb må rammes. En baglinjekubb, der væltes for tidligt, rejses igen.';
+
+  @override
+  String get ruleKubbPenaltyTitle => 'Ude to gange = strafkubb';
+
+  @override
+  String get ruleKubbPenaltyBody =>
+      'En kubb, der kastes ud af banen to gange, bliver en strafkubb: det andet hold placerer den frit i sin halvdel — endda lige ved siden af kongen.';
+
+  @override
+  String get ruleKubbAdvantageTitle => 'Fordelslinjen';
+
+  @override
+  String get ruleKubbAdvantageBody =>
+      'Efterlader modstanderne stående feltkubber i jeres halvdel, må jeres hold kaste pindene fra højde med den kubb, der står nærmest kongen.';
+
+  @override
+  String get ruleKubbKingTitle => 'Kongen afgør det';
+
+  @override
+  String get ruleKubbKingBody =>
+      'Først når hver kubb i den forsvarende halvdel ligger ned, må du sigte efter kongen. Vælter du ham, er spillet jeres.';
+
+  @override
+  String get ruleKubbEarlyKingTitle => 'Aldrig for tidligt';
+
+  @override
+  String get ruleKubbEarlyKingBody =>
+      'Vælter du kongen, før alt andet ligger ned — også ved et uheld — taber dit hold spillet på stedet.';
+
+  @override
+  String get ruleKubbMatchTitle => 'Bedst af tre';
+
+  @override
+  String get ruleKubbMatchBody =>
+      'Ved turneringer spilles en kamp bedst af tre. Holdene skiftes til at åbne hvert spil.';
+
+  @override
+  String get ruleKubbMatchDetail =>
+      'Med tur-uret slået til har holdet en fast tid til sine seks pinde. Uret er vejledende — appen blokerer aldrig et kast.';
+
+  @override
+  String get tourModePickTitle => 'Hvilket spil spiller I?';
+
+  @override
+  String get tourModePickBody =>
+      'Begge findes i denne app. Vælg et at lære — du kan altid skifte.';
+
+  @override
+  String get tourModeNumberDesc =>
+      'Tolv nummererede kegler. Kapløb til præcis 50.';
+
+  @override
+  String get tourModeKubbDesc => 'To hold, fem kubber hver — og kongen.';
 }

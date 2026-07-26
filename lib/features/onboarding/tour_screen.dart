@@ -1,30 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:scoring_engine/scoring_engine.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../../widgets/rolling_number.dart';
 import '../../widgets/viking_mascot.dart';
+import '../game/game_mode.dart';
 import '../game/pin_diagram.dart';
 import '../rules/rule_illustrations.dart';
+import '../setup/setup_controller.dart';
 import 'onboarding_state.dart';
 
 /// "Teach me the game": swipeable illustrated rule cards, skippable at
-/// every card, interactive where that teaches best (SPEC.md §3.1). Reuses
-/// the localized rules content and the live game's PinDiagram so the
-/// scoring screen feels familiar afterwards. Replayable from the rules
-/// screen at any time.
-class TourScreen extends StatefulWidget {
+/// every card, interactive where that teaches best (SPEC.md §3.1). The
+/// first card forks by game mode; each branch reuses the localized rules
+/// content and illustrations so the matching play screen feels familiar
+/// afterwards. Replayable from the rules screen at any time.
+class TourScreen extends ConsumerStatefulWidget {
   const TourScreen({super.key});
 
   @override
-  State<TourScreen> createState() => _TourScreenState();
+  ConsumerState<TourScreen> createState() => _TourScreenState();
 }
 
-class _TourScreenState extends State<TourScreen> {
+class _TourScreenState extends ConsumerState<TourScreen> {
   final _pageController = PageController();
   var _page = 0;
-  static const _pageCount = 5;
+  var _mode = GameMode.numberKubb;
+
+  /// Mode card + five rule cards.
+  static const _pageCount = 6;
 
   @override
   void dispose() {
@@ -34,6 +40,9 @@ class _TourScreenState extends State<TourScreen> {
 
   void _finish(BuildContext context) {
     markOnboardingSeen();
+    // Land in setup with the toured mode preselected — the tour's choice
+    // carries through instead of being asked twice.
+    ref.read(setupControllerProvider.notifier).setMode(_mode);
     context.go('/setup');
   }
 
@@ -48,6 +57,58 @@ class _TourScreenState extends State<TourScreen> {
       curve: Curves.easeOutCubic,
     );
   }
+
+  List<Widget> _numberCards(AppLocalizations l10n) => [
+    _TourCard(
+      title: l10n.ruleFormationTitle,
+      body: l10n.ruleFormationBody,
+      child: const PinDiagram(selected: {}, onToggle: null, pinSize: 48),
+    ),
+    const _ScoringDemoCard(),
+    _TourCard(
+      title: l10n.ruleOvershootTitle,
+      body: l10n.ruleOvershootBody,
+      child: const OvershootIllustration(),
+    ),
+    _TourCard(
+      title: l10n.ruleMissesTitle,
+      body: l10n.ruleMissesBody,
+      child: const MissDotsIllustration(),
+    ),
+    _TourCard(
+      title: l10n.ruleExactTitle,
+      body: l10n.ruleExactBody,
+      child: const VikingMascot(pose: MascotPose.cheer, size: 150),
+    ),
+  ];
+
+  List<Widget> _kubbCards(AppLocalizations l10n) => [
+    _TourCard(
+      title: l10n.ruleKubbFieldTitle,
+      body: l10n.ruleKubbFieldBody,
+      child: const KubbFieldSchematic(scale: 1.4),
+    ),
+    _TourCard(
+      title: l10n.ruleKubbBatonsTitle,
+      body: l10n.ruleKubbBatonsBody,
+      child: ruleIllustration('kubbBatons'),
+    ),
+    _TourCard(
+      title: l10n.ruleKubbThrowInTitle,
+      body: l10n.ruleKubbThrowInBody,
+      child: ruleIllustration('kubbThrowIn'),
+    ),
+    _TourCard(
+      title: l10n.ruleKubbFieldFirstTitle,
+      body: l10n.ruleKubbFieldFirstBody,
+      child: ruleIllustration('kubbFieldFirst'),
+    ),
+    _TourCard(
+      title: l10n.ruleKubbKingTitle,
+      body: l10n.ruleKubbKingBody,
+      child: const VikingMascot(pose: MascotPose.cheer, size: 150),
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -71,34 +132,13 @@ class _TourScreenState extends State<TourScreen> {
                     controller: _pageController,
                     onPageChanged: (p) => setState(() => _page = p),
                     children: [
-                      _TourCard(
-                        title: l10n.ruleFormationTitle,
-                        body: l10n.ruleFormationBody,
-                        child: const PinDiagram(
-                          selected: {},
-                          onToggle: null,
-                          pinSize: 48,
-                        ),
+                      _ModePickCard(
+                        selected: _mode,
+                        onPick: (m) => setState(() => _mode = m),
                       ),
-                      const _ScoringDemoCard(),
-                      _TourCard(
-                        title: l10n.ruleOvershootTitle,
-                        body: l10n.ruleOvershootBody,
-                        child: const OvershootIllustration(),
-                      ),
-                      _TourCard(
-                        title: l10n.ruleMissesTitle,
-                        body: l10n.ruleMissesBody,
-                        child: const MissDotsIllustration(),
-                      ),
-                      _TourCard(
-                        title: l10n.ruleExactTitle,
-                        body: l10n.ruleExactBody,
-                        child: const VikingMascot(
-                          pose: MascotPose.cheer,
-                          size: 150,
-                        ),
-                      ),
+                      ...(_mode == GameMode.classicKubb
+                          ? _kubbCards(l10n)
+                          : _numberCards(l10n)),
                     ],
                   ),
                 ),
@@ -134,6 +174,114 @@ class _TourScreenState extends State<TourScreen> {
                 ),
               ],
             ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// The fork: which game is being learned? Both options stay one tap away
+/// throughout — picking just swaps the five cards that follow.
+class _ModePickCard extends StatelessWidget {
+  const _ModePickCard({required this.selected, required this.onPick});
+
+  final GameMode selected;
+  final ValueChanged<GameMode> onPick;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    return Center(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              l10n.tourModePickTitle,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            const SizedBox(height: 12),
+            Text(
+              l10n.tourModePickBody,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 16, height: 1.4),
+            ),
+            const SizedBox(height: 24),
+            _ModeOption(
+              icon: Icons.tag,
+              title: l10n.modeNumber,
+              description: l10n.tourModeNumberDesc,
+              selected: selected == GameMode.numberKubb,
+              onTap: () => onPick(GameMode.numberKubb),
+            ),
+            const SizedBox(height: 12),
+            _ModeOption(
+              icon: Icons.workspace_premium,
+              title: l10n.modeKubb,
+              description: l10n.tourModeKubbDesc,
+              selected: selected == GameMode.classicKubb,
+              onTap: () => onPick(GameMode.classicKubb),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _ModeOption extends StatelessWidget {
+  const _ModeOption({
+    required this.icon,
+    required this.title,
+    required this.description,
+    required this.selected,
+    required this.onTap,
+  });
+
+  final IconData icon;
+  final String title;
+  final String description;
+  final bool selected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    return Material(
+      color: selected
+          ? scheme.primaryContainer
+          : scheme.surfaceContainerHighest,
+      borderRadius: BorderRadius.circular(16),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(16),
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            children: [
+              Icon(icon, size: 32, color: scheme.primary),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: const TextStyle(fontWeight: FontWeight.w700),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      description,
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ],
+                ),
+              ),
+              if (selected) Icon(Icons.check_circle, color: scheme.primary),
+            ],
           ),
         ),
       ),

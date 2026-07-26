@@ -44,6 +44,16 @@ abstract final class RuleCategoryIds {
   static const teams = 'teams';
 }
 
+/// Category ids for the classic-kubb rule set (deep links from /kubb).
+abstract final class KubbRuleCategoryIds {
+  static const setup = 'kubbSetup';
+  static const batons = 'kubbBatons';
+  static const fieldKubbs = 'kubbFieldKubbs';
+  static const advantage = 'kubbAdvantage';
+  static const king = 'kubbKing';
+  static const winning = 'kubbWinning';
+}
+
 /// The full, categorized rules reference (SPEC.md §3.6). One source of
 /// truth: the onboarding tour will reuse this same content.
 List<RuleCategory> buildRulesContent(AppLocalizations l10n) => [
@@ -156,6 +166,107 @@ List<RuleCategory> buildRulesContent(AppLocalizations l10n) => [
         id: 'teams',
         title: l10n.ruleTeamsTitle,
         body: l10n.ruleTeamsBody,
+      ),
+    ],
+  ),
+];
+
+/// The classic-kubb rule set (teams + king). Same card component and
+/// disclosure levels as number kubb; the panel switches between the two.
+List<RuleCategory> buildKubbRulesContent(AppLocalizations l10n) => [
+  RuleCategory(
+    id: KubbRuleCategoryIds.setup,
+    icon: Icons.grid_view_rounded,
+    title: l10n.catKubbSetup,
+    cards: [
+      RuleCard(
+        id: 'kubbField',
+        title: l10n.ruleKubbFieldTitle,
+        body: l10n.ruleKubbFieldBody,
+        detail: l10n.ruleKubbFieldDetail,
+      ),
+      RuleCard(
+        id: 'kubbTeams',
+        title: l10n.ruleKubbTeamsTitle,
+        body: l10n.ruleKubbTeamsBody,
+      ),
+    ],
+  ),
+  RuleCategory(
+    id: KubbRuleCategoryIds.batons,
+    icon: Icons.sports_handball,
+    title: l10n.catKubbBatons,
+    cards: [
+      RuleCard(
+        id: 'kubbBatons',
+        title: l10n.ruleKubbBatonsTitle,
+        body: l10n.ruleKubbBatonsBody,
+        detail: l10n.ruleKubbBatonsDetail,
+      ),
+    ],
+  ),
+  RuleCategory(
+    id: KubbRuleCategoryIds.fieldKubbs,
+    icon: Icons.replay,
+    title: l10n.catKubbFieldKubbs,
+    cards: [
+      RuleCard(
+        id: 'kubbThrowIn',
+        title: l10n.ruleKubbThrowInTitle,
+        body: l10n.ruleKubbThrowInBody,
+        detail: l10n.ruleKubbThrowInDetail,
+      ),
+      RuleCard(
+        id: 'kubbFieldFirst',
+        title: l10n.ruleKubbFieldFirstTitle,
+        body: l10n.ruleKubbFieldFirstBody,
+      ),
+      RuleCard(
+        id: 'kubbPenalty',
+        title: l10n.ruleKubbPenaltyTitle,
+        body: l10n.ruleKubbPenaltyBody,
+      ),
+    ],
+  ),
+  RuleCategory(
+    id: KubbRuleCategoryIds.advantage,
+    icon: Icons.linear_scale,
+    title: l10n.advantageLine,
+    cards: [
+      RuleCard(
+        id: 'kubbAdvantage',
+        title: l10n.ruleKubbAdvantageTitle,
+        body: l10n.ruleKubbAdvantageBody,
+      ),
+    ],
+  ),
+  RuleCategory(
+    id: KubbRuleCategoryIds.king,
+    icon: Icons.workspace_premium,
+    title: l10n.catKubbKing,
+    cards: [
+      RuleCard(
+        id: 'kubbKing',
+        title: l10n.ruleKubbKingTitle,
+        body: l10n.ruleKubbKingBody,
+      ),
+      RuleCard(
+        id: 'kubbEarlyKing',
+        title: l10n.ruleKubbEarlyKingTitle,
+        body: l10n.ruleKubbEarlyKingBody,
+      ),
+    ],
+  ),
+  RuleCategory(
+    id: KubbRuleCategoryIds.winning,
+    icon: Icons.emoji_events_outlined,
+    title: l10n.catWinning,
+    cards: [
+      RuleCard(
+        id: 'kubbMatch',
+        title: l10n.ruleKubbMatchTitle,
+        body: l10n.ruleKubbMatchBody,
+        detail: l10n.ruleKubbMatchDetail,
       ),
     ],
   ),

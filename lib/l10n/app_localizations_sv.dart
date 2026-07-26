@@ -405,4 +405,116 @@ class AppLocalizationsSv extends AppLocalizations {
   String earlyKingBanner(String name) {
     return '$name fällde kungen för tidigt!';
   }
+
+  @override
+  String get catKubbSetup => 'Uppställning & lag';
+
+  @override
+  String get catKubbBatons => 'Kastpinnar';
+
+  @override
+  String get catKubbFieldKubbs => 'Fältkubbar';
+
+  @override
+  String get catKubbKing => 'Kungen';
+
+  @override
+  String get ruleKubbFieldTitle => 'Planen';
+
+  @override
+  String get ruleKubbFieldBody =>
+      'Två lag står mitt emot varandra på planen. Varje lag ställer fem kubbar på sin baslinje, och kungen står ensam i mitten.';
+
+  @override
+  String get ruleKubbFieldDetail =>
+      'Turneringsplaner mäter 5 × 8 meter. I parken räcker två jackor och ögonmått — håll bara halvorna ungefär lika stora.';
+
+  @override
+  String get ruleKubbTeamsTitle => 'En till sex per lag';
+
+  @override
+  String get ruleKubbTeamsBody =>
+      'Kubb är ett lagspel: en till sex spelare per sida. Lagkamraterna delar på de sex kastpinnarna och turas om att kasta.';
+
+  @override
+  String get ruleKubbBatonsTitle => 'Sex pinnar per omgång';
+
+  @override
+  String get ruleKubbBatonsBody =>
+      'Det anfallande laget kastar sex pinnar mot motståndarnas kubbar — underifrån, roterande ände över ände.';
+
+  @override
+  String get ruleKubbBatonsDetail =>
+      'Inga helikopterkast: pinnen måste rotera vertikalt, aldrig i sidled. Fällda kubbar ligger kvar tills omgången är slut.';
+
+  @override
+  String get ruleKubbThrowInTitle => 'Fällda kubbar kommer tillbaka';
+
+  @override
+  String get ruleKubbThrowInBody =>
+      'Efter pinnarna kastar försvararna varje fälld kubb in i anfallarnas halva. Där en kubb landar reses den som fältkubb.';
+
+  @override
+  String get ruleKubbThrowInDetail =>
+      'Försvararna väljer var de siktar — kubbar som står tätt ihop är mycket lättare att fälla med en enda pinne.';
+
+  @override
+  String get ruleKubbFieldFirstTitle => 'Fältkubbar först';
+
+  @override
+  String get ruleKubbFieldFirstBody =>
+      'Anfallarna måste fälla alla stående fältkubbar innan någon baslinjekubb får träffas. En baslinjekubb som fälls för tidigt reses igen.';
+
+  @override
+  String get ruleKubbPenaltyTitle => 'Ut två gånger = straffkubb';
+
+  @override
+  String get ruleKubbPenaltyBody =>
+      'En kubb som kastas utanför planen två gånger blir en straffkubb: motståndarlaget ställer den var som helst i sin halva — till och med alldeles intill kungen.';
+
+  @override
+  String get ruleKubbAdvantageTitle => 'Fördelslinjen';
+
+  @override
+  String get ruleKubbAdvantageBody =>
+      'Om motståndarna lämnar fältkubbar stående i er halva får ert lag kasta pinnarna i höjd med den kubb som står närmast kungen.';
+
+  @override
+  String get ruleKubbKingTitle => 'Kungen avgör';
+
+  @override
+  String get ruleKubbKingBody =>
+      'Först när varje kubb i den försvarande halvan ligger ner får du sikta på kungen. Fäller du honom är spelet ert.';
+
+  @override
+  String get ruleKubbEarlyKingTitle => 'Aldrig för tidigt';
+
+  @override
+  String get ruleKubbEarlyKingBody =>
+      'Välter du kungen innan allt annat ligger ner — även av misstag — förlorar ert lag spelet på fläcken.';
+
+  @override
+  String get ruleKubbMatchTitle => 'Bäst av tre';
+
+  @override
+  String get ruleKubbMatchBody =>
+      'I turneringar spelas en match i bäst av tre. Lagen turas om att öppna varje spel.';
+
+  @override
+  String get ruleKubbMatchDetail =>
+      'Med omgångsklockan på har laget en bestämd tid för sina sex pinnar. Klockan är en riktlinje — appen stoppar aldrig ett kast.';
+
+  @override
+  String get tourModePickTitle => 'Vilket spel spelar ni?';
+
+  @override
+  String get tourModePickBody =>
+      'Båda finns i den här appen. Välj ett att lära dig — du kan byta när som helst.';
+
+  @override
+  String get tourModeNumberDesc =>
+      'Tolv numrerade käglor. Först till exakt 50.';
+
+  @override
+  String get tourModeKubbDesc => 'Två lag, fem kubbar var — och kungen.';
 }

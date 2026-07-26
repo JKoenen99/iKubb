@@ -17,7 +17,12 @@ void main() {
   testWidgets('the tour teaches scoring interactively', (tester) async {
     await pumpToTour(tester);
 
-    // Card 1: the formation, with the same pin diagram as the game.
+    // Card 1: the mode fork — number kubb is preselected.
+    expect(find.text('Which game are you playing?'), findsOneWidget);
+    await tester.tap(find.text('Next'));
+    await tester.pumpAndSettle();
+
+    // Card 2: the formation, with the same pin diagram as the game.
     expect(find.text('The formation'), findsOneWidget);
     await tester.tap(find.text('Next'));
     await tester.pumpAndSettle();
@@ -41,6 +46,30 @@ void main() {
     await tester.tap(find.text('I know the rules — start scoring'));
     await tester.pumpAndSettle();
     expect(find.text('Start game'), findsOneWidget); // landed in setup
+  });
+
+  testWidgets('picking kubb on the fork teaches the kubb rules', (
+    tester,
+  ) async {
+    await pumpToTour(tester);
+
+    await tester.tap(find.text('Kubb'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Next'));
+    await tester.pumpAndSettle();
+    expect(find.text('The field'), findsOneWidget);
+
+    for (var i = 0; i < 4; i++) {
+      await tester.tap(find.text('Next'));
+      await tester.pumpAndSettle();
+    }
+    expect(find.text('The king decides it'), findsOneWidget);
+    await tester.tap(find.text('I know the rules — start scoring'));
+    await tester.pumpAndSettle();
+
+    // Setup opens with the toured mode preselected: kubb options visible.
+    expect(find.text('Start game'), findsOneWidget);
+    expect(find.text('Turn clock'), findsOneWidget);
   });
 
   testWidgets('skip is available on every card and exits to setup', (

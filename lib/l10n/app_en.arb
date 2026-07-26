@@ -158,5 +158,37 @@
         "type": "String"
       }
     }
-  }
+  },
+  "catKubbSetup": "Setup & teams",
+  "catKubbBatons": "Throwing batons",
+  "catKubbFieldKubbs": "Field kubbs",
+  "catKubbKing": "The king",
+  "ruleKubbFieldTitle": "The field",
+  "ruleKubbFieldBody": "Two teams face each other across the field. Each lines up five kubbs on its baseline, and the king stands alone in the middle.",
+  "ruleKubbFieldDetail": "Tournament fields measure 5 × 8 metres. In the park, two jackets and a good guess work fine — just keep the halves roughly equal.",
+  "ruleKubbTeamsTitle": "One to six a side",
+  "ruleKubbTeamsBody": "Kubb is a team game: one to six players per side. Teammates share the six batons and take turns throwing.",
+  "ruleKubbBatonsTitle": "Six batons per turn",
+  "ruleKubbBatonsBody": "The attacking team throws six batons at the other team's kubbs — underhand, spinning end over end.",
+  "ruleKubbBatonsDetail": "No helicopter throws: the baton must spin vertically, never sideways. Kubbs felled by the batons stay down until the turn ends.",
+  "ruleKubbThrowInTitle": "Felled kubbs come back",
+  "ruleKubbThrowInBody": "After the batons, the defenders throw every felled kubb into the attackers' half. Where a kubb lands, it is stood up as a field kubb.",
+  "ruleKubbThrowInDetail": "The defenders choose where to aim — kubbs standing close together are far easier to clear with one baton.",
+  "ruleKubbFieldFirstTitle": "Field kubbs first",
+  "ruleKubbFieldFirstBody": "Attackers must fell every standing field kubb before any baseline kubb may be hit. A baseline kubb felled too early is raised again.",
+  "ruleKubbPenaltyTitle": "Out twice = penalty",
+  "ruleKubbPenaltyBody": "A kubb thrown out of bounds twice becomes a penalty kubb: the other team places it anywhere in their half — even right next to the king.",
+  "ruleKubbAdvantageTitle": "The advantage line",
+  "ruleKubbAdvantageBody": "If your opponents leave field kubbs standing in your half, your team may throw its batons from level with the one closest to the king.",
+  "ruleKubbKingTitle": "The king decides it",
+  "ruleKubbKingBody": "Only when every kubb in the defending half is down may you aim for the king. Topple it, and the game is yours.",
+  "ruleKubbEarlyKingTitle": "Never too early",
+  "ruleKubbEarlyKingBody": "Knock the king over before everything else is down — even by accident — and your team loses the game on the spot.",
+  "ruleKubbMatchTitle": "Best of three",
+  "ruleKubbMatchBody": "Tournaments play a match as best of three games. The teams alternate which side opens each game.",
+  "ruleKubbMatchDetail": "With the turn clock on, a team has a fixed time to throw its six batons. The clock is a guide — the app never blocks a throw.",
+  "tourModePickTitle": "Which game are you playing?",
+  "tourModePickBody": "Both live in this app. Pick one to learn — you can switch any time.",
+  "tourModeNumberDesc": "Twelve numbered pins. Race to exactly 50.",
+  "tourModeKubbDesc": "Two teams, five kubbs each — and the king."
 }

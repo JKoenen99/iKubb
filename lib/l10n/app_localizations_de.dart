@@ -406,4 +406,116 @@ class AppLocalizationsDe extends AppLocalizations {
   String earlyKingBanner(String name) {
     return '$name hat den König zu früh gefällt!';
   }
+
+  @override
+  String get catKubbSetup => 'Aufbau & Teams';
+
+  @override
+  String get catKubbBatons => 'Wurfhölzer';
+
+  @override
+  String get catKubbFieldKubbs => 'Feldkubbs';
+
+  @override
+  String get catKubbKing => 'Der König';
+
+  @override
+  String get ruleKubbFieldTitle => 'Das Spielfeld';
+
+  @override
+  String get ruleKubbFieldBody =>
+      'Zwei Teams stehen sich auf dem Feld gegenüber. Jedes stellt fünf Kubbs auf seine Grundlinie, der König steht allein in der Mitte.';
+
+  @override
+  String get ruleKubbFieldDetail =>
+      'Turnierfelder messen 5 × 8 Meter. Im Park reichen zwei Jacken und Augenmaß — die Hälften sollten nur etwa gleich groß sein.';
+
+  @override
+  String get ruleKubbTeamsTitle => 'Eins bis sechs pro Team';
+
+  @override
+  String get ruleKubbTeamsBody =>
+      'Kubb ist ein Teamspiel: eins bis sechs Spieler pro Seite. Die Teammitglieder teilen sich die sechs Wurfhölzer und werfen abwechselnd.';
+
+  @override
+  String get ruleKubbBatonsTitle => 'Sechs Hölzer pro Zug';
+
+  @override
+  String get ruleKubbBatonsBody =>
+      'Das angreifende Team wirft sechs Hölzer auf die Kubbs des Gegners — von unten, mit senkrechter Drehung.';
+
+  @override
+  String get ruleKubbBatonsDetail =>
+      'Keine Helikopterwürfe: Das Holz muss senkrecht rotieren, nie seitlich. Gefällte Kubbs bleiben bis zum Ende des Zugs liegen.';
+
+  @override
+  String get ruleKubbThrowInTitle => 'Gefällte Kubbs kommen zurück';
+
+  @override
+  String get ruleKubbThrowInBody =>
+      'Nach den Hölzern werfen die Verteidiger jeden gefällten Kubb in die Hälfte der Angreifer. Wo ein Kubb landet, wird er als Feldkubb aufgestellt.';
+
+  @override
+  String get ruleKubbThrowInDetail =>
+      'Die Verteidiger wählen, wohin sie zielen — dicht beieinanderstehende Kubbs lassen sich mit einem Holz viel leichter abräumen.';
+
+  @override
+  String get ruleKubbFieldFirstTitle => 'Feldkubbs zuerst';
+
+  @override
+  String get ruleKubbFieldFirstBody =>
+      'Angreifer müssen erst alle stehenden Feldkubbs fällen, bevor ein Grundlinien-Kubb getroffen werden darf. Ein zu früh gefällter Grundlinien-Kubb wird wieder aufgestellt.';
+
+  @override
+  String get ruleKubbPenaltyTitle => 'Zweimal raus = Strafkubb';
+
+  @override
+  String get ruleKubbPenaltyBody =>
+      'Ein Kubb, der zweimal im Aus landet, wird zum Strafkubb: Das andere Team stellt ihn beliebig in seine Hälfte — sogar direkt neben den König.';
+
+  @override
+  String get ruleKubbAdvantageTitle => 'Die Vorteilslinie';
+
+  @override
+  String get ruleKubbAdvantageBody =>
+      'Lassen die Gegner Feldkubbs in eurer Hälfte stehen, darf euer Team die Hölzer von der Höhe des Kubbs werfen, der dem König am nächsten steht.';
+
+  @override
+  String get ruleKubbKingTitle => 'Der König entscheidet';
+
+  @override
+  String get ruleKubbKingBody =>
+      'Erst wenn jeder Kubb in der verteidigenden Hälfte liegt, darfst du auf den König zielen. Fällst du ihn, gehört euch das Spiel.';
+
+  @override
+  String get ruleKubbEarlyKingTitle => 'Nie zu früh';
+
+  @override
+  String get ruleKubbEarlyKingBody =>
+      'Fällt der König, bevor alles andere liegt — auch aus Versehen —, verliert euer Team das Spiel auf der Stelle.';
+
+  @override
+  String get ruleKubbMatchTitle => 'Best of three';
+
+  @override
+  String get ruleKubbMatchBody =>
+      'Bei Turnieren geht ein Match über best of three. Die Teams wechseln sich ab, wer das Spiel eröffnet.';
+
+  @override
+  String get ruleKubbMatchDetail =>
+      'Mit aktivierter Zuguhr hat ein Team eine feste Zeit für seine sechs Hölzer. Die Uhr ist ein Richtwert — die App blockiert nie einen Wurf.';
+
+  @override
+  String get tourModePickTitle => 'Welches Spiel spielt ihr?';
+
+  @override
+  String get tourModePickBody =>
+      'Beide stecken in dieser App. Wähle eines zum Lernen — wechseln geht jederzeit.';
+
+  @override
+  String get tourModeNumberDesc =>
+      'Zwölf nummerierte Kegel. Wettlauf auf genau 50.';
+
+  @override
+  String get tourModeKubbDesc => 'Zwei Teams, je fünf Kubbs — und der König.';
 }

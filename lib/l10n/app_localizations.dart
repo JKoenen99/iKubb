@@ -857,6 +857,198 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{name} toppled the king too early!'**
   String earlyKingBanner(String name);
+
+  /// No description provided for @catKubbSetup.
+  ///
+  /// In en, this message translates to:
+  /// **'Setup & teams'**
+  String get catKubbSetup;
+
+  /// No description provided for @catKubbBatons.
+  ///
+  /// In en, this message translates to:
+  /// **'Throwing batons'**
+  String get catKubbBatons;
+
+  /// No description provided for @catKubbFieldKubbs.
+  ///
+  /// In en, this message translates to:
+  /// **'Field kubbs'**
+  String get catKubbFieldKubbs;
+
+  /// No description provided for @catKubbKing.
+  ///
+  /// In en, this message translates to:
+  /// **'The king'**
+  String get catKubbKing;
+
+  /// No description provided for @ruleKubbFieldTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'The field'**
+  String get ruleKubbFieldTitle;
+
+  /// No description provided for @ruleKubbFieldBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Two teams face each other across the field. Each lines up five kubbs on its baseline, and the king stands alone in the middle.'**
+  String get ruleKubbFieldBody;
+
+  /// No description provided for @ruleKubbFieldDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Tournament fields measure 5 × 8 metres. In the park, two jackets and a good guess work fine — just keep the halves roughly equal.'**
+  String get ruleKubbFieldDetail;
+
+  /// No description provided for @ruleKubbTeamsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'One to six a side'**
+  String get ruleKubbTeamsTitle;
+
+  /// No description provided for @ruleKubbTeamsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Kubb is a team game: one to six players per side. Teammates share the six batons and take turns throwing.'**
+  String get ruleKubbTeamsBody;
+
+  /// No description provided for @ruleKubbBatonsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Six batons per turn'**
+  String get ruleKubbBatonsTitle;
+
+  /// No description provided for @ruleKubbBatonsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The attacking team throws six batons at the other team\'s kubbs — underhand, spinning end over end.'**
+  String get ruleKubbBatonsBody;
+
+  /// No description provided for @ruleKubbBatonsDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'No helicopter throws: the baton must spin vertically, never sideways. Kubbs felled by the batons stay down until the turn ends.'**
+  String get ruleKubbBatonsDetail;
+
+  /// No description provided for @ruleKubbThrowInTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Felled kubbs come back'**
+  String get ruleKubbThrowInTitle;
+
+  /// No description provided for @ruleKubbThrowInBody.
+  ///
+  /// In en, this message translates to:
+  /// **'After the batons, the defenders throw every felled kubb into the attackers\' half. Where a kubb lands, it is stood up as a field kubb.'**
+  String get ruleKubbThrowInBody;
+
+  /// No description provided for @ruleKubbThrowInDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'The defenders choose where to aim — kubbs standing close together are far easier to clear with one baton.'**
+  String get ruleKubbThrowInDetail;
+
+  /// No description provided for @ruleKubbFieldFirstTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Field kubbs first'**
+  String get ruleKubbFieldFirstTitle;
+
+  /// No description provided for @ruleKubbFieldFirstBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Attackers must fell every standing field kubb before any baseline kubb may be hit. A baseline kubb felled too early is raised again.'**
+  String get ruleKubbFieldFirstBody;
+
+  /// No description provided for @ruleKubbPenaltyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Out twice = penalty'**
+  String get ruleKubbPenaltyTitle;
+
+  /// No description provided for @ruleKubbPenaltyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A kubb thrown out of bounds twice becomes a penalty kubb: the other team places it anywhere in their half — even right next to the king.'**
+  String get ruleKubbPenaltyBody;
+
+  /// No description provided for @ruleKubbAdvantageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'The advantage line'**
+  String get ruleKubbAdvantageTitle;
+
+  /// No description provided for @ruleKubbAdvantageBody.
+  ///
+  /// In en, this message translates to:
+  /// **'If your opponents leave field kubbs standing in your half, your team may throw its batons from level with the one closest to the king.'**
+  String get ruleKubbAdvantageBody;
+
+  /// No description provided for @ruleKubbKingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'The king decides it'**
+  String get ruleKubbKingTitle;
+
+  /// No description provided for @ruleKubbKingBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Only when every kubb in the defending half is down may you aim for the king. Topple it, and the game is yours.'**
+  String get ruleKubbKingBody;
+
+  /// No description provided for @ruleKubbEarlyKingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Never too early'**
+  String get ruleKubbEarlyKingTitle;
+
+  /// No description provided for @ruleKubbEarlyKingBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Knock the king over before everything else is down — even by accident — and your team loses the game on the spot.'**
+  String get ruleKubbEarlyKingBody;
+
+  /// No description provided for @ruleKubbMatchTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Best of three'**
+  String get ruleKubbMatchTitle;
+
+  /// No description provided for @ruleKubbMatchBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Tournaments play a match as best of three games. The teams alternate which side opens each game.'**
+  String get ruleKubbMatchBody;
+
+  /// No description provided for @ruleKubbMatchDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'With the turn clock on, a team has a fixed time to throw its six batons. The clock is a guide — the app never blocks a throw.'**
+  String get ruleKubbMatchDetail;
+
+  /// No description provided for @tourModePickTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Which game are you playing?'**
+  String get tourModePickTitle;
+
+  /// No description provided for @tourModePickBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Both live in this app. Pick one to learn — you can switch any time.'**
+  String get tourModePickBody;
+
+  /// No description provided for @tourModeNumberDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Twelve numbered pins. Race to exactly 50.'**
+  String get tourModeNumberDesc;
+
+  /// No description provided for @tourModeKubbDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Two teams, five kubbs each — and the king.'**
+  String get tourModeKubbDesc;
 }
 
 class _AppLocalizationsDelegate
