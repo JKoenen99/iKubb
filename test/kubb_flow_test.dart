@@ -62,7 +62,7 @@ void main() {
     await miss(tester, 5);
 
     // Throw-in phase: no penalties.
-    expect(find.text('Out of bounds twice'), findsOneWidget);
+    expect(find.text('Penalty kubbs (out twice)'), findsOneWidget);
     await tester.tap(find.text('Done'));
     await tester.pumpAndSettle();
 

@@ -12,10 +12,10 @@ class AppLocalizationsSv extends AppLocalizations {
   String get appTitle => 'iKubb';
 
   @override
-  String get tagline => 'Resultattavlan för nummerkubb';
+  String get tagline => 'Kubb-resultattavlan';
 
   @override
-  String get startScoring => 'Jag kan reglerna — börja räkna poäng';
+  String get startScoring => 'Jag kan reglerna, börja räkna';
 
   @override
   String get teachMe => 'Lär mig spelet';
@@ -57,9 +57,6 @@ class AppLocalizationsSv extends AppLocalizations {
   }
 
   @override
-  String get comingSoon => 'Kommer snart';
-
-  @override
   String get players => 'Spelare';
 
   @override
@@ -93,7 +90,9 @@ class AppLocalizationsSv extends AppLocalizations {
   String get overshootRule => 'Över målet';
 
   @override
-  String get policyReset => 'Återställ';
+  String policyReset(Object score) {
+    return 'Tillbaka till $score';
+  }
 
   @override
   String get policyHalf => 'Hälften av målet';
@@ -105,7 +104,7 @@ class AppLocalizationsSv extends AppLocalizations {
   String get eliminationRule => 'Utslagning';
 
   @override
-  String get missLimit => 'Missar till utslagning';
+  String get missLimit => 'Missar före utslagning';
 
   @override
   String get shuffleOrder => 'Blanda ordningen';
@@ -129,7 +128,7 @@ class AppLocalizationsSv extends AppLocalizations {
   String get rulesNoResults => 'Inga regler matchar';
 
   @override
-  String get activeRulesLabel => 'Denna match';
+  String get activeRulesLabel => 'Gällande husregler';
 
   @override
   String get catSetup => 'Uppställning & plan';
@@ -171,7 +170,7 @@ class AppLocalizationsSv extends AppLocalizations {
 
   @override
   String get ruleTurnsBody =>
-      'Varje sida kastar en pinne per tur, alltid i samma ordning.';
+      'Spelarna turas om i fast ordning — en pinne per kast.';
 
   @override
   String get ruleUnderhandTitle => 'Kasta underifrån';
@@ -202,7 +201,7 @@ class AppLocalizationsSv extends AppLocalizations {
 
   @override
   String get ruleLeaningBody =>
-      'En kägla som vilar mot en annan kägla eller pinnen räknas inte som fälld.';
+      'En kägla som vilar på en annan kägla eller på pinnen räknas inte som fälld.';
 
   @override
   String get ruleOvershootTitle => 'Gå inte över målet';
@@ -224,28 +223,28 @@ class AppLocalizationsSv extends AppLocalizations {
 
   @override
   String get ruleMissesDetail =>
-      'Prickarna på ditt spelarkort visar din missvit.';
+      'Prickarna på poängkortet räknar missarna i rad.';
 
   @override
   String get ruleExactTitle => 'Träffa målet exakt';
 
   @override
   String get ruleExactBody =>
-      'Den första sidan som når exakt målpoängen vinner matchen.';
+      'Den spelare eller det lag som först når exakt målpoängen vinner spelet.';
 
   @override
   String get ruleLastStandingTitle => 'Sist kvar vinner';
 
   @override
   String get ruleLastStandingBody =>
-      'Om alla andra sidor slagits ut vinner den som är kvar.';
+      'Om alla andra är utslagna vinner den sista spelaren eller det sista laget som är kvar.';
 
   @override
   String get ruleTeamsTitle => 'Solo eller i lag';
 
   @override
   String get ruleTeamsBody =>
-      'Spela en mot en eller i två lag — ett lag kastar som en sida och medlemmarna turas om.';
+      'Spela en mot en eller i två lag — laget delar på en tur och medlemmarna turas om att kasta.';
 
   @override
   String get rematch => 'Returmatch';
@@ -275,10 +274,10 @@ class AppLocalizationsSv extends AppLocalizations {
   String get winRate => 'Vinstandel';
 
   @override
-  String get avgPerThrow => 'Snittpoäng per kast';
+  String get avgPerThrow => 'Poäng per kast';
 
   @override
-  String get mostHitPin => 'Favoritkägla';
+  String get mostHitPin => 'Mest träffade käglan';
 
   @override
   String get statMisses => 'Missar';
@@ -308,7 +307,7 @@ class AppLocalizationsSv extends AppLocalizations {
   String get language => 'Språk';
 
   @override
-  String get systemDefault => 'Systemstandard';
+  String get systemDefault => 'System';
 
   @override
   String get haptics => 'Haptik';
@@ -331,7 +330,7 @@ class AppLocalizationsSv extends AppLocalizations {
   String get newGameConfirmTitle => 'Starta en ny match?';
 
   @override
-  String get newGameConfirmBody => 'Den pågående matchen kastas.';
+  String get newGameConfirmBody => 'Du förlorar spelet som pågår.';
 
   @override
   String get resumeGame => 'Fortsätt matchen';
@@ -353,7 +352,7 @@ class AppLocalizationsSv extends AppLocalizations {
 
   @override
   String get clearHistoryConfirmBody =>
-      'Alla matcher och all statistik raderas.';
+      'Det här rensar alla spel och all statistik.';
 
   @override
   String get modeNumber => 'Nummerkubb';
@@ -390,10 +389,10 @@ class AppLocalizationsSv extends AppLocalizations {
   String get advantageLine => 'Fördelslinje';
 
   @override
-  String get throwInTitle => 'Kasta in de fällda kubbarna i anfallarens halva';
+  String get throwInTitle => 'Kasta de fällda kubbarna in i anfallarnas halva.';
 
   @override
-  String get outTwice => 'Ut två gånger';
+  String get outTwice => 'Straffkubbar (ut två gånger)';
 
   @override
   String get done => 'Klar';
@@ -487,7 +486,7 @@ class AppLocalizationsSv extends AppLocalizations {
       'Först när varje kubb i den försvarande halvan ligger ner får du sikta på kungen. Fäller du honom är spelet ert.';
 
   @override
-  String get ruleKubbEarlyKingTitle => 'Aldrig för tidigt';
+  String get ruleKubbEarlyKingTitle => 'Inte innan linjen ligger';
 
   @override
   String get ruleKubbEarlyKingBody =>
@@ -621,4 +620,8 @@ class AppLocalizationsSv extends AppLocalizations {
   String matchScore(Object a, Object b) {
     return '$a – $b';
   }
+
+  @override
+  String get deleteGameConfirmBody =>
+      'Det här spelet tas bort från din historik.';
 }

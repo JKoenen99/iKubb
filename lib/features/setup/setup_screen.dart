@@ -312,7 +312,7 @@ class _Avatar extends StatelessWidget {
     // TODO(assets): Viking avatar illustrations replace the initial.
     child: Center(
       child: Text(
-        player.name.isEmpty ? '?' : player.name[0].toUpperCase(),
+        player.name.isEmpty ? '?' : player.name.characters.first.toUpperCase(),
         style: TextStyle(
           color: IKubbPalette.birchLight,
           fontWeight: FontWeight.w700,
@@ -451,7 +451,8 @@ class _HouseRules extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final policyLabel = switch (setup.overshootPolicy) {
-      OvershootPolicy.resetToFixed => l10n.policyReset,
+      OvershootPolicy.resetToFixed =>
+        l10n.policyReset(setup.rules.overshootResetValue),
       OvershootPolicy.resetToHalfTarget => l10n.policyHalf,
       OvershootPolicy.none => l10n.policyNone,
     };
@@ -504,7 +505,7 @@ class _HouseRules extends StatelessWidget {
           segments: [
             ButtonSegment(
               value: OvershootPolicy.resetToFixed,
-              label: Text(l10n.policyReset),
+              label: Text(l10n.policyReset(setup.rules.overshootResetValue)),
             ),
             ButtonSegment(
               value: OvershootPolicy.resetToHalfTarget,

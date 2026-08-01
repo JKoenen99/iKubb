@@ -13,8 +13,8 @@ void main() {
     await tester.pumpAndSettle();
 
     // Onboarding fork → straight to scoring for experienced players.
-    expect(find.text('I know the rules — start scoring'), findsOneWidget);
-    await tester.tap(find.text('I know the rules — start scoring'));
+    expect(find.text('I know the rules, start scoring'), findsOneWidget);
+    await tester.tap(find.text('I know the rules, start scoring'));
     await tester.pumpAndSettle();
 
     // Set up a classic 2-player game.

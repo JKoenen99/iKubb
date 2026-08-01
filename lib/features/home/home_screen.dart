@@ -82,7 +82,7 @@ class HomeScreen extends ConsumerWidget {
                           onPressed: () => context.go(resumeRoute),
                           icon: const Icon(Icons.play_arrow),
                           label: Text(
-                            '${l10n.resumeGame} — $resumeSummary',
+                            l10n.resumeGameSummary(resumeSummary),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),

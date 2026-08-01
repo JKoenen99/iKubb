@@ -15,7 +15,7 @@ void main() {
   ) async {
     await tester.pumpWidget(const ProviderScope(child: IKubbApp()));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('I know the rules — start scoring'));
+    await tester.tap(find.text('I know the rules, start scoring'));
     await tester.pumpAndSettle();
     for (final name in ['Anna', 'Björn']) {
       await tester.enterText(find.byType(TextField).first, name);

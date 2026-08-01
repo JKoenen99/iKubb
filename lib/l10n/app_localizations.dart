@@ -123,13 +123,13 @@ abstract class AppLocalizations {
   /// No description provided for @tagline.
   ///
   /// In en, this message translates to:
-  /// **'The number kubb scoreboard'**
+  /// **'The kubb scoreboard'**
   String get tagline;
 
   /// No description provided for @startScoring.
   ///
   /// In en, this message translates to:
-  /// **'I know the rules — start scoring'**
+  /// **'I know the rules, start scoring'**
   String get startScoring;
 
   /// No description provided for @teachMe.
@@ -197,12 +197,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{name} wins!'**
   String winnerBanner(String name);
-
-  /// No description provided for @comingSoon.
-  ///
-  /// In en, this message translates to:
-  /// **'Coming soon'**
-  String get comingSoon;
 
   /// No description provided for @players.
   ///
@@ -273,8 +267,8 @@ abstract class AppLocalizations {
   /// No description provided for @policyReset.
   ///
   /// In en, this message translates to:
-  /// **'Reset'**
-  String get policyReset;
+  /// **'Back to {score}'**
+  String policyReset(Object score);
 
   /// No description provided for @policyHalf.
   ///
@@ -297,7 +291,7 @@ abstract class AppLocalizations {
   /// No description provided for @missLimit.
   ///
   /// In en, this message translates to:
-  /// **'Misses to eliminate'**
+  /// **'Misses before elimination'**
   String get missLimit;
 
   /// No description provided for @shuffleOrder.
@@ -345,7 +339,7 @@ abstract class AppLocalizations {
   /// No description provided for @activeRulesLabel.
   ///
   /// In en, this message translates to:
-  /// **'This game'**
+  /// **'House rules in play'**
   String get activeRulesLabel;
 
   /// No description provided for @catSetup.
@@ -423,7 +417,7 @@ abstract class AppLocalizations {
   /// No description provided for @ruleTurnsBody.
   ///
   /// In en, this message translates to:
-  /// **'Sides throw one stick per turn, always in the same order.'**
+  /// **'Players take turns in a fixed order — one stick per throw.'**
   String get ruleTurnsBody;
 
   /// No description provided for @ruleUnderhandTitle.
@@ -477,7 +471,7 @@ abstract class AppLocalizations {
   /// No description provided for @ruleLeaningBody.
   ///
   /// In en, this message translates to:
-  /// **'A pin resting on another pin or on the stick doesn\'t count as fallen.'**
+  /// **'A pin resting on another pin or on the stick doesn\'t count as knocked over.'**
   String get ruleLeaningBody;
 
   /// No description provided for @ruleOvershootTitle.
@@ -513,7 +507,7 @@ abstract class AppLocalizations {
   /// No description provided for @ruleMissesDetail.
   ///
   /// In en, this message translates to:
-  /// **'The dots on your player card track your miss streak.'**
+  /// **'The dots on the score card track the miss streak.'**
   String get ruleMissesDetail;
 
   /// No description provided for @ruleExactTitle.
@@ -525,7 +519,7 @@ abstract class AppLocalizations {
   /// No description provided for @ruleExactBody.
   ///
   /// In en, this message translates to:
-  /// **'The first side to reach exactly the target score wins the game.'**
+  /// **'The first player or team to reach exactly the target score wins the game.'**
   String get ruleExactBody;
 
   /// No description provided for @ruleLastStandingTitle.
@@ -537,7 +531,7 @@ abstract class AppLocalizations {
   /// No description provided for @ruleLastStandingBody.
   ///
   /// In en, this message translates to:
-  /// **'If every other side is eliminated, the remaining side wins.'**
+  /// **'If everyone else is eliminated, the last player or team standing wins.'**
   String get ruleLastStandingBody;
 
   /// No description provided for @ruleTeamsTitle.
@@ -549,7 +543,7 @@ abstract class AppLocalizations {
   /// No description provided for @ruleTeamsBody.
   ///
   /// In en, this message translates to:
-  /// **'Play one against one, or in two teams — a team throws as one side, with members taking turns.'**
+  /// **'Play one against one, or in two teams — a team shares one turn, with members alternating throws.'**
   String get ruleTeamsBody;
 
   /// No description provided for @rematch.
@@ -609,13 +603,13 @@ abstract class AppLocalizations {
   /// No description provided for @avgPerThrow.
   ///
   /// In en, this message translates to:
-  /// **'Avg points per throw'**
+  /// **'Points per throw'**
   String get avgPerThrow;
 
   /// No description provided for @mostHitPin.
   ///
   /// In en, this message translates to:
-  /// **'Favorite pin'**
+  /// **'Most-hit pin'**
   String get mostHitPin;
 
   /// No description provided for @statMisses.
@@ -675,7 +669,7 @@ abstract class AppLocalizations {
   /// No description provided for @systemDefault.
   ///
   /// In en, this message translates to:
-  /// **'System default'**
+  /// **'System'**
   String get systemDefault;
 
   /// No description provided for @haptics.
@@ -717,7 +711,7 @@ abstract class AppLocalizations {
   /// No description provided for @newGameConfirmBody.
   ///
   /// In en, this message translates to:
-  /// **'The current game will be discarded.'**
+  /// **'You\'ll lose the game that\'s underway.'**
   String get newGameConfirmBody;
 
   /// No description provided for @resumeGame.
@@ -759,7 +753,7 @@ abstract class AppLocalizations {
   /// No description provided for @clearHistoryConfirmBody.
   ///
   /// In en, this message translates to:
-  /// **'All games and stats will be deleted.'**
+  /// **'This clears every game and all stats.'**
   String get clearHistoryConfirmBody;
 
   /// No description provided for @modeNumber.
@@ -831,13 +825,13 @@ abstract class AppLocalizations {
   /// No description provided for @throwInTitle.
   ///
   /// In en, this message translates to:
-  /// **'Throw the felled kubbs into the attacker\'s half'**
+  /// **'Throw the knocked-over kubbs into the attacker\'s half.'**
   String get throwInTitle;
 
   /// No description provided for @outTwice.
   ///
   /// In en, this message translates to:
-  /// **'Out of bounds twice'**
+  /// **'Penalty kubbs (out twice)'**
   String get outTwice;
 
   /// No description provided for @done.
@@ -999,7 +993,7 @@ abstract class AppLocalizations {
   /// No description provided for @ruleKubbEarlyKingTitle.
   ///
   /// In en, this message translates to:
-  /// **'Never too early'**
+  /// **'Not before the line is down'**
   String get ruleKubbEarlyKingTitle;
 
   /// No description provided for @ruleKubbEarlyKingBody.
@@ -1223,6 +1217,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{a} – {b}'**
   String matchScore(Object a, Object b);
+
+  /// No description provided for @deleteGameConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This game will be removed from your history.'**
+  String get deleteGameConfirmBody;
 }
 
 class _AppLocalizationsDelegate

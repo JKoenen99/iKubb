@@ -384,7 +384,7 @@ class _KubbScreenState extends ConsumerState<KubbScreen> {
             flex: 2,
             child: FilledButton(
               onPressed: selection == 0 ? null : _confirmBaton,
-              child: Text('${l10n.confirmThrow} (+$selection)'),
+              child: Text(l10n.confirmThrowCount(selection)),
             ),
           ),
         ],
@@ -500,7 +500,7 @@ class _KubbGameOverlay extends StatelessWidget {
         ),
       ),
       scoreLine: Text(
-        '${match.wins[0]} – ${match.wins[1]}',
+        l10n.matchScore(match.wins[0], match.wins[1]),
         textAlign: TextAlign.center,
         style: IKubbType.score(
           size: IKubbType.stepHero,
@@ -537,7 +537,7 @@ class _KubbMatchOverlay extends ConsumerWidget {
       winnerColor: winnerColor,
       banner: CelebrationBanner(l10n.winnerBanner(winner.name)),
       scoreLine: Text(
-        '${match.wins[0]} – ${match.wins[1]}',
+        l10n.matchScore(match.wins[0], match.wins[1]),
         textAlign: TextAlign.center,
         style: IKubbType.score(
           size: IKubbType.stepScoreLg,

@@ -12,10 +12,10 @@ class AppLocalizationsNl extends AppLocalizations {
   String get appTitle => 'iKubb';
 
   @override
-  String get tagline => 'Het nummerkubb-scorebord';
+  String get tagline => 'Het kubb-scorebord';
 
   @override
-  String get startScoring => 'Ik ken de regels — begin met scoren';
+  String get startScoring => 'Ik ken de regels, start met scoren';
 
   @override
   String get teachMe => 'Leer mij het spel';
@@ -57,9 +57,6 @@ class AppLocalizationsNl extends AppLocalizations {
   }
 
   @override
-  String get comingSoon => 'Binnenkort beschikbaar';
-
-  @override
   String get players => 'Spelers';
 
   @override
@@ -93,7 +90,9 @@ class AppLocalizationsNl extends AppLocalizations {
   String get overshootRule => 'Te veel gegooid';
 
   @override
-  String get policyReset => 'Terugvallen';
+  String policyReset(Object score) {
+    return 'Terug naar $score';
+  }
 
   @override
   String get policyHalf => 'Helft van doel';
@@ -129,7 +128,7 @@ class AppLocalizationsNl extends AppLocalizations {
   String get rulesNoResults => 'Geen regels gevonden';
 
   @override
-  String get activeRulesLabel => 'Dit spel';
+  String get activeRulesLabel => 'Actieve huisregels';
 
   @override
   String get catSetup => 'Opstelling & veld';
@@ -171,7 +170,7 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get ruleTurnsBody =>
-      'Elke partij gooit één stok per beurt, steeds in dezelfde volgorde.';
+      'Spelers gooien om de beurt in vaste volgorde — één stok per worp.';
 
   @override
   String get ruleUnderhandTitle => 'Onderhands werpen';
@@ -202,7 +201,7 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get ruleLeaningBody =>
-      'Een kegel die op een andere kegel of op de stok rust, telt niet als omgevallen.';
+      'Een kegel die op een andere kegel of op de stok leunt, telt niet als omgegooid.';
 
   @override
   String get ruleOvershootTitle => 'Niet te veel gooien';
@@ -224,28 +223,28 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get ruleMissesDetail =>
-      'De stippen op je spelerskaart houden je misserreeks bij.';
+      'De stippen op de scorekaart tellen de missers op rij.';
 
   @override
   String get ruleExactTitle => 'Raak het doel precies';
 
   @override
   String get ruleExactBody =>
-      'De eerste partij die precies de doelscore haalt, wint het spel.';
+      'De eerste speler of het eerste team dat precies de doelscore haalt, wint het spel.';
 
   @override
   String get ruleLastStandingTitle => 'De laatst overgeblevene';
 
   @override
   String get ruleLastStandingBody =>
-      'Als alle andere partijen zijn uitgeschakeld, wint de overgebleven partij.';
+      'Als alle anderen zijn uitgeschakeld, wint de laatste speler of het laatste team dat overblijft.';
 
   @override
   String get ruleTeamsTitle => 'Solo of in teams';
 
   @override
   String get ruleTeamsBody =>
-      'Speel één tegen één of in twee teams — een team gooit als één partij, spelers wisselen elkaar af.';
+      'Speel één tegen één of in twee teams — een team deelt één beurt en de leden gooien om en om.';
 
   @override
   String get rematch => 'Revanche';
@@ -275,10 +274,10 @@ class AppLocalizationsNl extends AppLocalizations {
   String get winRate => 'Winstpercentage';
 
   @override
-  String get avgPerThrow => 'Gem. punten per worp';
+  String get avgPerThrow => 'Punten per worp';
 
   @override
-  String get mostHitPin => 'Favoriete kegel';
+  String get mostHitPin => 'Vaakst geraakte kegel';
 
   @override
   String get statMisses => 'Missers';
@@ -308,7 +307,7 @@ class AppLocalizationsNl extends AppLocalizations {
   String get language => 'Taal';
 
   @override
-  String get systemDefault => 'Systeemstandaard';
+  String get systemDefault => 'Systeem';
 
   @override
   String get haptics => 'Trillingen';
@@ -331,7 +330,7 @@ class AppLocalizationsNl extends AppLocalizations {
   String get newGameConfirmTitle => 'Nieuw spel starten?';
 
   @override
-  String get newGameConfirmBody => 'Het huidige spel wordt gewist.';
+  String get newGameConfirmBody => 'Je verliest het spel dat bezig is.';
 
   @override
   String get resumeGame => 'Spel hervatten';
@@ -353,7 +352,7 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get clearHistoryConfirmBody =>
-      'Alle partijen en statistieken worden verwijderd.';
+      'Dit wist elk spel en alle statistieken.';
 
   @override
   String get modeNumber => 'Nummerkubb';
@@ -391,10 +390,10 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get throwInTitle =>
-      'Gooi de gevelde kubbs in de helft van de aanvaller';
+      'Gooi de omgegooide kubbs in de helft van de aanvallers.';
 
   @override
-  String get outTwice => 'Twee keer uit';
+  String get outTwice => 'Strafkubbs (twee keer uit)';
 
   @override
   String get done => 'Klaar';
@@ -488,7 +487,7 @@ class AppLocalizationsNl extends AppLocalizations {
       'Pas als elke kubb in de verdedigende helft ligt, mag je op de koning mikken. Vel hem, en het spel is van jou.';
 
   @override
-  String get ruleKubbEarlyKingTitle => 'Nooit te vroeg';
+  String get ruleKubbEarlyKingTitle => 'Niet vóór de lijn ligt';
 
   @override
   String get ruleKubbEarlyKingBody =>
@@ -621,4 +620,8 @@ class AppLocalizationsNl extends AppLocalizations {
   String matchScore(Object a, Object b) {
     return '$a – $b';
   }
+
+  @override
+  String get deleteGameConfirmBody =>
+      'Dit spel wordt uit je historie verwijderd.';
 }

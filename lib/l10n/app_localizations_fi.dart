@@ -12,10 +12,10 @@ class AppLocalizationsFi extends AppLocalizations {
   String get appTitle => 'iKubb';
 
   @override
-  String get tagline => 'Numerokubbin tulostaulu';
+  String get tagline => 'Kubbin tulostaulu';
 
   @override
-  String get startScoring => 'Osaan säännöt — aloita pisteytys';
+  String get startScoring => 'Osaan säännöt, aloita pisteytys';
 
   @override
   String get teachMe => 'Opeta minulle peli';
@@ -57,9 +57,6 @@ class AppLocalizationsFi extends AppLocalizations {
   }
 
   @override
-  String get comingSoon => 'Tulossa pian';
-
-  @override
   String get players => 'Pelaajat';
 
   @override
@@ -93,7 +90,9 @@ class AppLocalizationsFi extends AppLocalizations {
   String get overshootRule => 'Ylitys';
 
   @override
-  String get policyReset => 'Palautus';
+  String policyReset(Object score) {
+    return 'Takaisin $score:een';
+  }
 
   @override
   String get policyHalf => 'Puolet tavoitteesta';
@@ -105,7 +104,7 @@ class AppLocalizationsFi extends AppLocalizations {
   String get eliminationRule => 'Putoaminen';
 
   @override
-  String get missLimit => 'Ohiheitot putoamiseen';
+  String get missLimit => 'Hudit ennen putoamista';
 
   @override
   String get shuffleOrder => 'Sekoita järjestys';
@@ -129,7 +128,7 @@ class AppLocalizationsFi extends AppLocalizations {
   String get rulesNoResults => 'Hakua vastaavia sääntöjä ei löytynyt';
 
   @override
-  String get activeRulesLabel => 'Tämä peli';
+  String get activeRulesLabel => 'Voimassa olevat kotisäännöt';
 
   @override
   String get catSetup => 'Aloitus & kenttä';
@@ -171,7 +170,7 @@ class AppLocalizationsFi extends AppLocalizations {
 
   @override
   String get ruleTurnsBody =>
-      'Kukin puoli heittää yhden kapulan vuorollaan, aina samassa järjestyksessä.';
+      'Pelaajat heittävät vuorotellen kiinteässä järjestyksessä — yksi keppi per heitto.';
 
   @override
   String get ruleUnderhandTitle => 'Heitä alakautta';
@@ -202,7 +201,7 @@ class AppLocalizationsFi extends AppLocalizations {
 
   @override
   String get ruleLeaningBody =>
-      'Toisen keilan tai kapulan varaan jäänyt keila ei ole kaatunut.';
+      'Keila, joka nojaa toiseen keilaan tai keppiin, ei laske kaatuneeksi.';
 
   @override
   String get ruleOvershootTitle => 'Älä ylitä tavoitetta';
@@ -224,28 +223,28 @@ class AppLocalizationsFi extends AppLocalizations {
 
   @override
   String get ruleMissesDetail =>
-      'Pelaajakorttisi pisteet näyttävät ohiheittoputkesi.';
+      'Pistekortin pallot laskevat peräkkäiset hudit.';
 
   @override
   String get ruleExactTitle => 'Osu tavoitteeseen tasan';
 
   @override
   String get ruleExactBody =>
-      'Ensimmäinen puoli, joka saavuttaa tavoitepisteet tasan, voittaa pelin.';
+      'Peli päättyy, kun pelaaja tai joukkue saavuttaa tavoitepisteet tasan ensimmäisenä.';
 
   @override
   String get ruleLastStandingTitle => 'Viimeinen jäljellä';
 
   @override
   String get ruleLastStandingBody =>
-      'Jos kaikki muut puolet putoavat, jäljellä oleva puoli voittaa.';
+      'Jos kaikki muut on pudotettu, viimeisenä jäljellä oleva pelaaja tai joukkue voittaa.';
 
   @override
   String get ruleTeamsTitle => 'Yksin tai joukkueissa';
 
   @override
   String get ruleTeamsBody =>
-      'Pelatkaa yksi vastaan yksi tai kahdessa joukkueessa — joukkue heittää yhtenä puolena ja jäsenet vuorottelevat.';
+      'Pelaa yksi vastaan yksi tai kahdessa joukkueessa — joukkue jakaa yhden vuoron ja jäsenet heittävät vuorotellen.';
 
   @override
   String get rematch => 'Uusintaottelu';
@@ -275,10 +274,10 @@ class AppLocalizationsFi extends AppLocalizations {
   String get winRate => 'Voittoprosentti';
 
   @override
-  String get avgPerThrow => 'Pisteet/heitto keskimäärin';
+  String get avgPerThrow => 'Pisteitä per heitto';
 
   @override
-  String get mostHitPin => 'Suosikkikeila';
+  String get mostHitPin => 'Osutuin keila';
 
   @override
   String get statMisses => 'Ohiheitot';
@@ -308,7 +307,7 @@ class AppLocalizationsFi extends AppLocalizations {
   String get language => 'Kieli';
 
   @override
-  String get systemDefault => 'Järjestelmän oletus';
+  String get systemDefault => 'Järjestelmä';
 
   @override
   String get haptics => 'Värinäpalaute';
@@ -331,7 +330,7 @@ class AppLocalizationsFi extends AppLocalizations {
   String get newGameConfirmTitle => 'Aloitetaanko uusi peli?';
 
   @override
-  String get newGameConfirmBody => 'Nykyinen peli hylätään.';
+  String get newGameConfirmBody => 'Menetät käynnissä olevan pelin.';
 
   @override
   String get resumeGame => 'Jatka peliä';
@@ -352,7 +351,8 @@ class AppLocalizationsFi extends AppLocalizations {
   String get clearHistory => 'Tyhjennä historia';
 
   @override
-  String get clearHistoryConfirmBody => 'Kaikki pelit ja tilastot poistetaan.';
+  String get clearHistoryConfirmBody =>
+      'Tämä tyhjentää kaikki pelit ja tilastot.';
 
   @override
   String get modeNumber => 'Numerokubb';
@@ -389,11 +389,10 @@ class AppLocalizationsFi extends AppLocalizations {
   String get advantageLine => 'Etulinja';
 
   @override
-  String get throwInTitle =>
-      'Heitä kaadetut kubbit hyökkääjän kenttäpuoliskolle';
+  String get throwInTitle => 'Heitä kaatuneet kubbit hyökkääjien puoliskolle.';
 
   @override
-  String get outTwice => 'Kahdesti ulkona';
+  String get outTwice => 'Rangaistuskubbit (kahdesti ulos)';
 
   @override
   String get done => 'Valmis';
@@ -487,7 +486,7 @@ class AppLocalizationsFi extends AppLocalizations {
       'Vasta kun jokainen kubb puolustavalla puoliskolla on kaatunut, saat tähdätä kuninkaaseen. Kaada se, ja peli on teidän.';
 
   @override
-  String get ruleKubbEarlyKingTitle => 'Ei koskaan liian aikaisin';
+  String get ruleKubbEarlyKingTitle => 'Ei ennen kuin rivi on kaatunut';
 
   @override
   String get ruleKubbEarlyKingBody =>
@@ -622,4 +621,7 @@ class AppLocalizationsFi extends AppLocalizations {
   String matchScore(Object a, Object b) {
     return '$a – $b';
   }
+
+  @override
+  String get deleteGameConfirmBody => 'Tämä peli poistetaan historiastasi.';
 }

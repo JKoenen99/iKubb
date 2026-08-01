@@ -163,7 +163,7 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
                           final confirmed = await confirmAdaptive(
                             context,
                             title: l10n.deleteGameLabel,
-                            body: l10n.clearHistoryConfirmBody,
+                            body: l10n.deleteGameConfirmBody,
                             confirmLabel: l10n.delete,
                             isDestructive: true,
                           );

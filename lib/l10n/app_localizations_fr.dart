@@ -12,10 +12,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get appTitle => 'iKubb';
 
   @override
-  String get tagline => 'Le tableau de score du kubb à numéros';
+  String get tagline => 'Le tableau des scores du kubb';
 
   @override
-  String get startScoring => 'Je connais les règles — commencer à compter';
+  String get startScoring => 'Je connais les règles, on compte';
 
   @override
   String get teachMe => 'Apprends-moi le jeu';
@@ -57,9 +57,6 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get comingSoon => 'Bientôt disponible';
-
-  @override
   String get players => 'Joueurs';
 
   @override
@@ -93,7 +90,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get overshootRule => 'Dépassement';
 
   @override
-  String get policyReset => 'Réinitialiser';
+  String policyReset(Object score) {
+    return 'Retour à $score';
+  }
 
   @override
   String get policyHalf => 'Moitié de la cible';
@@ -105,7 +104,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get eliminationRule => 'Élimination';
 
   @override
-  String get missLimit => 'Ratés avant élimination';
+  String get missLimit => 'Échecs avant élimination';
 
   @override
   String get shuffleOrder => 'Mélanger l\'ordre';
@@ -129,7 +128,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get rulesNoResults => 'Aucune règle ne correspond';
 
   @override
-  String get activeRulesLabel => 'Cette partie';
+  String get activeRulesLabel => 'Règles maison en vigueur';
 
   @override
   String get catSetup => 'Mise en place & terrain';
@@ -171,7 +170,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get ruleTurnsBody =>
-      'Chaque camp lance un bâton par tour, toujours dans le même ordre.';
+      'Les joueurs lancent à tour de rôle, dans un ordre fixe — un bâton par lancer.';
 
   @override
   String get ruleUnderhandTitle => 'Lancer par en dessous';
@@ -202,7 +201,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get ruleLeaningBody =>
-      'Une quille appuyée sur une autre quille ou sur le bâton n\'est pas considérée comme tombée.';
+      'Une quille appuyée sur une autre quille ou sur le bâton ne compte pas comme renversée.';
 
   @override
   String get ruleOvershootTitle => 'Ne dépassez pas la cible';
@@ -224,28 +223,28 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get ruleMissesDetail =>
-      'Les points sur votre carte de joueur suivent votre série de ratés.';
+      'Les points sur la carte de score suivent la série d\'échecs.';
 
   @override
   String get ruleExactTitle => 'Atteignez la cible exactement';
 
   @override
   String get ruleExactBody =>
-      'Le premier camp à atteindre exactement le score cible gagne la partie.';
+      'Le premier joueur ou la première équipe à atteindre exactement le score cible gagne la partie.';
 
   @override
   String get ruleLastStandingTitle => 'Le dernier en lice';
 
   @override
   String get ruleLastStandingBody =>
-      'Si tous les autres camps sont éliminés, le camp restant gagne.';
+      'Si tous les autres sont éliminés, le dernier joueur ou la dernière équipe en lice gagne.';
 
   @override
   String get ruleTeamsTitle => 'En solo ou en équipe';
 
   @override
   String get ruleTeamsBody =>
-      'Jouez en un contre un ou en deux équipes — une équipe lance comme un seul camp, ses membres alternent.';
+      'Jouez en un contre un ou en deux équipes — l\'équipe partage un tour et ses membres alternent les lancers.';
 
   @override
   String get rematch => 'Revanche';
@@ -275,10 +274,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get winRate => 'Taux de victoire';
 
   @override
-  String get avgPerThrow => 'Points moyens par lancer';
+  String get avgPerThrow => 'Points par lancer';
 
   @override
-  String get mostHitPin => 'Quille favorite';
+  String get mostHitPin => 'Quille la plus touchée';
 
   @override
   String get statMisses => 'Ratés';
@@ -308,7 +307,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get language => 'Langue';
 
   @override
-  String get systemDefault => 'Valeur du système';
+  String get systemDefault => 'Système';
 
   @override
   String get haptics => 'Vibrations';
@@ -331,7 +330,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get newGameConfirmTitle => 'Commencer une nouvelle partie ?';
 
   @override
-  String get newGameConfirmBody => 'La partie en cours sera abandonnée.';
+  String get newGameConfirmBody => 'Vous perdrez la partie en cours.';
 
   @override
   String get resumeGame => 'Reprendre la partie';
@@ -353,7 +352,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get clearHistoryConfirmBody =>
-      'Toutes les parties et statistiques seront supprimées.';
+      'Cela efface toutes les parties et toutes les statistiques.';
 
   @override
   String get modeNumber => 'Kubb à numéros';
@@ -391,10 +390,10 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get throwInTitle =>
-      'Lancez les kubbs abattus dans la moitié de l\'attaquant';
+      'Lancez les kubbs renversés dans la moitié des attaquants.';
 
   @override
-  String get outTwice => 'Deux fois dehors';
+  String get outTwice => 'Kubbs de pénalité (deux fois dehors)';
 
   @override
   String get done => 'Terminé';
@@ -488,7 +487,7 @@ class AppLocalizationsFr extends AppLocalizations {
       'Ce n\'est que lorsque tous les kubbs de la moitié adverse sont tombés que vous pouvez viser le roi. Renversez-le, et la partie est à vous.';
 
   @override
-  String get ruleKubbEarlyKingTitle => 'Jamais trop tôt';
+  String get ruleKubbEarlyKingTitle => 'Pas avant que la ligne soit tombée';
 
   @override
   String get ruleKubbEarlyKingBody =>
@@ -623,4 +622,8 @@ class AppLocalizationsFr extends AppLocalizations {
   String matchScore(Object a, Object b) {
     return '$a – $b';
   }
+
+  @override
+  String get deleteGameConfirmBody =>
+      'Cette partie sera retirée de votre historique.';
 }

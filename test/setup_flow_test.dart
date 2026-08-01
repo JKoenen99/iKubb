@@ -10,7 +10,7 @@ import 'test_utils.dart';
 Future<void> pumpToSetup(WidgetTester tester) async {
   await tester.pumpWidget(const ProviderScope(child: IKubbApp()));
   await tester.pumpAndSettle();
-  await tester.tap(find.text('I know the rules — start scoring'));
+  await tester.tap(find.text('I know the rules, start scoring'));
   await tester.pumpAndSettle();
 }
 
@@ -82,7 +82,7 @@ void main() {
       ProviderScope(key: UniqueKey(), child: const IKubbApp()),
     );
     await tester.pumpAndSettle();
-    await tester.tap(find.text('I know the rules — start scoring'));
+    await tester.tap(find.text('I know the rules, start scoring'));
     await tester.pumpAndSettle();
 
     expect(find.text('Recent players'), findsOneWidget);

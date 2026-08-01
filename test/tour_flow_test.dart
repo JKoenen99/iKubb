@@ -43,7 +43,7 @@ void main() {
       await tester.pumpAndSettle();
     }
     expect(find.text('Hit the target exactly'), findsOneWidget);
-    await tester.tap(find.text('I know the rules — start scoring'));
+    await tester.tap(find.text('I know the rules, start scoring'));
     await tester.pumpAndSettle();
     expect(find.text('Start game'), findsOneWidget); // landed in setup
   });
@@ -64,7 +64,7 @@ void main() {
       await tester.pumpAndSettle();
     }
     expect(find.text('The king decides it'), findsOneWidget);
-    await tester.tap(find.text('I know the rules — start scoring'));
+    await tester.tap(find.text('I know the rules, start scoring'));
     await tester.pumpAndSettle();
 
     // Setup opens with the toured mode preselected: kubb options visible.

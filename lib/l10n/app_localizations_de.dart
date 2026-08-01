@@ -12,10 +12,10 @@ class AppLocalizationsDe extends AppLocalizations {
   String get appTitle => 'iKubb';
 
   @override
-  String get tagline => 'Die Anzeigetafel für Nummern-Kubb';
+  String get tagline => 'Das Kubb-Scoreboard';
 
   @override
-  String get startScoring => 'Ich kenne die Regeln — Punkte zählen';
+  String get startScoring => 'Ich kenne die Regeln, los geht\'s';
 
   @override
   String get teachMe => 'Bring mir das Spiel bei';
@@ -57,9 +57,6 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
-  String get comingSoon => 'Bald verfügbar';
-
-  @override
   String get players => 'Spieler';
 
   @override
@@ -93,7 +90,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get overshootRule => 'Überwerfen';
 
   @override
-  String get policyReset => 'Zurücksetzen';
+  String policyReset(Object score) {
+    return 'Zurück auf $score';
+  }
 
   @override
   String get policyHalf => 'Hälfte des Ziels';
@@ -105,7 +104,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get eliminationRule => 'Ausscheiden';
 
   @override
-  String get missLimit => 'Fehlwürfe bis zum Aus';
+  String get missLimit => 'Fehlwürfe bis zum Ausscheiden';
 
   @override
   String get shuffleOrder => 'Reihenfolge mischen';
@@ -129,7 +128,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get rulesNoResults => 'Keine passenden Regeln gefunden';
 
   @override
-  String get activeRulesLabel => 'Dieses Spiel';
+  String get activeRulesLabel => 'Geltende Hausregeln';
 
   @override
   String get catSetup => 'Aufbau & Feld';
@@ -171,7 +170,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get ruleTurnsBody =>
-      'Jede Partei wirft einen Stock pro Runde, immer in derselben Reihenfolge.';
+      'Alle werfen abwechselnd in fester Reihenfolge — ein Wurfholz pro Wurf.';
 
   @override
   String get ruleUnderhandTitle => 'Von unten werfen';
@@ -202,7 +201,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get ruleLeaningBody =>
-      'Ein Kegel, der auf einem anderen Kegel oder dem Stock liegt, gilt nicht als gefallen.';
+      'Ein Kegel, der auf einem anderen Kegel oder dem Wurfholz liegt, zählt nicht als umgeworfen.';
 
   @override
   String get ruleOvershootTitle => 'Nicht überwerfen';
@@ -224,28 +223,28 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get ruleMissesDetail =>
-      'Die Punkte auf deiner Spielerkarte zeigen deine Fehlwurfserie.';
+      'Die Punkte auf der Scorekarte zählen die Fehlwurfserie.';
 
   @override
   String get ruleExactTitle => 'Triff das Ziel genau';
 
   @override
   String get ruleExactBody =>
-      'Die erste Partei, die genau die Zielpunktzahl erreicht, gewinnt das Spiel.';
+      'Wer als Erster genau die Zielpunktzahl erreicht — Spieler oder Team — gewinnt das Spiel.';
 
   @override
   String get ruleLastStandingTitle => 'Wer übrig bleibt, gewinnt';
 
   @override
   String get ruleLastStandingBody =>
-      'Sind alle anderen Parteien ausgeschieden, gewinnt die verbleibende Partei.';
+      'Sind alle anderen ausgeschieden, gewinnt der letzte verbleibende Spieler oder das letzte Team.';
 
   @override
   String get ruleTeamsTitle => 'Allein oder im Team';
 
   @override
   String get ruleTeamsBody =>
-      'Spiele eins gegen eins oder in zwei Teams — ein Team wirft als eine Partei, die Mitglieder wechseln sich ab.';
+      'Spielt eins gegen eins oder in zwei Teams — ein Team teilt sich einen Zug, die Mitglieder werfen abwechselnd.';
 
   @override
   String get rematch => 'Revanche';
@@ -275,10 +274,10 @@ class AppLocalizationsDe extends AppLocalizations {
   String get winRate => 'Siegquote';
 
   @override
-  String get avgPerThrow => 'Ø Punkte pro Wurf';
+  String get avgPerThrow => 'Punkte pro Wurf';
 
   @override
-  String get mostHitPin => 'Lieblingskegel';
+  String get mostHitPin => 'Meistgetroffener Kegel';
 
   @override
   String get statMisses => 'Fehlwürfe';
@@ -308,7 +307,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get language => 'Sprache';
 
   @override
-  String get systemDefault => 'Systemstandard';
+  String get systemDefault => 'System';
 
   @override
   String get haptics => 'Haptik';
@@ -331,7 +330,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get newGameConfirmTitle => 'Neues Spiel starten?';
 
   @override
-  String get newGameConfirmBody => 'Das laufende Spiel wird verworfen.';
+  String get newGameConfirmBody => 'Das laufende Spiel geht verloren.';
 
   @override
   String get resumeGame => 'Spiel fortsetzen';
@@ -353,7 +352,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get clearHistoryConfirmBody =>
-      'Alle Spiele und Statistiken werden gelöscht.';
+      'Das löscht jedes Spiel und alle Statistiken.';
 
   @override
   String get modeNumber => 'Nummern-Kubb';
@@ -391,10 +390,10 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get throwInTitle =>
-      'Wirf die gefällten Kubbs in die Hälfte des Angreifers';
+      'Wirf die umgeworfenen Kubbs in die Hälfte der Angreifer.';
 
   @override
-  String get outTwice => 'Zweimal raus';
+  String get outTwice => 'Strafkubbs (zweimal im Aus)';
 
   @override
   String get done => 'Fertig';
@@ -488,7 +487,7 @@ class AppLocalizationsDe extends AppLocalizations {
       'Erst wenn jeder Kubb in der verteidigenden Hälfte liegt, darfst du auf den König zielen. Fällst du ihn, gehört euch das Spiel.';
 
   @override
-  String get ruleKubbEarlyKingTitle => 'Nie zu früh';
+  String get ruleKubbEarlyKingTitle => 'Nicht bevor die Linie liegt';
 
   @override
   String get ruleKubbEarlyKingBody =>
@@ -623,4 +622,8 @@ class AppLocalizationsDe extends AppLocalizations {
   String matchScore(Object a, Object b) {
     return '$a – $b';
   }
+
+  @override
+  String get deleteGameConfirmBody =>
+      'Dieses Spiel wird aus deinem Verlauf entfernt.';
 }

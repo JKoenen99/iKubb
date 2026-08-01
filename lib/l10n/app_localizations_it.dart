@@ -12,10 +12,10 @@ class AppLocalizationsIt extends AppLocalizations {
   String get appTitle => 'iKubb';
 
   @override
-  String get tagline => 'Il segnapunti del kubb numerato';
+  String get tagline => 'Il segnapunti del kubb';
 
   @override
-  String get startScoring => 'Conosco le regole — inizia a segnare';
+  String get startScoring => 'Conosco le regole, iniziamo';
 
   @override
   String get teachMe => 'Insegnami il gioco';
@@ -57,9 +57,6 @@ class AppLocalizationsIt extends AppLocalizations {
   }
 
   @override
-  String get comingSoon => 'In arrivo';
-
-  @override
   String get players => 'Giocatori';
 
   @override
@@ -93,7 +90,9 @@ class AppLocalizationsIt extends AppLocalizations {
   String get overshootRule => 'Superamento';
 
   @override
-  String get policyReset => 'Azzeramento';
+  String policyReset(Object score) {
+    return 'Torna a $score';
+  }
 
   @override
   String get policyHalf => 'Metà dell\'obiettivo';
@@ -105,7 +104,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get eliminationRule => 'Eliminazione';
 
   @override
-  String get missLimit => 'Lanci mancati per l\'eliminazione';
+  String get missLimit => 'Errori prima dell\'eliminazione';
 
   @override
   String get shuffleOrder => 'Mescola l\'ordine';
@@ -129,7 +128,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get rulesNoResults => 'Nessuna regola corrisponde';
 
   @override
-  String get activeRulesLabel => 'Questa partita';
+  String get activeRulesLabel => 'Regole della casa in vigore';
 
   @override
   String get catSetup => 'Preparazione & campo';
@@ -171,7 +170,7 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get ruleTurnsBody =>
-      'Ogni parte lancia un bastone per turno, sempre nello stesso ordine.';
+      'I giocatori si alternano in un ordine fisso — un bastone per lancio.';
 
   @override
   String get ruleUnderhandTitle => 'Lancio dal basso';
@@ -202,7 +201,7 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get ruleLeaningBody =>
-      'Un birillo appoggiato a un altro birillo o al bastone non conta come caduto.';
+      'Un birillo appoggiato a un altro birillo o al bastone non conta come abbattuto.';
 
   @override
   String get ruleOvershootTitle => 'Non superare l\'obiettivo';
@@ -224,28 +223,28 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get ruleMissesDetail =>
-      'I puntini sulla tua carta giocatore seguono la tua serie di errori.';
+      'I punti sulla scheda del punteggio contano gli errori consecutivi.';
 
   @override
   String get ruleExactTitle => 'Centra l\'obiettivo esatto';
 
   @override
   String get ruleExactBody =>
-      'La prima parte che raggiunge esattamente il punteggio obiettivo vince la partita.';
+      'Il primo giocatore o squadra a raggiungere esattamente il punteggio obiettivo vince la partita.';
 
   @override
   String get ruleLastStandingTitle => 'L\'ultimo rimasto';
 
   @override
   String get ruleLastStandingBody =>
-      'Se tutte le altre parti sono eliminate, vince quella rimasta.';
+      'Se tutti gli altri sono eliminati, vince l\'ultimo giocatore o l\'ultima squadra rimasta.';
 
   @override
   String get ruleTeamsTitle => 'Da soli o in squadra';
 
   @override
   String get ruleTeamsBody =>
-      'Gioca uno contro uno o in due squadre — una squadra lancia come un\'unica parte e i membri si alternano.';
+      'Gioca uno contro uno o in due squadre — la squadra condivide un turno e i membri si alternano al lancio.';
 
   @override
   String get rematch => 'Rivincita';
@@ -275,10 +274,10 @@ class AppLocalizationsIt extends AppLocalizations {
   String get winRate => 'Percentuale di vittorie';
 
   @override
-  String get avgPerThrow => 'Punti medi per lancio';
+  String get avgPerThrow => 'Punti per lancio';
 
   @override
-  String get mostHitPin => 'Birillo preferito';
+  String get mostHitPin => 'Birillo più colpito';
 
   @override
   String get statMisses => 'Lanci mancati';
@@ -308,7 +307,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get language => 'Lingua';
 
   @override
-  String get systemDefault => 'Predefinito di sistema';
+  String get systemDefault => 'Sistema';
 
   @override
   String get haptics => 'Vibrazione';
@@ -331,7 +330,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get newGameConfirmTitle => 'Iniziare una nuova partita?';
 
   @override
-  String get newGameConfirmBody => 'La partita in corso verrà scartata.';
+  String get newGameConfirmBody => 'Perderai la partita in corso.';
 
   @override
   String get resumeGame => 'Riprendi la partita';
@@ -353,7 +352,7 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get clearHistoryConfirmBody =>
-      'Tutte le partite e le statistiche saranno eliminate.';
+      'Questo cancella tutte le partite e le statistiche.';
 
   @override
   String get modeNumber => 'Kubb numerato';
@@ -391,10 +390,10 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get throwInTitle =>
-      'Lancia i kubb abbattuti nella metà dell’attaccante';
+      'Lancia i kubb abbattuti nella metà degli attaccanti.';
 
   @override
-  String get outTwice => 'Fuori due volte';
+  String get outTwice => 'Kubb di penalità (fuori due volte)';
 
   @override
   String get done => 'Fatto';
@@ -488,7 +487,7 @@ class AppLocalizationsIt extends AppLocalizations {
       'Solo quando ogni kubb nella metà difensiva è a terra puoi mirare al re. Abbattilo, e la partita è vostra.';
 
   @override
-  String get ruleKubbEarlyKingTitle => 'Mai troppo presto';
+  String get ruleKubbEarlyKingTitle => 'Non prima che la linea sia a terra';
 
   @override
   String get ruleKubbEarlyKingBody =>
@@ -621,4 +620,8 @@ class AppLocalizationsIt extends AppLocalizations {
   String matchScore(Object a, Object b) {
     return '$a – $b';
   }
+
+  @override
+  String get deleteGameConfirmBody =>
+      'Questa partita sarà rimossa dalla cronologia.';
 }

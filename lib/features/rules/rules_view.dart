@@ -179,8 +179,9 @@ class _RulesViewState extends ConsumerState<RulesView> {
 /// game being played. Both modes feed the same chip strip.
 List<String> _numberRuleChips(GameRules rules, AppLocalizations l10n) {
   final policyLabel = switch (rules.overshootPolicy) {
-    OvershootPolicy.resetToFixed =>
-      '${l10n.policyReset} ${rules.overshootResult()}',
+    OvershootPolicy.resetToFixed => l10n.policyReset(
+      rules.overshootResetValue,
+    ),
     OvershootPolicy.resetToHalfTarget =>
       '${l10n.policyHalf} (${rules.overshootResult()})',
     OvershootPolicy.none => l10n.policyNone,

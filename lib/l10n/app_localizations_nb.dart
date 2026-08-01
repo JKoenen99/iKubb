@@ -12,10 +12,10 @@ class AppLocalizationsNb extends AppLocalizations {
   String get appTitle => 'iKubb';
 
   @override
-  String get tagline => 'Resultattavlen for nummerkubb';
+  String get tagline => 'Kubb-resultattavlen';
 
   @override
-  String get startScoring => 'Jeg kan reglene — begynn å score';
+  String get startScoring => 'Jeg kan reglene, start poengføringen';
 
   @override
   String get teachMe => 'Lær meg spillet';
@@ -57,9 +57,6 @@ class AppLocalizationsNb extends AppLocalizations {
   }
 
   @override
-  String get comingSoon => 'Kommer snart';
-
-  @override
   String get players => 'Spillere';
 
   @override
@@ -93,7 +90,9 @@ class AppLocalizationsNb extends AppLocalizations {
   String get overshootRule => 'Over målet';
 
   @override
-  String get policyReset => 'Tilbakestill';
+  String policyReset(Object score) {
+    return 'Tilbake til $score';
+  }
 
   @override
   String get policyHalf => 'Halvparten av målet';
@@ -105,7 +104,7 @@ class AppLocalizationsNb extends AppLocalizations {
   String get eliminationRule => 'Utslagning';
 
   @override
-  String get missLimit => 'Bom før utslagning';
+  String get missLimit => 'Bom før eliminering';
 
   @override
   String get shuffleOrder => 'Stokk rekkefølgen';
@@ -129,7 +128,7 @@ class AppLocalizationsNb extends AppLocalizations {
   String get rulesNoResults => 'Ingen regler samsvarer';
 
   @override
-  String get activeRulesLabel => 'Dette spillet';
+  String get activeRulesLabel => 'Gjeldende husregler';
 
   @override
   String get catSetup => 'Oppsett & bane';
@@ -171,7 +170,7 @@ class AppLocalizationsNb extends AppLocalizations {
 
   @override
   String get ruleTurnsBody =>
-      'Hver side kaster én pinne per tur, alltid i samme rekkefølge.';
+      'Spillerne bytter på i fast rekkefølge — én pinne per kast.';
 
   @override
   String get ruleUnderhandTitle => 'Kast under hånden';
@@ -202,7 +201,7 @@ class AppLocalizationsNb extends AppLocalizations {
 
   @override
   String get ruleLeaningBody =>
-      'En kjegle som hviler på en annen kjegle eller på pinnen, regnes ikke som veltet.';
+      'En kjegle som hviler på en annen kjegle eller på pinnen, teller ikke som veltet.';
 
   @override
   String get ruleOvershootTitle => 'Ikke gå over målet';
@@ -224,28 +223,28 @@ class AppLocalizationsNb extends AppLocalizations {
 
   @override
   String get ruleMissesDetail =>
-      'Prikkene på spillerkortet viser bomrekken din.';
+      'Prikkene på poengkortet teller bommene på rad.';
 
   @override
   String get ruleExactTitle => 'Treff målet nøyaktig';
 
   @override
   String get ruleExactBody =>
-      'Den første siden som når nøyaktig målpoengene, vinner spillet.';
+      'Den spilleren eller det laget som først når målpoengsummen nøyaktig, vinner spillet.';
 
   @override
   String get ruleLastStandingTitle => 'Sistemann igjen';
 
   @override
   String get ruleLastStandingBody =>
-      'Hvis alle andre sider er slått ut, vinner siden som er igjen.';
+      'Hvis alle andre er slått ut, vinner den siste spilleren eller det siste laget.';
 
   @override
   String get ruleTeamsTitle => 'Alene eller i lag';
 
   @override
   String get ruleTeamsBody =>
-      'Spill én mot én eller i to lag — et lag kaster som én side, og medlemmene bytter på.';
+      'Spill én mot én eller i to lag — laget deler én tur, og medlemmene bytter på å kaste.';
 
   @override
   String get rematch => 'Omkamp';
@@ -275,10 +274,10 @@ class AppLocalizationsNb extends AppLocalizations {
   String get winRate => 'Seiersrate';
 
   @override
-  String get avgPerThrow => 'Snittpoeng per kast';
+  String get avgPerThrow => 'Poeng per kast';
 
   @override
-  String get mostHitPin => 'Favorittkjegle';
+  String get mostHitPin => 'Oftest trufne kjegle';
 
   @override
   String get statMisses => 'Bom';
@@ -308,7 +307,7 @@ class AppLocalizationsNb extends AppLocalizations {
   String get language => 'Språk';
 
   @override
-  String get systemDefault => 'Systemstandard';
+  String get systemDefault => 'System';
 
   @override
   String get haptics => 'Haptikk';
@@ -331,7 +330,7 @@ class AppLocalizationsNb extends AppLocalizations {
   String get newGameConfirmTitle => 'Starte et nytt spill?';
 
   @override
-  String get newGameConfirmBody => 'Det pågående spillet forkastes.';
+  String get newGameConfirmBody => 'Du mister spillet som pågår.';
 
   @override
   String get resumeGame => 'Fortsett spillet';
@@ -352,7 +351,8 @@ class AppLocalizationsNb extends AppLocalizations {
   String get clearHistory => 'Tøm historikk';
 
   @override
-  String get clearHistoryConfirmBody => 'Alle spill og all statistikk slettes.';
+  String get clearHistoryConfirmBody =>
+      'Dette fjerner alle spill og all statistikk.';
 
   @override
   String get modeNumber => 'Nummerkubb';
@@ -390,10 +390,10 @@ class AppLocalizationsNb extends AppLocalizations {
 
   @override
   String get throwInTitle =>
-      'Kast de veltede kubbene inn i angriperens halvdel';
+      'Kast de veltede kubbene inn i angripernes halvdel.';
 
   @override
-  String get outTwice => 'Ute to ganger';
+  String get outTwice => 'Straffekubber (ute to ganger)';
 
   @override
   String get done => 'Ferdig';
@@ -487,7 +487,7 @@ class AppLocalizationsNb extends AppLocalizations {
       'Først når hver kubb i den forsvarende halvdelen ligger nede, kan du sikte på kongen. Velter du ham, er spillet deres.';
 
   @override
-  String get ruleKubbEarlyKingTitle => 'Aldri for tidlig';
+  String get ruleKubbEarlyKingTitle => 'Ikke før linjen ligger nede';
 
   @override
   String get ruleKubbEarlyKingBody =>
@@ -620,4 +620,8 @@ class AppLocalizationsNb extends AppLocalizations {
   String matchScore(Object a, Object b) {
     return '$a – $b';
   }
+
+  @override
+  String get deleteGameConfirmBody =>
+      'Dette spillet fjernes fra historikken din.';
 }

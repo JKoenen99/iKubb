@@ -12,10 +12,10 @@ class AppLocalizationsDa extends AppLocalizations {
   String get appTitle => 'iKubb';
 
   @override
-  String get tagline => 'Resultattavlen til nummerkubb';
+  String get tagline => 'Kubb-resultattavlen';
 
   @override
-  String get startScoring => 'Jeg kender reglerne — begynd at score';
+  String get startScoring => 'Jeg kender reglerne, start med at score';
 
   @override
   String get teachMe => 'Lær mig spillet';
@@ -57,9 +57,6 @@ class AppLocalizationsDa extends AppLocalizations {
   }
 
   @override
-  String get comingSoon => 'Kommer snart';
-
-  @override
   String get players => 'Spillere';
 
   @override
@@ -93,7 +90,9 @@ class AppLocalizationsDa extends AppLocalizations {
   String get overshootRule => 'Over målet';
 
   @override
-  String get policyReset => 'Nulstil';
+  String policyReset(Object score) {
+    return 'Tilbage til $score';
+  }
 
   @override
   String get policyHalf => 'Halvdelen af målet';
@@ -105,7 +104,7 @@ class AppLocalizationsDa extends AppLocalizations {
   String get eliminationRule => 'Udelukkelse';
 
   @override
-  String get missLimit => 'Forbiere før udelukkelse';
+  String get missLimit => 'Forbiere før eliminering';
 
   @override
   String get shuffleOrder => 'Bland rækkefølgen';
@@ -129,7 +128,7 @@ class AppLocalizationsDa extends AppLocalizations {
   String get rulesNoResults => 'Ingen regler matcher';
 
   @override
-  String get activeRulesLabel => 'Dette spil';
+  String get activeRulesLabel => 'Gældende husregler';
 
   @override
   String get catSetup => 'Opstilling & bane';
@@ -171,7 +170,7 @@ class AppLocalizationsDa extends AppLocalizations {
 
   @override
   String get ruleTurnsBody =>
-      'Hver side kaster én pind pr. tur, altid i samme rækkefølge.';
+      'Spillerne skiftes i fast rækkefølge — én pind pr. kast.';
 
   @override
   String get ruleUnderhandTitle => 'Kast underhånds';
@@ -224,28 +223,28 @@ class AppLocalizationsDa extends AppLocalizations {
 
   @override
   String get ruleMissesDetail =>
-      'Prikkerne på dit spillerkort viser din forbierstribe.';
+      'Prikkerne på pointkortet tæller forbierne i træk.';
 
   @override
   String get ruleExactTitle => 'Ram målet præcist';
 
   @override
   String get ruleExactBody =>
-      'Den første side, der når præcis målscoren, vinder spillet.';
+      'Den spiller eller det hold, der først rammer målscoren præcist, vinder spillet.';
 
   @override
   String get ruleLastStandingTitle => 'Sidste side tilbage';
 
   @override
   String get ruleLastStandingBody =>
-      'Hvis alle andre sider er ude, vinder den tilbageværende side.';
+      'Hvis alle andre er elimineret, vinder den sidste spiller eller det sidste hold.';
 
   @override
   String get ruleTeamsTitle => 'Solo eller i hold';
 
   @override
   String get ruleTeamsBody =>
-      'Spil en mod en eller i to hold — et hold kaster som én side, og medlemmerne skiftes.';
+      'Spil en mod en eller i to hold — holdet deler én tur, og medlemmerne skiftes til at kaste.';
 
   @override
   String get rematch => 'Omkamp';
@@ -275,10 +274,10 @@ class AppLocalizationsDa extends AppLocalizations {
   String get winRate => 'Sejrsrate';
 
   @override
-  String get avgPerThrow => 'Gns. point pr. kast';
+  String get avgPerThrow => 'Point pr. kast';
 
   @override
-  String get mostHitPin => 'Favoritkegle';
+  String get mostHitPin => 'Oftest ramte kegle';
 
   @override
   String get statMisses => 'Forbiere';
@@ -308,7 +307,7 @@ class AppLocalizationsDa extends AppLocalizations {
   String get language => 'Sprog';
 
   @override
-  String get systemDefault => 'Systemstandard';
+  String get systemDefault => 'System';
 
   @override
   String get haptics => 'Haptik';
@@ -331,7 +330,7 @@ class AppLocalizationsDa extends AppLocalizations {
   String get newGameConfirmTitle => 'Start et nyt spil?';
 
   @override
-  String get newGameConfirmBody => 'Det igangværende spil kasseres.';
+  String get newGameConfirmBody => 'Du mister det igangværende spil.';
 
   @override
   String get resumeGame => 'Fortsæt spillet';
@@ -352,7 +351,8 @@ class AppLocalizationsDa extends AppLocalizations {
   String get clearHistory => 'Ryd historik';
 
   @override
-  String get clearHistoryConfirmBody => 'Alle spil og statistikker slettes.';
+  String get clearHistoryConfirmBody =>
+      'Dette rydder alle spil og al statistik.';
 
   @override
   String get modeNumber => 'Nummerkubb';
@@ -389,10 +389,11 @@ class AppLocalizationsDa extends AppLocalizations {
   String get advantageLine => 'Fordelslinje';
 
   @override
-  String get throwInTitle => 'Kast de væltede kubber ind i angriberens halvdel';
+  String get throwInTitle =>
+      'Kast de væltede kubber ind i angribernes halvdel.';
 
   @override
-  String get outTwice => 'Ude to gange';
+  String get outTwice => 'Strafkubber (ude to gange)';
 
   @override
   String get done => 'Færdig';
@@ -486,7 +487,7 @@ class AppLocalizationsDa extends AppLocalizations {
       'Først når hver kubb i den forsvarende halvdel ligger ned, må du sigte efter kongen. Vælter du ham, er spillet jeres.';
 
   @override
-  String get ruleKubbEarlyKingTitle => 'Aldrig for tidligt';
+  String get ruleKubbEarlyKingTitle => 'Ikke før linjen ligger ned';
 
   @override
   String get ruleKubbEarlyKingBody =>
@@ -619,4 +620,7 @@ class AppLocalizationsDa extends AppLocalizations {
   String matchScore(Object a, Object b) {
     return '$a – $b';
   }
+
+  @override
+  String get deleteGameConfirmBody => 'Dette spil fjernes fra din historik.';
 }

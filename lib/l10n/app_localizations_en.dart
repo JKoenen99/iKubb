@@ -12,10 +12,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appTitle => 'iKubb';
 
   @override
-  String get tagline => 'The number kubb scoreboard';
+  String get tagline => 'The kubb scoreboard';
 
   @override
-  String get startScoring => 'I know the rules — start scoring';
+  String get startScoring => 'I know the rules, start scoring';
 
   @override
   String get teachMe => 'Teach me the game';
@@ -57,9 +57,6 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get comingSoon => 'Coming soon';
-
-  @override
   String get players => 'Players';
 
   @override
@@ -93,7 +90,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get overshootRule => 'Overshoot';
 
   @override
-  String get policyReset => 'Reset';
+  String policyReset(Object score) {
+    return 'Back to $score';
+  }
 
   @override
   String get policyHalf => 'Half of target';
@@ -105,7 +104,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get eliminationRule => 'Elimination';
 
   @override
-  String get missLimit => 'Misses to eliminate';
+  String get missLimit => 'Misses before elimination';
 
   @override
   String get shuffleOrder => 'Shuffle order';
@@ -129,7 +128,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get rulesNoResults => 'No rules match your search';
 
   @override
-  String get activeRulesLabel => 'This game';
+  String get activeRulesLabel => 'House rules in play';
 
   @override
   String get catSetup => 'Setup & field';
@@ -171,7 +170,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get ruleTurnsBody =>
-      'Sides throw one stick per turn, always in the same order.';
+      'Players take turns in a fixed order — one stick per throw.';
 
   @override
   String get ruleUnderhandTitle => 'Throw underhand';
@@ -202,7 +201,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get ruleLeaningBody =>
-      'A pin resting on another pin or on the stick doesn\'t count as fallen.';
+      'A pin resting on another pin or on the stick doesn\'t count as knocked over.';
 
   @override
   String get ruleOvershootTitle => 'Don\'t overshoot';
@@ -224,28 +223,28 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get ruleMissesDetail =>
-      'The dots on your player card track your miss streak.';
+      'The dots on the score card track the miss streak.';
 
   @override
   String get ruleExactTitle => 'Hit the target exactly';
 
   @override
   String get ruleExactBody =>
-      'The first side to reach exactly the target score wins the game.';
+      'The first player or team to reach exactly the target score wins the game.';
 
   @override
   String get ruleLastStandingTitle => 'Last one standing';
 
   @override
   String get ruleLastStandingBody =>
-      'If every other side is eliminated, the remaining side wins.';
+      'If everyone else is eliminated, the last player or team standing wins.';
 
   @override
   String get ruleTeamsTitle => 'Solo or in teams';
 
   @override
   String get ruleTeamsBody =>
-      'Play one against one, or in two teams — a team throws as one side, with members taking turns.';
+      'Play one against one, or in two teams — a team shares one turn, with members alternating throws.';
 
   @override
   String get rematch => 'Rematch';
@@ -275,10 +274,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get winRate => 'Win rate';
 
   @override
-  String get avgPerThrow => 'Avg points per throw';
+  String get avgPerThrow => 'Points per throw';
 
   @override
-  String get mostHitPin => 'Favorite pin';
+  String get mostHitPin => 'Most-hit pin';
 
   @override
   String get statMisses => 'Misses';
@@ -308,7 +307,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get language => 'Language';
 
   @override
-  String get systemDefault => 'System default';
+  String get systemDefault => 'System';
 
   @override
   String get haptics => 'Haptics';
@@ -331,7 +330,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get newGameConfirmTitle => 'Start a new game?';
 
   @override
-  String get newGameConfirmBody => 'The current game will be discarded.';
+  String get newGameConfirmBody => 'You\'ll lose the game that\'s underway.';
 
   @override
   String get resumeGame => 'Resume game';
@@ -352,7 +351,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get clearHistory => 'Clear history';
 
   @override
-  String get clearHistoryConfirmBody => 'All games and stats will be deleted.';
+  String get clearHistoryConfirmBody => 'This clears every game and all stats.';
 
   @override
   String get modeNumber => 'Number kubb';
@@ -389,10 +388,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get advantageLine => 'Advantage line';
 
   @override
-  String get throwInTitle => 'Throw the felled kubbs into the attacker\'s half';
+  String get throwInTitle =>
+      'Throw the knocked-over kubbs into the attacker\'s half.';
 
   @override
-  String get outTwice => 'Out of bounds twice';
+  String get outTwice => 'Penalty kubbs (out twice)';
 
   @override
   String get done => 'Done';
@@ -486,7 +486,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'Only when every kubb in the defending half is down may you aim for the king. Topple it, and the game is yours.';
 
   @override
-  String get ruleKubbEarlyKingTitle => 'Never too early';
+  String get ruleKubbEarlyKingTitle => 'Not before the line is down';
 
   @override
   String get ruleKubbEarlyKingBody =>
@@ -618,4 +618,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String matchScore(Object a, Object b) {
     return '$a – $b';
   }
+
+  @override
+  String get deleteGameConfirmBody =>
+      'This game will be removed from your history.';
 }
