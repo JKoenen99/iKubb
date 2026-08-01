@@ -8,6 +8,8 @@ import '../game/game_mode.dart';
 import '../kubb/kubb_controller.dart';
 import 'rule_illustrations.dart';
 import 'rules_content.dart';
+import '../../theme/tokens.dart';
+import '../../theme/typography.dart';
 
 /// Opens the rules reference as a slide-over panel — reachable from any
 /// screen so nobody leaves a game to settle an argument (SPEC.md §3.6).
@@ -23,7 +25,7 @@ Future<void> showRulesPanel(
     context: context,
     isScrollControlled: true,
     useSafeArea: true,
-    constraints: const BoxConstraints(maxWidth: 640),
+    constraints: const BoxConstraints(maxWidth: IKubbLayout.maxPanel),
     showDragHandle: true,
     builder: (context) => DraggableScrollableSheet(
       expand: false,
@@ -101,7 +103,12 @@ class _RulesViewState extends ConsumerState<RulesView> {
 
     return ListView(
       controller: widget.scrollController,
-      padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
+      padding: const EdgeInsets.fromLTRB(
+        IKubbSpacing.lg,
+        IKubbSpacing.sm,
+        IKubbSpacing.lg,
+        IKubbSpacing.xl,
+      ),
       children: [
         SegmentedButton<GameMode>(
           segments: [
@@ -117,16 +124,18 @@ class _RulesViewState extends ConsumerState<RulesView> {
           selected: {mode},
           onSelectionChanged: (s) => setState(() => _modeOverride = s.first),
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: IKubbSpacing.md),
         TextField(
           decoration: InputDecoration(
             hintText: l10n.rulesSearchHint,
             prefixIcon: const Icon(Icons.search),
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(IKubbRadius.lg),
+            ),
           ),
           onChanged: (v) => setState(() => _query = v),
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: IKubbSpacing.md),
         if (mode == GameMode.classicKubb)
           _KubbActiveRulesChips(
             rules: ref.watch(kubbControllerProvider).rules,
@@ -137,11 +146,11 @@ class _RulesViewState extends ConsumerState<RulesView> {
             rules: ref.watch(gameControllerProvider).rules,
             l10n: l10n,
           ),
-        const SizedBox(height: 8),
+        const SizedBox(height: IKubbSpacing.sm),
         if (query.isNotEmpty) ...[
           if (searchResults.isEmpty)
             Padding(
-              padding: const EdgeInsets.all(24),
+              padding: const EdgeInsets.all(IKubbSpacing.xl),
               child: Text(l10n.rulesNoResults, textAlign: TextAlign.center),
             )
           else
@@ -160,10 +169,7 @@ class _RulesViewState extends ConsumerState<RulesView> {
                 category.icon,
                 color: Theme.of(context).colorScheme.primary,
               ),
-              title: Text(
-                category.title,
-                style: const TextStyle(fontWeight: FontWeight.w700),
-              ),
+              title: Text(category.title, style: IKubbType.strong),
               initiallyExpanded: category.id == widget.initialCategoryId,
               children: [
                 for (final card in category.cards) _RuleCardTile(card: card),
@@ -260,15 +266,15 @@ class _RuleCardTile extends StatelessWidget {
     return Card(
       elevation: 0,
       color: scheme.surfaceContainerHighest,
-      margin: const EdgeInsets.symmetric(vertical: 4),
+      margin: const EdgeInsets.symmetric(vertical: IKubbSpacing.xs),
       child: Padding(
-        padding: const EdgeInsets.all(12),
+        padding: const EdgeInsets.all(IKubbSpacing.md),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (modeLabel != null)
               Padding(
-                padding: const EdgeInsets.only(bottom: 6),
+                padding: const EdgeInsets.only(bottom: IKubbSpacing.sm),
                 child: Chip(
                   label: Text(modeLabel!),
                   visualDensity: VisualDensity.compact,
@@ -277,14 +283,14 @@ class _RuleCardTile extends StatelessWidget {
               ),
             if (ruleIllustration(card.id) case final illustration?)
               Padding(
-                padding: const EdgeInsets.only(bottom: 10, top: 2),
+                padding: const EdgeInsets.only(
+                  bottom: IKubbSpacing.md,
+                  top: IKubbSpacing.xxs,
+                ),
                 child: Center(child: illustration),
               ),
-            Text(
-              card.title,
-              style: const TextStyle(fontWeight: FontWeight.w700),
-            ),
-            const SizedBox(height: 4),
+            Text(card.title, style: IKubbType.strong),
+            const SizedBox(height: IKubbSpacing.xs),
             Text(card.body),
             if (card.detail != null)
               Theme(
@@ -299,7 +305,7 @@ class _RuleCardTile extends StatelessWidget {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Padding(
-                        padding: const EdgeInsets.only(bottom: 8),
+                        padding: const EdgeInsets.only(bottom: IKubbSpacing.sm),
                         child: Text(card.detail!),
                       ),
                     ),

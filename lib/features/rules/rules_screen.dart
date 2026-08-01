@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/home_leading.dart';
 import 'rules_view.dart';
+import '../../theme/tokens.dart';
 
 /// Full-screen rules reference — the target of the onboarding
 /// "Teach me the game" fork and the Home rules button. In-game, the same
@@ -29,7 +30,7 @@ class RulesScreen extends StatelessWidget {
       ),
       body: Center(
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 640),
+          constraints: const BoxConstraints(maxWidth: IKubbLayout.maxPanel),
           child: const RulesView(),
         ),
       ),

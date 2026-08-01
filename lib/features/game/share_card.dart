@@ -11,6 +11,7 @@ import '../../theme/palette.dart';
 import '../../theme/typography.dart';
 import '../../widgets/viking_mascot.dart';
 import '../../widgets/wood_grain.dart';
+import '../../theme/tokens.dart';
 
 /// End-of-game share card (SPEC.md §3.5): a branded result image for
 /// Messages/WhatsApp. The dialog previews exactly what gets shared; the
@@ -34,7 +35,7 @@ Future<void> showShareDialog(
               key: boundaryKey,
               child: ShareCard(game: game, winnerColor: winnerColor),
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: IKubbSpacing.md),
             FilledButton.icon(
               style: FilledButton.styleFrom(
                 backgroundColor: IKubbPalette.birchLight,
@@ -71,7 +72,7 @@ Future<void> showKubbShareDialog(
               key: boundaryKey,
               child: KubbShareCard(match: match, winnerColor: winnerColor),
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: IKubbSpacing.md),
             FilledButton.icon(
               style: FilledButton.styleFrom(
                 backgroundColor: IKubbPalette.birchLight,
@@ -131,29 +132,37 @@ class KubbShareCard extends StatelessWidget {
       width: 320,
       decoration: BoxDecoration(
         color: IKubbPalette.birchLight,
-        borderRadius: BorderRadius.circular(24),
+        borderRadius: BorderRadius.circular(IKubbRadius.xl),
         border: Border.all(color: winnerColor, width: 4),
       ),
       clipBehavior: Clip.antiAlias,
       child: Stack(
         children: [
-          const WoodGrainBackground(color: IKubbPalette.walnut, opacity: 0.05),
+          const WoodGrainBackground(
+            color: IKubbPalette.walnut,
+            opacity: IKubbAlpha.grain,
+          ),
           Padding(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(IKubbSpacing.xl),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 const VikingMascot(pose: MascotPose.cheer, size: 110),
-                const SizedBox(height: 6),
+                const SizedBox(height: IKubbSpacing.sm),
                 Text(
                   l10n.winnerBanner(match.matchWinner?.name ?? ''),
                   textAlign: TextAlign.center,
-                  style: IKubbType.heading(size: 26, color: IKubbPalette.ink),
+                  style: IKubbType.heading(
+                    size: IKubbType.stepHeadline,
+                    color: IKubbPalette.ink,
+                  ),
                 ),
-                const SizedBox(height: 14),
+                const SizedBox(height: IKubbSpacing.lg),
                 for (final (i, side) in match.sides.indexed)
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 2),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: IKubbSpacing.xxs,
+                    ),
                     child: Row(
                       children: [
                         Expanded(
@@ -161,8 +170,7 @@ class KubbShareCard extends StatelessWidget {
                             side.name,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontSize: 15,
+                            style: IKubbType.emphasis.copyWith(
                               color: IKubbPalette.ink,
                               fontWeight: side == match.matchWinner
                                   ? FontWeight.w800
@@ -175,28 +183,29 @@ class KubbShareCard extends StatelessWidget {
                               ? '${match.wins[i]}'
                               : '${game.baseline[i]}',
                           style: IKubbType.score(
-                            size: 16,
+                            size: IKubbType.stepLabel,
                             color: IKubbPalette.ink,
                           ),
                         ),
                       ],
                     ),
                   ),
-                const SizedBox(height: 14),
+                const SizedBox(height: IKubbSpacing.lg),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       DateFormat.yMMMd(locale).format(DateTime.now()),
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: IKubbPalette.ink.withValues(alpha: 0.7),
+                      style: IKubbType.caption.copyWith(
+                        color: IKubbPalette.ink.withValues(
+                          alpha: IKubbAlpha.faded,
+                        ),
                       ),
                     ),
                     Text(
                       'iKubb',
                       style: IKubbType.heading(
-                        size: 18,
+                        size: IKubbType.stepBody,
                         color: IKubbPalette.forest,
                       ),
                     ),
@@ -227,29 +236,37 @@ class ShareCard extends StatelessWidget {
       width: 320,
       decoration: BoxDecoration(
         color: IKubbPalette.birchLight,
-        borderRadius: BorderRadius.circular(24),
+        borderRadius: BorderRadius.circular(IKubbRadius.xl),
         border: Border.all(color: winnerColor, width: 4),
       ),
       clipBehavior: Clip.antiAlias,
       child: Stack(
         children: [
-          const WoodGrainBackground(color: IKubbPalette.walnut, opacity: 0.05),
+          const WoodGrainBackground(
+            color: IKubbPalette.walnut,
+            opacity: IKubbAlpha.grain,
+          ),
           Padding(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(IKubbSpacing.xl),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 const VikingMascot(pose: MascotPose.cheer, size: 110),
-                const SizedBox(height: 6),
+                const SizedBox(height: IKubbSpacing.sm),
                 Text(
                   l10n.winnerBanner(game.winner?.name ?? ''),
                   textAlign: TextAlign.center,
-                  style: IKubbType.heading(size: 26, color: IKubbPalette.ink),
+                  style: IKubbType.heading(
+                    size: IKubbType.stepHeadline,
+                    color: IKubbPalette.ink,
+                  ),
                 ),
-                const SizedBox(height: 14),
+                const SizedBox(height: IKubbSpacing.lg),
                 for (final state in game.sideStates)
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 2),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: IKubbSpacing.xxs,
+                    ),
                     child: Row(
                       children: [
                         Expanded(
@@ -257,8 +274,7 @@ class ShareCard extends StatelessWidget {
                             state.side.name,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontSize: 15,
+                            style: IKubbType.emphasis.copyWith(
                               color: IKubbPalette.ink,
                               fontWeight: state.side == game.winner
                                   ? FontWeight.w800
@@ -272,28 +288,29 @@ class ShareCard extends StatelessWidget {
                         Text(
                           '${state.score}',
                           style: IKubbType.score(
-                            size: 16,
+                            size: IKubbType.stepLabel,
                             color: IKubbPalette.ink,
                           ),
                         ),
                       ],
                     ),
                   ),
-                const SizedBox(height: 14),
+                const SizedBox(height: IKubbSpacing.lg),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       DateFormat.yMMMd(locale).format(DateTime.now()),
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: IKubbPalette.ink.withValues(alpha: 0.7),
+                      style: IKubbType.caption.copyWith(
+                        color: IKubbPalette.ink.withValues(
+                          alpha: IKubbAlpha.faded,
+                        ),
                       ),
                     ),
                     Text(
                       'iKubb',
                       style: IKubbType.heading(
-                        size: 18,
+                        size: IKubbType.stepBody,
                         color: IKubbPalette.forest,
                       ),
                     ),

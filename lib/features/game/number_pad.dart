@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../../theme/palette.dart';
+import '../../theme/tokens.dart';
 
 /// Number-pad scoring (SPEC.md §3.3): one tap scores the throw. The pad
 /// still carries the safety rails of pin-tap mode as color: the exact
@@ -41,7 +42,7 @@ class NumberPad extends StatelessWidget {
               ),
           ],
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: IKubbSpacing.md),
         SizedBox(
           width: 220,
           height: 56,

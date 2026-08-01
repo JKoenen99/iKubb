@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../theme/tokens.dart';
 
 /// Odometer-style number: the value updates instantly, the old digits roll
 /// away as decoration (SPEC.md §3.7 — state first, motion second).
@@ -11,7 +12,7 @@ class RollingNumber extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedSwitcher(
-      duration: const Duration(milliseconds: 350),
+      duration: IKubbMotion.gentle,
       switchInCurve: Curves.easeOutBack,
       switchOutCurve: Curves.easeIn,
       transitionBuilder: (child, animation) => ClipRect(

@@ -21,6 +21,7 @@ import 'mascot_reaction.dart';
 import 'number_pad.dart';
 import 'pin_diagram.dart';
 import 'win_overlay.dart';
+import '../../theme/tokens.dart';
 
 /// The scoring tool: pin-tap input, "needs exactly X" helper, overshoot
 /// warning, miss-streak dots, undo, and a personalized win banner.
@@ -258,19 +259,22 @@ class _GameScreenState extends ConsumerState<GameScreen> {
     final l10n = AppLocalizations.of(context)!;
     return Center(
       child: Padding(
-        padding: const EdgeInsets.only(top: 4),
+        padding: const EdgeInsets.only(top: IKubbSpacing.xs),
         child: SegmentedButton<InputMode>(
           showSelectedIcon: false,
           style: const ButtonStyle(visualDensity: VisualDensity.compact),
           segments: [
             ButtonSegment(
               value: InputMode.pins,
-              icon: const Icon(Icons.touch_app_outlined, size: 18),
+              icon: const Icon(
+                Icons.touch_app_outlined,
+                size: IKubbIconSize.sm,
+              ),
               label: Text(l10n.tapPins),
             ),
             ButtonSegment(
               value: InputMode.pad,
-              icon: const Icon(Icons.grid_view_rounded, size: 18),
+              icon: const Icon(Icons.grid_view_rounded, size: IKubbIconSize.sm),
               label: Text(l10n.numberPad),
             ),
           ],
@@ -296,7 +300,7 @@ class _GameScreenState extends ConsumerState<GameScreen> {
           Expanded(
             child: Center(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(IKubbSpacing.lg),
                 child: NumberPad(
                   pointsNeeded: current == null
                       ? 0
@@ -339,7 +343,12 @@ class _GameScreenState extends ConsumerState<GameScreen> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+          padding: const EdgeInsets.fromLTRB(
+            IKubbSpacing.lg,
+            0,
+            IKubbSpacing.lg,
+            IKubbSpacing.lg,
+          ),
           child: Row(
             children: [
               Expanded(
@@ -350,7 +359,7 @@ class _GameScreenState extends ConsumerState<GameScreen> {
                   child: Text(l10n.miss),
                 ),
               ),
-              const SizedBox(width: 12),
+              const SizedBox(width: IKubbSpacing.md),
               Expanded(
                 flex: 2,
                 child: FilledButton(
@@ -396,15 +405,15 @@ class _Standings extends ConsumerWidget {
         _wrap(
           vertical,
           AnimatedContainer(
-            duration: const Duration(milliseconds: 250),
+            duration: IKubbMotion.base,
             curve: Curves.easeOut,
-            margin: const EdgeInsets.symmetric(horizontal: 4),
-            padding: const EdgeInsets.all(12),
+            margin: const EdgeInsets.symmetric(horizontal: IKubbSpacing.xs),
+            padding: const EdgeInsets.all(IKubbSpacing.md),
             decoration: BoxDecoration(
               color: i == game.currentSideIndex
                   ? scheme.primary
                   : scheme.surfaceContainerHighest,
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(IKubbRadius.lg),
             ),
             child: _SideCard(
               state: game.sideStates[i],
@@ -419,14 +428,16 @@ class _Standings extends ConsumerWidget {
         ),
     ];
     return Padding(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(IKubbSpacing.lg),
       child: vertical
           ? Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 for (final card in cards)
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 4),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: IKubbSpacing.xs,
+                    ),
                     child: card,
                   ),
               ],
@@ -469,11 +480,14 @@ class _SideCard extends StatelessWidget {
             Container(
               width: 14,
               height: 14,
-              margin: const EdgeInsets.only(right: 6),
+              margin: const EdgeInsets.only(right: IKubbSpacing.sm),
               decoration: BoxDecoration(
                 color: color,
                 shape: BoxShape.circle,
-                border: Border.all(color: IKubbPalette.birchLight, width: 1.5),
+                border: Border.all(
+                  color: IKubbPalette.birchLight,
+                  width: IKubbBorder.hairline,
+                ),
               ),
             ),
             Expanded(
@@ -481,7 +495,7 @@ class _SideCard extends StatelessWidget {
                 state.side.name,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontWeight: FontWeight.w600, color: onColor),
+                style: IKubbType.emphasis.copyWith(color: onColor),
               ),
             ),
           ],
@@ -490,7 +504,7 @@ class _SideCard extends StatelessWidget {
           value: state.score,
           style:
               IKubbType.score(
-                size: 40,
+                size: IKubbType.stepScoreLg,
                 color: state.isEliminated ? danger : onColor,
               ).copyWith(
                 decoration: state.isEliminated
@@ -499,7 +513,7 @@ class _SideCard extends StatelessWidget {
               ),
         ),
         if (isActive)
-          Text(needsLine, style: TextStyle(fontSize: 12, color: onColor)),
+          Text(needsLine, style: IKubbType.caption.copyWith(color: onColor)),
         // Miss dots fade in on the first miss (audit #6) and deep-link to
         // their exact rule card (SPEC.md §3.6). Fixed height: no jump.
         SizedBox(
@@ -507,7 +521,7 @@ class _SideCard extends StatelessWidget {
           child: IgnorePointer(
             ignoring: state.missStreak == 0,
             child: AnimatedOpacity(
-              duration: const Duration(milliseconds: 250),
+              duration: IKubbMotion.base,
               opacity: state.missStreak > 0 ? 1 : 0,
               child: InkWell(
                 onTap: () => showRulesPanel(
@@ -521,10 +535,10 @@ class _SideCard extends StatelessWidget {
                     for (var m = 0; m < missLimit; m++)
                       Icon(
                         Icons.circle,
-                        size: 10,
+                        size: IKubbIconSize.dot,
                         color: m < state.missStreak
                             ? IKubbPalette.berry
-                            : onColor.withValues(alpha: 0.3),
+                            : onColor.withValues(alpha: IKubbAlpha.dotIdle),
                       ),
                   ],
                 ),

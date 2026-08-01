@@ -12,6 +12,8 @@ import '../kubb/kubb_controller.dart';
 import '../rules/rules_view.dart';
 import 'player.dart';
 import 'setup_controller.dart';
+import '../../theme/tokens.dart';
+import '../../theme/typography.dart';
 
 /// Game setup (SPEC.md §3.2): players with recent-player recall, team mode,
 /// house rules behind progressive disclosure, turn order, start.
@@ -111,12 +113,12 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
       body: SafeArea(
         child: Center(
           child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 560),
+            constraints: const BoxConstraints(maxWidth: IKubbLayout.maxContent),
             child: Column(
               children: [
                 Expanded(
                   child: ListView(
-                    padding: const EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(IKubbSpacing.lg),
                     children: [
                       // The mode decides everything below (audience,
                       // teams, rules) — so it comes first.
@@ -138,7 +140,7 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
                               controller.setMode(s.first),
                         ),
                       ),
-                      const SizedBox(height: 12),
+                      const SizedBox(height: IKubbSpacing.md),
                       if (unselectedRecents.isNotEmpty) ...[
                         _SectionHeader(l10n.recentPlayers),
                         Wrap(
@@ -153,7 +155,7 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
                               ),
                           ],
                         ),
-                        const SizedBox(height: 16),
+                        const SizedBox(height: IKubbSpacing.lg),
                       ],
                       Row(
                         children: [
@@ -190,7 +192,7 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
                         buttonLabel: l10n.addPlayer,
                         onAdd: controller.addPlayer,
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: IKubbSpacing.sm),
                       if (setup.mode == GameMode.numberKubb)
                         SwitchListTile.adaptive(
                           contentPadding: EdgeInsets.zero,
@@ -200,7 +202,9 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
                         )
                       else
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          padding: const EdgeInsets.symmetric(
+                            vertical: IKubbSpacing.sm,
+                          ),
                           child: _SectionHeader(l10n.teams),
                         ),
                       if (setup.teamMode) ...[
@@ -213,7 +217,7 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
                                     controller.setTeamName(Team.a, v),
                               ),
                             ),
-                            const SizedBox(width: 12),
+                            const SizedBox(width: IKubbSpacing.md),
                             Expanded(
                               child: _TeamNameField(
                                 hint: l10n.teamB,
@@ -234,7 +238,7 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
                           ),
                         ),
                       ],
-                      const SizedBox(height: 8),
+                      const SizedBox(height: IKubbSpacing.sm),
                       if (setup.mode == GameMode.numberKubb)
                         _HouseRules(
                           setup: setup,
@@ -249,17 +253,24 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                  padding: const EdgeInsets.fromLTRB(
+                    IKubbSpacing.lg,
+                    0,
+                    IKubbSpacing.lg,
+                    IKubbSpacing.lg,
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       AnimatedSwitcher(
-                        duration: const Duration(milliseconds: 200),
+                        duration: IKubbMotion.quick,
                         child: problem == null
-                            ? const SizedBox(height: 20)
+                            ? const SizedBox(height: IKubbSpacing.xl)
                             : Padding(
                                 key: ValueKey(problem),
-                                padding: const EdgeInsets.only(bottom: 8),
+                                padding: const EdgeInsets.only(
+                                  bottom: IKubbSpacing.sm,
+                                ),
                                 child: Text(switch (problem) {
                                   SetupProblem.needTwoPlayers =>
                                     l10n.needTwoPlayers,
@@ -312,7 +323,10 @@ class _Avatar extends StatelessWidget {
       color: player.color,
       shape: BoxShape.circle,
       // Contrast ring so identity reads on any surface (audit #1).
-      border: Border.all(color: IKubbPalette.birchLight, width: 1.5),
+      border: Border.all(
+        color: IKubbPalette.birchLight,
+        width: IKubbBorder.hairline,
+      ),
     ),
     // TODO(assets): Viking avatar illustrations replace the initial.
     child: Center(
@@ -413,7 +427,7 @@ class _AddPlayerRowState extends State<_AddPlayerRow> {
             onSubmitted: (_) => _submit(),
           ),
         ),
-        const SizedBox(width: 12),
+        const SizedBox(width: IKubbSpacing.md),
         FilledButton.tonalIcon(
           onPressed: _submit,
           icon: const Icon(Icons.person_add),
@@ -492,7 +506,7 @@ class _HouseRules extends StatelessWidget {
         ),
         if (isCustom)
           Padding(
-            padding: const EdgeInsets.only(top: 8),
+            padding: const EdgeInsets.only(top: IKubbSpacing.sm),
             child: TextFormField(
               initialValue: '${setup.targetScore}',
               keyboardType: TextInputType.number,
@@ -537,20 +551,14 @@ class _HouseRules extends StatelessWidget {
                 onPressed: () => controller.setMissLimit(setup.missLimit - 1),
                 icon: const Icon(Icons.remove_circle_outline),
               ),
-              Text(
-                '${setup.missLimit}',
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
+              Text('${setup.missLimit}', style: IKubbType.statValue),
               IconButton(
                 onPressed: () => controller.setMissLimit(setup.missLimit + 1),
                 icon: const Icon(Icons.add_circle_outline),
               ),
             ],
           ),
-        const SizedBox(height: 8),
+        const SizedBox(height: IKubbSpacing.sm),
       ],
     );
   }
@@ -565,7 +573,7 @@ class _RuleLabel extends StatelessWidget {
   Widget build(BuildContext context) => Align(
     alignment: Alignment.centerLeft,
     child: Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
+      padding: const EdgeInsets.symmetric(vertical: IKubbSpacing.sm),
       child: Text(text, style: Theme.of(context).textTheme.titleSmall),
     ),
   );
@@ -585,7 +593,7 @@ class _KubbOptions extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _SectionHeader(l10n.matchLabel),
-        const SizedBox(height: 8),
+        const SizedBox(height: IKubbSpacing.sm),
         SegmentedButton<int>(
           showSelectedIcon: false,
           segments: [
@@ -595,9 +603,9 @@ class _KubbOptions extends StatelessWidget {
           selected: {setup.kubbBestOf},
           onSelectionChanged: (s) => controller.setKubbBestOf(s.first),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: IKubbSpacing.lg),
         _SectionHeader(l10n.turnClockLabel),
-        const SizedBox(height: 8),
+        const SizedBox(height: IKubbSpacing.sm),
         SegmentedButton<int>(
           showSelectedIcon: false,
           segments: [
@@ -609,7 +617,7 @@ class _KubbOptions extends StatelessWidget {
           onSelectionChanged: (s) =>
               controller.setKubbClock(s.first == 0 ? null : s.first),
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: IKubbSpacing.sm),
       ],
     );
   }

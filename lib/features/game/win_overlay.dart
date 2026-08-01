@@ -11,6 +11,8 @@ import '../../widgets/viking_mascot.dart';
 import '../setup/player.dart' show playerColors;
 import 'game_controller.dart';
 import 'share_card.dart';
+import '../../theme/tokens.dart';
+import '../../theme/typography.dart';
 
 /// Full-screen, personalized win celebration (SPEC.md §3.3): the winner's
 /// name and color star in it, the mascot cheers, confetti falls — and per
@@ -36,46 +38,50 @@ class WinOverlay extends ConsumerWidget {
       children: [
         ColoredBox(
           color: Color.alphaBlend(
-            winnerColor.withValues(alpha: 0.45),
+            winnerColor.withValues(alpha: IKubbAlpha.activeTint),
             IKubbPalette.forestDeep,
           ),
         ),
         const WoodGrainBackground(
           color: IKubbPalette.birchLight,
-          opacity: 0.06,
+          opacity: IKubbAlpha.grain,
         ),
         SafeArea(
           child: Center(
             child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 480),
+              constraints: const BoxConstraints(
+                maxWidth: IKubbLayout.maxOverlay,
+              ),
               child: SingleChildScrollView(
                 child: TweenAnimationBuilder<double>(
                   tween: Tween(begin: 0.9, end: 1),
-                  duration: const Duration(milliseconds: 350),
+                  duration: IKubbMotion.gentle,
                   curve: Curves.easeOutBack,
                   builder: (context, scale, child) =>
                       Transform.scale(scale: scale, child: child),
                   child: Padding(
-                    padding: const EdgeInsets.all(24),
+                    padding: const EdgeInsets.all(IKubbSpacing.xl),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         const VikingMascot(pose: MascotPose.cheer, size: 150),
-                        const SizedBox(height: 12),
+                        const SizedBox(height: IKubbSpacing.md),
                         Text(
                           l10n.winnerBanner(winner.name),
                           textAlign: TextAlign.center,
                           style: Theme.of(context).textTheme.displayLarge
                               ?.copyWith(
-                                fontSize: 44,
+                                fontSize: IKubbType.stepHero,
                                 color: IKubbPalette.birchLight,
                               ),
                         ),
-                        const SizedBox(height: 24),
+                        const SizedBox(height: IKubbSpacing.xl),
                         for (final state in game.sideStates)
                           Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 4),
+                            padding: const EdgeInsets.symmetric(
+                              vertical: IKubbSpacing.xs,
+                            ),
                             child: Row(
                               children: [
                                 Expanded(
@@ -83,8 +89,7 @@ class WinOverlay extends ConsumerWidget {
                                     state.side.name,
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      fontSize: 18,
+                                    style: IKubbType.statValue.copyWith(
                                       color: IKubbPalette.birchLight,
                                       fontWeight: state.side == winner
                                           ? FontWeight.w800
@@ -97,16 +102,14 @@ class WinOverlay extends ConsumerWidget {
                                 ),
                                 Text(
                                   '${state.score}',
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w700,
+                                  style: IKubbType.statValue.copyWith(
                                     color: IKubbPalette.birchLight,
                                   ),
                                 ),
                               ],
                             ),
                           ),
-                        const SizedBox(height: 32),
+                        const SizedBox(height: IKubbSpacing.xxl),
                         FilledButton(
                           style: FilledButton.styleFrom(
                             backgroundColor: IKubbPalette.birchLight,
@@ -117,7 +120,7 @@ class WinOverlay extends ConsumerWidget {
                               .newGame(),
                           child: Text(l10n.rematch),
                         ),
-                        const SizedBox(height: 12),
+                        const SizedBox(height: IKubbSpacing.md),
                         OutlinedButton.icon(
                           style: OutlinedButton.styleFrom(
                             foregroundColor: IKubbPalette.birchLight,
@@ -133,7 +136,7 @@ class WinOverlay extends ConsumerWidget {
                           icon: Icon(Icons.adaptive.share),
                           label: Text(l10n.share),
                         ),
-                        const SizedBox(height: 12),
+                        const SizedBox(height: IKubbSpacing.md),
                         OutlinedButton(
                           style: OutlinedButton.styleFrom(
                             foregroundColor: IKubbPalette.birchLight,

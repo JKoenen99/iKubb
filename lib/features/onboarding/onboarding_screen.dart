@@ -6,6 +6,7 @@ import '../../theme/palette.dart';
 import '../../widgets/viking_mascot.dart';
 import '../../widgets/wood_grain.dart';
 import 'onboarding_state.dart';
+import '../../theme/tokens.dart';
 
 /// First-launch welcome with the audience fork (SPEC.md §3.1):
 /// experienced players jump straight to setup; newcomers get the tour.
@@ -23,22 +24,24 @@ class OnboardingScreen extends StatelessWidget {
           SafeArea(
             child: Center(
               child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 420),
+                constraints: const BoxConstraints(
+                  maxWidth: IKubbLayout.maxColumn,
+                ),
                 child: Padding(
-                  padding: const EdgeInsets.all(24),
+                  padding: const EdgeInsets.all(IKubbSpacing.xl),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       const VikingMascot(size: 160),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: IKubbSpacing.sm),
                       Text(
                         l10n.appTitle,
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.displayLarge,
                       ),
                       Text(l10n.tagline, textAlign: TextAlign.center),
-                      const SizedBox(height: 48),
+                      const SizedBox(height: IKubbSpacing.huge),
                       FilledButton(
                         onPressed: () {
                           markOnboardingSeen();
@@ -46,7 +49,7 @@ class OnboardingScreen extends StatelessWidget {
                         },
                         child: Text(l10n.startScoring),
                       ),
-                      const SizedBox(height: 12),
+                      const SizedBox(height: IKubbSpacing.md),
                       OutlinedButton.icon(
                         onPressed: () {
                           markOnboardingSeen();

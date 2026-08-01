@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/home_leading.dart';
 import 'settings_controller.dart';
+import '../../theme/tokens.dart';
 
 /// Language names shown as endonyms — they must never be translated.
 const _languageNames = {
@@ -33,9 +34,9 @@ class SettingsScreen extends ConsumerWidget {
       appBar: AppBar(title: Text(l10n.settings), leading: homeLeading(context)),
       body: Center(
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 560),
+          constraints: const BoxConstraints(maxWidth: IKubbLayout.maxContent),
           child: ListView(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(IKubbSpacing.lg),
             children: [
               ListTile(
                 contentPadding: EdgeInsets.zero,
@@ -62,7 +63,7 @@ class SettingsScreen extends ConsumerWidget {
                 onSelectionChanged: (s) =>
                     ref.read(themeModeProvider.notifier).set(s.first),
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: IKubbSpacing.md),
               ListTile(
                 contentPadding: EdgeInsets.zero,
                 leading: const Icon(Icons.language),

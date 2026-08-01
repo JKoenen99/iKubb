@@ -9,6 +9,8 @@ import '../../widgets/viking_mascot.dart';
 import '../game/game_mode.dart';
 import 'game_records_repository.dart';
 import 'stats.dart';
+import '../../theme/tokens.dart';
+import '../../theme/typography.dart';
 
 /// Player statistics and game history (SPEC.md §3.5), computed by
 /// replaying the stored logs through the engine. One evening, one log:
@@ -52,7 +54,7 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const VikingMascot(size: 120),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: IKubbSpacing.lg),
                   Text(l10n.noGamesYet),
                 ],
               ),
@@ -76,9 +78,9 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
           ];
           return Center(
             child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 640),
+              constraints: const BoxConstraints(maxWidth: IKubbLayout.maxPanel),
               child: ListView(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(IKubbSpacing.lg),
                 children: [
                   _SectionHeader(l10n.players),
                   for (final name in names)
@@ -88,11 +90,11 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
                       kubb: kubb[name],
                       showSections: hasBothModes,
                     ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: IKubbSpacing.lg),
                   _SectionHeader(l10n.historyTitle),
                   if (hasBothModes)
                     Padding(
-                      padding: const EdgeInsets.only(bottom: 8),
+                      padding: const EdgeInsets.only(bottom: IKubbSpacing.sm),
                       child: Wrap(
                         spacing: 8,
                         children: [
@@ -116,10 +118,10 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
                       direction: DismissDirection.endToStart,
                       background: Container(
                         alignment: Alignment.centerRight,
-                        padding: const EdgeInsets.only(right: 16),
+                        padding: const EdgeInsets.only(right: IKubbSpacing.lg),
                         decoration: BoxDecoration(
                           color: IKubbPalette.berry,
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(IKubbRadius.md),
                         ),
                         child: const Icon(
                           Icons.delete_outline,
@@ -179,7 +181,7 @@ class _SectionHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-    padding: const EdgeInsets.symmetric(vertical: 8),
+    padding: const EdgeInsets.symmetric(vertical: IKubbSpacing.sm),
     child: Text(
       text,
       style: Theme.of(
@@ -238,26 +240,23 @@ class _PlayerCard extends StatelessWidget {
     return Card(
       elevation: 0,
       color: scheme.surfaceContainerHighest,
-      margin: const EdgeInsets.symmetric(vertical: 4),
+      margin: const EdgeInsets.symmetric(vertical: IKubbSpacing.xs),
       child: Padding(
-        padding: const EdgeInsets.all(12),
+        padding: const EdgeInsets.all(IKubbSpacing.md),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              name,
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
-            ),
-            const SizedBox(height: 8),
+            Text(name, style: IKubbType.cardTitle),
+            const SizedBox(height: IKubbSpacing.sm),
             _ChipWrap(chips: header),
             if (numberChips.isNotEmpty) ...[
               if (showSections) _ModeLabel(l10n.modeNumber),
-              const SizedBox(height: 8),
+              const SizedBox(height: IKubbSpacing.sm),
               _ChipWrap(chips: numberChips),
             ],
             if (kubbChips.isNotEmpty) ...[
               if (showSections) _ModeLabel(l10n.modeKubb),
-              const SizedBox(height: 8),
+              const SizedBox(height: IKubbSpacing.sm),
               _ChipWrap(chips: kubbChips),
             ],
           ],
@@ -274,7 +273,7 @@ class _ModeLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-    padding: const EdgeInsets.only(top: 10),
+    padding: const EdgeInsets.only(top: IKubbSpacing.md),
     child: Text(
       text,
       style: Theme.of(context).textTheme.labelMedium?.copyWith(
@@ -303,11 +302,7 @@ class _ChipWrap extends StatelessWidget {
             children: [
               Text(
                 value,
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                  color: scheme.primary,
-                ),
+                style: IKubbType.statValue.copyWith(color: scheme.primary),
               ),
               Text(label, style: Theme.of(context).textTheme.labelSmall),
             ],

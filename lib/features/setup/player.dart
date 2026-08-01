@@ -8,13 +8,13 @@ import '../../theme/palette.dart';
 /// both birch and dark-green surfaces.
 const playerColors = <Color>[
   IKubbPalette.oak,
-  Color(0xFF4A6B8A), // fjord blue
+  IKubbPalette.fjord,
   IKubbPalette.berry,
   IKubbPalette.amber,
-  Color(0xFF7B4A6E), // plum
-  Color(0xFFB05C2A), // copper
-  Color(0xFF546E7A), // slate
-  Color(0xFF4E5A9E), // indigo
+  IKubbPalette.plum,
+  IKubbPalette.copper,
+  IKubbPalette.slate,
+  IKubbPalette.indigo,
 ];
 
 /// An app-level player. The scoring engine only sees a [Side]; avatar and

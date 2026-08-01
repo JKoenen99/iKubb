@@ -36,4 +36,17 @@ abstract final class IKubbPalette {
   // Dark theme (night-forest greens on charcoal-wood)
   static const charcoalWood = Color(0xFF181C18);
   static const nightSurface = Color(0xFF232A24);
+
+  // Player-identity hues (paired with oak/berry/amber above). Deliberately
+  // exclude the brand surface greens so an identity color never disappears
+  // against the active card or the scoreboard field.
+  static const fjord = Color(0xFF4A6B8A);
+  static const plum = Color(0xFF7B4A6E);
+  static const copper = Color(0xFFB05C2A);
+  static const slate = Color(0xFF546E7A);
+  static const indigo = Color(0xFF4E5A9E);
+
+  // Mascot-only tones (skin + blush of the code-drawn Viking).
+  static const mascotSkin = Color(0xFFF0C9A5);
+  static const mascotBlush = Color(0x33A84A3F);
 }

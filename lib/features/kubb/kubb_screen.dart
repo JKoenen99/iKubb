@@ -22,6 +22,7 @@ import '../settings/settings_controller.dart';
 import '../setup/player.dart' show playerColors;
 import 'kubb_controller.dart';
 import 'kubb_field.dart';
+import '../../theme/tokens.dart';
 
 /// Classic kubb (SPEC: teams + king): the attacker always plays from the
 /// bottom of the field; tap the blocks a baton felled, confirm per baton.
@@ -204,7 +205,9 @@ class _KubbScreenState extends ConsumerState<KubbScreen> {
           SafeArea(
             child: Center(
               child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 560),
+                constraints: const BoxConstraints(
+                  maxWidth: IKubbLayout.maxContent,
+                ),
                 child: Column(
                   children: [
                     _KubbStandings(
@@ -249,10 +252,10 @@ class _KubbScreenState extends ConsumerState<KubbScreen> {
     final attacker = game.sides[game.attackerIndex];
     final baselineUnlocked = _selectedField.length == game.targetFieldStanding;
     return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: IKubbSpacing.lg),
       child: Column(
         children: [
-          const SizedBox(height: 4),
+          const SizedBox(height: IKubbSpacing.xs),
           Text(defender.name, style: Theme.of(context).textTheme.titleMedium),
           // Defender baseline: locked behind the field kubbs.
           KubbBlockRow(
@@ -270,7 +273,7 @@ class _KubbScreenState extends ConsumerState<KubbScreen> {
             }),
           ),
           if (game.targetFieldStanding > 0) ...[
-            const SizedBox(height: 8),
+            const SizedBox(height: IKubbSpacing.sm),
             KubbBlockRow(
               key: const Key('fieldRow'),
               blockWidth: 22,
@@ -288,9 +291,9 @@ class _KubbScreenState extends ConsumerState<KubbScreen> {
               }),
             ),
           ],
-          const SizedBox(height: 16),
+          const SizedBox(height: IKubbSpacing.lg),
           KubbKing(onTap: () => _tapKing(game)),
-          const SizedBox(height: 16),
+          const SizedBox(height: IKubbSpacing.lg),
           if (game.advantageActive) ...[
             // The chip doubles as a deep link into the advantage rule.
             GestureDetector(
@@ -301,7 +304,7 @@ class _KubbScreenState extends ConsumerState<KubbScreen> {
               ),
               child: AdvantageLine(label: l10n.advantageLine),
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: IKubbSpacing.sm),
           ],
           if (game.field[game.attackerIndex] > 0)
             KubbBlockRow(
@@ -322,18 +325,20 @@ class _KubbScreenState extends ConsumerState<KubbScreen> {
             children: [
               for (var b = 0; b < game.rules.batonsPerTurn; b++)
                 Padding(
-                  padding: const EdgeInsets.all(3),
+                  padding: const EdgeInsets.all(IKubbSpacing.xs),
                   child: Icon(
                     Icons.remove,
-                    size: 20,
+                    size: IKubbIconSize.md,
                     color: b < game.batonsThrown
-                        ? IKubbPalette.walnut.withValues(alpha: 0.4)
+                        ? IKubbPalette.walnut.withValues(
+                            alpha: IKubbAlpha.dotIdle,
+                          )
                         : IKubbPalette.walnut,
                   ),
                 ),
             ],
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: IKubbSpacing.sm),
         ],
       ),
     );
@@ -352,7 +357,12 @@ class _KubbScreenState extends ConsumerState<KubbScreen> {
     }
     final selection = _selectedField.length + _selectedBaseline.length;
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+      padding: const EdgeInsets.fromLTRB(
+        IKubbSpacing.lg,
+        0,
+        IKubbSpacing.lg,
+        IKubbSpacing.lg,
+      ),
       child: Row(
         children: [
           Expanded(
@@ -361,7 +371,7 @@ class _KubbScreenState extends ConsumerState<KubbScreen> {
               child: Text(l10n.miss),
             ),
           ),
-          const SizedBox(width: 12),
+          const SizedBox(width: IKubbSpacing.md),
           Expanded(
             flex: 2,
             child: FilledButton(
@@ -388,31 +398,31 @@ class _KubbStandings extends ConsumerWidget {
     final sideColors = ref.watch(sideColorsProvider);
     final game = match.currentGame;
     return Padding(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(IKubbSpacing.lg),
       child: Row(
         children: [
           for (var i = 0; i < 2; i++)
             Expanded(
               child: AnimatedContainer(
-                duration: const Duration(milliseconds: 250),
-                margin: const EdgeInsets.symmetric(horizontal: 4),
-                padding: const EdgeInsets.all(12),
+                duration: IKubbMotion.base,
+                margin: const EdgeInsets.symmetric(horizontal: IKubbSpacing.xs),
+                padding: const EdgeInsets.all(IKubbSpacing.md),
                 decoration: BoxDecoration(
                   color: i == game.attackerIndex && !game.isFinished
                       ? scheme.primary
                       : scheme.surfaceContainerHighest,
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.circular(IKubbRadius.lg),
                 ),
                 child: _sideSummary(context, i, sideColors),
               ),
             ),
           if (clockSeconds != null)
             Padding(
-              padding: const EdgeInsets.only(left: 8),
+              padding: const EdgeInsets.only(left: IKubbSpacing.sm),
               child: Text(
                 '$clockSeconds',
                 style: IKubbType.score(
-                  size: 24,
+                  size: IKubbType.stepTitle,
                   color: clockSeconds! <= 10
                       ? IKubbPalette.danger(Theme.of(context).brightness)
                       : scheme.onSurface,
@@ -441,13 +451,16 @@ class _KubbStandings extends ConsumerWidget {
             Container(
               width: 14,
               height: 14,
-              margin: const EdgeInsets.only(right: 6),
+              margin: const EdgeInsets.only(right: IKubbSpacing.sm),
               decoration: BoxDecoration(
                 color:
                     playerColors[(sideColors[match.sides[i].id] ?? i) %
                         playerColors.length],
                 shape: BoxShape.circle,
-                border: Border.all(color: IKubbPalette.birchLight, width: 1.5),
+                border: Border.all(
+                  color: IKubbPalette.birchLight,
+                  width: IKubbBorder.hairline,
+                ),
               ),
             ),
             Expanded(
@@ -455,14 +468,14 @@ class _KubbStandings extends ConsumerWidget {
                 match.sides[i].name,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontWeight: FontWeight.w600, color: onColor),
+                style: IKubbType.emphasis.copyWith(color: onColor),
               ),
             ),
           ],
         ),
         Text(
           '${game.baseline[i]}',
-          style: IKubbType.score(size: 34, color: onColor),
+          style: IKubbType.score(size: IKubbType.stepScoreCard, color: onColor),
         ),
         if (match.rules.bestOf > 1)
           Row(
@@ -470,10 +483,10 @@ class _KubbStandings extends ConsumerWidget {
               for (var w = 0; w < match.rules.gamesToWin; w++)
                 Icon(
                   Icons.circle,
-                  size: 10,
+                  size: IKubbIconSize.dot,
                   color: w < match.wins[i]
                       ? IKubbPalette.amber
-                      : onColor.withValues(alpha: 0.3),
+                      : onColor.withValues(alpha: IKubbAlpha.dotIdle),
                 ),
             ],
           ),
@@ -495,7 +508,7 @@ class _KubbGameOverlay extends StatelessWidget {
     final game = match.currentGame;
     final winner = game.winner!;
     return ColoredBox(
-      color: IKubbPalette.forestDeep.withValues(alpha: 0.92),
+      color: IKubbPalette.forestDeep.withValues(alpha: IKubbAlpha.scrim),
       child: SafeArea(
         child: Center(
           child: Column(
@@ -509,19 +522,19 @@ class _KubbGameOverlay extends StatelessWidget {
                     : l10n.winnerBanner(winner.name),
                 textAlign: TextAlign.center,
                 style: IKubbType.heading(
-                  size: 32,
+                  size: IKubbType.stepScoreCard,
                   color: IKubbPalette.birchLight,
                 ),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: IKubbSpacing.sm),
               Text(
                 '${match.wins[0]} – ${match.wins[1]}',
                 style: IKubbType.score(
-                  size: 48,
+                  size: IKubbType.stepHero,
                   color: IKubbPalette.birchLight,
                 ),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: IKubbSpacing.xl),
               FilledButton(
                 style: FilledButton.styleFrom(
                   backgroundColor: IKubbPalette.birchLight,
@@ -558,40 +571,40 @@ class _KubbMatchOverlay extends ConsumerWidget {
       children: [
         ColoredBox(
           color: Color.alphaBlend(
-            winnerColor.withValues(alpha: 0.45),
+            winnerColor.withValues(alpha: IKubbAlpha.activeTint),
             IKubbPalette.forestDeep,
           ),
         ),
         const WoodGrainBackground(
           color: IKubbPalette.birchLight,
-          opacity: 0.06,
+          opacity: IKubbAlpha.grain,
         ),
         SafeArea(
           child: Center(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.all(24),
+              padding: const EdgeInsets.all(IKubbSpacing.xl),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   const VikingMascot(pose: MascotPose.cheer, size: 150),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: IKubbSpacing.md),
                   Text(
                     l10n.winnerBanner(winner.name),
                     textAlign: TextAlign.center,
                     style: IKubbType.heading(
-                      size: 40,
+                      size: IKubbType.stepScoreLg,
                       color: IKubbPalette.birchLight,
                     ),
                   ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: IKubbSpacing.sm),
                   Text(
                     '${match.wins[0]} – ${match.wins[1]}',
                     style: IKubbType.score(
-                      size: 40,
+                      size: IKubbType.stepScoreLg,
                       color: IKubbPalette.birchLight,
                     ),
                   ),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: IKubbSpacing.xl),
                   FilledButton(
                     style: FilledButton.styleFrom(
                       backgroundColor: IKubbPalette.birchLight,
@@ -600,7 +613,7 @@ class _KubbMatchOverlay extends ConsumerWidget {
                     onPressed: onRematch,
                     child: Text(l10n.rematch),
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: IKubbSpacing.md),
                   OutlinedButton.icon(
                     style: OutlinedButton.styleFrom(
                       foregroundColor: IKubbPalette.birchLight,
@@ -614,7 +627,7 @@ class _KubbMatchOverlay extends ConsumerWidget {
                     icon: Icon(Icons.adaptive.share),
                     label: Text(l10n.share),
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: IKubbSpacing.md),
                   OutlinedButton(
                     style: OutlinedButton.styleFrom(
                       foregroundColor: IKubbPalette.birchLight,
@@ -653,17 +666,17 @@ class _ThrowInPanelState extends State<_ThrowInPanel> {
     final l10n = AppLocalizations.of(context)!;
     final scheme = Theme.of(context).colorScheme;
     return Container(
-      margin: const EdgeInsets.all(16),
-      padding: const EdgeInsets.all(16),
+      margin: const EdgeInsets.all(IKubbSpacing.lg),
+      padding: const EdgeInsets.all(IKubbSpacing.lg),
       decoration: BoxDecoration(
         color: scheme.surfaceContainerHighest,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(IKubbRadius.lg),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(l10n.throwInTitle, textAlign: TextAlign.center),
-          const SizedBox(height: 8),
+          const SizedBox(height: IKubbSpacing.sm),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -674,13 +687,7 @@ class _ThrowInPanelState extends State<_ThrowInPanel> {
                     : null,
                 icon: const Icon(Icons.remove_circle_outline),
               ),
-              Text(
-                '$_penalties',
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
+              Text('$_penalties', style: IKubbType.statValue),
               IconButton(
                 onPressed: _penalties < widget.felled
                     ? () => setState(() => _penalties++)
@@ -689,7 +696,7 @@ class _ThrowInPanelState extends State<_ThrowInPanel> {
               ),
             ],
           ),
-          const SizedBox(height: 4),
+          const SizedBox(height: IKubbSpacing.xs),
           SizedBox(
             width: double.infinity,
             child: FilledButton(

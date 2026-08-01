@@ -59,8 +59,8 @@ class _VikingPainter extends CustomPainter {
   /// 0 = normal, 1 = full wince: frown, slight sag and tilt.
   final double oops;
 
-  static const _skin = Color(0xFFF0C9A5);
-  static const _cheek = Color(0x33A84A3F);
+  static const _skin = IKubbPalette.mascotSkin;
+  static const _cheek = IKubbPalette.mascotBlush;
 
   @override
   void paint(Canvas canvas, Size size) {

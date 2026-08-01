@@ -12,6 +12,7 @@ import '../kubb/kubb_controller.dart';
 import '../setup/player.dart' show playerColors;
 import 'game_controller.dart';
 import 'game_mode.dart';
+import '../../theme/tokens.dart';
 
 /// Big, glanceable field-side scoreboard (SPEC.md §3.4): prop the iPad up
 /// and read scores from across the pitch. It mirrors whichever game mode
@@ -53,7 +54,7 @@ class _NumberScoreboard extends ConsumerWidget {
                         l10n.winnerBanner(game.winner!.name),
                         textAlign: TextAlign.center,
                         style: IKubbType.heading(
-                          size: 64,
+                          size: IKubbType.stepDisplay,
                           color: IKubbPalette.birchLight,
                         ),
                       ),
@@ -110,7 +111,7 @@ class _KubbScoreboard extends ConsumerWidget {
                         l10n.winnerBanner(match.matchWinner!.name),
                         textAlign: TextAlign.center,
                         style: IKubbType.heading(
-                          size: 64,
+                          size: IKubbType.stepDisplay,
                           color: IKubbPalette.birchLight,
                         ),
                       ),
@@ -164,11 +165,13 @@ class _KubbColumn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-      duration: const Duration(milliseconds: 250),
-      margin: const EdgeInsets.all(12),
+      duration: IKubbMotion.base,
+      margin: const EdgeInsets.all(IKubbSpacing.md),
       decoration: BoxDecoration(
-        color: isAttacker ? color.withValues(alpha: 0.45) : Colors.transparent,
-        borderRadius: BorderRadius.circular(24),
+        color: isAttacker
+            ? color.withValues(alpha: IKubbAlpha.activeTint)
+            : Colors.transparent,
+        borderRadius: BorderRadius.circular(IKubbRadius.xl),
         border: Border.all(
           color: isAttacker ? color : IKubbPalette.pine,
           width: isAttacker ? 4 : 2,
@@ -181,11 +184,17 @@ class _KubbColumn extends StatelessWidget {
             name,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: IKubbType.heading(size: 36, color: IKubbPalette.birchLight),
+            style: IKubbType.heading(
+              size: IKubbType.stepScoreLg,
+              color: IKubbPalette.birchLight,
+            ),
           ),
           RollingNumber(
             value: standing,
-            style: IKubbType.score(size: 120, color: IKubbPalette.birchLight),
+            style: IKubbType.score(
+              size: IKubbType.stepScoreboard,
+              color: IKubbPalette.birchLight,
+            ),
           ),
           if (gamesToWin > 0)
             Row(
@@ -193,13 +202,15 @@ class _KubbColumn extends StatelessWidget {
               children: [
                 for (var w = 0; w < gamesToWin; w++)
                   Padding(
-                    padding: const EdgeInsets.all(4),
+                    padding: const EdgeInsets.all(IKubbSpacing.xs),
                     child: Icon(
                       Icons.circle,
-                      size: 26,
+                      size: IKubbIconSize.field,
                       color: w < wins
                           ? IKubbPalette.amber
-                          : IKubbPalette.birchLight.withValues(alpha: 0.3),
+                          : IKubbPalette.birchLight.withValues(
+                              alpha: IKubbAlpha.dotIdle,
+                            ),
                     ),
                   ),
               ],
@@ -228,11 +239,13 @@ class _ScoreboardColumn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-      duration: const Duration(milliseconds: 250),
-      margin: const EdgeInsets.all(12),
+      duration: IKubbMotion.base,
+      margin: const EdgeInsets.all(IKubbSpacing.md),
       decoration: BoxDecoration(
-        color: isActive ? color.withValues(alpha: 0.45) : Colors.transparent,
-        borderRadius: BorderRadius.circular(24),
+        color: isActive
+            ? color.withValues(alpha: IKubbAlpha.activeTint)
+            : Colors.transparent,
+        borderRadius: BorderRadius.circular(IKubbRadius.xl),
         border: Border.all(
           color: isActive ? color : IKubbPalette.pine,
           width: isActive ? 4 : 2,
@@ -247,7 +260,7 @@ class _ScoreboardColumn extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
             style:
                 IKubbType.heading(
-                  size: 36,
+                  size: IKubbType.stepScoreLg,
                   color: state.isEliminated
                       ? IKubbPalette.berryLight
                       : IKubbPalette.birchLight,
@@ -260,7 +273,7 @@ class _ScoreboardColumn extends StatelessWidget {
           RollingNumber(
             value: state.score,
             style: IKubbType.score(
-              size: 120,
+              size: IKubbType.stepScoreboard,
               color: state.isEliminated
                   ? IKubbPalette.berryLight
                   : IKubbPalette.birchLight,
@@ -272,20 +285,22 @@ class _ScoreboardColumn extends StatelessWidget {
             SizedBox(
               height: 40,
               child: AnimatedOpacity(
-                duration: const Duration(milliseconds: 250),
+                duration: IKubbMotion.base,
                 opacity: state.missStreak > 0 ? 1 : 0,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     for (var m = 0; m < missLimit; m++)
                       Padding(
-                        padding: const EdgeInsets.all(4),
+                        padding: const EdgeInsets.all(IKubbSpacing.xs),
                         child: Icon(
                           Icons.circle,
-                          size: 26,
+                          size: IKubbIconSize.field,
                           color: m < state.missStreak
                               ? IKubbPalette.berryLight
-                              : IKubbPalette.birchLight.withValues(alpha: 0.3),
+                              : IKubbPalette.birchLight.withValues(
+                                  alpha: IKubbAlpha.dotIdle,
+                                ),
                         ),
                       ),
                   ],

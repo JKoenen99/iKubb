@@ -9,6 +9,7 @@ import '../../widgets/wood_grain.dart';
 import '../game/game_controller.dart';
 import '../game/game_mode.dart';
 import '../kubb/kubb_controller.dart';
+import '../../theme/tokens.dart';
 
 /// Landing screen after onboarding: quick start front and center.
 class HomeScreen extends ConsumerWidget {
@@ -44,7 +45,7 @@ class HomeScreen extends ConsumerWidget {
             child: Align(
               alignment: Alignment.topRight,
               child: Padding(
-                padding: const EdgeInsets.all(8),
+                padding: const EdgeInsets.all(IKubbSpacing.sm),
                 child: IconButton(
                   tooltip: l10n.settings,
                   onPressed: () => context.push('/settings'),
@@ -56,22 +57,24 @@ class HomeScreen extends ConsumerWidget {
           SafeArea(
             child: Center(
               child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 420),
+                constraints: const BoxConstraints(
+                  maxWidth: IKubbLayout.maxColumn,
+                ),
                 child: Padding(
-                  padding: const EdgeInsets.all(24),
+                  padding: const EdgeInsets.all(IKubbSpacing.xl),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       const VikingMascot(size: 140),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: IKubbSpacing.sm),
                       Text(
                         l10n.appTitle,
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.displayLarge,
                       ),
                       Text(l10n.tagline, textAlign: TextAlign.center),
-                      const SizedBox(height: 48),
+                      const SizedBox(height: IKubbSpacing.huge),
                       // An interrupted game takes over as the primary
                       // action: resuming beats restarting (SPEC.md §3.5).
                       if (resumable)
@@ -91,12 +94,12 @@ class HomeScreen extends ConsumerWidget {
                           ),
                           child: Text(l10n.quickStart),
                         ),
-                      const SizedBox(height: 12),
+                      const SizedBox(height: IKubbSpacing.md),
                       FilledButton.tonal(
                         onPressed: () => context.push('/setup'),
                         child: Text(l10n.newGame),
                       ),
-                      const SizedBox(height: 12),
+                      const SizedBox(height: IKubbSpacing.md),
                       Row(
                         children: [
                           Expanded(
@@ -105,7 +108,7 @@ class HomeScreen extends ConsumerWidget {
                               child: Text(l10n.rules),
                             ),
                           ),
-                          const SizedBox(width: 12),
+                          const SizedBox(width: IKubbSpacing.md),
                           Expanded(
                             child: OutlinedButton(
                               onPressed: () => context.push('/stats'),

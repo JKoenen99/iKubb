@@ -11,6 +11,8 @@ import '../game/pin_diagram.dart';
 import '../rules/rule_illustrations.dart';
 import '../setup/setup_controller.dart';
 import 'onboarding_state.dart';
+import '../../theme/tokens.dart';
+import '../../theme/typography.dart';
 
 /// "Teach me the game": swipeable illustrated rule cards, skippable at
 /// every card, interactive where that teaches best (SPEC.md §3.1). The
@@ -53,7 +55,7 @@ class _TourScreenState extends ConsumerState<TourScreen> {
     }
     _pageController.animateToPage(
       _page + 1,
-      duration: const Duration(milliseconds: 300),
+      duration: IKubbMotion.entrance,
       curve: Curves.easeOutCubic,
     );
   }
@@ -124,7 +126,7 @@ class _TourScreenState extends ConsumerState<TourScreen> {
       body: SafeArea(
         child: Center(
           child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 560),
+            constraints: const BoxConstraints(maxWidth: IKubbLayout.maxContent),
             child: Column(
               children: [
                 Expanded(
@@ -147,23 +149,22 @@ class _TourScreenState extends ConsumerState<TourScreen> {
                   children: [
                     for (var i = 0; i < _pageCount; i++)
                       AnimatedContainer(
-                        duration: const Duration(milliseconds: 200),
+                        duration: IKubbMotion.quick,
                         width: i == _page ? 22 : 8,
                         height: 8,
-                        margin: const EdgeInsets.all(3),
+                        margin: const EdgeInsets.all(IKubbSpacing.xs),
                         decoration: BoxDecoration(
                           color: i == _page
                               ? Theme.of(context).colorScheme.primary
-                              : Theme.of(
-                                  context,
-                                ).colorScheme.primary.withValues(alpha: 0.3),
-                          borderRadius: BorderRadius.circular(4),
+                              : Theme.of(context).colorScheme.primary
+                                    .withValues(alpha: IKubbAlpha.dotIdle),
+                          borderRadius: BorderRadius.circular(IKubbRadius.xs),
                         ),
                       ),
                   ],
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(IKubbSpacing.lg),
                   child: SizedBox(
                     width: double.infinity,
                     child: FilledButton(
@@ -194,7 +195,7 @@ class _ModePickCard extends StatelessWidget {
     final l10n = AppLocalizations.of(context)!;
     return Center(
       child: SingleChildScrollView(
-        padding: const EdgeInsets.all(24),
+        padding: const EdgeInsets.all(IKubbSpacing.xl),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -203,13 +204,13 @@ class _ModePickCard extends StatelessWidget {
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.headlineMedium,
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: IKubbSpacing.md),
             Text(
               l10n.tourModePickBody,
               textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 16, height: 1.4),
+              style: IKubbType.reading,
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: IKubbSpacing.xl),
             _ModeOption(
               icon: Icons.tag,
               title: l10n.modeNumber,
@@ -217,7 +218,7 @@ class _ModePickCard extends StatelessWidget {
               selected: selected == GameMode.numberKubb,
               onTap: () => onPick(GameMode.numberKubb),
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: IKubbSpacing.md),
             _ModeOption(
               icon: Icons.workspace_premium,
               title: l10n.modeKubb,
@@ -255,30 +256,27 @@ class _ModeOption extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: scheme.surfaceContainerHighest,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(IKubbRadius.lg),
         border: Border.all(
           color: selected ? scheme.primary : Colors.transparent,
-          width: 3,
+          width: IKubbBorder.focus,
         ),
       ),
       child: InkWell(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(IKubbRadius.lg),
         onTap: onTap,
         child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(IKubbSpacing.lg),
           child: Row(
             children: [
-              Icon(icon, size: 32, color: scheme.primary),
-              const SizedBox(width: 16),
+              Icon(icon, size: IKubbIconSize.display, color: scheme.primary),
+              const SizedBox(width: IKubbSpacing.lg),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      title,
-                      style: const TextStyle(fontWeight: FontWeight.w700),
-                    ),
-                    const SizedBox(height: 2),
+                    Text(title, style: IKubbType.strong),
+                    const SizedBox(height: IKubbSpacing.xxs),
                     Text(
                       description,
                       style: Theme.of(context).textTheme.bodySmall,
@@ -308,22 +306,21 @@ class _TourCard extends StatelessWidget {
     // when it genuinely doesn't fit.
     return Center(
       child: SingleChildScrollView(
-        padding: const EdgeInsets.all(24),
+        padding: const EdgeInsets.all(IKubbSpacing.xl),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            if (child != null) ...[child!, const SizedBox(height: 24)],
+            if (child != null) ...[
+              child!,
+              const SizedBox(height: IKubbSpacing.xl),
+            ],
             Text(
               title,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.headlineMedium,
             ),
-            const SizedBox(height: 12),
-            Text(
-              body,
-              textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 16, height: 1.4),
-            ),
+            const SizedBox(height: IKubbSpacing.md),
+            Text(body, textAlign: TextAlign.center, style: IKubbType.reading),
           ],
         ),
       ),
@@ -354,7 +351,7 @@ class _ScoringDemoCardState extends State<_ScoringDemoCard> {
     };
     return Center(
       child: SingleChildScrollView(
-        padding: const EdgeInsets.all(24),
+        padding: const EdgeInsets.all(IKubbSpacing.xl),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -367,26 +364,26 @@ class _ScoringDemoCardState extends State<_ScoringDemoCard> {
                     : _selected.add(pin);
               }),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: IKubbSpacing.lg),
             RollingNumber(
               value: score,
               style: Theme.of(context).textTheme.displayLarge?.copyWith(
                 color: Theme.of(context).colorScheme.primary,
               ),
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: IKubbSpacing.sm),
             Text(
               l10n.catScoring,
               style: Theme.of(context).textTheme.headlineMedium,
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: IKubbSpacing.md),
             AnimatedSwitcher(
-              duration: const Duration(milliseconds: 200),
+              duration: IKubbMotion.quick,
               child: Text(
                 explanation,
                 key: ValueKey(explanation),
                 textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 16, height: 1.4),
+                style: IKubbType.reading,
               ),
             ),
           ],
