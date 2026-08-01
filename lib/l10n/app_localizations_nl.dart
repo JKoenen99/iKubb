@@ -533,4 +533,92 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get filterAll => 'Alles';
+
+  @override
+  String get closeLabel => 'Sluiten';
+
+  @override
+  String get increaseLabel => 'Meer';
+
+  @override
+  String get decreaseLabel => 'Minder';
+
+  @override
+  String kubbStandingSemantics(Object number) {
+    return 'Kubb $number, staat';
+  }
+
+  @override
+  String kubbSelectedSemantics(Object number) {
+    return 'Kubb $number, gemarkeerd als omgegooid';
+  }
+
+  @override
+  String kubbFelledSemantics(Object number) {
+    return 'Kubb $number, ligt om';
+  }
+
+  @override
+  String get kingSafeSemantics => 'De koning — vel hem en win';
+
+  @override
+  String get kingRiskySemantics => 'De koning — hem nu raken verliest het spel';
+
+  @override
+  String batonsLeftSemantics(Object remaining, Object total) {
+    return '$remaining van $total houtjes over';
+  }
+
+  @override
+  String missesSemantics(Object count, Object limit) {
+    return '$count van $limit missers';
+  }
+
+  @override
+  String get statsErrorBody => 'Je statistieken konden niet worden geladen.';
+
+  @override
+  String get retryLabel => 'Opnieuw proberen';
+
+  @override
+  String get deleteGameLabel => 'Spel verwijderen';
+
+  @override
+  String get newMatchConfirmTitle => 'Nieuwe wedstrijd starten?';
+
+  @override
+  String get newMatchConfirmBody => 'Je verliest de wedstrijd die bezig is.';
+
+  @override
+  String get settingsAppearance => 'Weergave';
+
+  @override
+  String get settingsDuringPlay => 'Tijdens het spelen';
+
+  @override
+  String get settingsLearn => 'Leren';
+
+  @override
+  String get settingsAbout => 'Over';
+
+  @override
+  String get designSystemLabel => 'Design system';
+
+  @override
+  String get licensesLabel => 'Opensourcelicenties';
+
+  @override
+  String confirmThrowCount(Object count) {
+    return 'Worp bevestigen (+$count)';
+  }
+
+  @override
+  String resumeGameSummary(Object summary) {
+    return 'Spel hervatten · $summary';
+  }
+
+  @override
+  String matchScore(Object a, Object b) {
+    return '$a – $b';
+  }
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:scoring_engine/scoring_engine.dart';
@@ -15,7 +14,6 @@ import '../../widgets/side_card.dart';
 import '../rules/rules_content.dart';
 import 'game_mode.dart';
 import '../rules/rules_view.dart';
-import '../settings/settings_controller.dart';
 import '../setup/player.dart' show playerColors;
 import 'game_controller.dart';
 import 'input_mode.dart';
@@ -25,6 +23,7 @@ import 'pin_diagram.dart';
 import 'win_overlay.dart';
 import '../../theme/tokens.dart';
 import '../../widgets/confirm_dialog.dart';
+import '../settings/haptics.dart';
 
 /// The scoring tool: pin-tap input, "needs exactly X" helper, overshoot
 /// warning, miss-streak dots, undo, and a personalized win banner.
@@ -111,9 +110,17 @@ class _GameScreenState extends ConsumerState<GameScreen> {
   }
 
   void _hapticAfterThrow() {
-    if (!ref.read(hapticsEnabledProvider)) return;
-    final won = ref.read(gameControllerProvider).winner != null;
-    won ? HapticFeedback.heavyImpact() : HapticFeedback.lightImpact();
+    final game = ref.read(gameControllerProvider);
+    if (game.winner != null) {
+      Haptics.heavy(ref);
+    } else if (game.records.isNotEmpty &&
+        (game.records.last.outcome == ThrowOutcome.overshoot ||
+            game.records.last.outcome == ThrowOutcome.eliminated)) {
+      // A bad outcome should feel different from a routine score.
+      Haptics.medium(ref);
+    } else {
+      Haptics.light(ref);
+    }
   }
 
   @override
@@ -142,7 +149,10 @@ class _GameScreenState extends ConsumerState<GameScreen> {
               tooltip: l10n.undo,
               onPressed: game.throws.isEmpty
                   ? null
-                  : ref.read(gameControllerProvider.notifier).undo,
+                  : () {
+                      Haptics.light(ref);
+                      ref.read(gameControllerProvider.notifier).undo();
+                    },
               icon: const Icon(Icons.undo),
             ),
             PopupMenuButton<String>(
@@ -234,7 +244,6 @@ class _GameScreenState extends ConsumerState<GameScreen> {
         padding: const EdgeInsets.only(top: IKubbSpacing.xs),
         child: SegmentedButton<InputMode>(
           showSelectedIcon: false,
-          style: const ButtonStyle(visualDensity: VisualDensity.compact),
           segments: [
             ButtonSegment(
               value: InputMode.pins,
@@ -305,11 +314,14 @@ class _GameScreenState extends ConsumerState<GameScreen> {
                 selected: _selected,
                 onToggle: game.winner != null
                     ? null
-                    : (pin) => setState(() {
-                        _selected.contains(pin)
-                            ? _selected.remove(pin)
-                            : _selected.add(pin);
-                      }),
+                    : (pin) {
+                        Haptics.selection(ref);
+                        setState(() {
+                          _selected.contains(pin)
+                              ? _selected.remove(pin)
+                              : _selected.add(pin);
+                        });
+                      },
               ),
             ),
           ),
@@ -453,13 +465,14 @@ class _SideCard extends StatelessWidget {
         if (isActive)
           Text(needsLine, style: IKubbType.caption.copyWith(color: onColor)),
         // Miss dots fade in on the first miss (audit #6) and deep-link to
-        // their exact rule card (SPEC.md §3.6). Fixed height: no jump.
+        // their exact rule card (SPEC.md §3.6). The slot is reserved (no
+        // layout jump) and tall enough to be a legal tap target.
         SizedBox(
-          height: 16,
+          height: IKubbTap.min,
           child: IgnorePointer(
             ignoring: state.missStreak == 0,
             child: AnimatedOpacity(
-              duration: IKubbMotion.base,
+              duration: IKubbMotion.resolve(context, IKubbMotion.base),
               opacity: state.missStreak > 0 ? 1 : 0,
               child: InkWell(
                 onTap: () => showRulesPanel(
@@ -467,12 +480,18 @@ class _SideCard extends StatelessWidget {
                   mode: GameMode.numberKubb,
                   categoryId: RuleCategoryIds.misses,
                 ),
-                child: DotRow(
-                  count: missLimit,
-                  filled: state.missStreak,
-                  activeColor: IKubbPalette.berry,
-                  idleColor: onColor.withValues(alpha: IKubbAlpha.dotIdle),
-                  padding: EdgeInsets.zero,
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: DotRow(
+                    count: missLimit,
+                    filled: state.missStreak,
+                    activeColor: IKubbPalette.berry,
+                    idleColor: onColor.withValues(alpha: IKubbAlpha.dotIdle),
+                    padding: EdgeInsets.zero,
+                    semanticLabel: AppLocalizations.of(
+                      context,
+                    )!.missesSemantics(state.missStreak, missLimit),
+                  ),
                 ),
               ),
             ),

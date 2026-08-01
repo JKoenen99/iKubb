@@ -534,4 +534,92 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get filterAll => 'Todo';
+
+  @override
+  String get closeLabel => 'Cerrar';
+
+  @override
+  String get increaseLabel => 'Aumentar';
+
+  @override
+  String get decreaseLabel => 'Reducir';
+
+  @override
+  String kubbStandingSemantics(Object number) {
+    return 'Kubb $number, en pie';
+  }
+
+  @override
+  String kubbSelectedSemantics(Object number) {
+    return 'Kubb $number, marcado como derribado';
+  }
+
+  @override
+  String kubbFelledSemantics(Object number) {
+    return 'Kubb $number, caído';
+  }
+
+  @override
+  String get kingSafeSemantics => 'El rey: derríbalo para ganar';
+
+  @override
+  String get kingRiskySemantics => 'El rey: golpearlo ahora pierde la partida';
+
+  @override
+  String batonsLeftSemantics(Object remaining, Object total) {
+    return 'Quedan $remaining de $total bastones';
+  }
+
+  @override
+  String missesSemantics(Object count, Object limit) {
+    return '$count de $limit fallos';
+  }
+
+  @override
+  String get statsErrorBody => 'No se pudieron cargar tus estadísticas.';
+
+  @override
+  String get retryLabel => 'Reintentar';
+
+  @override
+  String get deleteGameLabel => 'Eliminar partida';
+
+  @override
+  String get newMatchConfirmTitle => '¿Empezar un nuevo encuentro?';
+
+  @override
+  String get newMatchConfirmBody => 'Perderás el encuentro en curso.';
+
+  @override
+  String get settingsAppearance => 'Apariencia';
+
+  @override
+  String get settingsDuringPlay => 'Durante el juego';
+
+  @override
+  String get settingsLearn => 'Aprender';
+
+  @override
+  String get settingsAbout => 'Acerca de';
+
+  @override
+  String get designSystemLabel => 'Design system';
+
+  @override
+  String get licensesLabel => 'Licencias de código abierto';
+
+  @override
+  String confirmThrowCount(Object count) {
+    return 'Confirmar tiro (+$count)';
+  }
+
+  @override
+  String resumeGameSummary(Object summary) {
+    return 'Reanudar partida · $summary';
+  }
+
+  @override
+  String matchScore(Object a, Object b) {
+    return '$a – $b';
+  }
 }

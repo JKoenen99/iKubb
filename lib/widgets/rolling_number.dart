@@ -12,7 +12,7 @@ class RollingNumber extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedSwitcher(
-      duration: IKubbMotion.gentle,
+      duration: IKubbMotion.resolve(context, IKubbMotion.gentle),
       switchInCurve: Curves.easeOutBack,
       switchOutCurve: Curves.easeIn,
       transitionBuilder: (child, animation) => ClipRect(

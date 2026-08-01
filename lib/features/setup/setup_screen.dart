@@ -255,7 +255,10 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       AnimatedSwitcher(
-                        duration: IKubbMotion.quick,
+                        duration: IKubbMotion.resolve(
+                          context,
+                          IKubbMotion.quick,
+                        ),
                         child: problem == null
                             ? const SizedBox(height: IKubbSpacing.xl)
                             : Padding(
@@ -526,12 +529,18 @@ class _HouseRules extends StatelessWidget {
             children: [
               Expanded(child: Text(l10n.missLimit)),
               IconButton(
-                onPressed: () => controller.setMissLimit(setup.missLimit - 1),
+                tooltip: l10n.decreaseLabel,
+                onPressed: setup.missLimit > 1
+                    ? () => controller.setMissLimit(setup.missLimit - 1)
+                    : null,
                 icon: const Icon(Icons.remove_circle_outline),
               ),
               Text('${setup.missLimit}', style: IKubbType.statValue),
               IconButton(
-                onPressed: () => controller.setMissLimit(setup.missLimit + 1),
+                tooltip: l10n.increaseLabel,
+                onPressed: setup.missLimit < 9
+                    ? () => controller.setMissLimit(setup.missLimit + 1)
+                    : null,
                 icon: const Icon(Icons.add_circle_outline),
               ),
             ],

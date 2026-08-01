@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:scoring_engine/scoring_engine.dart';
@@ -20,7 +19,7 @@ import '../../widgets/side_card.dart';
 import '../../widgets/confirm_dialog.dart';
 import '../rules/rules_content.dart';
 import '../rules/rules_view.dart';
-import '../settings/settings_controller.dart';
+import '../settings/haptics.dart';
 import '../setup/player.dart' show playerColors;
 import 'kubb_controller.dart';
 import 'kubb_field.dart';
@@ -78,13 +77,14 @@ class _KubbScreenState extends ConsumerState<KubbScreen> {
       ),
     );
     setState(_resetSelection);
-    if (ref.read(hapticsEnabledProvider)) HapticFeedback.lightImpact();
+    Haptics.light(ref);
   }
 
   Future<void> _tapKing(KubbGame game) async {
     final l10n = AppLocalizations.of(context)!;
     if (!game.canHitKing) {
-      // Early king = instant loss: the confirm is a destructive action.
+      // Early king = instant loss: warn by feel, confirm destructively.
+      Haptics.medium(ref);
       final confirmed = await confirmAdaptive(
         context,
         title: l10n.kingWarningTitle,
@@ -98,7 +98,7 @@ class _KubbScreenState extends ConsumerState<KubbScreen> {
     ref
         .read(kubbControllerProvider.notifier)
         .applyEvent(const KubbBaton(hitKing: true));
-    if (ref.read(hapticsEnabledProvider)) HapticFeedback.heavyImpact();
+    Haptics.heavy(ref);
   }
 
   Future<void> _confirmNewMatch() async {
@@ -107,8 +107,8 @@ class _KubbScreenState extends ConsumerState<KubbScreen> {
     if (match.hasEvents && !match.isFinished) {
       final confirmed = await confirmAdaptive(
         context,
-        title: l10n.newGameConfirmTitle,
-        body: l10n.newGameConfirmBody,
+        title: l10n.newMatchConfirmTitle,
+        body: l10n.newMatchConfirmBody,
         confirmLabel: l10n.newGame,
         isDestructive: true,
       );
@@ -141,6 +141,7 @@ class _KubbScreenState extends ConsumerState<KubbScreen> {
               tooltip: l10n.undo,
               onPressed: match.hasEvents
                   ? () {
+                      Haptics.light(ref);
                       setState(_resetSelection);
                       ref.read(kubbControllerProvider.notifier).undo();
                     }
@@ -249,13 +250,19 @@ class _KubbScreenState extends ConsumerState<KubbScreen> {
             felled:
                 game.rules.baselineKubbs - game.baseline[game.defenderIndex],
             selectedIndices: _selectedBaseline,
-            onToggle: (i) => setState(() {
-              if (_selectedBaseline.contains(i)) {
-                _selectedBaseline.remove(i);
-              } else if (baselineUnlocked) {
-                _selectedBaseline.add(i);
-              }
-            }),
+            onToggle: (i) {
+              Haptics.selection(ref);
+              setState(() {
+                if (_selectedBaseline.contains(i)) {
+                  _selectedBaseline.remove(i);
+                } else if (baselineUnlocked) {
+                  _selectedBaseline.add(i);
+                }
+              });
+            },
+            labelBuilder: (i, {required down}) => down
+                ? l10n.kubbSelectedSemantics(i + 1)
+                : l10n.kubbStandingSemantics(i + 1),
           ),
           if (game.targetFieldStanding > 0) ...[
             const SizedBox(height: IKubbSpacing.sm),
@@ -266,28 +273,48 @@ class _KubbScreenState extends ConsumerState<KubbScreen> {
               standing: game.targetFieldStanding,
               felled: 0,
               selectedIndices: _selectedField,
-              onToggle: (i) => setState(() {
-                if (_selectedField.contains(i)) {
-                  _selectedField.remove(i);
-                  _selectedBaseline.clear();
-                } else {
-                  _selectedField.add(i);
-                }
-              }),
+              onToggle: (i) {
+                Haptics.selection(ref);
+                setState(() {
+                  if (_selectedField.contains(i)) {
+                    _selectedField.remove(i);
+                    _selectedBaseline.clear();
+                  } else {
+                    _selectedField.add(i);
+                  }
+                });
+              },
+              labelBuilder: (i, {required down}) => down
+                  ? l10n.kubbSelectedSemantics(i + 1)
+                  : l10n.kubbStandingSemantics(i + 1),
             ),
           ],
           const SizedBox(height: IKubbSpacing.lg),
-          KubbKing(onTap: () => _tapKing(game)),
+          KubbKing(
+            onTap: () => _tapKing(game),
+            semanticLabel: game.canHitKing
+                ? l10n.kingSafeSemantics
+                : l10n.kingRiskySemantics,
+          ),
           const SizedBox(height: IKubbSpacing.lg),
           if (game.advantageActive) ...[
             // The chip doubles as a deep link into the advantage rule.
-            GestureDetector(
-              onTap: () => showRulesPanel(
-                context,
-                mode: GameMode.classicKubb,
-                categoryId: KubbRuleCategoryIds.advantage,
+            Semantics(
+              button: true,
+              label: l10n.advantageLine,
+              child: GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () => showRulesPanel(
+                  context,
+                  mode: GameMode.classicKubb,
+                  categoryId: KubbRuleCategoryIds.advantage,
+                ),
+                child: Container(
+                  constraints: const BoxConstraints(minHeight: IKubbTap.min),
+                  alignment: Alignment.center,
+                  child: AdvantageLine(label: l10n.advantageLine),
+                ),
               ),
-              child: AdvantageLine(label: l10n.advantageLine),
             ),
             const SizedBox(height: IKubbSpacing.sm),
           ],
@@ -314,6 +341,10 @@ class _KubbScreenState extends ConsumerState<KubbScreen> {
             ),
             size: IKubbIconSize.md,
             padding: const EdgeInsets.all(IKubbSpacing.xs),
+            semanticLabel: l10n.batonsLeftSemantics(
+              game.batonsRemaining,
+              game.rules.batonsPerTurn,
+            ),
           ),
           const SizedBox(height: IKubbSpacing.sm),
         ],
@@ -433,6 +464,9 @@ class _KubbStandings extends ConsumerWidget {
             activeColor: IKubbPalette.amber,
             idleColor: onColor.withValues(alpha: IKubbAlpha.dotIdle),
             padding: EdgeInsets.zero,
+            semanticLabel:
+                '${AppLocalizations.of(context)!.matchLabel}: '
+                '${match.wins[i]}/${match.rules.gamesToWin}',
           ),
       ],
     );
@@ -575,6 +609,7 @@ class _ThrowInPanelState extends State<_ThrowInPanel> {
             children: [
               Expanded(child: Text(l10n.outTwice)),
               IconButton(
+                tooltip: AppLocalizations.of(context)!.decreaseLabel,
                 onPressed: _penalties > 0
                     ? () => setState(() => _penalties--)
                     : null,
@@ -582,6 +617,7 @@ class _ThrowInPanelState extends State<_ThrowInPanel> {
               ),
               Text('$_penalties', style: IKubbType.statValue),
               IconButton(
+                tooltip: AppLocalizations.of(context)!.increaseLabel,
                 onPressed: _penalties < widget.felled
                     ? () => setState(() => _penalties++)
                     : null,

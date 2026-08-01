@@ -533,4 +533,92 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get filterAll => 'Tutti';
+
+  @override
+  String get closeLabel => 'Chiudi';
+
+  @override
+  String get increaseLabel => 'Aumenta';
+
+  @override
+  String get decreaseLabel => 'Riduci';
+
+  @override
+  String kubbStandingSemantics(Object number) {
+    return 'Kubb $number, in piedi';
+  }
+
+  @override
+  String kubbSelectedSemantics(Object number) {
+    return 'Kubb $number, segnato come abbattuto';
+  }
+
+  @override
+  String kubbFelledSemantics(Object number) {
+    return 'Kubb $number, a terra';
+  }
+
+  @override
+  String get kingSafeSemantics => 'Il re — abbattilo per vincere';
+
+  @override
+  String get kingRiskySemantics => 'Il re — colpirlo ora fa perdere la partita';
+
+  @override
+  String batonsLeftSemantics(Object remaining, Object total) {
+    return '$remaining bastoni su $total rimasti';
+  }
+
+  @override
+  String missesSemantics(Object count, Object limit) {
+    return '$count errori su $limit';
+  }
+
+  @override
+  String get statsErrorBody => 'Impossibile caricare le tue statistiche.';
+
+  @override
+  String get retryLabel => 'Riprova';
+
+  @override
+  String get deleteGameLabel => 'Elimina partita';
+
+  @override
+  String get newMatchConfirmTitle => 'Iniziare un nuovo incontro?';
+
+  @override
+  String get newMatchConfirmBody => 'Perderai l\'incontro in corso.';
+
+  @override
+  String get settingsAppearance => 'Aspetto';
+
+  @override
+  String get settingsDuringPlay => 'Durante il gioco';
+
+  @override
+  String get settingsLearn => 'Impara';
+
+  @override
+  String get settingsAbout => 'Informazioni';
+
+  @override
+  String get designSystemLabel => 'Design system';
+
+  @override
+  String get licensesLabel => 'Licenze open source';
+
+  @override
+  String confirmThrowCount(Object count) {
+    return 'Conferma lancio (+$count)';
+  }
+
+  @override
+  String resumeGameSummary(Object summary) {
+    return 'Riprendi la partita · $summary';
+  }
+
+  @override
+  String matchScore(Object a, Object b) {
+    return '$a – $b';
+  }
 }

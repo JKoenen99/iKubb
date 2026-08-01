@@ -96,6 +96,11 @@ abstract final class IKubbIconSize {
   static const double display = 32;
 }
 
+/// Interactive minimums (HIG 44pt / WCAG 2.5.8).
+abstract final class IKubbTap {
+  static const double min = 44;
+}
+
 /// Content max-widths: phone-first columns that stay readable on iPad.
 abstract final class IKubbLayout {
   static const double maxColumn = 420;

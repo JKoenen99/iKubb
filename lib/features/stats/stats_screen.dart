@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/semantics.dart' show CustomSemanticsAction;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
@@ -13,6 +14,7 @@ import 'stats.dart';
 import '../../theme/tokens.dart';
 import '../../theme/typography.dart';
 import '../../widgets/confirm_dialog.dart';
+import 'package:go_router/go_router.dart';
 
 /// Player statistics and game history (SPEC.md §3.5), computed by
 /// replaying the stored logs through the engine. One evening, one log:
@@ -48,7 +50,21 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
       ),
       body: history.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (e, _) => Center(child: Text('$e')),
+        error: (e, _) => Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const VikingMascot(pose: MascotPose.oops, size: 120),
+              const SizedBox(height: IKubbSpacing.lg),
+              Text(l10n.statsErrorBody),
+              const SizedBox(height: IKubbSpacing.md),
+              FilledButton.tonal(
+                onPressed: () => ref.invalidate(gameHistoryProvider),
+                child: Text(l10n.retryLabel),
+              ),
+            ],
+          ),
+        ),
         data: (games) {
           if (games.isEmpty) {
             return Center(
@@ -58,6 +74,11 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
                   const VikingMascot(size: 120),
                   const SizedBox(height: IKubbSpacing.lg),
                   Text(l10n.noGamesYet),
+                  const SizedBox(height: IKubbSpacing.lg),
+                  FilledButton(
+                    onPressed: () => context.push('/setup'),
+                    child: Text(l10n.newGame),
+                  ),
                 ],
               ),
             );
@@ -136,7 +157,23 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
                             .deleteFinished(finished.id);
                         ref.invalidate(gameHistoryProvider);
                       },
-                      child: _HistoryTile(finished: finished),
+                      child: _HistoryTile(
+                        finished: finished,
+                        onDelete: () async {
+                          final confirmed = await confirmAdaptive(
+                            context,
+                            title: l10n.deleteGameLabel,
+                            body: l10n.clearHistoryConfirmBody,
+                            confirmLabel: l10n.delete,
+                            isDestructive: true,
+                          );
+                          if (!confirmed) return;
+                          await ref
+                              .read(gameRecordsRepositoryProvider)
+                              .deleteFinished(finished.id);
+                          ref.invalidate(gameHistoryProvider);
+                        },
+                      ),
                     ),
                 ],
               ),
@@ -288,12 +325,17 @@ class _ChipWrap extends StatelessWidget {
 }
 
 class _HistoryTile extends StatelessWidget {
-  const _HistoryTile({required this.finished});
+  const _HistoryTile({required this.finished, required this.onDelete});
 
   final FinishedGame finished;
 
+  /// Accessible alternative to the swipe gesture (WCAG 2.5.7): exposed
+  /// as a long-press and as a semantic action.
+  final VoidCallback onDelete;
+
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final locale = Localizations.localeOf(context).toString();
     final game = finished.game;
     final kubb = finished.kubbMatch;
@@ -302,16 +344,22 @@ class _HistoryTile extends StatelessWidget {
         : '${kubb!.sides[0].name} ${kubb.wins[0]} – '
               '${kubb.wins[1]} ${kubb.sides[1].name}';
     final winnerName = game?.winner?.name ?? kubb?.matchWinner?.name ?? '';
-    return ListTile(
-      contentPadding: EdgeInsets.zero,
-      leading: Icon(
-        finished.isKubb ? Icons.crop_square : Icons.emoji_events,
-        color: IKubbPalette.oak,
-      ),
-      title: Text(summary, maxLines: 1, overflow: TextOverflow.ellipsis),
-      subtitle: Text(
-        '${DateFormat.yMMMd(locale).add_Hm().format(finished.finishedAt)}'
-        '  —  $winnerName',
+    return Semantics(
+      customSemanticsActions: {
+        CustomSemanticsAction(label: l10n.deleteGameLabel): onDelete,
+      },
+      child: ListTile(
+        contentPadding: EdgeInsets.zero,
+        leading: Icon(
+          finished.isKubb ? Icons.crop_square : Icons.emoji_events,
+          color: IKubbPalette.oak,
+        ),
+        title: Text(summary, maxLines: 1, overflow: TextOverflow.ellipsis),
+        subtitle: Text(
+          '${DateFormat.yMMMd(locale).add_Hm().format(finished.finishedAt)}'
+          '  —  $winnerName',
+        ),
+        onLongPress: onDelete,
       ),
     );
   }

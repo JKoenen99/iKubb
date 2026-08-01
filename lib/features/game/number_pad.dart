@@ -35,17 +35,15 @@ class NumberPad extends StatelessWidget {
           runSpacing: 8,
           children: [
             for (var score = 1; score <= 12; score++)
-              SizedBox(
-                width: 68,
-                height: 60,
+              ConstrainedBox(
+                constraints: const BoxConstraints(minWidth: 68, minHeight: 60),
                 child: _scoreButton(context, score),
               ),
           ],
         ),
         const SizedBox(height: IKubbSpacing.md),
-        SizedBox(
-          width: 220,
-          height: 56,
+        ConstrainedBox(
+          constraints: const BoxConstraints(minWidth: 220, minHeight: 56),
           child: FilledButton.tonal(
             onPressed: () => onScore(0),
             child: Text(l10n.miss),

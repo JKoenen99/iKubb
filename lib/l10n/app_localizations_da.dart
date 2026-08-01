@@ -531,4 +531,92 @@ class AppLocalizationsDa extends AppLocalizations {
 
   @override
   String get filterAll => 'Alle';
+
+  @override
+  String get closeLabel => 'Luk';
+
+  @override
+  String get increaseLabel => 'Mere';
+
+  @override
+  String get decreaseLabel => 'Mindre';
+
+  @override
+  String kubbStandingSemantics(Object number) {
+    return 'Kubb $number, står';
+  }
+
+  @override
+  String kubbSelectedSemantics(Object number) {
+    return 'Kubb $number, markeret som væltet';
+  }
+
+  @override
+  String kubbFelledSemantics(Object number) {
+    return 'Kubb $number, nede';
+  }
+
+  @override
+  String get kingSafeSemantics => 'Kongen — vælt ham og vind';
+
+  @override
+  String get kingRiskySemantics => 'Kongen — at ramme ham nu taber spillet';
+
+  @override
+  String batonsLeftSemantics(Object remaining, Object total) {
+    return '$remaining af $total pinde tilbage';
+  }
+
+  @override
+  String missesSemantics(Object count, Object limit) {
+    return '$count af $limit forbiere';
+  }
+
+  @override
+  String get statsErrorBody => 'Din statistik kunne ikke indlæses.';
+
+  @override
+  String get retryLabel => 'Prøv igen';
+
+  @override
+  String get deleteGameLabel => 'Slet spil';
+
+  @override
+  String get newMatchConfirmTitle => 'Start en ny kamp?';
+
+  @override
+  String get newMatchConfirmBody => 'Du mister den igangværende kamp.';
+
+  @override
+  String get settingsAppearance => 'Udseende';
+
+  @override
+  String get settingsDuringPlay => 'Under spil';
+
+  @override
+  String get settingsLearn => 'Lær';
+
+  @override
+  String get settingsAbout => 'Om';
+
+  @override
+  String get designSystemLabel => 'Designsystem';
+
+  @override
+  String get licensesLabel => 'Open source-licenser';
+
+  @override
+  String confirmThrowCount(Object count) {
+    return 'Bekræft kast (+$count)';
+  }
+
+  @override
+  String resumeGameSummary(Object summary) {
+    return 'Genoptag spillet · $summary';
+  }
+
+  @override
+  String matchScore(Object a, Object b) {
+    return '$a – $b';
+  }
 }

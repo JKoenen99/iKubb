@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../l10n/app_localizations.dart';
 import '../../theme/palette.dart';
 import '../../theme/typography.dart';
+import '../../theme/tokens.dart';
 
 /// The 12 pins in their official diamond formation. Tap to toggle which pins
 /// fell this throw. Selection wobbles the pin over — state updates
@@ -79,8 +80,8 @@ class _Pin extends StatelessWidget {
       child: GestureDetector(
         onTap: onTap,
         child: AnimatedContainer(
-          duration: const Duration(milliseconds: 250),
-          curve: Curves.easeOutBack,
+          duration: IKubbMotion.resolve(context, IKubbMotion.base),
+          curve: IKubbMotion.emphasized,
           width: size,
           height: size,
           margin: EdgeInsets.all(size / 12),

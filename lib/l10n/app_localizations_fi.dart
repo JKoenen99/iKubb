@@ -533,4 +533,93 @@ class AppLocalizationsFi extends AppLocalizations {
 
   @override
   String get filterAll => 'Kaikki';
+
+  @override
+  String get closeLabel => 'Sulje';
+
+  @override
+  String get increaseLabel => 'Lisää';
+
+  @override
+  String get decreaseLabel => 'Vähennä';
+
+  @override
+  String kubbStandingSemantics(Object number) {
+    return 'Kubb $number, pystyssä';
+  }
+
+  @override
+  String kubbSelectedSemantics(Object number) {
+    return 'Kubb $number, merkitty kaatuneeksi';
+  }
+
+  @override
+  String kubbFelledSemantics(Object number) {
+    return 'Kubb $number, kaatunut';
+  }
+
+  @override
+  String get kingSafeSemantics => 'Kuningas — kaada se ja voita';
+
+  @override
+  String get kingRiskySemantics =>
+      'Kuningas — siihen osuminen nyt häviää pelin';
+
+  @override
+  String batonsLeftSemantics(Object remaining, Object total) {
+    return '$remaining/$total kapulaa jäljellä';
+  }
+
+  @override
+  String missesSemantics(Object count, Object limit) {
+    return '$count/$limit hutia';
+  }
+
+  @override
+  String get statsErrorBody => 'Tilastojasi ei voitu ladata.';
+
+  @override
+  String get retryLabel => 'Yritä uudelleen';
+
+  @override
+  String get deleteGameLabel => 'Poista peli';
+
+  @override
+  String get newMatchConfirmTitle => 'Aloitetaanko uusi ottelu?';
+
+  @override
+  String get newMatchConfirmBody => 'Menetät käynnissä olevan ottelun.';
+
+  @override
+  String get settingsAppearance => 'Ulkoasu';
+
+  @override
+  String get settingsDuringPlay => 'Pelin aikana';
+
+  @override
+  String get settingsLearn => 'Opi';
+
+  @override
+  String get settingsAbout => 'Tietoja';
+
+  @override
+  String get designSystemLabel => 'Design system';
+
+  @override
+  String get licensesLabel => 'Avoimen lähdekoodin lisenssit';
+
+  @override
+  String confirmThrowCount(Object count) {
+    return 'Vahvista heitto (+$count)';
+  }
+
+  @override
+  String resumeGameSummary(Object summary) {
+    return 'Jatka peliä · $summary';
+  }
+
+  @override
+  String matchScore(Object a, Object b) {
+    return '$a – $b';
+  }
 }

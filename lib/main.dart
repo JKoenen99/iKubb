@@ -9,7 +9,14 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final onboardingSeen = await loadOnboardingSeen();
   // Restore an interrupted game exactly, undo history included (§3.5).
-  final restored = await GameRecordsRepository().loadActive();
+  // Corrupt JSON is already absorbed by the repository; this guard covers
+  // platform-storage failures too — a fresh start beats a bricked launch.
+  ActiveRecord? restored;
+  try {
+    restored = await GameRecordsRepository().loadActive();
+  } on Object {
+    restored = null;
+  }
   runApp(
     ProviderScope(
       overrides: [

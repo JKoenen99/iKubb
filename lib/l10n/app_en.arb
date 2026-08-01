@@ -195,5 +195,72 @@
   "statKubbsPerBaton": "Kubbs per baton",
   "statAdvantageTurns": "Advantage turns",
   "statEarlyKings": "Early kings",
-  "filterAll": "All"
+  "filterAll": "All",
+  "closeLabel": "Close",
+  "increaseLabel": "Increase",
+  "decreaseLabel": "Decrease",
+  "kubbStandingSemantics": "Kubb {number}, standing",
+  "@kubbStandingSemantics": {
+    "placeholders": {
+      "number": {}
+    }
+  },
+  "kubbSelectedSemantics": "Kubb {number}, marked as knocked over",
+  "@kubbSelectedSemantics": {
+    "placeholders": {
+      "number": {}
+    }
+  },
+  "kubbFelledSemantics": "Kubb {number}, down",
+  "@kubbFelledSemantics": {
+    "placeholders": {
+      "number": {}
+    }
+  },
+  "kingSafeSemantics": "The king — topple it to win",
+  "kingRiskySemantics": "The king — hitting it now loses the game",
+  "batonsLeftSemantics": "{remaining} of {total} batons left",
+  "@batonsLeftSemantics": {
+    "placeholders": {
+      "remaining": {},
+      "total": {}
+    }
+  },
+  "missesSemantics": "{count} of {limit} misses",
+  "@missesSemantics": {
+    "placeholders": {
+      "count": {},
+      "limit": {}
+    }
+  },
+  "statsErrorBody": "Your stats couldn't be loaded.",
+  "retryLabel": "Try again",
+  "deleteGameLabel": "Delete game",
+  "newMatchConfirmTitle": "Start a new match?",
+  "newMatchConfirmBody": "You'll lose the match that's underway.",
+  "settingsAppearance": "Appearance",
+  "settingsDuringPlay": "During play",
+  "settingsLearn": "Learn",
+  "settingsAbout": "About",
+  "designSystemLabel": "Design system",
+  "licensesLabel": "Open-source licenses",
+  "confirmThrowCount": "Confirm throw (+{count})",
+  "@confirmThrowCount": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "resumeGameSummary": "Resume game · {summary}",
+  "@resumeGameSummary": {
+    "placeholders": {
+      "summary": {}
+    }
+  },
+  "matchScore": "{a} – {b}",
+  "@matchScore": {
+    "placeholders": {
+      "a": {},
+      "b": {}
+    }
+  }
 }

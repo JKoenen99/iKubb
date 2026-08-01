@@ -120,8 +120,24 @@ class _ScoreboardShell extends StatelessWidget {
         child: Scaffold(
           backgroundColor: IKubbPalette.forestDeep,
           body: SafeArea(
-            child: winnerName != null
-                ? Center(
+            child: Stack(
+              children: [
+                Align(
+                  alignment: Alignment.topRight,
+                  child: Padding(
+                    padding: const EdgeInsets.all(IKubbSpacing.sm),
+                    child: IconButton(
+                      tooltip: l10n.closeLabel,
+                      onPressed: () => context.pop(),
+                      icon: const Icon(
+                        Icons.close,
+                        color: IKubbPalette.birchLight,
+                      ),
+                    ),
+                  ),
+                ),
+                if (winnerName != null)
+                  Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -137,11 +153,14 @@ class _ScoreboardShell extends StatelessWidget {
                       ],
                     ),
                   )
-                : Row(
+                else
+                  Row(
                     children: [
                       for (final column in columns) Expanded(child: column),
                     ],
                   ),
+              ],
+            ),
           ),
         ),
       ),

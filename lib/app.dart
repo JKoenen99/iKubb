@@ -14,6 +14,10 @@ class IKubbApp extends ConsumerWidget {
     final router = ref.watch(routerProvider);
     return MaterialApp.router(
       onGenerateTitle: (context) => AppLocalizations.of(context)!.appTitle,
+      // Dynamic Type is honored up to 2× — beyond that the field layouts
+      // stop being playable; HIG allows clamping on layout-critical UI.
+      builder: (context, child) =>
+          MediaQuery.withClampedTextScaling(maxScaleFactor: 2, child: child!),
       locale: ref.watch(localeControllerProvider),
       themeMode: ref.watch(themeModeProvider),
       theme: IKubbTheme.light,

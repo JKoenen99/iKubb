@@ -1079,6 +1079,150 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'All'**
   String get filterAll;
+
+  /// No description provided for @closeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get closeLabel;
+
+  /// No description provided for @increaseLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Increase'**
+  String get increaseLabel;
+
+  /// No description provided for @decreaseLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Decrease'**
+  String get decreaseLabel;
+
+  /// No description provided for @kubbStandingSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Kubb {number}, standing'**
+  String kubbStandingSemantics(Object number);
+
+  /// No description provided for @kubbSelectedSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Kubb {number}, marked as knocked over'**
+  String kubbSelectedSemantics(Object number);
+
+  /// No description provided for @kubbFelledSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Kubb {number}, down'**
+  String kubbFelledSemantics(Object number);
+
+  /// No description provided for @kingSafeSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'The king — topple it to win'**
+  String get kingSafeSemantics;
+
+  /// No description provided for @kingRiskySemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'The king — hitting it now loses the game'**
+  String get kingRiskySemantics;
+
+  /// No description provided for @batonsLeftSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'{remaining} of {total} batons left'**
+  String batonsLeftSemantics(Object remaining, Object total);
+
+  /// No description provided for @missesSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} of {limit} misses'**
+  String missesSemantics(Object count, Object limit);
+
+  /// No description provided for @statsErrorBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your stats couldn\'t be loaded.'**
+  String get statsErrorBody;
+
+  /// No description provided for @retryLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get retryLabel;
+
+  /// No description provided for @deleteGameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete game'**
+  String get deleteGameLabel;
+
+  /// No description provided for @newMatchConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Start a new match?'**
+  String get newMatchConfirmTitle;
+
+  /// No description provided for @newMatchConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ll lose the match that\'s underway.'**
+  String get newMatchConfirmBody;
+
+  /// No description provided for @settingsAppearance.
+  ///
+  /// In en, this message translates to:
+  /// **'Appearance'**
+  String get settingsAppearance;
+
+  /// No description provided for @settingsDuringPlay.
+  ///
+  /// In en, this message translates to:
+  /// **'During play'**
+  String get settingsDuringPlay;
+
+  /// No description provided for @settingsLearn.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn'**
+  String get settingsLearn;
+
+  /// No description provided for @settingsAbout.
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get settingsAbout;
+
+  /// No description provided for @designSystemLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Design system'**
+  String get designSystemLabel;
+
+  /// No description provided for @licensesLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Open-source licenses'**
+  String get licensesLabel;
+
+  /// No description provided for @confirmThrowCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm throw (+{count})'**
+  String confirmThrowCount(Object count);
+
+  /// No description provided for @resumeGameSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Resume game · {summary}'**
+  String resumeGameSummary(Object summary);
+
+  /// No description provided for @matchScore.
+  ///
+  /// In en, this message translates to:
+  /// **'{a} – {b}'**
+  String matchScore(Object a, Object b);
 }
 
 class _AppLocalizationsDelegate

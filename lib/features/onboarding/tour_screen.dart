@@ -149,7 +149,10 @@ class _TourScreenState extends ConsumerState<TourScreen> {
                   children: [
                     for (var i = 0; i < _pageCount; i++)
                       AnimatedContainer(
-                        duration: IKubbMotion.quick,
+                        duration: IKubbMotion.resolve(
+                          context,
+                          IKubbMotion.quick,
+                        ),
                         width: i == _page ? 22 : 8,
                         height: 8,
                         margin: const EdgeInsets.all(IKubbSpacing.xs),
@@ -262,30 +265,34 @@ class _ModeOption extends StatelessWidget {
           width: IKubbBorder.focus,
         ),
       ),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(IKubbRadius.lg),
-        onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.all(IKubbSpacing.lg),
-          child: Row(
-            children: [
-              Icon(icon, size: IKubbIconSize.display, color: scheme.primary),
-              const SizedBox(width: IKubbSpacing.lg),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(title, style: IKubbType.strong),
-                    const SizedBox(height: IKubbSpacing.xxs),
-                    Text(
-                      description,
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
-                  ],
+      child: Semantics(
+        button: true,
+        selected: selected,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(IKubbRadius.lg),
+          onTap: onTap,
+          child: Padding(
+            padding: const EdgeInsets.all(IKubbSpacing.lg),
+            child: Row(
+              children: [
+                Icon(icon, size: IKubbIconSize.display, color: scheme.primary),
+                const SizedBox(width: IKubbSpacing.lg),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(title, style: IKubbType.strong),
+                      const SizedBox(height: IKubbSpacing.xxs),
+                      Text(
+                        description,
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              if (selected) Icon(Icons.check_circle, color: scheme.primary),
-            ],
+                if (selected) Icon(Icons.check_circle, color: scheme.primary),
+              ],
+            ),
           ),
         ),
       ),
@@ -378,7 +385,7 @@ class _ScoringDemoCardState extends State<_ScoringDemoCard> {
             ),
             const SizedBox(height: IKubbSpacing.md),
             AnimatedSwitcher(
-              duration: IKubbMotion.quick,
+              duration: IKubbMotion.resolve(context, IKubbMotion.quick),
               child: Text(
                 explanation,
                 key: ValueKey(explanation),

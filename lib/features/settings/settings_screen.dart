@@ -39,73 +39,102 @@ class SettingsScreen extends ConsumerWidget {
           child: ListView(
             padding: const EdgeInsets.all(IKubbSpacing.lg),
             children: [
-              SettingsChoiceTile(
-                icon: Icons.brightness_6_outlined,
-                title: l10n.theme,
-                below: SegmentedButton<ThemeMode>(
-                  showSelectedIcon: false,
-                  segments: [
-                    ButtonSegment(
-                      value: ThemeMode.system,
-                      label: Text(l10n.systemDefault),
+              SettingsSection(
+                title: l10n.settingsAppearance,
+                children: [
+                  SettingsChoiceTile(
+                    icon: Icons.brightness_6_outlined,
+                    title: l10n.theme,
+                    below: SegmentedButton<ThemeMode>(
+                      showSelectedIcon: false,
+                      segments: [
+                        ButtonSegment(
+                          value: ThemeMode.system,
+                          label: Text(l10n.systemDefault),
+                        ),
+                        ButtonSegment(
+                          value: ThemeMode.light,
+                          label: Text(l10n.themeLight),
+                        ),
+                        ButtonSegment(
+                          value: ThemeMode.dark,
+                          label: Text(l10n.themeDark),
+                        ),
+                      ],
+                      selected: {ref.watch(themeModeProvider)},
+                      onSelectionChanged: (s) =>
+                          ref.read(themeModeProvider.notifier).set(s.first),
                     ),
-                    ButtonSegment(
-                      value: ThemeMode.light,
-                      label: Text(l10n.themeLight),
+                  ),
+                  SettingsChoiceTile(
+                    icon: Icons.language,
+                    title: l10n.language,
+                    trailing: DropdownButton<String>(
+                      value: locale?.languageCode ?? '',
+                      onChanged: (code) => ref
+                          .read(localeControllerProvider.notifier)
+                          .set(
+                            code == null || code.isEmpty ? null : Locale(code),
+                          ),
+                      items: [
+                        DropdownMenuItem(
+                          value: '',
+                          child: Text(l10n.systemDefault),
+                        ),
+                        for (final entry in _languageNames.entries)
+                          DropdownMenuItem(
+                            value: entry.key,
+                            child: Text(entry.value),
+                          ),
+                      ],
                     ),
-                    ButtonSegment(
-                      value: ThemeMode.dark,
-                      label: Text(l10n.themeDark),
+                  ),
+                ],
+              ),
+              SettingsSection(
+                title: l10n.settingsDuringPlay,
+                children: [
+                  SettingsSwitchTile(
+                    icon: Icons.vibration,
+                    title: l10n.haptics,
+                    value: ref.watch(hapticsEnabledProvider),
+                    onChanged: ref.read(hapticsEnabledProvider.notifier).set,
+                  ),
+                  SettingsSwitchTile(
+                    icon: Icons.visibility_outlined,
+                    title: l10n.keepAwake,
+                    value: ref.watch(keepAwakeProvider),
+                    onChanged: ref.read(keepAwakeProvider.notifier).set,
+                  ),
+                ],
+              ),
+              SettingsSection(
+                title: l10n.settingsLearn,
+                children: [
+                  SettingsNavTile(
+                    icon: Icons.menu_book_outlined,
+                    title: l10n.rules,
+                    onTap: () => context.push('/rules'),
+                  ),
+                  SettingsNavTile(
+                    icon: Icons.school_outlined,
+                    title: l10n.teachMe,
+                    onTap: () => context.push('/tour'),
+                  ),
+                ],
+              ),
+              SettingsSection(
+                title: l10n.settingsAbout,
+                children: [
+                  SettingsNavTile(
+                    icon: Icons.description_outlined,
+                    title: l10n.licensesLabel,
+                    onTap: () => showLicensePage(
+                      context: context,
+                      applicationName: l10n.appTitle,
                     ),
-                  ],
-                  selected: {ref.watch(themeModeProvider)},
-                  onSelectionChanged: (s) =>
-                      ref.read(themeModeProvider.notifier).set(s.first),
-                ),
-              ),
-              SettingsChoiceTile(
-                icon: Icons.language,
-                title: l10n.language,
-                trailing: DropdownButton<String>(
-                  value: locale?.languageCode ?? '',
-                  onChanged: (code) => ref
-                      .read(localeControllerProvider.notifier)
-                      .set(code == null || code.isEmpty ? null : Locale(code)),
-                  items: [
-                    DropdownMenuItem(
-                      value: '',
-                      child: Text(l10n.systemDefault),
-                    ),
-                    for (final entry in _languageNames.entries)
-                      DropdownMenuItem(
-                        value: entry.key,
-                        child: Text(entry.value),
-                      ),
-                  ],
-                ),
-              ),
-              SettingsSwitchTile(
-                icon: Icons.vibration,
-                title: l10n.haptics,
-                value: ref.watch(hapticsEnabledProvider),
-                onChanged: ref.read(hapticsEnabledProvider.notifier).set,
-              ),
-              SettingsSwitchTile(
-                icon: Icons.visibility_outlined,
-                title: l10n.keepAwake,
-                value: ref.watch(keepAwakeProvider),
-                onChanged: ref.read(keepAwakeProvider.notifier).set,
-              ),
-              const Divider(height: IKubbSpacing.xxl),
-              SettingsNavTile(
-                icon: Icons.menu_book_outlined,
-                title: l10n.rules,
-                onTap: () => context.push('/rules'),
-              ),
-              SettingsNavTile(
-                icon: Icons.school_outlined,
-                title: l10n.teachMe,
-                onTap: () => context.push('/tour'),
+                  ),
+                ],
               ),
             ],
           ),

@@ -75,6 +75,10 @@ abstract final class IKubbTheme {
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(minimumSize: const Size(48, 44)),
     ),
+    // Segments meet the 48pt tap minimum (outdoor thumbs, WCAG 2.5.8).
+    segmentedButtonTheme: SegmentedButtonThemeData(
+      style: SegmentedButton.styleFrom(minimumSize: const Size(48, 48)),
+    ),
     dialogTheme: DialogThemeData(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(IKubbRadius.xl),

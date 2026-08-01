@@ -23,7 +23,7 @@ class RulesScreen extends StatelessWidget {
           // Replay the "Teach me the game" tour any time (SPEC.md §3.1).
           IconButton(
             tooltip: l10n.teachMe,
-            onPressed: () => context.go('/tour'),
+            onPressed: () => context.push('/tour'),
             icon: const Icon(Icons.school_outlined),
           ),
         ],

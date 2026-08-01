@@ -147,7 +147,10 @@ class CelebrationScaffold extends StatelessWidget {
                 child: celebrate
                     ? TweenAnimationBuilder<double>(
                         tween: Tween(begin: 0.9, end: 1),
-                        duration: IKubbMotion.gentle,
+                        duration: IKubbMotion.resolve(
+                          context,
+                          IKubbMotion.gentle,
+                        ),
                         curve: IKubbMotion.emphasized,
                         builder: (context, scale, child) =>
                             Transform.scale(scale: scale, child: child),

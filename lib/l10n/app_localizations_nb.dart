@@ -532,4 +532,92 @@ class AppLocalizationsNb extends AppLocalizations {
 
   @override
   String get filterAll => 'Alle';
+
+  @override
+  String get closeLabel => 'Lukk';
+
+  @override
+  String get increaseLabel => 'Mer';
+
+  @override
+  String get decreaseLabel => 'Mindre';
+
+  @override
+  String kubbStandingSemantics(Object number) {
+    return 'Kubb $number, står';
+  }
+
+  @override
+  String kubbSelectedSemantics(Object number) {
+    return 'Kubb $number, merket som veltet';
+  }
+
+  @override
+  String kubbFelledSemantics(Object number) {
+    return 'Kubb $number, nede';
+  }
+
+  @override
+  String get kingSafeSemantics => 'Kongen — velt ham og vinn';
+
+  @override
+  String get kingRiskySemantics => 'Kongen — å treffe ham nå taper spillet';
+
+  @override
+  String batonsLeftSemantics(Object remaining, Object total) {
+    return '$remaining av $total pinner igjen';
+  }
+
+  @override
+  String missesSemantics(Object count, Object limit) {
+    return '$count av $limit bom';
+  }
+
+  @override
+  String get statsErrorBody => 'Statistikken din kunne ikke lastes.';
+
+  @override
+  String get retryLabel => 'Prøv igjen';
+
+  @override
+  String get deleteGameLabel => 'Slett spill';
+
+  @override
+  String get newMatchConfirmTitle => 'Starte en ny kamp?';
+
+  @override
+  String get newMatchConfirmBody => 'Du mister kampen som pågår.';
+
+  @override
+  String get settingsAppearance => 'Utseende';
+
+  @override
+  String get settingsDuringPlay => 'Under spill';
+
+  @override
+  String get settingsLearn => 'Lær';
+
+  @override
+  String get settingsAbout => 'Om';
+
+  @override
+  String get designSystemLabel => 'Designsystem';
+
+  @override
+  String get licensesLabel => 'Åpen kildekode-lisenser';
+
+  @override
+  String confirmThrowCount(Object count) {
+    return 'Bekreft kast (+$count)';
+  }
+
+  @override
+  String resumeGameSummary(Object summary) {
+    return 'Fortsett spillet · $summary';
+  }
+
+  @override
+  String matchScore(Object a, Object b) {
+    return '$a – $b';
+  }
 }

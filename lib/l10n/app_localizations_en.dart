@@ -530,4 +530,92 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get filterAll => 'All';
+
+  @override
+  String get closeLabel => 'Close';
+
+  @override
+  String get increaseLabel => 'Increase';
+
+  @override
+  String get decreaseLabel => 'Decrease';
+
+  @override
+  String kubbStandingSemantics(Object number) {
+    return 'Kubb $number, standing';
+  }
+
+  @override
+  String kubbSelectedSemantics(Object number) {
+    return 'Kubb $number, marked as knocked over';
+  }
+
+  @override
+  String kubbFelledSemantics(Object number) {
+    return 'Kubb $number, down';
+  }
+
+  @override
+  String get kingSafeSemantics => 'The king — topple it to win';
+
+  @override
+  String get kingRiskySemantics => 'The king — hitting it now loses the game';
+
+  @override
+  String batonsLeftSemantics(Object remaining, Object total) {
+    return '$remaining of $total batons left';
+  }
+
+  @override
+  String missesSemantics(Object count, Object limit) {
+    return '$count of $limit misses';
+  }
+
+  @override
+  String get statsErrorBody => 'Your stats couldn\'t be loaded.';
+
+  @override
+  String get retryLabel => 'Try again';
+
+  @override
+  String get deleteGameLabel => 'Delete game';
+
+  @override
+  String get newMatchConfirmTitle => 'Start a new match?';
+
+  @override
+  String get newMatchConfirmBody => 'You\'ll lose the match that\'s underway.';
+
+  @override
+  String get settingsAppearance => 'Appearance';
+
+  @override
+  String get settingsDuringPlay => 'During play';
+
+  @override
+  String get settingsLearn => 'Learn';
+
+  @override
+  String get settingsAbout => 'About';
+
+  @override
+  String get designSystemLabel => 'Design system';
+
+  @override
+  String get licensesLabel => 'Open-source licenses';
+
+  @override
+  String confirmThrowCount(Object count) {
+    return 'Confirm throw (+$count)';
+  }
+
+  @override
+  String resumeGameSummary(Object summary) {
+    return 'Resume game · $summary';
+  }
+
+  @override
+  String matchScore(Object a, Object b) {
+    return '$a – $b';
+  }
 }

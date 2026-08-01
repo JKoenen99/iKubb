@@ -533,4 +533,94 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get filterAll => 'Alle';
+
+  @override
+  String get closeLabel => 'Schließen';
+
+  @override
+  String get increaseLabel => 'Mehr';
+
+  @override
+  String get decreaseLabel => 'Weniger';
+
+  @override
+  String kubbStandingSemantics(Object number) {
+    return 'Kubb $number, steht';
+  }
+
+  @override
+  String kubbSelectedSemantics(Object number) {
+    return 'Kubb $number, als umgeworfen markiert';
+  }
+
+  @override
+  String kubbFelledSemantics(Object number) {
+    return 'Kubb $number, liegt';
+  }
+
+  @override
+  String get kingSafeSemantics => 'Der König — fällen und gewinnen';
+
+  @override
+  String get kingRiskySemantics =>
+      'Der König — ihn jetzt zu treffen verliert das Spiel';
+
+  @override
+  String batonsLeftSemantics(Object remaining, Object total) {
+    return '$remaining von $total Hölzern übrig';
+  }
+
+  @override
+  String missesSemantics(Object count, Object limit) {
+    return '$count von $limit Fehlwürfen';
+  }
+
+  @override
+  String get statsErrorBody =>
+      'Deine Statistiken konnten nicht geladen werden.';
+
+  @override
+  String get retryLabel => 'Erneut versuchen';
+
+  @override
+  String get deleteGameLabel => 'Spiel löschen';
+
+  @override
+  String get newMatchConfirmTitle => 'Neues Match starten?';
+
+  @override
+  String get newMatchConfirmBody => 'Das laufende Match geht verloren.';
+
+  @override
+  String get settingsAppearance => 'Darstellung';
+
+  @override
+  String get settingsDuringPlay => 'Beim Spielen';
+
+  @override
+  String get settingsLearn => 'Lernen';
+
+  @override
+  String get settingsAbout => 'Über';
+
+  @override
+  String get designSystemLabel => 'Designsystem';
+
+  @override
+  String get licensesLabel => 'Open-Source-Lizenzen';
+
+  @override
+  String confirmThrowCount(Object count) {
+    return 'Wurf bestätigen (+$count)';
+  }
+
+  @override
+  String resumeGameSummary(Object summary) {
+    return 'Spiel fortsetzen · $summary';
+  }
+
+  @override
+  String matchScore(Object a, Object b) {
+    return '$a – $b';
+  }
 }
