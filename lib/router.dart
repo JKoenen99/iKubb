@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import 'features/designsystem/design_system_screen.dart';
 import 'features/game/game_screen.dart';
 import 'features/game/scoreboard_screen.dart';
 import 'features/home/home_screen.dart';
@@ -42,6 +43,11 @@ final routerProvider = Provider<GoRouter>(
       GoRoute(
         path: '/settings',
         builder: (context, state) => const SettingsScreen(),
+      ),
+      // TEMPORARY: design review.
+      GoRoute(
+        path: '/designsystem',
+        builder: (context, state) => const DesignSystemScreen(),
       ),
     ],
   ),

@@ -134,6 +134,12 @@ class SettingsScreen extends ConsumerWidget {
                       applicationName: l10n.appTitle,
                     ),
                   ),
+                  // TEMPORARY: design review.
+                  SettingsNavTile(
+                    icon: Icons.palette_outlined,
+                    title: l10n.designSystemLabel,
+                    onTap: () => context.push('/designsystem'),
+                  ),
                 ],
               ),
             ],
