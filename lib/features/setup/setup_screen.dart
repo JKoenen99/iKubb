@@ -5,6 +5,7 @@ import 'package:scoring_engine/scoring_engine.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../../widgets/home_leading.dart';
+import '../../widgets/section_header.dart';
 import '../../theme/palette.dart';
 import '../game/game_controller.dart';
 import '../game/game_mode.dart';
@@ -14,6 +15,7 @@ import 'player.dart';
 import 'setup_controller.dart';
 import '../../theme/tokens.dart';
 import '../../theme/typography.dart';
+import '../../widgets/confirm_dialog.dart';
 
 /// Game setup (SPEC.md §3.2): players with recent-player recall, team mode,
 /// house rules behind progressive disclosure, turn order, start.
@@ -36,24 +38,14 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
         (active.throws.isNotEmpty && active.winner == null) ||
         (activeKubb.hasEvents && !activeKubb.isFinished);
     if (running) {
-      final confirmed = await showAdaptiveDialog<bool>(
-        context: context,
-        builder: (context) => AlertDialog.adaptive(
-          title: Text(l10n.newGameConfirmTitle),
-          content: Text(l10n.newGameConfirmBody),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(false),
-              child: Text(l10n.cancel),
-            ),
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(true),
-              child: Text(l10n.startGame),
-            ),
-          ],
-        ),
+      final confirmed = await confirmAdaptive(
+        context,
+        title: l10n.newGameConfirmTitle,
+        body: l10n.newGameConfirmBody,
+        confirmLabel: l10n.startGame,
+        isDestructive: true,
       );
-      if (confirmed != true || !mounted) return;
+      if (!confirmed || !mounted) return;
     }
     final setup = ref.read(setupControllerProvider);
     final sides = ref
@@ -142,7 +134,7 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
                       ),
                       const SizedBox(height: IKubbSpacing.md),
                       if (unselectedRecents.isNotEmpty) ...[
-                        _SectionHeader(l10n.recentPlayers),
+                        SectionHeader(l10n.recentPlayers),
                         Wrap(
                           spacing: 8,
                           runSpacing: 8,
@@ -159,7 +151,7 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
                       ],
                       Row(
                         children: [
-                          Expanded(child: _SectionHeader(l10n.players)),
+                          Expanded(child: SectionHeader(l10n.players)),
                           IconButton(
                             tooltip: l10n.shuffleOrder,
                             onPressed: setup.players.length < 2
@@ -196,7 +188,7 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
                       if (setup.mode == GameMode.numberKubb)
                         SwitchListTile.adaptive(
                           contentPadding: EdgeInsets.zero,
-                          title: _SectionHeader(l10n.teams),
+                          title: SectionHeader(l10n.teams),
                           value: setup.teamMode,
                           onChanged: controller.setTeamMode,
                         )
@@ -205,7 +197,7 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
                           padding: const EdgeInsets.symmetric(
                             vertical: IKubbSpacing.sm,
                           ),
-                          child: _SectionHeader(l10n.teams),
+                          child: SectionHeader(l10n.teams),
                         ),
                       if (setup.teamMode) ...[
                         Row(
@@ -293,20 +285,6 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
       ),
     );
   }
-}
-
-class _SectionHeader extends StatelessWidget {
-  const _SectionHeader(this.text);
-
-  final String text;
-
-  @override
-  Widget build(BuildContext context) => Text(
-    text,
-    style: Theme.of(
-      context,
-    ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
-  );
 }
 
 class _Avatar extends StatelessWidget {
@@ -486,7 +464,7 @@ class _HouseRules extends StatelessWidget {
 
     return ExpansionTile(
       tilePadding: EdgeInsets.zero,
-      title: _SectionHeader(l10n.houseRules),
+      title: SectionHeader(l10n.houseRules),
       subtitle: Text(summary, maxLines: 2, overflow: TextOverflow.ellipsis),
       children: [
         _RuleLabel(l10n.targetScore),
@@ -592,7 +570,7 @@ class _KubbOptions extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _SectionHeader(l10n.matchLabel),
+        SectionHeader(l10n.matchLabel),
         const SizedBox(height: IKubbSpacing.sm),
         SegmentedButton<int>(
           showSelectedIcon: false,
@@ -604,7 +582,7 @@ class _KubbOptions extends StatelessWidget {
           onSelectionChanged: (s) => controller.setKubbBestOf(s.first),
         ),
         const SizedBox(height: IKubbSpacing.lg),
-        _SectionHeader(l10n.turnClockLabel),
+        SectionHeader(l10n.turnClockLabel),
         const SizedBox(height: IKubbSpacing.sm),
         SegmentedButton<int>(
           showSelectedIcon: false,

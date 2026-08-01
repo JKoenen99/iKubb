@@ -3,13 +3,15 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:scoring_engine/scoring_engine.dart';
-import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../../theme/palette.dart';
 import '../../theme/typography.dart';
 import '../../widgets/rolling_number.dart';
+import '../../widgets/dot_row.dart';
 import '../../widgets/home_leading.dart';
+import '../../widgets/keep_awake.dart';
+import '../../widgets/side_card.dart';
 import '../rules/rules_content.dart';
 import 'game_mode.dart';
 import '../rules/rules_view.dart';
@@ -22,6 +24,7 @@ import 'number_pad.dart';
 import 'pin_diagram.dart';
 import 'win_overlay.dart';
 import '../../theme/tokens.dart';
+import '../../widgets/confirm_dialog.dart';
 
 /// The scoring tool: pin-tap input, "needs exactly X" helper, overshoot
 /// warning, miss-streak dots, undo, and a personalized win banner.
@@ -37,29 +40,6 @@ class GameScreen extends ConsumerStatefulWidget {
 
 class _GameScreenState extends ConsumerState<GameScreen> {
   final Set<int> _selected = {};
-
-  @override
-  void initState() {
-    super.initState();
-    _setWakelock(ref.read(keepAwakeProvider));
-  }
-
-  @override
-  void dispose() {
-    _setWakelock(false);
-    super.dispose();
-  }
-
-  /// Keeps the screen on during a game (SPEC.md §3.3) when enabled in
-  /// settings. Best-effort: never let a platform without the plugin
-  /// (tests, unsupported targets) break scoring.
-  void _setWakelock(bool enable) {
-    try {
-      WakelockPlus.toggle(enable: enable).catchError((_) {});
-    } on Object {
-      // ignore: wakelock is a nicety, not a requirement.
-    }
-  }
 
   // Mascot reactions (SPEC.md §3.7): occasional, varied, never blocking.
   ReactionKind? _reaction;
@@ -118,24 +98,14 @@ class _GameScreenState extends ConsumerState<GameScreen> {
     final game = ref.read(gameControllerProvider);
     if (game.throws.isNotEmpty && game.winner == null) {
       final l10n = AppLocalizations.of(context)!;
-      final confirmed = await showAdaptiveDialog<bool>(
-        context: context,
-        builder: (context) => AlertDialog.adaptive(
-          title: Text(l10n.newGameConfirmTitle),
-          content: Text(l10n.newGameConfirmBody),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(false),
-              child: Text(l10n.cancel),
-            ),
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(true),
-              child: Text(l10n.newGame),
-            ),
-          ],
-        ),
+      final confirmed = await confirmAdaptive(
+        context,
+        title: l10n.newGameConfirmTitle,
+        body: l10n.newGameConfirmBody,
+        confirmLabel: l10n.newGame,
+        isDestructive: true,
       );
-      if (confirmed != true) return;
+      if (!confirmed) return;
     }
     ref.read(gameControllerProvider.notifier).newGame();
   }
@@ -149,108 +119,110 @@ class _GameScreenState extends ConsumerState<GameScreen> {
   @override
   Widget build(BuildContext context) {
     ref.listen(gameControllerProvider, _maybeReact);
-    ref.listen(keepAwakeProvider, (_, enabled) => _setWakelock(enabled));
     final game = ref.watch(gameControllerProvider);
     final inputMode = ref.watch(inputModeProvider);
     final l10n = AppLocalizations.of(context)!;
     final scheme = Theme.of(context).colorScheme;
 
-    return Scaffold(
-      // Three visible actions only (audit #4): rules and undo stay, the
-      // rest lives in an overflow menu with labeled rows.
-      appBar: AppBar(
-        title: Text(l10n.appTitle),
-        leading: homeLeading(context),
-        actions: [
-          IconButton(
-            tooltip: l10n.rules,
-            onPressed: () => showRulesPanel(context, mode: GameMode.numberKubb),
-            icon: const Icon(Icons.help_outline),
-          ),
-          IconButton(
-            tooltip: l10n.undo,
-            onPressed: game.throws.isEmpty
-                ? null
-                : ref.read(gameControllerProvider.notifier).undo,
-            icon: const Icon(Icons.undo),
-          ),
-          PopupMenuButton<String>(
-            icon: Icon(Icons.adaptive.more),
-            onSelected: (value) => switch (value) {
-              'scoreboard' => context.push('/scoreboard'),
-              'stats' => context.push('/stats'),
-              _ => _confirmNewGame(),
-            },
-            itemBuilder: (context) => [
-              PopupMenuItem(
-                value: 'scoreboard',
-                child: ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  leading: const Icon(Icons.scoreboard_outlined),
-                  title: Text(l10n.scoreboardMode),
+    return KeepAwake(
+      child: Scaffold(
+        // Three visible actions only (audit #4): rules and undo stay, the
+        // rest lives in an overflow menu with labeled rows.
+        appBar: AppBar(
+          title: Text(l10n.appTitle),
+          leading: homeLeading(context),
+          actions: [
+            IconButton(
+              tooltip: l10n.rules,
+              onPressed: () =>
+                  showRulesPanel(context, mode: GameMode.numberKubb),
+              icon: const Icon(Icons.help_outline),
+            ),
+            IconButton(
+              tooltip: l10n.undo,
+              onPressed: game.throws.isEmpty
+                  ? null
+                  : ref.read(gameControllerProvider.notifier).undo,
+              icon: const Icon(Icons.undo),
+            ),
+            PopupMenuButton<String>(
+              icon: Icon(Icons.adaptive.more),
+              onSelected: (value) => switch (value) {
+                'scoreboard' => context.push('/scoreboard'),
+                'stats' => context.push('/stats'),
+                _ => _confirmNewGame(),
+              },
+              itemBuilder: (context) => [
+                PopupMenuItem(
+                  value: 'scoreboard',
+                  child: ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    leading: const Icon(Icons.scoreboard_outlined),
+                    title: Text(l10n.scoreboardMode),
+                  ),
                 ),
-              ),
-              PopupMenuItem(
-                value: 'stats',
-                child: ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  leading: const Icon(Icons.bar_chart),
-                  title: Text(l10n.stats),
+                PopupMenuItem(
+                  value: 'stats',
+                  child: ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    leading: const Icon(Icons.bar_chart),
+                    title: Text(l10n.stats),
+                  ),
                 ),
-              ),
-              PopupMenuItem(
-                value: 'newGame',
-                child: ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  leading: const Icon(Icons.restart_alt),
-                  title: Text(l10n.newGame),
+                PopupMenuItem(
+                  value: 'newGame',
+                  child: ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    leading: const Icon(Icons.restart_alt),
+                    title: Text(l10n.newGame),
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ],
-      ),
-      body: Stack(
-        fit: StackFit.expand,
-        children: [
-          SafeArea(
-            // iPad/wide: standings beside the input area (SPEC.md §3.4);
-            // tall/narrow: standings above it.
-            child: LayoutBuilder(
-              builder: (context, constraints) => constraints.maxWidth >= 840
-                  ? Row(
-                      children: [
-                        Expanded(
-                          flex: 2,
-                          child: SingleChildScrollView(
-                            child: _Standings(game: game, vertical: true),
+              ],
+            ),
+          ],
+        ),
+        body: Stack(
+          fit: StackFit.expand,
+          children: [
+            SafeArea(
+              // iPad/wide: standings beside the input area (SPEC.md §3.4);
+              // tall/narrow: standings above it.
+              child: LayoutBuilder(
+                builder: (context, constraints) => constraints.maxWidth >= 840
+                    ? Row(
+                        children: [
+                          Expanded(
+                            flex: 2,
+                            child: SingleChildScrollView(
+                              child: _Standings(game: game, vertical: true),
+                            ),
                           ),
-                        ),
-                        Expanded(flex: 3, child: _inputArea(game, inputMode)),
-                      ],
-                    )
-                  : Column(
-                      children: [
-                        _Standings(game: game),
-                        Expanded(child: _inputArea(game, inputMode)),
-                      ],
-                    ),
-            ),
-          ),
-          if (_reaction != null && game.winner == null)
-            Positioned(
-              right: 16,
-              bottom: 96,
-              child: MascotReaction(
-                key: ValueKey(_reactionSeq),
-                kind: _reaction!,
-                onDone: () => setState(() => _reaction = null),
+                          Expanded(flex: 3, child: _inputArea(game, inputMode)),
+                        ],
+                      )
+                    : Column(
+                        children: [
+                          _Standings(game: game),
+                          Expanded(child: _inputArea(game, inputMode)),
+                        ],
+                      ),
               ),
             ),
-          if (game.winner != null) WinOverlay(game: game),
-        ],
+            if (_reaction != null && game.winner == null)
+              Positioned(
+                right: 16,
+                bottom: 96,
+                child: MascotReaction(
+                  key: ValueKey(_reactionSeq),
+                  kind: _reaction!,
+                  onDone: () => setState(() => _reaction = null),
+                ),
+              ),
+            if (game.winner != null) WinOverlay(game: game),
+          ],
+        ),
+        backgroundColor: scheme.surface,
       ),
-      backgroundColor: scheme.surface,
     );
   }
 
@@ -398,23 +370,13 @@ class _Standings extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
-    final scheme = Theme.of(context).colorScheme;
     final sideColors = ref.watch(sideColorsProvider);
     final cards = <Widget>[
       for (var i = 0; i < game.sideStates.length; i++)
         _wrap(
           vertical,
-          AnimatedContainer(
-            duration: IKubbMotion.base,
-            curve: Curves.easeOut,
-            margin: const EdgeInsets.symmetric(horizontal: IKubbSpacing.xs),
-            padding: const EdgeInsets.all(IKubbSpacing.md),
-            decoration: BoxDecoration(
-              color: i == game.currentSideIndex
-                  ? scheme.primary
-                  : scheme.surfaceContainerHighest,
-              borderRadius: BorderRadius.circular(IKubbRadius.lg),
-            ),
+          ActiveSideCard(
+            isActive: i == game.currentSideIndex,
             child: _SideCard(
               state: game.sideStates[i],
               isActive: i == game.currentSideIndex,
@@ -475,31 +437,7 @@ class _SideCard extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            Container(
-              width: 14,
-              height: 14,
-              margin: const EdgeInsets.only(right: IKubbSpacing.sm),
-              decoration: BoxDecoration(
-                color: color,
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: IKubbPalette.birchLight,
-                  width: IKubbBorder.hairline,
-                ),
-              ),
-            ),
-            Expanded(
-              child: Text(
-                state.side.name,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: IKubbType.emphasis.copyWith(color: onColor),
-              ),
-            ),
-          ],
-        ),
+        ColorDotName(color: color, name: state.side.name, textColor: onColor),
         RollingNumber(
           value: state.score,
           style:
@@ -529,18 +467,12 @@ class _SideCard extends StatelessWidget {
                   mode: GameMode.numberKubb,
                   categoryId: RuleCategoryIds.misses,
                 ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    for (var m = 0; m < missLimit; m++)
-                      Icon(
-                        Icons.circle,
-                        size: IKubbIconSize.dot,
-                        color: m < state.missStreak
-                            ? IKubbPalette.berry
-                            : onColor.withValues(alpha: IKubbAlpha.dotIdle),
-                      ),
-                  ],
+                child: DotRow(
+                  count: missLimit,
+                  filled: state.missStreak,
+                  activeColor: IKubbPalette.berry,
+                  idleColor: onColor.withValues(alpha: IKubbAlpha.dotIdle),
+                  padding: EdgeInsets.zero,
                 ),
               ),
             ),

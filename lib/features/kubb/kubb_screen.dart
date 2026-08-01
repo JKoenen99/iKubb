@@ -9,13 +9,15 @@ import 'package:scoring_engine/scoring_engine.dart';
 import '../../l10n/app_localizations.dart';
 import '../../theme/palette.dart';
 import '../../theme/typography.dart';
-import '../../widgets/confetti.dart';
 import '../../widgets/home_leading.dart';
-import '../../widgets/viking_mascot.dart';
-import '../../widgets/wood_grain.dart';
 import '../game/game_controller.dart' show sideColorsProvider;
 import '../game/game_mode.dart';
-import '../game/share_card.dart';
+import '../../widgets/celebration.dart';
+import '../../widgets/dot_row.dart';
+import '../../widgets/keep_awake.dart';
+import '../../widgets/share_card.dart';
+import '../../widgets/side_card.dart';
+import '../../widgets/confirm_dialog.dart';
 import '../rules/rules_content.dart';
 import '../rules/rules_view.dart';
 import '../settings/settings_controller.dart';
@@ -82,24 +84,15 @@ class _KubbScreenState extends ConsumerState<KubbScreen> {
   Future<void> _tapKing(KubbGame game) async {
     final l10n = AppLocalizations.of(context)!;
     if (!game.canHitKing) {
-      final confirmed = await showAdaptiveDialog<bool>(
-        context: context,
-        builder: (context) => AlertDialog.adaptive(
-          title: Text(l10n.kingWarningTitle),
-          content: Text(l10n.kingWarningBody),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(false),
-              child: Text(l10n.cancel),
-            ),
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(true),
-              child: Text(l10n.kingLabel),
-            ),
-          ],
-        ),
+      // Early king = instant loss: the confirm is a destructive action.
+      final confirmed = await confirmAdaptive(
+        context,
+        title: l10n.kingWarningTitle,
+        body: l10n.kingWarningBody,
+        confirmLabel: l10n.kingLabel,
+        isDestructive: true,
       );
-      if (confirmed != true) return;
+      if (!confirmed) return;
     }
     setState(_resetSelection);
     ref
@@ -112,24 +105,14 @@ class _KubbScreenState extends ConsumerState<KubbScreen> {
     final l10n = AppLocalizations.of(context)!;
     final match = ref.read(kubbControllerProvider);
     if (match.hasEvents && !match.isFinished) {
-      final confirmed = await showAdaptiveDialog<bool>(
-        context: context,
-        builder: (context) => AlertDialog.adaptive(
-          title: Text(l10n.newGameConfirmTitle),
-          content: Text(l10n.newGameConfirmBody),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(false),
-              child: Text(l10n.cancel),
-            ),
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(true),
-              child: Text(l10n.newGame),
-            ),
-          ],
-        ),
+      final confirmed = await confirmAdaptive(
+        context,
+        title: l10n.newGameConfirmTitle,
+        body: l10n.newGameConfirmBody,
+        confirmLabel: l10n.newGame,
+        isDestructive: true,
       );
-      if (confirmed != true) return;
+      if (!confirmed) return;
     }
     setState(_resetSelection);
     ref.read(kubbControllerProvider.notifier).newMatch();
@@ -142,106 +125,108 @@ class _KubbScreenState extends ConsumerState<KubbScreen> {
     final l10n = AppLocalizations.of(context)!;
     _syncClock(match);
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(l10n.modeKubb),
-        leading: homeLeading(context),
-        actions: [
-          IconButton(
-            tooltip: l10n.rules,
-            onPressed: () =>
-                showRulesPanel(context, mode: GameMode.classicKubb),
-            icon: const Icon(Icons.help_outline),
-          ),
-          IconButton(
-            tooltip: l10n.undo,
-            onPressed: match.hasEvents
-                ? () {
-                    setState(_resetSelection);
-                    ref.read(kubbControllerProvider.notifier).undo();
-                  }
-                : null,
-            icon: const Icon(Icons.undo),
-          ),
-          PopupMenuButton<String>(
-            icon: Icon(Icons.adaptive.more),
-            onSelected: (value) => switch (value) {
-              'scoreboard' => context.push('/scoreboard'),
-              'stats' => context.push('/stats'),
-              _ => _confirmNewMatch(),
-            },
-            itemBuilder: (context) => [
-              PopupMenuItem(
-                value: 'scoreboard',
-                child: ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  leading: const Icon(Icons.scoreboard_outlined),
-                  title: Text(l10n.scoreboardMode),
+    return KeepAwake(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(l10n.modeKubb),
+          leading: homeLeading(context),
+          actions: [
+            IconButton(
+              tooltip: l10n.rules,
+              onPressed: () =>
+                  showRulesPanel(context, mode: GameMode.classicKubb),
+              icon: const Icon(Icons.help_outline),
+            ),
+            IconButton(
+              tooltip: l10n.undo,
+              onPressed: match.hasEvents
+                  ? () {
+                      setState(_resetSelection);
+                      ref.read(kubbControllerProvider.notifier).undo();
+                    }
+                  : null,
+              icon: const Icon(Icons.undo),
+            ),
+            PopupMenuButton<String>(
+              icon: Icon(Icons.adaptive.more),
+              onSelected: (value) => switch (value) {
+                'scoreboard' => context.push('/scoreboard'),
+                'stats' => context.push('/stats'),
+                _ => _confirmNewMatch(),
+              },
+              itemBuilder: (context) => [
+                PopupMenuItem(
+                  value: 'scoreboard',
+                  child: ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    leading: const Icon(Icons.scoreboard_outlined),
+                    title: Text(l10n.scoreboardMode),
+                  ),
                 ),
-              ),
-              PopupMenuItem(
-                value: 'stats',
-                child: ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  leading: const Icon(Icons.bar_chart),
-                  title: Text(l10n.stats),
+                PopupMenuItem(
+                  value: 'stats',
+                  child: ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    leading: const Icon(Icons.bar_chart),
+                    title: Text(l10n.stats),
+                  ),
                 ),
-              ),
-              PopupMenuItem(
-                value: 'newGame',
-                child: ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  leading: const Icon(Icons.restart_alt),
-                  title: Text(l10n.newGame),
+                PopupMenuItem(
+                  value: 'newGame',
+                  child: ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    leading: const Icon(Icons.restart_alt),
+                    title: Text(l10n.newGame),
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ],
-      ),
-      body: Stack(
-        fit: StackFit.expand,
-        children: [
-          SafeArea(
-            child: Center(
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(
-                  maxWidth: IKubbLayout.maxContent,
-                ),
-                child: Column(
-                  children: [
-                    _KubbStandings(
-                      match: match,
-                      clockSeconds:
-                          match.rules.turnClockSeconds == null ||
-                              game.isFinished
-                          ? null
-                          : _secondsLeft,
-                    ),
-                    Expanded(child: _field(game, l10n)),
-                    if (!game.isFinished) _controls(game, l10n),
-                  ],
+              ],
+            ),
+          ],
+        ),
+        body: Stack(
+          fit: StackFit.expand,
+          children: [
+            SafeArea(
+              child: Center(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(
+                    maxWidth: IKubbLayout.maxContent,
+                  ),
+                  child: Column(
+                    children: [
+                      _KubbStandings(
+                        match: match,
+                        clockSeconds:
+                            match.rules.turnClockSeconds == null ||
+                                game.isFinished
+                            ? null
+                            : _secondsLeft,
+                      ),
+                      Expanded(child: _field(game, l10n)),
+                      if (!game.isFinished) _controls(game, l10n),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-          if (game.isFinished)
-            match.isFinished
-                ? _KubbMatchOverlay(
-                    match: match,
-                    onRematch: () {
-                      setState(_resetSelection);
-                      ref.read(kubbControllerProvider.notifier).newMatch();
-                    },
-                  )
-                : _KubbGameOverlay(
-                    match: match,
-                    onNextGame: () {
-                      setState(_resetSelection);
-                      ref.read(kubbControllerProvider.notifier).nextGame();
-                    },
-                  ),
-        ],
+            if (game.isFinished)
+              match.isFinished
+                  ? _KubbMatchOverlay(
+                      match: match,
+                      onRematch: () {
+                        setState(_resetSelection);
+                        ref.read(kubbControllerProvider.notifier).newMatch();
+                      },
+                    )
+                  : _KubbGameOverlay(
+                      match: match,
+                      onNextGame: () {
+                        setState(_resetSelection);
+                        ref.read(kubbControllerProvider.notifier).nextGame();
+                      },
+                    ),
+          ],
+        ),
       ),
     );
   }
@@ -319,24 +304,16 @@ class _KubbScreenState extends ConsumerState<KubbScreen> {
               color: Theme.of(context).colorScheme.primary,
             ),
           ),
-          // Baton dots for this turn.
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              for (var b = 0; b < game.rules.batonsPerTurn; b++)
-                Padding(
-                  padding: const EdgeInsets.all(IKubbSpacing.xs),
-                  child: Icon(
-                    Icons.remove,
-                    size: IKubbIconSize.md,
-                    color: b < game.batonsThrown
-                        ? IKubbPalette.walnut.withValues(
-                            alpha: IKubbAlpha.dotIdle,
-                          )
-                        : IKubbPalette.walnut,
-                  ),
-                ),
-            ],
+          // Batons left this turn: filled = still in hand.
+          DotRow(
+            count: game.rules.batonsPerTurn,
+            filled: game.batonsRemaining,
+            activeColor: IKubbPalette.walnut,
+            idleColor: IKubbPalette.walnut.withValues(
+              alpha: IKubbAlpha.dotIdle,
+            ),
+            size: IKubbIconSize.md,
+            padding: const EdgeInsets.all(IKubbSpacing.xs),
           ),
           const SizedBox(height: IKubbSpacing.sm),
         ],
@@ -403,16 +380,8 @@ class _KubbStandings extends ConsumerWidget {
         children: [
           for (var i = 0; i < 2; i++)
             Expanded(
-              child: AnimatedContainer(
-                duration: IKubbMotion.base,
-                margin: const EdgeInsets.symmetric(horizontal: IKubbSpacing.xs),
-                padding: const EdgeInsets.all(IKubbSpacing.md),
-                decoration: BoxDecoration(
-                  color: i == game.attackerIndex && !game.isFinished
-                      ? scheme.primary
-                      : scheme.surfaceContainerHighest,
-                  borderRadius: BorderRadius.circular(IKubbRadius.lg),
-                ),
+              child: ActiveSideCard(
+                isActive: i == game.attackerIndex && !game.isFinished,
                 child: _sideSummary(context, i, sideColors),
               ),
             ),
@@ -446,49 +415,24 @@ class _KubbStandings extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            Container(
-              width: 14,
-              height: 14,
-              margin: const EdgeInsets.only(right: IKubbSpacing.sm),
-              decoration: BoxDecoration(
-                color:
-                    playerColors[(sideColors[match.sides[i].id] ?? i) %
-                        playerColors.length],
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: IKubbPalette.birchLight,
-                  width: IKubbBorder.hairline,
-                ),
-              ),
-            ),
-            Expanded(
-              child: Text(
-                match.sides[i].name,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: IKubbType.emphasis.copyWith(color: onColor),
-              ),
-            ),
-          ],
+        ColorDotName(
+          color:
+              playerColors[(sideColors[match.sides[i].id] ?? i) %
+                  playerColors.length],
+          name: match.sides[i].name,
+          textColor: onColor,
         ),
         Text(
           '${game.baseline[i]}',
           style: IKubbType.score(size: IKubbType.stepScoreCard, color: onColor),
         ),
         if (match.rules.bestOf > 1)
-          Row(
-            children: [
-              for (var w = 0; w < match.rules.gamesToWin; w++)
-                Icon(
-                  Icons.circle,
-                  size: IKubbIconSize.dot,
-                  color: w < match.wins[i]
-                      ? IKubbPalette.amber
-                      : onColor.withValues(alpha: IKubbAlpha.dotIdle),
-                ),
-            ],
+          DotRow(
+            count: match.rules.gamesToWin,
+            filled: match.wins[i],
+            activeColor: IKubbPalette.amber,
+            idleColor: onColor.withValues(alpha: IKubbAlpha.dotIdle),
+            padding: EdgeInsets.zero,
           ),
       ],
     );
@@ -507,46 +451,34 @@ class _KubbGameOverlay extends StatelessWidget {
     final l10n = AppLocalizations.of(context)!;
     final game = match.currentGame;
     final winner = game.winner!;
-    return ColoredBox(
-      color: IKubbPalette.forestDeep.withValues(alpha: IKubbAlpha.scrim),
-      child: SafeArea(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                game.earlyKing
-                    ? l10n.earlyKingBanner(
-                        match.sides[1 - match.sides.indexOf(winner)].name,
-                      )
-                    : l10n.winnerBanner(winner.name),
-                textAlign: TextAlign.center,
-                style: IKubbType.heading(
-                  size: IKubbType.stepScoreCard,
-                  color: IKubbPalette.birchLight,
-                ),
-              ),
-              const SizedBox(height: IKubbSpacing.sm),
-              Text(
-                '${match.wins[0]} – ${match.wins[1]}',
-                style: IKubbType.score(
-                  size: IKubbType.stepHero,
-                  color: IKubbPalette.birchLight,
-                ),
-              ),
-              const SizedBox(height: IKubbSpacing.xl),
-              FilledButton(
-                style: FilledButton.styleFrom(
-                  backgroundColor: IKubbPalette.birchLight,
-                  foregroundColor: IKubbPalette.forestDeep,
-                ),
-                onPressed: onNextGame,
-                child: Text(l10n.nextGameLabel),
-              ),
-            ],
-          ),
+    return CelebrationScaffold(
+      celebrate: false,
+      banner: Text(
+        game.earlyKing
+            ? l10n.earlyKingBanner(
+                match.sides[1 - match.sides.indexOf(winner)].name,
+              )
+            : l10n.winnerBanner(winner.name),
+        textAlign: TextAlign.center,
+        style: IKubbType.heading(
+          size: IKubbType.stepScoreCard,
+          color: IKubbPalette.birchLight,
         ),
       ),
+      scoreLine: Text(
+        '${match.wins[0]} – ${match.wins[1]}',
+        textAlign: TextAlign.center,
+        style: IKubbType.score(
+          size: IKubbType.stepHero,
+          color: IKubbPalette.birchLight,
+        ),
+      ),
+      actions: [
+        OverlayFilledButton(
+          onPressed: onNextGame,
+          child: Text(l10n.nextGameLabel),
+        ),
+      ],
     );
   }
 }
@@ -566,82 +498,43 @@ class _KubbMatchOverlay extends ConsumerWidget {
     final winnerColor =
         playerColors[(sideColors[winner.id] ?? match.sides.indexOf(winner)) %
             playerColors.length];
-    return Stack(
-      fit: StackFit.expand,
-      children: [
-        ColoredBox(
-          color: Color.alphaBlend(
-            winnerColor.withValues(alpha: IKubbAlpha.activeTint),
-            IKubbPalette.forestDeep,
-          ),
-        ),
-        const WoodGrainBackground(
+    final game = match.currentGame;
+    return CelebrationScaffold(
+      winnerColor: winnerColor,
+      banner: CelebrationBanner(l10n.winnerBanner(winner.name)),
+      scoreLine: Text(
+        '${match.wins[0]} – ${match.wins[1]}',
+        textAlign: TextAlign.center,
+        style: IKubbType.score(
+          size: IKubbType.stepScoreLg,
           color: IKubbPalette.birchLight,
-          opacity: IKubbAlpha.grain,
         ),
-        SafeArea(
-          child: Center(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(IKubbSpacing.xl),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const VikingMascot(pose: MascotPose.cheer, size: 150),
-                  const SizedBox(height: IKubbSpacing.md),
-                  Text(
-                    l10n.winnerBanner(winner.name),
-                    textAlign: TextAlign.center,
-                    style: IKubbType.heading(
-                      size: IKubbType.stepScoreLg,
-                      color: IKubbPalette.birchLight,
-                    ),
-                  ),
-                  const SizedBox(height: IKubbSpacing.sm),
-                  Text(
-                    '${match.wins[0]} – ${match.wins[1]}',
-                    style: IKubbType.score(
-                      size: IKubbType.stepScoreLg,
-                      color: IKubbPalette.birchLight,
-                    ),
-                  ),
-                  const SizedBox(height: IKubbSpacing.xl),
-                  FilledButton(
-                    style: FilledButton.styleFrom(
-                      backgroundColor: IKubbPalette.birchLight,
-                      foregroundColor: IKubbPalette.forestDeep,
-                    ),
-                    onPressed: onRematch,
-                    child: Text(l10n.rematch),
-                  ),
-                  const SizedBox(height: IKubbSpacing.md),
-                  OutlinedButton.icon(
-                    style: OutlinedButton.styleFrom(
-                      foregroundColor: IKubbPalette.birchLight,
-                      side: const BorderSide(color: IKubbPalette.birchLight),
-                    ),
-                    onPressed: () => showKubbShareDialog(
-                      context,
-                      match: match,
-                      winnerColor: winnerColor,
-                    ),
-                    icon: Icon(Icons.adaptive.share),
-                    label: Text(l10n.share),
-                  ),
-                  const SizedBox(height: IKubbSpacing.md),
-                  OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      foregroundColor: IKubbPalette.birchLight,
-                      side: const BorderSide(color: IKubbPalette.birchLight),
-                    ),
-                    onPressed: () => context.go('/setup'),
-                    child: Text(l10n.newGame),
-                  ),
-                ],
-              ),
-            ),
+      ),
+      actions: [
+        OverlayFilledButton(onPressed: onRematch, child: Text(l10n.rematch)),
+        OverlayOutlinedButton(
+          onPressed: () => showShareCardDialog(
+            context,
+            banner: l10n.winnerBanner(winner.name),
+            rows: [
+              for (final (i, side) in match.sides.indexed)
+                ShareRow(
+                  side.name,
+                  match.rules.bestOf > 1
+                      ? '${match.wins[i]}'
+                      : '${game.baseline[i]}',
+                  emphasized: side == winner,
+                ),
+            ],
+            winnerColor: winnerColor,
           ),
+          icon: Icon(Icons.adaptive.share),
+          child: Text(l10n.share),
         ),
-        const ConfettiBurst(),
+        OverlayOutlinedButton(
+          onPressed: () => context.go('/setup'),
+          child: Text(l10n.newGame),
+        ),
       ],
     );
   }

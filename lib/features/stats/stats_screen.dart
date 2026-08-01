@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../../widgets/home_leading.dart';
+import '../../widgets/section_header.dart';
 import '../../theme/palette.dart';
 import '../../widgets/viking_mascot.dart';
 import '../game/game_mode.dart';
@@ -11,6 +12,7 @@ import 'game_records_repository.dart';
 import 'stats.dart';
 import '../../theme/tokens.dart';
 import '../../theme/typography.dart';
+import '../../widgets/confirm_dialog.dart';
 
 /// Player statistics and game history (SPEC.md §3.5), computed by
 /// replaying the stored logs through the engine. One evening, one log:
@@ -82,7 +84,7 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
               child: ListView(
                 padding: const EdgeInsets.all(IKubbSpacing.lg),
                 children: [
-                  _SectionHeader(l10n.players),
+                  SectionHeader(l10n.players, padded: true),
                   for (final name in names)
                     _PlayerCard(
                       name: name,
@@ -91,7 +93,7 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
                       showSections: hasBothModes,
                     ),
                   const SizedBox(height: IKubbSpacing.lg),
-                  _SectionHeader(l10n.historyTitle),
+                  SectionHeader(l10n.historyTitle, padded: true),
                   if (hasBothModes)
                     Padding(
                       padding: const EdgeInsets.only(bottom: IKubbSpacing.sm),
@@ -151,44 +153,17 @@ Future<void> _confirmClearHistory(
   WidgetRef ref,
   AppLocalizations l10n,
 ) async {
-  final confirmed = await showAdaptiveDialog<bool>(
-    context: context,
-    builder: (context) => AlertDialog.adaptive(
-      title: Text(l10n.clearHistory),
-      content: Text(l10n.clearHistoryConfirmBody),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(false),
-          child: Text(l10n.cancel),
-        ),
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(true),
-          child: Text(l10n.delete),
-        ),
-      ],
-    ),
+  final confirmed = await confirmAdaptive(
+    context,
+    title: l10n.clearHistory,
+    body: l10n.clearHistoryConfirmBody,
+    confirmLabel: l10n.delete,
+    isDestructive: true,
   );
-  if (confirmed == true) {
+  if (confirmed) {
     await ref.read(gameRecordsRepositoryProvider).clearHistory();
     ref.invalidate(gameHistoryProvider);
   }
-}
-
-class _SectionHeader extends StatelessWidget {
-  const _SectionHeader(this.text);
-
-  final String text;
-
-  @override
-  Widget build(BuildContext context) => Padding(
-    padding: const EdgeInsets.symmetric(vertical: IKubbSpacing.sm),
-    child: Text(
-      text,
-      style: Theme.of(
-        context,
-      ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
-    ),
-  );
 }
 
 /// One card per name. The header carries what both modes can honestly

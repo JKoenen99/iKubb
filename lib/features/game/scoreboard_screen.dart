@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:scoring_engine/scoring_engine.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../../theme/palette.dart';
+import '../../theme/tokens.dart';
 import '../../theme/typography.dart';
+import '../../widgets/dot_row.dart';
+import '../../widgets/keep_awake.dart';
 import '../../widgets/rolling_number.dart';
 import '../../widgets/viking_mascot.dart';
 import '../kubb/kubb_controller.dart';
 import '../setup/player.dart' show playerColors;
 import 'game_controller.dart';
 import 'game_mode.dart';
-import '../../theme/tokens.dart';
 
 /// Big, glanceable field-side scoreboard (SPEC.md §3.4): prop the iPad up
-/// and read scores from across the pitch. It mirrors whichever game mode
-/// is running — scores for number kubb, kubbs remaining for classic —
-/// live from the same state as the play screen. Tap anywhere to return.
+/// and read the game from across the pitch. It mirrors whichever mode is
+/// running — scores for number kubb, kubbs remaining for classic — live
+/// from the same state as the play screen. Tap anywhere to return.
 class ScoreboardScreen extends ConsumerWidget {
   const ScoreboardScreen({super.key});
 
@@ -38,54 +39,36 @@ class _NumberScoreboard extends ConsumerWidget {
     final game = ref.watch(gameControllerProvider);
     final sideColors = ref.watch(sideColorsProvider);
     final l10n = AppLocalizations.of(context)!;
-    return GestureDetector(
-      behavior: HitTestBehavior.opaque,
-      onTap: () => context.pop(),
-      child: Scaffold(
-        backgroundColor: IKubbPalette.forestDeep,
-        body: SafeArea(
-          child: game.winner != null
-              ? Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const VikingMascot(pose: MascotPose.cheer, size: 140),
-                      Text(
-                        l10n.winnerBanner(game.winner!.name),
-                        textAlign: TextAlign.center,
-                        style: IKubbType.heading(
-                          size: IKubbType.stepDisplay,
-                          color: IKubbPalette.birchLight,
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              : Row(
-                  children: [
-                    for (var i = 0; i < game.sideStates.length; i++)
-                      Expanded(
-                        child: _ScoreboardColumn(
-                          state: game.sideStates[i],
-                          isActive: i == game.currentSideIndex,
-                          missLimit: game.rules.missLimit,
-                          showMissDots: game.rules.eliminationEnabled,
-                          color:
-                              playerColors[(sideColors[game.sides[i].id] ?? i) %
-                                  playerColors.length],
-                        ),
-                      ),
-                  ],
-                ),
-        ),
-      ),
+    return _ScoreboardShell(
+      winnerName: game.winner?.name,
+      columns: [
+        for (var i = 0; i < game.sideStates.length; i++)
+          _ScoreboardColumn(
+            name: game.sideStates[i].side.name,
+            value: game.sideStates[i].score,
+            isActive: i == game.currentSideIndex && game.winner == null,
+            struck: game.sideStates[i].isEliminated,
+            color:
+                playerColors[(sideColors[game.sides[i].id] ?? i) %
+                    playerColors.length],
+            dots:
+                game.rules.eliminationEnabled &&
+                    game.sideStates[i].missStreak > 0
+                ? (
+                    count: game.rules.missLimit,
+                    filled: game.sideStates[i].missStreak,
+                    color: IKubbPalette.berryLight,
+                  )
+                : null,
+            dotsSemanticLabel: l10n.statMisses,
+          ),
+      ],
     );
   }
 }
 
 /// The classic-kubb variant: baseline kubbs remaining per team, match
-/// dots for best-of, the attacker highlighted — the numbers a team wants
-/// from across a 8-metre field.
+/// dots for best-of, the attacker highlighted.
 class _KubbScoreboard extends ConsumerWidget {
   const _KubbScoreboard();
 
@@ -95,86 +78,116 @@ class _KubbScoreboard extends ConsumerWidget {
     final game = match.currentGame;
     final sideColors = ref.watch(sideColorsProvider);
     final l10n = AppLocalizations.of(context)!;
-    return GestureDetector(
-      behavior: HitTestBehavior.opaque,
-      onTap: () => context.pop(),
-      child: Scaffold(
-        backgroundColor: IKubbPalette.forestDeep,
-        body: SafeArea(
-          child: match.isFinished
-              ? Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const VikingMascot(pose: MascotPose.cheer, size: 140),
-                      Text(
-                        l10n.winnerBanner(match.matchWinner!.name),
-                        textAlign: TextAlign.center,
-                        style: IKubbType.heading(
-                          size: IKubbType.stepDisplay,
-                          color: IKubbPalette.birchLight,
+    return _ScoreboardShell(
+      winnerName: match.matchWinner?.name,
+      columns: [
+        for (var i = 0; i < 2; i++)
+          _ScoreboardColumn(
+            name: match.sides[i].name,
+            value: game.baseline[i],
+            isActive: i == game.attackerIndex && !game.isFinished,
+            color:
+                playerColors[(sideColors[match.sides[i].id] ?? i) %
+                    playerColors.length],
+            dots: match.rules.bestOf > 1
+                ? (
+                    count: match.rules.gamesToWin,
+                    filled: match.wins[i],
+                    color: IKubbPalette.amber,
+                  )
+                : null,
+            dotsSemanticLabel: l10n.matchLabel,
+          ),
+      ],
+    );
+  }
+}
+
+/// Shared chrome: forest field, winner splash, tap-anywhere to return.
+class _ScoreboardShell extends StatelessWidget {
+  const _ScoreboardShell({required this.winnerName, required this.columns});
+
+  final String? winnerName;
+  final List<Widget> columns;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    return KeepAwake(
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () => context.pop(),
+        child: Scaffold(
+          backgroundColor: IKubbPalette.forestDeep,
+          body: SafeArea(
+            child: winnerName != null
+                ? Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const VikingMascot(pose: MascotPose.cheer, size: 140),
+                        Text(
+                          l10n.winnerBanner(winnerName!),
+                          textAlign: TextAlign.center,
+                          style: IKubbType.heading(
+                            size: IKubbType.stepDisplay,
+                            color: IKubbPalette.birchLight,
+                          ),
                         ),
-                      ),
+                      ],
+                    ),
+                  )
+                : Row(
+                    children: [
+                      for (final column in columns) Expanded(child: column),
                     ],
                   ),
-                )
-              : Row(
-                  children: [
-                    for (var i = 0; i < 2; i++)
-                      Expanded(
-                        child: _KubbColumn(
-                          name: match.sides[i].name,
-                          standing: game.baseline[i],
-                          wins: match.wins[i],
-                          gamesToWin: match.rules.bestOf > 1
-                              ? match.rules.gamesToWin
-                              : 0,
-                          isAttacker:
-                              i == game.attackerIndex && !game.isFinished,
-                          color:
-                              playerColors[(sideColors[match.sides[i].id] ??
-                                      i) %
-                                  playerColors.length],
-                        ),
-                      ),
-                  ],
-                ),
+          ),
         ),
       ),
     );
   }
 }
 
-class _KubbColumn extends StatelessWidget {
-  const _KubbColumn({
+class _ScoreboardColumn extends StatelessWidget {
+  const _ScoreboardColumn({
     required this.name,
-    required this.standing,
-    required this.wins,
-    required this.gamesToWin,
-    required this.isAttacker,
+    required this.value,
+    required this.isActive,
     required this.color,
+    this.struck = false,
+    this.dots,
+    this.dotsSemanticLabel,
   });
 
   final String name;
-  final int standing;
-  final int wins;
-  final int gamesToWin;
-  final bool isAttacker;
+  final int value;
+  final bool isActive;
   final Color color;
+
+  /// Eliminated (number kubb).
+  final bool struck;
+
+  /// Optional dot strip under the number (miss streak / match wins).
+  final ({int count, int filled, Color color})? dots;
+  final String? dotsSemanticLabel;
 
   @override
   Widget build(BuildContext context) {
+    final textColor = struck
+        ? IKubbPalette.berryLight
+        : IKubbPalette.birchLight;
     return AnimatedContainer(
-      duration: IKubbMotion.base,
+      duration: IKubbMotion.resolve(context, IKubbMotion.base),
       margin: const EdgeInsets.all(IKubbSpacing.md),
       decoration: BoxDecoration(
-        color: isAttacker
+        color: isActive
             ? color.withValues(alpha: IKubbAlpha.activeTint)
             : Colors.transparent,
         borderRadius: BorderRadius.circular(IKubbRadius.xl),
         border: Border.all(
-          color: isAttacker ? color : IKubbPalette.pine,
-          width: isAttacker ? 4 : 2,
+          color: isActive ? color : IKubbPalette.pine,
+          width: isActive ? IKubbBorder.frame : IKubbBorder.line,
         ),
       ),
       child: Column(
@@ -186,127 +199,34 @@ class _KubbColumn extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
             style: IKubbType.heading(
               size: IKubbType.stepScoreLg,
-              color: IKubbPalette.birchLight,
-            ),
+              color: textColor,
+            ).copyWith(decoration: struck ? TextDecoration.lineThrough : null),
           ),
           RollingNumber(
-            value: standing,
+            value: value,
             style: IKubbType.score(
               size: IKubbType.stepScoreboard,
-              color: IKubbPalette.birchLight,
+              color: textColor,
             ),
           ),
-          if (gamesToWin > 0)
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                for (var w = 0; w < gamesToWin; w++)
-                  Padding(
-                    padding: const EdgeInsets.all(IKubbSpacing.xs),
-                    child: Icon(
-                      Icons.circle,
-                      size: IKubbIconSize.field,
-                      color: w < wins
-                          ? IKubbPalette.amber
-                          : IKubbPalette.birchLight.withValues(
-                              alpha: IKubbAlpha.dotIdle,
-                            ),
+          SizedBox(
+            height: IKubbSpacing.xxl,
+            child: dots == null
+                ? null
+                : DotRow(
+                    count: dots!.count,
+                    filled: dots!.filled,
+                    activeColor: dots!.color,
+                    idleColor: IKubbPalette.birchLight.withValues(
+                      alpha: IKubbAlpha.dotIdle,
                     ),
+                    size: IKubbIconSize.field,
+                    padding: const EdgeInsets.all(IKubbSpacing.xs),
+                    semanticLabel: dotsSemanticLabel == null
+                        ? null
+                        : '$dotsSemanticLabel: ${dots!.filled}/${dots!.count}',
                   ),
-              ],
-            ),
-        ],
-      ),
-    );
-  }
-}
-
-class _ScoreboardColumn extends StatelessWidget {
-  const _ScoreboardColumn({
-    required this.state,
-    required this.isActive,
-    required this.missLimit,
-    required this.showMissDots,
-    required this.color,
-  });
-
-  final SideState state;
-  final bool isActive;
-  final int missLimit;
-  final bool showMissDots;
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedContainer(
-      duration: IKubbMotion.base,
-      margin: const EdgeInsets.all(IKubbSpacing.md),
-      decoration: BoxDecoration(
-        color: isActive
-            ? color.withValues(alpha: IKubbAlpha.activeTint)
-            : Colors.transparent,
-        borderRadius: BorderRadius.circular(IKubbRadius.xl),
-        border: Border.all(
-          color: isActive ? color : IKubbPalette.pine,
-          width: isActive ? 4 : 2,
-        ),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            state.side.name,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style:
-                IKubbType.heading(
-                  size: IKubbType.stepScoreLg,
-                  color: state.isEliminated
-                      ? IKubbPalette.berryLight
-                      : IKubbPalette.birchLight,
-                ).copyWith(
-                  decoration: state.isEliminated
-                      ? TextDecoration.lineThrough
-                      : null,
-                ),
           ),
-          RollingNumber(
-            value: state.score,
-            style: IKubbType.score(
-              size: IKubbType.stepScoreboard,
-              color: state.isEliminated
-                  ? IKubbPalette.berryLight
-                  : IKubbPalette.birchLight,
-            ),
-          ),
-          if (showMissDots)
-            // Bigger dots for across-the-field reading; only shown once a
-            // miss streak exists (audit #6).
-            SizedBox(
-              height: 40,
-              child: AnimatedOpacity(
-                duration: IKubbMotion.base,
-                opacity: state.missStreak > 0 ? 1 : 0,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    for (var m = 0; m < missLimit; m++)
-                      Padding(
-                        padding: const EdgeInsets.all(IKubbSpacing.xs),
-                        child: Icon(
-                          Icons.circle,
-                          size: IKubbIconSize.field,
-                          color: m < state.missStreak
-                              ? IKubbPalette.berryLight
-                              : IKubbPalette.birchLight.withValues(
-                                  alpha: IKubbAlpha.dotIdle,
-                                ),
-                        ),
-                      ),
-                  ],
-                ),
-              ),
-            ),
         ],
       ),
     );

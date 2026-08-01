@@ -3,9 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../l10n/app_localizations.dart';
-import '../../widgets/home_leading.dart';
-import 'settings_controller.dart';
 import '../../theme/tokens.dart';
+import '../../widgets/home_leading.dart';
+import '../../widgets/settings_tiles.dart';
+import 'settings_controller.dart';
 
 /// Language names shown as endonyms — they must never be translated.
 const _languageNames = {
@@ -21,8 +22,8 @@ const _languageNames = {
   'es': 'Español',
 };
 
-/// Settings (SPEC.md §3.8): language override, haptics, screen wake,
-/// plus quick paths to the rules and the tour.
+/// Settings (SPEC.md §3.8): appearance, play preferences, and quick
+/// paths to the rules and the tour — built from the shared tiles.
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
 
@@ -38,36 +39,33 @@ class SettingsScreen extends ConsumerWidget {
           child: ListView(
             padding: const EdgeInsets.all(IKubbSpacing.lg),
             children: [
-              ListTile(
-                contentPadding: EdgeInsets.zero,
-                leading: const Icon(Icons.brightness_6_outlined),
-                title: Text(l10n.theme),
+              SettingsChoiceTile(
+                icon: Icons.brightness_6_outlined,
+                title: l10n.theme,
+                below: SegmentedButton<ThemeMode>(
+                  showSelectedIcon: false,
+                  segments: [
+                    ButtonSegment(
+                      value: ThemeMode.system,
+                      label: Text(l10n.systemDefault),
+                    ),
+                    ButtonSegment(
+                      value: ThemeMode.light,
+                      label: Text(l10n.themeLight),
+                    ),
+                    ButtonSegment(
+                      value: ThemeMode.dark,
+                      label: Text(l10n.themeDark),
+                    ),
+                  ],
+                  selected: {ref.watch(themeModeProvider)},
+                  onSelectionChanged: (s) =>
+                      ref.read(themeModeProvider.notifier).set(s.first),
+                ),
               ),
-              SegmentedButton<ThemeMode>(
-                showSelectedIcon: false,
-                segments: [
-                  ButtonSegment(
-                    value: ThemeMode.system,
-                    label: Text(l10n.systemDefault),
-                  ),
-                  ButtonSegment(
-                    value: ThemeMode.light,
-                    label: Text(l10n.themeLight),
-                  ),
-                  ButtonSegment(
-                    value: ThemeMode.dark,
-                    label: Text(l10n.themeDark),
-                  ),
-                ],
-                selected: {ref.watch(themeModeProvider)},
-                onSelectionChanged: (s) =>
-                    ref.read(themeModeProvider.notifier).set(s.first),
-              ),
-              const SizedBox(height: IKubbSpacing.md),
-              ListTile(
-                contentPadding: EdgeInsets.zero,
-                leading: const Icon(Icons.language),
-                title: Text(l10n.language),
+              SettingsChoiceTile(
+                icon: Icons.language,
+                title: l10n.language,
                 trailing: DropdownButton<String>(
                   value: locale?.languageCode ?? '',
                   onChanged: (code) => ref
@@ -86,33 +84,27 @@ class SettingsScreen extends ConsumerWidget {
                   ],
                 ),
               ),
-              SwitchListTile.adaptive(
-                contentPadding: EdgeInsets.zero,
-                secondary: const Icon(Icons.vibration),
-                title: Text(l10n.haptics),
+              SettingsSwitchTile(
+                icon: Icons.vibration,
+                title: l10n.haptics,
                 value: ref.watch(hapticsEnabledProvider),
                 onChanged: ref.read(hapticsEnabledProvider.notifier).set,
               ),
-              SwitchListTile.adaptive(
-                contentPadding: EdgeInsets.zero,
-                secondary: const Icon(Icons.light_mode_outlined),
-                title: Text(l10n.keepAwake),
+              SettingsSwitchTile(
+                icon: Icons.visibility_outlined,
+                title: l10n.keepAwake,
                 value: ref.watch(keepAwakeProvider),
                 onChanged: ref.read(keepAwakeProvider.notifier).set,
               ),
-              const Divider(height: 32),
-              ListTile(
-                contentPadding: EdgeInsets.zero,
-                leading: const Icon(Icons.menu_book_outlined),
-                title: Text(l10n.rules),
-                trailing: const Icon(Icons.chevron_right),
+              const Divider(height: IKubbSpacing.xxl),
+              SettingsNavTile(
+                icon: Icons.menu_book_outlined,
+                title: l10n.rules,
                 onTap: () => context.push('/rules'),
               ),
-              ListTile(
-                contentPadding: EdgeInsets.zero,
-                leading: const Icon(Icons.school_outlined),
-                title: Text(l10n.teachMe),
-                trailing: const Icon(Icons.chevron_right),
+              SettingsNavTile(
+                icon: Icons.school_outlined,
+                title: l10n.teachMe,
                 onTap: () => context.push('/tour'),
               ),
             ],

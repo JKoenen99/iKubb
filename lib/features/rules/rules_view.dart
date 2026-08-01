@@ -136,16 +136,11 @@ class _RulesViewState extends ConsumerState<RulesView> {
           onChanged: (v) => setState(() => _query = v),
         ),
         const SizedBox(height: IKubbSpacing.md),
-        if (mode == GameMode.classicKubb)
-          _KubbActiveRulesChips(
-            rules: ref.watch(kubbControllerProvider).rules,
-            l10n: l10n,
-          )
-        else
-          _ActiveRulesChips(
-            rules: ref.watch(gameControllerProvider).rules,
-            l10n: l10n,
-          ),
+        _ActiveRulesChips(
+          values: mode == GameMode.classicKubb
+              ? _kubbRuleChips(ref.watch(kubbControllerProvider).rules, l10n)
+              : _numberRuleChips(ref.watch(gameControllerProvider).rules, l10n),
+        ),
         const SizedBox(height: IKubbSpacing.sm),
         if (query.isNotEmpty) ...[
           if (searchResults.isEmpty)
@@ -180,73 +175,51 @@ class _RulesViewState extends ConsumerState<RulesView> {
   }
 }
 
-/// The house rules of the current number-kubb game, inline — the
-/// reference always matches the game being played.
-class _ActiveRulesChips extends StatelessWidget {
-  const _ActiveRulesChips({required this.rules, required this.l10n});
-
-  final GameRules rules;
-  final AppLocalizations l10n;
-
-  @override
-  Widget build(BuildContext context) {
-    final policyLabel = switch (rules.overshootPolicy) {
-      OvershootPolicy.resetToFixed =>
-        '${l10n.policyReset} ${rules.overshootResult()}',
-      OvershootPolicy.resetToHalfTarget =>
-        '${l10n.policyHalf} (${rules.overshootResult()})',
-      OvershootPolicy.none => l10n.policyNone,
-    };
-    return Wrap(
-      spacing: 8,
-      runSpacing: 4,
-      crossAxisAlignment: WrapCrossAlignment.center,
-      children: [
-        Text(
-          l10n.activeRulesLabel,
-          style: Theme.of(context).textTheme.labelLarge,
-        ),
-        Chip(label: Text('${l10n.targetScore}: ${rules.targetScore}')),
-        Chip(label: Text(policyLabel)),
-        Chip(
-          label: Text(
-            rules.eliminationEnabled
-                ? '${l10n.eliminationRule}: ${rules.missLimit}'
-                : '${l10n.eliminationRule}: —',
-          ),
-        ),
-      ],
-    );
-  }
+/// The active house rules, inline — the reference always matches the
+/// game being played. Both modes feed the same chip strip.
+List<String> _numberRuleChips(GameRules rules, AppLocalizations l10n) {
+  final policyLabel = switch (rules.overshootPolicy) {
+    OvershootPolicy.resetToFixed =>
+      '${l10n.policyReset} ${rules.overshootResult()}',
+    OvershootPolicy.resetToHalfTarget =>
+      '${l10n.policyHalf} (${rules.overshootResult()})',
+    OvershootPolicy.none => l10n.policyNone,
+  };
+  return [
+    '${l10n.targetScore}: ${rules.targetScore}',
+    policyLabel,
+    rules.eliminationEnabled
+        ? '${l10n.eliminationRule}: ${rules.missLimit}'
+        : '${l10n.eliminationRule}: —',
+  ];
 }
 
-/// Same pattern for the classic-kubb match: best-of and turn clock.
-class _KubbActiveRulesChips extends StatelessWidget {
-  const _KubbActiveRulesChips({required this.rules, required this.l10n});
+List<String> _kubbRuleChips(KubbRules rules, AppLocalizations l10n) {
+  final clock = rules.turnClockSeconds;
+  return [
+    rules.bestOf > 1 ? l10n.bestOfThree : l10n.bestOfSingle,
+    '${l10n.turnClockLabel}: ${clock == null ? l10n.offLabel : '${clock}s'}',
+  ];
+}
 
-  final KubbRules rules;
-  final AppLocalizations l10n;
+class _ActiveRulesChips extends StatelessWidget {
+  const _ActiveRulesChips({required this.values});
+
+  final List<String> values;
 
   @override
   Widget build(BuildContext context) {
-    final clock = rules.turnClockSeconds;
+    final l10n = AppLocalizations.of(context)!;
     return Wrap(
-      spacing: 8,
-      runSpacing: 4,
+      spacing: IKubbSpacing.sm,
+      runSpacing: IKubbSpacing.xs,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
         Text(
           l10n.activeRulesLabel,
           style: Theme.of(context).textTheme.labelLarge,
         ),
-        Chip(
-          label: Text(rules.bestOf > 1 ? l10n.bestOfThree : l10n.bestOfSingle),
-        ),
-        Chip(
-          label: Text(
-            '${l10n.turnClockLabel}: ${clock == null ? l10n.offLabel : '${clock}s'}',
-          ),
-        ),
+        for (final value in values) Chip(label: Text(value)),
       ],
     );
   }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ikubb/app.dart';
-import 'package:ikubb/features/game/share_card.dart';
+import 'package:ikubb/widgets/share_card.dart';
 import 'package:ikubb/features/onboarding/onboarding_state.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
