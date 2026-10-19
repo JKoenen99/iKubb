@@ -43,6 +43,11 @@ jobs:
           cache: true
 
       - run: flutter pub get
+      # The engine is its own package (own analysis_options), so analyze
+      # needs its package config resolved first.
+      - name: Engine dependencies
+        working-directory: packages/scoring_engine
+        run: dart pub get
       - run: flutter gen-l10n
 
       # Formatting and lints gate the deploy, like the tests below.
@@ -51,9 +56,7 @@ jobs:
 
       - name: Engine tests
         working-directory: packages/scoring_engine
-        run: |
-          dart pub get
-          dart test
+        run: dart test
 
       - name: Widget tests
         run: flutter test
