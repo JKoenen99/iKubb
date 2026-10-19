@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
+
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -90,7 +91,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get overshootRule => 'Overshoot';
 
   @override
-  String policyReset(Object score) {
+  String policyReset(int score) {
     return 'Back to $score';
   }
 
@@ -156,14 +157,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get ruleFormationBody =>
-      'The 12 numbered pins start in a tight diamond formation, 3 to 4 metres from the throwing line.';
+      'The 12 numbered pins start in a tight diamond formation, 3 to 4 meters from the throwing line.';
 
   @override
   String get rulePinsStandTitle => 'Pins stand where they fall';
 
   @override
   String get rulePinsStandBody =>
-      'After each throw, knocked pins are stood upright on the spot where they landed — the field spreads out as the game goes on.';
+      'After each throw, knocked-over pins are stood upright on the spot where they landed — the field spreads out as the game goes on.';
 
   @override
   String get ruleTurnsTitle => 'Take turns';
@@ -333,9 +334,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get newGameConfirmBody => 'You\'ll lose the game that\'s underway.';
 
   @override
-  String get resumeGame => 'Resume game';
-
-  @override
   String get theme => 'Theme';
 
   @override
@@ -366,7 +364,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get bestOfSingle => 'Single game';
 
   @override
-  String get bestOfThree => 'Best of 3';
+  String get bestOfThree => 'Best of three';
 
   @override
   String get turnClockLabel => 'Turn clock';
@@ -382,14 +380,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get kingWarningBody =>
-      'Not everything is down yet — hitting the king now loses the game.';
+      'Not everything is down yet — toppling the king now loses the game.';
 
   @override
   String get advantageLine => 'Advantage line';
 
   @override
   String get throwInTitle =>
-      'Throw the knocked-over kubbs into the attacker\'s half.';
+      'Throw the knocked-over kubbs into the attackers\' half.';
 
   @override
   String get outTwice => 'Penalty kubbs (out twice)';
@@ -426,14 +424,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get ruleKubbFieldDetail =>
-      'Tournament fields measure 5 × 8 metres. In the park, two jackets and a good guess work fine — just keep the halves roughly equal.';
+      'Tournament fields measure 5 × 8 meters. In the park, two jackets and a good guess work fine — just keep the halves roughly equal.';
 
   @override
-  String get ruleKubbTeamsTitle => 'One to six a side';
+  String get ruleKubbTeamsTitle => 'One to six per team';
 
   @override
   String get ruleKubbTeamsBody =>
-      'Kubb is a team game: one to six players per side. Teammates share the six batons and take turns throwing.';
+      'Kubb is a team game: one to six players per team. Teammates share the six batons and take turns throwing.';
 
   @override
   String get ruleKubbBatonsTitle => 'Six batons per turn';
@@ -490,14 +488,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get ruleKubbEarlyKingBody =>
-      'Knock the king over before everything else is down — even by accident — and your team loses the game on the spot.';
+      'Topple the king before everything else is down — even by accident — and your team loses the game on the spot.';
 
   @override
   String get ruleKubbMatchTitle => 'Best of three';
 
   @override
   String get ruleKubbMatchBody =>
-      'Tournaments play a match as best of three games. The teams alternate which side opens each game.';
+      'Tournaments play a match as best of three games. The teams alternate which team opens each game.';
 
   @override
   String get ruleKubbMatchDetail =>
@@ -541,33 +539,28 @@ class AppLocalizationsEn extends AppLocalizations {
   String get decreaseLabel => 'Decrease';
 
   @override
-  String kubbStandingSemantics(Object number) {
+  String kubbStandingSemantics(int number) {
     return 'Kubb $number, standing';
   }
 
   @override
-  String kubbSelectedSemantics(Object number) {
+  String kubbSelectedSemantics(int number) {
     return 'Kubb $number, marked as knocked over';
-  }
-
-  @override
-  String kubbFelledSemantics(Object number) {
-    return 'Kubb $number, down';
   }
 
   @override
   String get kingSafeSemantics => 'The king — topple it to win';
 
   @override
-  String get kingRiskySemantics => 'The king — hitting it now loses the game';
+  String get kingRiskySemantics => 'The king — toppling it now loses the game';
 
   @override
-  String batonsLeftSemantics(Object remaining, Object total) {
+  String batonsLeftSemantics(int remaining, int total) {
     return '$remaining of $total batons left';
   }
 
   @override
-  String missesSemantics(Object count, Object limit) {
+  String missesSemantics(int count, int limit) {
     return '$count of $limit misses';
   }
 
@@ -605,21 +598,81 @@ class AppLocalizationsEn extends AppLocalizations {
   String get licensesLabel => 'Open-source licenses';
 
   @override
-  String confirmThrowCount(Object count) {
+  String confirmThrowCount(int count) {
     return 'Confirm throw (+$count)';
   }
 
   @override
-  String resumeGameSummary(Object summary) {
+  String resumeGameSummary(String summary) {
     return 'Resume game · $summary';
   }
 
   @override
-  String matchScore(Object a, Object b) {
+  String matchScore(int a, int b) {
     return '$a – $b';
   }
 
   @override
   String get deleteGameConfirmBody =>
       'This game will be removed from your history.';
+
+  @override
+  String get newMatch => 'New match';
+
+  @override
+  String playerN(int n) {
+    return 'Player $n';
+  }
+
+  @override
+  String secondsShort(int seconds) {
+    return '${seconds}s';
+  }
+
+  @override
+  String removePlayer(String name) {
+    return 'Remove $name';
+  }
+
+  @override
+  String get showDetails => 'More details';
+
+  @override
+  String get toppleKing => 'Topple the king';
+
+  @override
+  String turnClockSemantics(int seconds) {
+    return '$seconds seconds left on the turn clock';
+  }
+
+  @override
+  String baselineStandingSemantics(int count) {
+    return '$count baseline kubbs standing';
+  }
+
+  @override
+  String get opensRuleHint => 'Opens the rule';
+
+  @override
+  String get clearSearch => 'Clear search';
+
+  @override
+  String scoredAnnouncement(String name, int points, int total) {
+    return '$name scores $points, now at $total';
+  }
+
+  @override
+  String missAnnouncement(String name) {
+    return '$name misses';
+  }
+
+  @override
+  String overshootAnnouncement(String name, int total) {
+    return '$name overshoots and drops to $total';
+  }
+
+  @override
+  String eliminatedAnnouncement(String name) {
+    return '$name is out';
+  }
 }

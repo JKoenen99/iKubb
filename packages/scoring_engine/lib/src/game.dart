@@ -68,36 +68,42 @@ class SideState {
 @immutable
 class Game {
   Game._(this.sides, this.rules, List<Throw> throws)
-      : assert(sides.length >= 2, 'A game needs at least two sides'),
-        throws = List.unmodifiable(throws) {
+    : assert(sides.length >= 2, 'A game needs at least two sides'),
+      throws = List.unmodifiable(throws) {
     _replay();
   }
 
   factory Game.start({
     required List<Side> sides,
     GameRules rules = GameRules.classic,
-  }) =>
-      Game._(List.unmodifiable(sides), rules, const []);
+  }) => Game._(List.unmodifiable(sides), rules, const []);
 
   /// A game serializes as sides + rules + throw log; deserializing replays
   /// it, so the restored game is exact — undo history included.
   Map<String, Object?> toJson() => {
-        'sides': [for (final s in sides) s.toJson()],
-        'rules': rules.toJson(),
-        'throws': [for (final t in throws) t.toJson()],
-      };
+    'sides': [for (final s in sides) s.toJson()],
+    'rules': rules.toJson(),
+    'throws': [for (final t in throws) t.toJson()],
+  };
 
-  factory Game.fromJson(Map<String, Object?> json) => Game._(
-        List.unmodifiable([
-          for (final s in json['sides'] as List)
-            Side.fromJson((s as Map).cast<String, Object?>()),
-        ]),
-        GameRules.fromJson((json['rules'] as Map).cast<String, Object?>()),
-        [
-          for (final t in json['throws'] as List)
-            Throw.fromJson((t as Map).cast<String, Object?>()),
-        ],
-      );
+  factory Game.fromJson(Map<String, Object?> json) {
+    final sides = [
+      for (final s in json['sides'] as List)
+        Side.fromJson((s as Map).cast<String, Object?>()),
+    ];
+    // The constructor's assert is debug-only; persisted data is untrusted.
+    if (sides.length < 2) {
+      throw const FormatException('A game needs at least two sides');
+    }
+    return Game._(
+      List.unmodifiable(sides),
+      GameRules.fromJson((json['rules'] as Map).cast<String, Object?>()),
+      [
+        for (final t in json['throws'] as List)
+          Throw.fromJson((t as Map).cast<String, Object?>()),
+      ],
+    );
+  }
 
   final List<Side> sides;
   final GameRules rules;
@@ -135,8 +141,9 @@ class Game {
   }
 
   /// Removes the most recent throw. Returns `this` if nothing to undo.
-  Game undo() =>
-      throws.isEmpty ? this : Game._(sides, rules, throws.sublist(0, throws.length - 1));
+  Game undo() => throws.isEmpty
+      ? this
+      : Game._(sides, rules, throws.sublist(0, throws.length - 1));
 
   /// Replaces the throw at [index] and recomputes everything after it.
   ///
@@ -148,7 +155,10 @@ class Game {
     final edited = Game._(sides, rules, [...throws]..[index] = thrown);
     if (edited.records.length < edited.throws.length) {
       return Game._(
-          sides, rules, edited.throws.sublist(0, edited.records.length));
+        sides,
+        rules,
+        edited.throws.sublist(0, edited.records.length),
+      );
     }
     return edited;
   }
@@ -199,12 +209,14 @@ class Game {
         }
       }
 
-      recs.add(ThrowRecord(
-        sideIndex: i,
-        thrown: thrown,
-        outcome: outcome,
-        scoreAfter: scores[i],
-      ));
+      recs.add(
+        ThrowRecord(
+          sideIndex: i,
+          thrown: thrown,
+          outcome: outcome,
+          scoreAfter: scores[i],
+        ),
+      );
 
       // Last side standing wins by elimination.
       if (winnerIndex == null && out.where((o) => !o).length == 1) {

@@ -232,7 +232,7 @@ class SetupController extends Notifier<SetupState> {
 
   void _saveRecents() {
     // Fire and forget: persistence must never block starting a game.
-    ref.read(recentPlayersRepositoryProvider).markUsed(state.players);
+    ref.read(recentPlayersRepositoryProvider).markUsed(state.players).ignore();
   }
 }
 

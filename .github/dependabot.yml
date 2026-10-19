@@ -1,0 +1,29 @@
+# Keeps the GitHub Actions pins and the Dart/Flutter dependencies current.
+# Security advisories open a PR immediately; routine bumps come weekly.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      actions:
+        patterns: ["*"]
+
+  - package-ecosystem: pub
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      flutter-deps:
+        patterns: ["*"]
+
+  - package-ecosystem: pub
+    directory: /packages/scoring_engine
+    schedule:
+      interval: weekly
+
+  - package-ecosystem: gradle
+    directory: /android
+    schedule:
+      interval: weekly

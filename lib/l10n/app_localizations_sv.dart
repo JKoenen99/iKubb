@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
+
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -24,7 +25,7 @@ class AppLocalizationsSv extends AppLocalizations {
   String get quickStart => 'Snabbstart';
 
   @override
-  String get newGame => 'Ny match';
+  String get newGame => 'Nytt spel';
 
   @override
   String get rules => 'Regler';
@@ -90,7 +91,7 @@ class AppLocalizationsSv extends AppLocalizations {
   String get overshootRule => 'Över målet';
 
   @override
-  String policyReset(Object score) {
+  String policyReset(int score) {
     return 'Tillbaka till $score';
   }
 
@@ -110,7 +111,7 @@ class AppLocalizationsSv extends AppLocalizations {
   String get shuffleOrder => 'Blanda ordningen';
 
   @override
-  String get startGame => 'Starta match';
+  String get startGame => 'Starta spel';
 
   @override
   String get needTwoPlayers => 'Lägg till minst 2 spelare';
@@ -262,10 +263,10 @@ class AppLocalizationsSv extends AppLocalizations {
   String get historyTitle => 'Historik';
 
   @override
-  String get noGamesYet => 'Inga matcher än — planen väntar!';
+  String get noGamesYet => 'Inga spel än — planen väntar!';
 
   @override
-  String get gamesPlayed => 'Matcher';
+  String get gamesPlayed => 'Spel';
 
   @override
   String get wins => 'Segrar';
@@ -327,13 +328,10 @@ class AppLocalizationsSv extends AppLocalizations {
   String get cancel => 'Avbryt';
 
   @override
-  String get newGameConfirmTitle => 'Starta en ny match?';
+  String get newGameConfirmTitle => 'Starta ett nytt spel?';
 
   @override
   String get newGameConfirmBody => 'Du förlorar spelet som pågår.';
-
-  @override
-  String get resumeGame => 'Fortsätt matchen';
 
   @override
   String get theme => 'Tema';
@@ -433,7 +431,7 @@ class AppLocalizationsSv extends AppLocalizations {
 
   @override
   String get ruleKubbTeamsBody =>
-      'Kubb är ett lagspel: en till sex spelare per sida. Lagkamraterna delar på de sex kastpinnarna och turas om att kasta.';
+      'Kubb är ett lagspel: en till sex spelare per lag. Lagkamraterna delar på de sex kastpinnarna och turas om att kasta.';
 
   @override
   String get ruleKubbBatonsTitle => 'Sex pinnar per omgång';
@@ -501,7 +499,7 @@ class AppLocalizationsSv extends AppLocalizations {
 
   @override
   String get ruleKubbMatchDetail =>
-      'Med omgångsklockan på har laget en bestämd tid för sina sex pinnar. Klockan är en riktlinje — appen stoppar aldrig ett kast.';
+      'Med kastklockan på har laget en bestämd tid för sina sex pinnar. Klockan är en riktlinje — appen stoppar aldrig ett kast.';
 
   @override
   String get tourModePickTitle => 'Vilket spel spelar ni?';
@@ -542,18 +540,13 @@ class AppLocalizationsSv extends AppLocalizations {
   String get decreaseLabel => 'Minska';
 
   @override
-  String kubbStandingSemantics(Object number) {
+  String kubbStandingSemantics(int number) {
     return 'Kubb $number, står';
   }
 
   @override
-  String kubbSelectedSemantics(Object number) {
+  String kubbSelectedSemantics(int number) {
     return 'Kubb $number, markerad som fälld';
-  }
-
-  @override
-  String kubbFelledSemantics(Object number) {
-    return 'Kubb $number, nere';
   }
 
   @override
@@ -564,12 +557,12 @@ class AppLocalizationsSv extends AppLocalizations {
       'Kungen — att träffa honom nu förlorar spelet';
 
   @override
-  String batonsLeftSemantics(Object remaining, Object total) {
+  String batonsLeftSemantics(int remaining, int total) {
     return '$remaining av $total pinnar kvar';
   }
 
   @override
-  String missesSemantics(Object count, Object limit) {
+  String missesSemantics(int count, int limit) {
     return '$count av $limit missar';
   }
 
@@ -607,21 +600,81 @@ class AppLocalizationsSv extends AppLocalizations {
   String get licensesLabel => 'Licenser för öppen källkod';
 
   @override
-  String confirmThrowCount(Object count) {
+  String confirmThrowCount(int count) {
     return 'Bekräfta kast (+$count)';
   }
 
   @override
-  String resumeGameSummary(Object summary) {
+  String resumeGameSummary(String summary) {
     return 'Fortsätt spelet · $summary';
   }
 
   @override
-  String matchScore(Object a, Object b) {
+  String matchScore(int a, int b) {
     return '$a – $b';
   }
 
   @override
   String get deleteGameConfirmBody =>
       'Det här spelet tas bort från din historik.';
+
+  @override
+  String get newMatch => 'Ny match';
+
+  @override
+  String playerN(int n) {
+    return 'Spelare $n';
+  }
+
+  @override
+  String secondsShort(int seconds) {
+    return '$seconds s';
+  }
+
+  @override
+  String removePlayer(String name) {
+    return 'Ta bort $name';
+  }
+
+  @override
+  String get showDetails => 'Fler detaljer';
+
+  @override
+  String get toppleKing => 'Fäll kungen';
+
+  @override
+  String turnClockSemantics(int seconds) {
+    return '$seconds sekunder kvar på kastklockan';
+  }
+
+  @override
+  String baselineStandingSemantics(int count) {
+    return '$count baslinjekubbar står';
+  }
+
+  @override
+  String get opensRuleHint => 'Öppnar regeln';
+
+  @override
+  String get clearSearch => 'Rensa sökning';
+
+  @override
+  String scoredAnnouncement(String name, int points, int total) {
+    return '$name gör $points, nu på $total';
+  }
+
+  @override
+  String missAnnouncement(String name) {
+    return '$name missar';
+  }
+
+  @override
+  String overshootAnnouncement(String name, int total) {
+    return '$name skjuter över och faller till $total';
+  }
+
+  @override
+  String eliminatedAnnouncement(String name) {
+    return '$name är utslagen';
+  }
 }

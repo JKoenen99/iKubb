@@ -33,8 +33,8 @@ enum KubbPhase {
 @immutable
 class KubbGame {
   KubbGame._(this.sides, this.rules, this.startingSide, List<KubbEvent> events)
-      : assert(sides.length == 2, 'Classic kubb is played by two sides'),
-        events = List.unmodifiable(events) {
+    : assert(sides.length == 2, 'Classic kubb is played by two sides'),
+      events = List.unmodifiable(events) {
     _replay();
   }
 
@@ -42,8 +42,7 @@ class KubbGame {
     required List<Side> sides,
     KubbRules rules = KubbRules.classic,
     int startingSide = 0,
-  }) =>
-      KubbGame._(List.unmodifiable(sides), rules, startingSide, const []);
+  }) => KubbGame._(List.unmodifiable(sides), rules, startingSide, const []);
 
   final List<Side> sides;
   final KubbRules rules;
@@ -88,7 +87,11 @@ class KubbGame {
   KubbGame undo() => events.isEmpty
       ? this
       : KubbGame._(
-          sides, rules, startingSide, events.sublist(0, events.length - 1));
+          sides,
+          rules,
+          startingSide,
+          events.sublist(0, events.length - 1),
+        );
 
   void _validate(KubbEvent event) {
     if (isFinished) throw StateError('Game is finished');
@@ -97,13 +100,13 @@ class KubbGame {
         if (e.felledField > field[defenderIndex]) {
           throw ArgumentError('Only ${field[defenderIndex]} field kubbs stand');
         }
-        if (e.felledBaseline > 0 &&
-            field[defenderIndex] - e.felledField > 0) {
+        if (e.felledBaseline > 0 && field[defenderIndex] - e.felledField > 0) {
           throw ArgumentError('Field kubbs must fall before baseline kubbs');
         }
         if (e.felledBaseline > baseline[defenderIndex]) {
           throw ArgumentError(
-              'Only ${baseline[defenderIndex]} baseline kubbs stand');
+            'Only ${baseline[defenderIndex]} baseline kubbs stand',
+          );
         }
       case (KubbPhase.throwIn, KubbThrowIn e):
         if (e.penalties > felledThisTurn) {
@@ -185,22 +188,33 @@ class KubbGame {
   }
 
   Map<String, Object?> toJson() => {
-        'sides': [for (final s in sides) s.toJson()],
-        'rules': rules.toJson(),
-        'startingSide': startingSide,
-        'events': [for (final e in events) e.toJson()],
-      };
+    'sides': [for (final s in sides) s.toJson()],
+    'rules': rules.toJson(),
+    'startingSide': startingSide,
+    'events': [for (final e in events) e.toJson()],
+  };
 
-  factory KubbGame.fromJson(Map<String, Object?> json) => KubbGame._(
-        List.unmodifiable([
-          for (final s in json['sides'] as List)
-            Side.fromJson((s as Map).cast<String, Object?>()),
-        ]),
-        KubbRules.fromJson((json['rules'] as Map).cast<String, Object?>()),
-        (json['startingSide'] as num?)?.toInt() ?? 0,
-        [
-          for (final e in json['events'] as List)
-            KubbEvent.fromJson((e as Map).cast<String, Object?>()),
-        ],
+  /// Replays the stored log through [applyEvent], so a tampered or corrupt
+  /// record is rejected (ArgumentError/StateError) instead of producing an
+  /// impossible field — the repository treats any throw as "no saved game".
+  factory KubbGame.fromJson(Map<String, Object?> json) {
+    final startingSide = (json['startingSide'] as num?)?.toInt() ?? 0;
+    if (startingSide != 0 && startingSide != 1) {
+      throw FormatException('startingSide out of range', startingSide);
+    }
+    var game = KubbGame.start(
+      sides: [
+        for (final s in json['sides'] as List)
+          Side.fromJson((s as Map).cast<String, Object?>()),
+      ],
+      rules: KubbRules.fromJson((json['rules'] as Map).cast<String, Object?>()),
+      startingSide: startingSide,
+    );
+    for (final e in json['events'] as List) {
+      game = game.applyEvent(
+        KubbEvent.fromJson((e as Map).cast<String, Object?>()),
       );
+    }
+    return game;
+  }
 }

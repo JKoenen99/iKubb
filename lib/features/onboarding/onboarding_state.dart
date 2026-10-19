@@ -14,5 +14,7 @@ Future<bool> loadOnboardingSeen() async =>
 
 /// Fire-and-forget: persisting must never delay navigation.
 void markOnboardingSeen() {
-  SharedPreferences.getInstance().then((p) => p.setBool(_seenKey, true));
+  SharedPreferences.getInstance()
+      .then((p) => p.setBool(_seenKey, true))
+      .ignore(); // storage failures must never surface mid-navigation
 }

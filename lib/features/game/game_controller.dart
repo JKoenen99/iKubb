@@ -27,6 +27,9 @@ final sideColorsProvider = NotifierProvider<SideColors, Map<String, int>>(
 class GameController extends Notifier<Game> {
   late String _gameId;
 
+  /// Side ids of the built-in quick-start game (before any setup).
+  static const defaultSideIds = ['p1', 'p2'];
+
   @override
   Game build() {
     final restored = ref.read(restoredGameProvider);
@@ -65,6 +68,29 @@ class GameController extends Notifier<Game> {
     _persist();
   }
 
+  /// Quick start from Home: a finished game restarts with the same sides
+  /// (a rematch), an untouched default game takes the localized default
+  /// names. A game in progress, or one set up by hand, is left alone.
+  void quickStart({required String Function(int n) defaultName}) {
+    if (state.isFinished) {
+      newGame();
+      return;
+    }
+    final untouchedDefaults =
+        state.throws.isEmpty &&
+        state.sides.length == defaultSideIds.length &&
+        state.sides.indexed.every((e) => e.$2.id == defaultSideIds[e.$1]);
+    if (untouchedDefaults) {
+      final renamed = [
+        for (final (i, side) in state.sides.indexed)
+          Side(id: side.id, name: defaultName(i + 1)),
+      ];
+      if (renamed.any((s) => s.name != state.sides[renamed.indexOf(s)].name)) {
+        newGame(sides: renamed);
+      }
+    }
+  }
+
   void _apply(Throw thrown) {
     state = state.applyThrow(thrown);
     _persist();
@@ -75,17 +101,21 @@ class GameController extends Notifier<Game> {
     ref.read(lastModeProvider.notifier).set(GameMode.numberKubb);
     liveScore.sync(state);
     final repo = ref.read(gameRecordsRepositoryProvider);
-    repo.saveActive(
-      ActiveRecord(
-        id: _gameId,
-        molkky: state,
-        sideColors: ref.read(sideColorsProvider),
-      ),
-    );
+    repo
+        .saveActive(
+          ActiveRecord(
+            id: _gameId,
+            molkky: state,
+            sideColors: ref.read(sideColorsProvider),
+          ),
+        )
+        .ignore();
     if (state.winner != null) {
-      repo.recordFinished(
-        FinishedGame(id: _gameId, finishedAt: DateTime.now(), game: state),
-      );
+      repo
+          .recordFinished(
+            FinishedGame(id: _gameId, finishedAt: DateTime.now(), game: state),
+          )
+          .ignore();
     }
   }
 }

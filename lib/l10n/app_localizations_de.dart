@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
+
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -90,7 +91,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get overshootRule => 'Überwerfen';
 
   @override
-  String policyReset(Object score) {
+  String policyReset(int score) {
     return 'Zurück auf $score';
   }
 
@@ -286,7 +287,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get statOvershoots => 'Überwürfe';
 
   @override
-  String get statEliminations => 'Ausscheiden';
+  String get statEliminations => 'Ausscheidungen';
 
   @override
   String get numberPad => 'Zahlenfeld';
@@ -331,9 +332,6 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get newGameConfirmBody => 'Das laufende Spiel geht verloren.';
-
-  @override
-  String get resumeGame => 'Spiel fortsetzen';
 
   @override
   String get theme => 'Design';
@@ -434,7 +432,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get ruleKubbTeamsBody =>
-      'Kubb ist ein Teamspiel: eins bis sechs Spieler pro Seite. Die Teammitglieder teilen sich die sechs Wurfhölzer und werfen abwechselnd.';
+      'Kubb ist ein Teamspiel: eins bis sechs Spieler pro Team. Die Teammitglieder teilen sich die sechs Wurfhölzer und werfen abwechselnd.';
 
   @override
   String get ruleKubbBatonsTitle => 'Sechs Hölzer pro Zug';
@@ -484,28 +482,28 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get ruleKubbKingBody =>
-      'Erst wenn jeder Kubb in der verteidigenden Hälfte liegt, darfst du auf den König zielen. Fällst du ihn, gehört euch das Spiel.';
+      'Erst wenn jeder Kubb in der verteidigenden Hälfte liegt, darfst du auf den König zielen. Fällst du ihn, gehört dir das Spiel.';
 
   @override
   String get ruleKubbEarlyKingTitle => 'Nicht bevor die Linie liegt';
 
   @override
   String get ruleKubbEarlyKingBody =>
-      'Fällt der König, bevor alles andere liegt — auch aus Versehen —, verliert euer Team das Spiel auf der Stelle.';
+      'Fällt der König, bevor alles andere liegt — auch aus Versehen —, verliert dein Team das Spiel auf der Stelle.';
 
   @override
   String get ruleKubbMatchTitle => 'Best of three';
 
   @override
   String get ruleKubbMatchBody =>
-      'Bei Turnieren geht ein Match über best of three. Die Teams wechseln sich ab, wer das Spiel eröffnet.';
+      'Bei Turnieren geht ein Match über best of three. Die Teams wechseln sich ab, welches Team das Spiel eröffnet.';
 
   @override
   String get ruleKubbMatchDetail =>
-      'Mit aktivierter Zuguhr hat ein Team eine feste Zeit für seine sechs Hölzer. Die Uhr ist ein Richtwert — die App blockiert nie einen Wurf.';
+      'Mit aktivierter Wurfuhr hat ein Team eine feste Zeit für seine sechs Hölzer. Die Uhr ist ein Richtwert — die App blockiert nie einen Wurf.';
 
   @override
-  String get tourModePickTitle => 'Welches Spiel spielt ihr?';
+  String get tourModePickTitle => 'Welches Spiel spielst du?';
 
   @override
   String get tourModePickBody =>
@@ -543,18 +541,13 @@ class AppLocalizationsDe extends AppLocalizations {
   String get decreaseLabel => 'Weniger';
 
   @override
-  String kubbStandingSemantics(Object number) {
+  String kubbStandingSemantics(int number) {
     return 'Kubb $number, steht';
   }
 
   @override
-  String kubbSelectedSemantics(Object number) {
+  String kubbSelectedSemantics(int number) {
     return 'Kubb $number, als umgeworfen markiert';
-  }
-
-  @override
-  String kubbFelledSemantics(Object number) {
-    return 'Kubb $number, liegt';
   }
 
   @override
@@ -565,12 +558,12 @@ class AppLocalizationsDe extends AppLocalizations {
       'Der König — ihn jetzt zu treffen verliert das Spiel';
 
   @override
-  String batonsLeftSemantics(Object remaining, Object total) {
+  String batonsLeftSemantics(int remaining, int total) {
     return '$remaining von $total Hölzern übrig';
   }
 
   @override
-  String missesSemantics(Object count, Object limit) {
+  String missesSemantics(int count, int limit) {
     return '$count von $limit Fehlwürfen';
   }
 
@@ -609,21 +602,81 @@ class AppLocalizationsDe extends AppLocalizations {
   String get licensesLabel => 'Open-Source-Lizenzen';
 
   @override
-  String confirmThrowCount(Object count) {
+  String confirmThrowCount(int count) {
     return 'Wurf bestätigen (+$count)';
   }
 
   @override
-  String resumeGameSummary(Object summary) {
+  String resumeGameSummary(String summary) {
     return 'Spiel fortsetzen · $summary';
   }
 
   @override
-  String matchScore(Object a, Object b) {
+  String matchScore(int a, int b) {
     return '$a – $b';
   }
 
   @override
   String get deleteGameConfirmBody =>
       'Dieses Spiel wird aus deinem Verlauf entfernt.';
+
+  @override
+  String get newMatch => 'Neues Match';
+
+  @override
+  String playerN(int n) {
+    return 'Spieler $n';
+  }
+
+  @override
+  String secondsShort(int seconds) {
+    return '$seconds s';
+  }
+
+  @override
+  String removePlayer(String name) {
+    return '$name entfernen';
+  }
+
+  @override
+  String get showDetails => 'Mehr Details';
+
+  @override
+  String get toppleKing => 'König fällen';
+
+  @override
+  String turnClockSemantics(int seconds) {
+    return '$seconds Sekunden auf der Wurfuhr übrig';
+  }
+
+  @override
+  String baselineStandingSemantics(int count) {
+    return '$count Grundlinien-Kubbs stehen';
+  }
+
+  @override
+  String get opensRuleHint => 'Öffnet die Regel';
+
+  @override
+  String get clearSearch => 'Suche löschen';
+
+  @override
+  String scoredAnnouncement(String name, int points, int total) {
+    return '$name wirft $points, jetzt bei $total';
+  }
+
+  @override
+  String missAnnouncement(String name) {
+    return '$name wirft daneben';
+  }
+
+  @override
+  String overshootAnnouncement(String name, int total) {
+    return '$name überwirft und fällt auf $total';
+  }
+
+  @override
+  String eliminatedAnnouncement(String name) {
+    return '$name ist ausgeschieden';
+  }
 }

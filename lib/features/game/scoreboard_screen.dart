@@ -221,15 +221,20 @@ class _ScoreboardColumn extends StatelessWidget {
               color: textColor,
             ).copyWith(decoration: struck ? TextDecoration.lineThrough : null),
           ),
-          RollingNumber(
-            value: value,
-            style: IKubbType.score(
-              size: IKubbType.stepScoreboard,
-              color: textColor,
+          // Scales down on narrow columns (phone portrait) instead of
+          // painting past the card.
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: RollingNumber(
+              value: value,
+              style: IKubbType.score(
+                size: IKubbType.stepScoreboard,
+                color: textColor,
+              ),
             ),
           ),
           SizedBox(
-            height: IKubbSpacing.xxl,
+            height: IKubbIconSize.field + 2 * IKubbSpacing.xs,
             child: dots == null
                 ? null
                 : DotRow(

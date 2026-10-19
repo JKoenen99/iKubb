@@ -2,6 +2,8 @@ import 'package:scoring_engine/scoring_engine.dart';
 import 'package:test/test.dart';
 
 void main() {
+  _corruptDataTests();
+
   const anna = Side(id: 'a', name: 'Anna');
   const bjorn = Side(id: 'b', name: 'Björn');
   const cleo = Side(id: 'c', name: 'Cleo');
@@ -55,7 +57,9 @@ void main() {
 
   group('winning', () {
     test('reaching exactly the target wins', () {
-      var g = twoPlayer(const GameRules(targetScore: 12, overshootResetValue: 6));
+      var g = twoPlayer(
+        const GameRules(targetScore: 12, overshootResetValue: 6),
+      );
       g = g.applyThrow(Throw.pins({12}));
       expect(g.winner, anna);
       expect(g.isFinished, isTrue);
@@ -64,7 +68,9 @@ void main() {
     });
 
     test('no throws allowed after the game is finished', () {
-      var g = twoPlayer(const GameRules(targetScore: 12, overshootResetValue: 6));
+      var g = twoPlayer(
+        const GameRules(targetScore: 12, overshootResetValue: 6),
+      );
       g = g.applyThrow(Throw.pins({12}));
       expect(() => g.applyThrow(Throw.pins({1})), throwsStateError);
     });
@@ -72,7 +78,9 @@ void main() {
 
   group('overshoot', () {
     test('classic: busting 50 resets to 25', () {
-      var g = twoPlayer(const GameRules(targetScore: 12, overshootResetValue: 6));
+      var g = twoPlayer(
+        const GameRules(targetScore: 12, overshootResetValue: 6),
+      );
       g = g.applyThrow(Throw.pins({10})); // Anna 10
       g = g.applyThrow(const Throw.score(1)); // Björn 1
       g = g.applyThrow(Throw.pins({8})); // Anna busts 18 > 12
@@ -81,10 +89,12 @@ void main() {
     });
 
     test('half-target policy resets to half the target', () {
-      var g = twoPlayer(const GameRules(
-        targetScore: 12,
-        overshootPolicy: OvershootPolicy.resetToHalfTarget,
-      ));
+      var g = twoPlayer(
+        const GameRules(
+          targetScore: 12,
+          overshootPolicy: OvershootPolicy.resetToHalfTarget,
+        ),
+      );
       g = g.applyThrow(Throw.pins({10}));
       g = g.applyThrow(const Throw.score(1));
       g = g.applyThrow(Throw.pins({8}));
@@ -92,10 +102,9 @@ void main() {
     });
 
     test('no-penalty policy: reaching or passing the target wins', () {
-      var g = twoPlayer(const GameRules(
-        targetScore: 12,
-        overshootPolicy: OvershootPolicy.none,
-      ));
+      var g = twoPlayer(
+        const GameRules(targetScore: 12, overshootPolicy: OvershootPolicy.none),
+      );
       g = g.applyThrow(Throw.pins({10}));
       g = g.applyThrow(const Throw.score(1));
       g = g.applyThrow(Throw.pins({8})); // 18 >= 12
@@ -161,7 +170,9 @@ void main() {
     });
 
     test('editing a past throw recomputes everything downstream', () {
-      var g = twoPlayer(const GameRules(targetScore: 20, overshootResetValue: 10));
+      var g = twoPlayer(
+        const GameRules(targetScore: 20, overshootResetValue: 10),
+      );
       g = g.applyThrow(Throw.pins({5})); // Anna 5
       g = g.applyThrow(Throw.pins({4})); // Björn 4
       g = g.applyThrow(Throw.pins({11})); // Anna 16
@@ -172,7 +183,9 @@ void main() {
     });
 
     test('an edit that ends the game early discards stranded throws', () {
-      var g = twoPlayer(const GameRules(targetScore: 12, overshootResetValue: 6));
+      var g = twoPlayer(
+        const GameRules(targetScore: 12, overshootResetValue: 6),
+      );
       g = g.applyThrow(Throw.pins({5})); // Anna 5
       g = g.applyThrow(Throw.pins({4})); // Björn 4
       g = g.applyThrow(Throw.pins({3})); // Anna 8
@@ -182,7 +195,9 @@ void main() {
     });
 
     test('an edit can turn a win into an overshoot', () {
-      var g = twoPlayer(const GameRules(targetScore: 12, overshootResetValue: 6));
+      var g = twoPlayer(
+        const GameRules(targetScore: 12, overshootResetValue: 6),
+      );
       g = g.applyThrow(Throw.pins({10})); // Anna 10
       g = g.applyThrow(const Throw.score(1)); // Björn 1
       g = g.applyThrow(Throw.pins({2})); // Anna 12: wins
@@ -205,7 +220,9 @@ void main() {
 
   group('serialization', () {
     test('a game round-trips through JSON exactly', () {
-      var g = twoPlayer(const GameRules(targetScore: 20, overshootResetValue: 10));
+      var g = twoPlayer(
+        const GameRules(targetScore: 20, overshootResetValue: 10),
+      );
       g = g.applyThrow(Throw.pins({5}));
       g = g.applyThrow(const Throw.score(4));
       g = g.applyThrow(Throw.pins({}));
@@ -226,6 +243,53 @@ void main() {
       final restored = Game.fromJson(g.toJson());
       expect(restored.throws.first.pins, {7, 9});
       expect(restored.throws.first.score, 2);
+    });
+  });
+}
+
+void _corruptDataTests() {
+  group('corrupt persisted data', () {
+    Map<String, Object?> validGame() => Game.start(
+      sides: const [
+        Side(id: 'a', name: 'A'),
+        Side(id: 'b', name: 'B'),
+      ],
+    ).applyThrow(const Throw.score(5)).toJson();
+
+    test('a throw score outside 0–12 is rejected', () {
+      final json = validGame();
+      (json['throws'] as List)[0] = {'score': 99};
+      expect(() => Game.fromJson(json), throwsFormatException);
+    });
+
+    test('a pin outside 1–12 is rejected', () {
+      final json = validGame();
+      (json['throws'] as List)[0] = {
+        'pins': [0, 13],
+      };
+      expect(() => Game.fromJson(json), throwsFormatException);
+    });
+
+    test('fewer than two sides is rejected', () {
+      final json = validGame();
+      json['sides'] = [
+        {'id': 'a', 'name': 'A'},
+      ];
+      expect(() => Game.fromJson(json), throwsFormatException);
+    });
+
+    test('impossible rules are rejected', () {
+      final json = validGame();
+      (json['rules'] as Map)['missLimit'] = 0;
+      expect(() => Game.fromJson(json), throwsFormatException);
+      (json['rules'] as Map)['missLimit'] = 3;
+      (json['rules'] as Map)['overshootResetValue'] = 50;
+      expect(() => Game.fromJson(json), throwsFormatException);
+    });
+
+    test('a valid record still round-trips', () {
+      final json = validGame();
+      expect(Game.fromJson(json).sideStates[0].score, 5);
     });
   });
 }

@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../../theme/tokens.dart';
+import '../../widgets/adaptive_choice.dart';
 import '../../widgets/home_leading.dart';
 import '../../widgets/settings_tiles.dart';
 import 'settings_controller.dart';
@@ -33,116 +34,120 @@ class SettingsScreen extends ConsumerWidget {
     final locale = ref.watch(localeControllerProvider);
     return Scaffold(
       appBar: AppBar(title: Text(l10n.settings), leading: homeLeading(context)),
-      body: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: IKubbLayout.maxContent),
-          child: ListView(
-            padding: const EdgeInsets.all(IKubbSpacing.lg),
-            children: [
-              SettingsSection(
-                title: l10n.settingsAppearance,
-                children: [
-                  SettingsChoiceTile(
-                    icon: Icons.brightness_6_outlined,
-                    title: l10n.theme,
-                    below: SegmentedButton<ThemeMode>(
-                      showSelectedIcon: false,
-                      segments: [
-                        ButtonSegment(
-                          value: ThemeMode.system,
-                          label: Text(l10n.systemDefault),
-                        ),
-                        ButtonSegment(
-                          value: ThemeMode.light,
-                          label: Text(l10n.themeLight),
-                        ),
-                        ButtonSegment(
-                          value: ThemeMode.dark,
-                          label: Text(l10n.themeDark),
-                        ),
-                      ],
-                      selected: {ref.watch(themeModeProvider)},
-                      onSelectionChanged: (s) =>
-                          ref.read(themeModeProvider.notifier).set(s.first),
-                    ),
-                  ),
-                  SettingsChoiceTile(
-                    icon: Icons.language,
-                    title: l10n.language,
-                    trailing: DropdownButton<String>(
-                      value: locale?.languageCode ?? '',
-                      onChanged: (code) => ref
-                          .read(localeControllerProvider.notifier)
-                          .set(
-                            code == null || code.isEmpty ? null : Locale(code),
+      // SafeArea: an explicit ListView padding disables the automatic
+      // inset, so the last row would sit under the home indicator.
+      body: SafeArea(
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: IKubbLayout.maxContent),
+            child: ListView(
+              padding: const EdgeInsets.all(IKubbSpacing.lg),
+              children: [
+                SettingsSection(
+                  title: l10n.settingsAppearance,
+                  children: [
+                    SettingsChoiceTile(
+                      icon: Icons.brightness_6_outlined,
+                      title: l10n.theme,
+                      below: AdaptiveChoice<ThemeMode>(
+                        options: [
+                          ChoiceOption(
+                            value: ThemeMode.system,
+                            label: l10n.systemDefault,
                           ),
-                      items: [
-                        DropdownMenuItem(
-                          value: '',
-                          child: Text(l10n.systemDefault),
-                        ),
-                        for (final entry in _languageNames.entries)
+                          ChoiceOption(
+                            value: ThemeMode.light,
+                            label: l10n.themeLight,
+                          ),
+                          ChoiceOption(
+                            value: ThemeMode.dark,
+                            label: l10n.themeDark,
+                          ),
+                        ],
+                        selected: ref.watch(themeModeProvider),
+                        onSelected: ref.read(themeModeProvider.notifier).set,
+                      ),
+                    ),
+                    SettingsChoiceTile(
+                      icon: Icons.language,
+                      title: l10n.language,
+                      trailing: DropdownButton<String>(
+                        value: locale?.languageCode ?? '',
+                        onChanged: (code) => ref
+                            .read(localeControllerProvider.notifier)
+                            .set(
+                              code == null || code.isEmpty
+                                  ? null
+                                  : Locale(code),
+                            ),
+                        items: [
                           DropdownMenuItem(
-                            value: entry.key,
-                            child: Text(entry.value),
+                            value: '',
+                            child: Text(l10n.systemDefault),
                           ),
-                      ],
+                          for (final entry in _languageNames.entries)
+                            DropdownMenuItem(
+                              value: entry.key,
+                              child: Text(entry.value),
+                            ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              SettingsSection(
-                title: l10n.settingsDuringPlay,
-                children: [
-                  SettingsSwitchTile(
-                    icon: Icons.vibration,
-                    title: l10n.haptics,
-                    value: ref.watch(hapticsEnabledProvider),
-                    onChanged: ref.read(hapticsEnabledProvider.notifier).set,
-                  ),
-                  SettingsSwitchTile(
-                    icon: Icons.visibility_outlined,
-                    title: l10n.keepAwake,
-                    value: ref.watch(keepAwakeProvider),
-                    onChanged: ref.read(keepAwakeProvider.notifier).set,
-                  ),
-                ],
-              ),
-              SettingsSection(
-                title: l10n.settingsLearn,
-                children: [
-                  SettingsNavTile(
-                    icon: Icons.menu_book_outlined,
-                    title: l10n.rules,
-                    onTap: () => context.push('/rules'),
-                  ),
-                  SettingsNavTile(
-                    icon: Icons.school_outlined,
-                    title: l10n.teachMe,
-                    onTap: () => context.push('/tour'),
-                  ),
-                ],
-              ),
-              SettingsSection(
-                title: l10n.settingsAbout,
-                children: [
-                  SettingsNavTile(
-                    icon: Icons.description_outlined,
-                    title: l10n.licensesLabel,
-                    onTap: () => showLicensePage(
-                      context: context,
-                      applicationName: l10n.appTitle,
+                  ],
+                ),
+                SettingsSection(
+                  title: l10n.settingsDuringPlay,
+                  children: [
+                    SettingsSwitchTile(
+                      icon: Icons.vibration,
+                      title: l10n.haptics,
+                      value: ref.watch(hapticsEnabledProvider),
+                      onChanged: ref.read(hapticsEnabledProvider.notifier).set,
                     ),
-                  ),
-                  // TEMPORARY: design review.
-                  SettingsNavTile(
-                    icon: Icons.palette_outlined,
-                    title: l10n.designSystemLabel,
-                    onTap: () => context.push('/designsystem'),
-                  ),
-                ],
-              ),
-            ],
+                    SettingsSwitchTile(
+                      icon: Icons.visibility_outlined,
+                      title: l10n.keepAwake,
+                      value: ref.watch(keepAwakeProvider),
+                      onChanged: ref.read(keepAwakeProvider.notifier).set,
+                    ),
+                  ],
+                ),
+                SettingsSection(
+                  title: l10n.settingsLearn,
+                  children: [
+                    SettingsNavTile(
+                      icon: Icons.menu_book_outlined,
+                      title: l10n.rules,
+                      onTap: () => context.push('/rules'),
+                    ),
+                    SettingsNavTile(
+                      icon: Icons.school_outlined,
+                      title: l10n.teachMe,
+                      onTap: () => context.push('/tour'),
+                    ),
+                  ],
+                ),
+                SettingsSection(
+                  title: l10n.settingsAbout,
+                  children: [
+                    SettingsNavTile(
+                      icon: Icons.description_outlined,
+                      title: l10n.licensesLabel,
+                      onTap: () => showLicensePage(
+                        context: context,
+                        applicationName: l10n.appTitle,
+                      ),
+                    ),
+                    // TEMPORARY: design review.
+                    SettingsNavTile(
+                      icon: Icons.palette_outlined,
+                      title: l10n.designSystemLabel,
+                      onTap: () => context.push('/designsystem'),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

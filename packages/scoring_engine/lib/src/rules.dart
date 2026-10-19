@@ -25,13 +25,13 @@ class GameRules {
     this.overshootResetValue = 25,
     this.eliminationEnabled = true,
     this.missLimit = 3,
-  })  : assert(targetScore > 0),
-        assert(
-          overshootPolicy != OvershootPolicy.resetToFixed ||
-              overshootResetValue < targetScore,
-          'overshootResetValue must be below targetScore',
-        ),
-        assert(missLimit > 0);
+  }) : assert(targetScore > 0),
+       assert(
+         overshootPolicy != OvershootPolicy.resetToFixed ||
+             overshootResetValue < targetScore,
+         'overshootResetValue must be below targetScore',
+       ),
+       assert(missLimit > 0);
 
   static const classic = GameRules();
 
@@ -53,10 +53,10 @@ class GameRules {
   /// The score a side falls back to when overshooting, or `null` when the
   /// policy is [OvershootPolicy.none].
   int? overshootResult() => switch (overshootPolicy) {
-        OvershootPolicy.resetToFixed => overshootResetValue,
-        OvershootPolicy.resetToHalfTarget => targetScore ~/ 2,
-        OvershootPolicy.none => null,
-      };
+    OvershootPolicy.resetToFixed => overshootResetValue,
+    OvershootPolicy.resetToHalfTarget => targetScore ~/ 2,
+    OvershootPolicy.none => null,
+  };
 
   /// Whether [score] wins under these rules.
   bool isWinningScore(int score) => overshootPolicy == OvershootPolicy.none
@@ -64,21 +64,36 @@ class GameRules {
       : score == targetScore;
 
   Map<String, Object?> toJson() => {
-        'targetScore': targetScore,
-        'overshootPolicy': overshootPolicy.name,
-        'overshootResetValue': overshootResetValue,
-        'eliminationEnabled': eliminationEnabled,
-        'missLimit': missLimit,
-      };
+    'targetScore': targetScore,
+    'overshootPolicy': overshootPolicy.name,
+    'overshootResetValue': overshootResetValue,
+    'eliminationEnabled': eliminationEnabled,
+    'missLimit': missLimit,
+  };
 
-  factory GameRules.fromJson(Map<String, Object?> json) => GameRules(
-        targetScore: (json['targetScore'] as num).toInt(),
-        overshootPolicy: OvershootPolicy.values
-            .byName(json['overshootPolicy'] as String),
-        overshootResetValue: (json['overshootResetValue'] as num).toInt(),
-        eliminationEnabled: json['eliminationEnabled'] as bool,
-        missLimit: (json['missLimit'] as num).toInt(),
-      );
+  /// Persisted data is untrusted: the constructor's asserts only run in
+  /// debug builds, so the same invariants are enforced here explicitly.
+  factory GameRules.fromJson(Map<String, Object?> json) {
+    final target = (json['targetScore'] as num).toInt();
+    final policy = OvershootPolicy.values.byName(
+      json['overshootPolicy'] as String,
+    );
+    final reset = (json['overshootResetValue'] as num).toInt();
+    final missLimit = (json['missLimit'] as num).toInt();
+    if (target <= 0 || missLimit <= 0 || reset < 0) {
+      throw FormatException('Rules out of range', json);
+    }
+    if (policy == OvershootPolicy.resetToFixed && reset >= target) {
+      throw FormatException('overshootResetValue must be below target', json);
+    }
+    return GameRules(
+      targetScore: target,
+      overshootPolicy: policy,
+      overshootResetValue: reset,
+      eliminationEnabled: json['eliminationEnabled'] as bool,
+      missLimit: missLimit,
+    );
+  }
 
   @override
   bool operator ==(Object other) =>
@@ -90,6 +105,11 @@ class GameRules {
       other.missLimit == missLimit;
 
   @override
-  int get hashCode => Object.hash(targetScore, overshootPolicy,
-      overshootResetValue, eliminationEnabled, missLimit);
+  int get hashCode => Object.hash(
+    targetScore,
+    overshootPolicy,
+    overshootResetValue,
+    eliminationEnabled,
+    missLimit,
+  );
 }

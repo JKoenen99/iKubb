@@ -12,13 +12,13 @@ sealed class KubbEvent {
   factory KubbEvent.fromJson(Map<String, Object?> json) =>
       switch (json['type']) {
         'baton' => KubbBaton(
-            felledField: (json['felledField'] as num?)?.toInt() ?? 0,
-            felledBaseline: (json['felledBaseline'] as num?)?.toInt() ?? 0,
-            hitKing: json['hitKing'] as bool? ?? false,
-          ),
+          felledField: (json['felledField'] as num?)?.toInt() ?? 0,
+          felledBaseline: (json['felledBaseline'] as num?)?.toInt() ?? 0,
+          hitKing: json['hitKing'] as bool? ?? false,
+        ),
         'throwIn' => KubbThrowIn(
-            penalties: (json['penalties'] as num?)?.toInt() ?? 0,
-          ),
+          penalties: (json['penalties'] as num?)?.toInt() ?? 0,
+        ),
         _ => throw ArgumentError('Unknown kubb event: ${json['type']}'),
       };
 }
@@ -31,10 +31,12 @@ class KubbBaton extends KubbEvent {
     this.felledField = 0,
     this.felledBaseline = 0,
     this.hitKing = false,
-  })  : assert(felledField >= 0),
-        assert(felledBaseline >= 0),
-        assert(!hitKing || (felledField == 0 && felledBaseline == 0),
-            'A king hit is a standalone throw');
+  }) : assert(felledField >= 0),
+       assert(felledBaseline >= 0),
+       assert(
+         !hitKing || (felledField == 0 && felledBaseline == 0),
+         'A king hit is a standalone throw',
+       );
 
   final int felledField;
   final int felledBaseline;
@@ -44,11 +46,11 @@ class KubbBaton extends KubbEvent {
 
   @override
   Map<String, Object?> toJson() => {
-        'type': 'baton',
-        'felledField': felledField,
-        'felledBaseline': felledBaseline,
-        'hitKing': hitKing,
-      };
+    'type': 'baton',
+    'felledField': felledField,
+    'felledBaseline': felledBaseline,
+    'hitKing': hitKing,
+  };
 
   @override
   bool operator ==(Object other) =>

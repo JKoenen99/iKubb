@@ -17,7 +17,8 @@
       "points": {
         "type": "int"
       }
-    }
+    },
+    "description": "Helper line under the active side: points still needed"
   },
   "overshootWarning": "Overshoot — back to {resetScore}",
   "@overshootWarning": {
@@ -25,7 +26,8 @@
       "resetScore": {
         "type": "int"
       }
-    }
+    },
+    "description": "Confirm-button label when the selection would bust; value is the reset score"
   },
   "winnerBanner": "{name} wins!",
   "@winnerBanner": {
@@ -33,7 +35,8 @@
       "name": {
         "type": "String"
       }
-    }
+    },
+    "description": "Celebration banner with the winning side name"
   },
   "players": "Players",
   "addPlayer": "Add player",
@@ -47,6 +50,14 @@
   "targetScore": "Target score",
   "overshootRule": "Overshoot",
   "policyReset": "Back to {score}",
+  "@policyReset": {
+    "placeholders": {
+      "score": {
+        "type": "int"
+      }
+    },
+    "description": "Overshoot policy label; value is the score a side drops to"
+  },
   "policyHalf": "Half of target",
   "policyNone": "No penalty",
   "eliminationRule": "Elimination",
@@ -67,9 +78,9 @@
   "catWinning": "Winning",
   "catTeams": "Teams",
   "ruleFormationTitle": "The formation",
-  "ruleFormationBody": "The 12 numbered pins start in a tight diamond formation, 3 to 4 metres from the throwing line.",
+  "ruleFormationBody": "The 12 numbered pins start in a tight diamond formation, 3 to 4 meters from the throwing line.",
   "rulePinsStandTitle": "Pins stand where they fall",
-  "rulePinsStandBody": "After each throw, knocked pins are stood upright on the spot where they landed — the field spreads out as the game goes on.",
+  "rulePinsStandBody": "After each throw, knocked-over pins are stood upright on the spot where they landed — the field spreads out as the game goes on.",
   "ruleTurnsTitle": "Take turns",
   "ruleTurnsBody": "Players take turns in a fixed order — one stick per throw.",
   "ruleUnderhandTitle": "Throw underhand",
@@ -123,12 +134,12 @@
       "number": {
         "type": "int"
       }
-    }
+    },
+    "description": "VoiceOver label of one pin in the diagram"
   },
   "cancel": "Cancel",
   "newGameConfirmTitle": "Start a new game?",
   "newGameConfirmBody": "You'll lose the game that's underway.",
-  "resumeGame": "Resume game",
   "theme": "Theme",
   "themeLight": "Light",
   "themeDark": "Dark",
@@ -139,14 +150,14 @@
   "modeKubb": "Kubb",
   "matchLabel": "Match",
   "bestOfSingle": "Single game",
-  "bestOfThree": "Best of 3",
+  "bestOfThree": "Best of three",
   "turnClockLabel": "Turn clock",
   "offLabel": "Off",
   "kingLabel": "King",
   "kingWarningTitle": "Topple the king?",
-  "kingWarningBody": "Not everything is down yet — hitting the king now loses the game.",
+  "kingWarningBody": "Not everything is down yet — toppling the king now loses the game.",
   "advantageLine": "Advantage line",
-  "throwInTitle": "Throw the knocked-over kubbs into the attacker's half.",
+  "throwInTitle": "Throw the knocked-over kubbs into the attackers' half.",
   "outTwice": "Penalty kubbs (out twice)",
   "done": "Done",
   "nextGameLabel": "Next game",
@@ -156,7 +167,8 @@
       "name": {
         "type": "String"
       }
-    }
+    },
+    "description": "Shown when a team loses by toppling the king too early"
   },
   "catKubbSetup": "Setup & teams",
   "catKubbBatons": "Throwing batons",
@@ -164,9 +176,9 @@
   "catKubbKing": "The king",
   "ruleKubbFieldTitle": "The field",
   "ruleKubbFieldBody": "Two teams face each other across the field. Each lines up five kubbs on its baseline, and the king stands alone in the middle.",
-  "ruleKubbFieldDetail": "Tournament fields measure 5 × 8 metres. In the park, two jackets and a good guess work fine — just keep the halves roughly equal.",
-  "ruleKubbTeamsTitle": "One to six a side",
-  "ruleKubbTeamsBody": "Kubb is a team game: one to six players per side. Teammates share the six batons and take turns throwing.",
+  "ruleKubbFieldDetail": "Tournament fields measure 5 × 8 meters. In the park, two jackets and a good guess work fine — just keep the halves roughly equal.",
+  "ruleKubbTeamsTitle": "One to six per team",
+  "ruleKubbTeamsBody": "Kubb is a team game: one to six players per team. Teammates share the six batons and take turns throwing.",
   "ruleKubbBatonsTitle": "Six batons per turn",
   "ruleKubbBatonsBody": "The attacking team throws six batons at the other team's kubbs — underhand, spinning end over end.",
   "ruleKubbBatonsDetail": "No helicopter throws: the baton must spin vertically, never sideways. Kubbs felled by the batons stay down until the turn ends.",
@@ -182,9 +194,9 @@
   "ruleKubbKingTitle": "The king decides it",
   "ruleKubbKingBody": "Only when every kubb in the defending half is down may you aim for the king. Topple it, and the game is yours.",
   "ruleKubbEarlyKingTitle": "Not before the line is down",
-  "ruleKubbEarlyKingBody": "Knock the king over before everything else is down — even by accident — and your team loses the game on the spot.",
+  "ruleKubbEarlyKingBody": "Topple the king before everything else is down — even by accident — and your team loses the game on the spot.",
   "ruleKubbMatchTitle": "Best of three",
-  "ruleKubbMatchBody": "Tournaments play a match as best of three games. The teams alternate which side opens each game.",
+  "ruleKubbMatchBody": "Tournaments play a match as best of three games. The teams alternate which team opens each game.",
   "ruleKubbMatchDetail": "With the turn clock on, a team has a fixed time to throw its six batons. The clock is a guide — the app never blocks a throw.",
   "tourModePickTitle": "Which game are you playing?",
   "tourModePickBody": "Both live in this app. Pick one to learn — you can switch any time.",
@@ -201,36 +213,46 @@
   "kubbStandingSemantics": "Kubb {number}, standing",
   "@kubbStandingSemantics": {
     "placeholders": {
-      "number": {}
-    }
+      "number": {
+        "type": "int"
+      }
+    },
+    "description": "VoiceOver label of a standing kubb block (1-based index)"
   },
   "kubbSelectedSemantics": "Kubb {number}, marked as knocked over",
   "@kubbSelectedSemantics": {
     "placeholders": {
-      "number": {}
-    }
-  },
-  "kubbFelledSemantics": "Kubb {number}, down",
-  "@kubbFelledSemantics": {
-    "placeholders": {
-      "number": {}
-    }
+      "number": {
+        "type": "int"
+      }
+    },
+    "description": "VoiceOver label of a kubb marked as felled this baton"
   },
   "kingSafeSemantics": "The king — topple it to win",
-  "kingRiskySemantics": "The king — hitting it now loses the game",
+  "kingRiskySemantics": "The king — toppling it now loses the game",
   "batonsLeftSemantics": "{remaining} of {total} batons left",
   "@batonsLeftSemantics": {
     "placeholders": {
-      "remaining": {},
-      "total": {}
-    }
+      "remaining": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    },
+    "description": "VoiceOver summary of the batons-left dot row"
   },
   "missesSemantics": "{count} of {limit} misses",
   "@missesSemantics": {
     "placeholders": {
-      "count": {},
-      "limit": {}
-    }
+      "count": {
+        "type": "int"
+      },
+      "limit": {
+        "type": "int"
+      }
+    },
+    "description": "VoiceOver summary of the miss-streak dot row"
   },
   "statsErrorBody": "Your stats couldn't be loaded.",
   "retryLabel": "Try again",
@@ -246,26 +268,127 @@
   "confirmThrowCount": "Confirm throw (+{count})",
   "@confirmThrowCount": {
     "placeholders": {
-      "count": {}
-    }
+      "count": {
+        "type": "int"
+      }
+    },
+    "description": "Confirm button with the points (or kubbs) the throw adds"
   },
   "resumeGameSummary": "Resume game · {summary}",
   "@resumeGameSummary": {
     "placeholders": {
-      "summary": {}
-    }
+      "summary": {
+        "type": "String"
+      }
+    },
+    "description": "Home primary action for an interrupted game; summary lists sides and scores"
   },
   "matchScore": "{a} – {b}",
   "@matchScore": {
     "placeholders": {
-      "a": {},
-      "b": {}
-    }
+      "a": {
+        "type": "int"
+      },
+      "b": {
+        "type": "int"
+      }
+    },
+    "description": "Games won in a best-of match, side A first"
   },
   "deleteGameConfirmBody": "This game will be removed from your history.",
-  "@policyReset": {
+  "newMatch": "New match",
+  "playerN": "Player {n}",
+  "@playerN": {
+    "description": "Default name for an unnamed quick-start player; n is 1-based",
     "placeholders": {
-      "score": {}
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "secondsShort": "{seconds}s",
+  "@secondsShort": {
+    "description": "Compact seconds value, e.g. in the active-rules chips",
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "removePlayer": "Remove {name}",
+  "@removePlayer": {
+    "description": "Accessibility label of the remove button in a setup player row",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "showDetails": "More details",
+  "toppleKing": "Topple the king",
+  "turnClockSemantics": "{seconds} seconds left on the turn clock",
+  "@turnClockSemantics": {
+    "description": "VoiceOver label of the kubb turn clock",
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "baselineStandingSemantics": "{count} baseline kubbs standing",
+  "@baselineStandingSemantics": {
+    "description": "VoiceOver label of the per-team kubbs-remaining number",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "opensRuleHint": "Opens the rule",
+  "clearSearch": "Clear search",
+  "scoredAnnouncement": "{name} scores {points}, now at {total}",
+  "@scoredAnnouncement": {
+    "description": "Announced to assistive tech after a scoring throw",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "points": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "missAnnouncement": "{name} misses",
+  "@missAnnouncement": {
+    "description": "Announced to assistive tech after a miss",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "overshootAnnouncement": "{name} overshoots and drops to {total}",
+  "@overshootAnnouncement": {
+    "description": "Announced to assistive tech after an overshoot",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "eliminatedAnnouncement": "{name} is out",
+  "@eliminatedAnnouncement": {
+    "description": "Announced to assistive tech when a side is eliminated",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
     }
   }
 }

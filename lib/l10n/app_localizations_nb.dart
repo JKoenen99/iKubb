@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
+
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -90,7 +91,7 @@ class AppLocalizationsNb extends AppLocalizations {
   String get overshootRule => 'Over målet';
 
   @override
-  String policyReset(Object score) {
+  String policyReset(int score) {
     return 'Tilbake til $score';
   }
 
@@ -333,9 +334,6 @@ class AppLocalizationsNb extends AppLocalizations {
   String get newGameConfirmBody => 'Du mister spillet som pågår.';
 
   @override
-  String get resumeGame => 'Fortsett spillet';
-
-  @override
   String get theme => 'Tema';
 
   @override
@@ -434,7 +432,7 @@ class AppLocalizationsNb extends AppLocalizations {
 
   @override
   String get ruleKubbTeamsBody =>
-      'Kubb er et lagspill: én til seks spillere per side. Lagkameratene deler de seks kastepinnene og kaster etter tur.';
+      'Kubb er et lagspill: én til seks spillere per lag. Lagkameratene deler de seks kastepinnene og kaster etter tur.';
 
   @override
   String get ruleKubbBatonsTitle => 'Seks pinner per tur';
@@ -498,11 +496,11 @@ class AppLocalizationsNb extends AppLocalizations {
 
   @override
   String get ruleKubbMatchBody =>
-      'I turneringer spilles en kamp best av tre. Lagene bytter på hvem som åpner hvert spill.';
+      'I turneringer spilles en kamp best av tre. Lagene bytter på hvilket lag som åpner hvert spill.';
 
   @override
   String get ruleKubbMatchDetail =>
-      'Med turklokken på har laget en fast tid på sine seks pinner. Klokken er veiledende — appen blokkerer aldri et kast.';
+      'Med kasteklokken på har laget en fast tid på sine seks pinner. Klokken er veiledende — appen blokkerer aldri et kast.';
 
   @override
   String get tourModePickTitle => 'Hvilket spill spiller dere?';
@@ -543,18 +541,13 @@ class AppLocalizationsNb extends AppLocalizations {
   String get decreaseLabel => 'Mindre';
 
   @override
-  String kubbStandingSemantics(Object number) {
+  String kubbStandingSemantics(int number) {
     return 'Kubb $number, står';
   }
 
   @override
-  String kubbSelectedSemantics(Object number) {
+  String kubbSelectedSemantics(int number) {
     return 'Kubb $number, merket som veltet';
-  }
-
-  @override
-  String kubbFelledSemantics(Object number) {
-    return 'Kubb $number, nede';
   }
 
   @override
@@ -564,12 +557,12 @@ class AppLocalizationsNb extends AppLocalizations {
   String get kingRiskySemantics => 'Kongen — å treffe ham nå taper spillet';
 
   @override
-  String batonsLeftSemantics(Object remaining, Object total) {
+  String batonsLeftSemantics(int remaining, int total) {
     return '$remaining av $total pinner igjen';
   }
 
   @override
-  String missesSemantics(Object count, Object limit) {
+  String missesSemantics(int count, int limit) {
     return '$count av $limit bom';
   }
 
@@ -607,21 +600,81 @@ class AppLocalizationsNb extends AppLocalizations {
   String get licensesLabel => 'Åpen kildekode-lisenser';
 
   @override
-  String confirmThrowCount(Object count) {
+  String confirmThrowCount(int count) {
     return 'Bekreft kast (+$count)';
   }
 
   @override
-  String resumeGameSummary(Object summary) {
+  String resumeGameSummary(String summary) {
     return 'Fortsett spillet · $summary';
   }
 
   @override
-  String matchScore(Object a, Object b) {
+  String matchScore(int a, int b) {
     return '$a – $b';
   }
 
   @override
   String get deleteGameConfirmBody =>
       'Dette spillet fjernes fra historikken din.';
+
+  @override
+  String get newMatch => 'Ny kamp';
+
+  @override
+  String playerN(int n) {
+    return 'Spiller $n';
+  }
+
+  @override
+  String secondsShort(int seconds) {
+    return '$seconds s';
+  }
+
+  @override
+  String removePlayer(String name) {
+    return 'Fjern $name';
+  }
+
+  @override
+  String get showDetails => 'Flere detaljer';
+
+  @override
+  String get toppleKing => 'Velt kongen';
+
+  @override
+  String turnClockSemantics(int seconds) {
+    return '$seconds sekunder igjen på kasteklokken';
+  }
+
+  @override
+  String baselineStandingSemantics(int count) {
+    return '$count grunnlinjekubber står';
+  }
+
+  @override
+  String get opensRuleHint => 'Åpner regelen';
+
+  @override
+  String get clearSearch => 'Tøm søk';
+
+  @override
+  String scoredAnnouncement(String name, int points, int total) {
+    return '$name scorer $points, nå på $total';
+  }
+
+  @override
+  String missAnnouncement(String name) {
+    return '$name bommer';
+  }
+
+  @override
+  String overshootAnnouncement(String name, int total) {
+    return '$name bommer over og faller til $total';
+  }
+
+  @override
+  String eliminatedAnnouncement(String name) {
+    return '$name er ute';
+  }
 }

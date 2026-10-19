@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
+
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -90,7 +91,7 @@ class AppLocalizationsNl extends AppLocalizations {
   String get overshootRule => 'Te veel gegooid';
 
   @override
-  String policyReset(Object score) {
+  String policyReset(int score) {
     return 'Terug naar $score';
   }
 
@@ -333,9 +334,6 @@ class AppLocalizationsNl extends AppLocalizations {
   String get newGameConfirmBody => 'Je verliest het spel dat bezig is.';
 
   @override
-  String get resumeGame => 'Spel hervatten';
-
-  @override
   String get theme => 'Thema';
 
   @override
@@ -383,7 +381,7 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get kingWarningBody =>
-      'Nog niet alles ligt om — de koning nu raken verliest de partij.';
+      'Nog niet alles ligt om — de koning nu omgooien verliest de partij.';
 
   @override
   String get advantageLine => 'Voordeellijn';
@@ -434,7 +432,7 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get ruleKubbTeamsBody =>
-      'Kubb is een teamspel: één tot zes spelers per kant. Teamgenoten verdelen de zes werphoutjes en gooien om de beurt.';
+      'Kubb is een teamspel: één tot zes spelers per team. Teamgenoten verdelen de zes werphoutjes en gooien om de beurt.';
 
   @override
   String get ruleKubbBatonsTitle => 'Zes houtjes per beurt';
@@ -498,7 +496,7 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get ruleKubbMatchBody =>
-      'Op toernooien is een wedstrijd best of three. De teams wisselen af wie elk spel opent.';
+      'Op toernooien is een wedstrijd best of three. De teams wisselen af welk team elk spel opent.';
 
   @override
   String get ruleKubbMatchDetail =>
@@ -543,33 +541,29 @@ class AppLocalizationsNl extends AppLocalizations {
   String get decreaseLabel => 'Minder';
 
   @override
-  String kubbStandingSemantics(Object number) {
+  String kubbStandingSemantics(int number) {
     return 'Kubb $number, staat';
   }
 
   @override
-  String kubbSelectedSemantics(Object number) {
+  String kubbSelectedSemantics(int number) {
     return 'Kubb $number, gemarkeerd als omgegooid';
-  }
-
-  @override
-  String kubbFelledSemantics(Object number) {
-    return 'Kubb $number, ligt om';
   }
 
   @override
   String get kingSafeSemantics => 'De koning — vel hem en win';
 
   @override
-  String get kingRiskySemantics => 'De koning — hem nu raken verliest het spel';
+  String get kingRiskySemantics =>
+      'De koning — hem nu omgooien verliest de partij';
 
   @override
-  String batonsLeftSemantics(Object remaining, Object total) {
+  String batonsLeftSemantics(int remaining, int total) {
     return '$remaining van $total houtjes over';
   }
 
   @override
-  String missesSemantics(Object count, Object limit) {
+  String missesSemantics(int count, int limit) {
     return '$count van $limit missers';
   }
 
@@ -607,21 +601,81 @@ class AppLocalizationsNl extends AppLocalizations {
   String get licensesLabel => 'Opensourcelicenties';
 
   @override
-  String confirmThrowCount(Object count) {
+  String confirmThrowCount(int count) {
     return 'Worp bevestigen (+$count)';
   }
 
   @override
-  String resumeGameSummary(Object summary) {
+  String resumeGameSummary(String summary) {
     return 'Spel hervatten · $summary';
   }
 
   @override
-  String matchScore(Object a, Object b) {
+  String matchScore(int a, int b) {
     return '$a – $b';
   }
 
   @override
   String get deleteGameConfirmBody =>
-      'Dit spel wordt uit je historie verwijderd.';
+      'Dit spel wordt uit je geschiedenis verwijderd.';
+
+  @override
+  String get newMatch => 'Nieuwe wedstrijd';
+
+  @override
+  String playerN(int n) {
+    return 'Speler $n';
+  }
+
+  @override
+  String secondsShort(int seconds) {
+    return '$seconds s';
+  }
+
+  @override
+  String removePlayer(String name) {
+    return '$name verwijderen';
+  }
+
+  @override
+  String get showDetails => 'Meer details';
+
+  @override
+  String get toppleKing => 'Koning omgooien';
+
+  @override
+  String turnClockSemantics(int seconds) {
+    return '$seconds seconden over op de beurtklok';
+  }
+
+  @override
+  String baselineStandingSemantics(int count) {
+    return '$count basislijnkubbs staan';
+  }
+
+  @override
+  String get opensRuleHint => 'Opent de regel';
+
+  @override
+  String get clearSearch => 'Zoekopdracht wissen';
+
+  @override
+  String scoredAnnouncement(String name, int points, int total) {
+    return '$name scoort $points, nu op $total';
+  }
+
+  @override
+  String missAnnouncement(String name) {
+    return '$name mist';
+  }
+
+  @override
+  String overshootAnnouncement(String name, int total) {
+    return '$name gooit te veel en valt terug naar $total';
+  }
+
+  @override
+  String eliminatedAnnouncement(String name) {
+    return '$name ligt eruit';
+  }
 }

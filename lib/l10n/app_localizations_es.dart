@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
+
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -90,7 +91,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get overshootRule => 'Pasarse';
 
   @override
-  String policyReset(Object score) {
+  String policyReset(int score) {
     return 'Vuelta a $score';
   }
 
@@ -333,9 +334,6 @@ class AppLocalizationsEs extends AppLocalizations {
   String get newGameConfirmBody => 'Perderás la partida en curso.';
 
   @override
-  String get resumeGame => 'Reanudar la partida';
-
-  @override
   String get theme => 'Tema';
 
   @override
@@ -434,7 +432,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get ruleKubbTeamsBody =>
-      'El kubb es un juego de equipo: de uno a seis jugadores por lado. Los compañeros se reparten los seis bastones y lanzan por turnos.';
+      'El kubb es un juego de equipo: de uno a seis jugadores por equipo. Los compañeros se reparten los seis bastones y lanzan por turnos.';
 
   @override
   String get ruleKubbBatonsTitle => 'Seis bastones por turno';
@@ -544,18 +542,13 @@ class AppLocalizationsEs extends AppLocalizations {
   String get decreaseLabel => 'Reducir';
 
   @override
-  String kubbStandingSemantics(Object number) {
+  String kubbStandingSemantics(int number) {
     return 'Kubb $number, en pie';
   }
 
   @override
-  String kubbSelectedSemantics(Object number) {
+  String kubbSelectedSemantics(int number) {
     return 'Kubb $number, marcado como derribado';
-  }
-
-  @override
-  String kubbFelledSemantics(Object number) {
-    return 'Kubb $number, caído';
   }
 
   @override
@@ -565,12 +558,12 @@ class AppLocalizationsEs extends AppLocalizations {
   String get kingRiskySemantics => 'El rey: golpearlo ahora pierde la partida';
 
   @override
-  String batonsLeftSemantics(Object remaining, Object total) {
+  String batonsLeftSemantics(int remaining, int total) {
     return 'Quedan $remaining de $total bastones';
   }
 
   @override
-  String missesSemantics(Object count, Object limit) {
+  String missesSemantics(int count, int limit) {
     return '$count de $limit fallos';
   }
 
@@ -608,21 +601,81 @@ class AppLocalizationsEs extends AppLocalizations {
   String get licensesLabel => 'Licencias de código abierto';
 
   @override
-  String confirmThrowCount(Object count) {
+  String confirmThrowCount(int count) {
     return 'Confirmar tiro (+$count)';
   }
 
   @override
-  String resumeGameSummary(Object summary) {
+  String resumeGameSummary(String summary) {
     return 'Reanudar partida · $summary';
   }
 
   @override
-  String matchScore(Object a, Object b) {
+  String matchScore(int a, int b) {
     return '$a – $b';
   }
 
   @override
   String get deleteGameConfirmBody =>
       'Esta partida se eliminará de tu historial.';
+
+  @override
+  String get newMatch => 'Nuevo encuentro';
+
+  @override
+  String playerN(int n) {
+    return 'Jugador $n';
+  }
+
+  @override
+  String secondsShort(int seconds) {
+    return '$seconds s';
+  }
+
+  @override
+  String removePlayer(String name) {
+    return 'Quitar a $name';
+  }
+
+  @override
+  String get showDetails => 'Más detalles';
+
+  @override
+  String get toppleKing => 'Derribar al rey';
+
+  @override
+  String turnClockSemantics(int seconds) {
+    return 'Quedan $seconds segundos en el reloj de turno';
+  }
+
+  @override
+  String baselineStandingSemantics(int count) {
+    return '$count kubbs de línea de fondo en pie';
+  }
+
+  @override
+  String get opensRuleHint => 'Abre la regla';
+
+  @override
+  String get clearSearch => 'Borrar búsqueda';
+
+  @override
+  String scoredAnnouncement(String name, int points, int total) {
+    return '$name anota $points, ahora con $total';
+  }
+
+  @override
+  String missAnnouncement(String name) {
+    return '$name falla';
+  }
+
+  @override
+  String overshootAnnouncement(String name, int total) {
+    return '$name se pasa y baja a $total';
+  }
+
+  @override
+  String eliminatedAnnouncement(String name) {
+    return '$name queda eliminado';
+  }
 }

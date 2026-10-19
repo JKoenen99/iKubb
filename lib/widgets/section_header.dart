@@ -15,9 +15,8 @@ class SectionHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final title = Text(
       text,
-      style: Theme.of(
-        context,
-      ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+      style: Theme.of(context).textTheme.titleMedium
+          ?.copyWith(fontWeight: FontWeight.w700),
     );
     if (!padded) return title;
     return Padding(

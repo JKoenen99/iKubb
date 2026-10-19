@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:scoring_engine/scoring_engine.dart';
 
 import '../../l10n/app_localizations.dart';
+import '../../widgets/adaptive_choice.dart';
 import '../../widgets/home_leading.dart';
 import '../../widgets/section_header.dart';
 import '../../theme/palette.dart';
@@ -111,25 +113,26 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
                 Expanded(
                   child: ListView(
                     padding: const EdgeInsets.all(IKubbSpacing.lg),
+                    // Dragging the list puts the keyboard away (HIG).
+                    keyboardDismissBehavior:
+                        ScrollViewKeyboardDismissBehavior.onDrag,
                     children: [
                       // The mode decides everything below (audience,
                       // teams, rules) — so it comes first.
                       Center(
-                        child: SegmentedButton<GameMode>(
-                          showSelectedIcon: false,
-                          segments: [
-                            ButtonSegment(
+                        child: AdaptiveChoice<GameMode>(
+                          options: [
+                            ChoiceOption(
                               value: GameMode.numberKubb,
-                              label: Text(l10n.modeNumber),
+                              label: l10n.modeNumber,
                             ),
-                            ButtonSegment(
+                            ChoiceOption(
                               value: GameMode.classicKubb,
-                              label: Text(l10n.modeKubb),
+                              label: l10n.modeKubb,
                             ),
                           ],
-                          selected: {setup.mode},
-                          onSelectionChanged: (s) =>
-                              controller.setMode(s.first),
+                          selected: setup.mode,
+                          onSelected: controller.setMode,
                         ),
                       ),
                       const SizedBox(height: IKubbSpacing.md),
@@ -342,25 +345,39 @@ class _PlayerRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    // At large Dynamic Type the team picker no longer fits beside the
+    // name: it moves under it instead of squeezing the row.
+    final wrapTeams = teamMode && AdaptiveChoice.shouldWrap(context);
+    final teamPicker = teamMode
+        ? AdaptiveChoice<Team>(
+            options: [
+              ChoiceOption(value: Team.a, label: l10n.teamA),
+              ChoiceOption(value: Team.b, label: l10n.teamB),
+            ],
+            selected: team,
+            onSelected: onTeamChanged,
+          )
+        : null;
     return ListTile(
       contentPadding: EdgeInsets.zero,
       leading: _Avatar(player: player),
       title: Text(player.name, maxLines: 1, overflow: TextOverflow.ellipsis),
+      subtitle: wrapTeams
+          ? Padding(
+              padding: const EdgeInsets.only(top: IKubbSpacing.xs),
+              child: teamPicker,
+            )
+          : null,
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (teamMode)
-            SegmentedButton<Team>(
-              showSelectedIcon: false,
-              style: const ButtonStyle(visualDensity: VisualDensity.compact),
-              segments: [
-                ButtonSegment(value: Team.a, label: Text(l10n.teamA)),
-                ButtonSegment(value: Team.b, label: Text(l10n.teamB)),
-              ],
-              selected: {team},
-              onSelectionChanged: (s) => onTeamChanged(s.first),
-            ),
-          IconButton(onPressed: onRemove, icon: const Icon(Icons.close)),
+          if (teamMode && !wrapTeams) teamPicker!,
+          IconButton(
+            // Named for VoiceOver: "Remove Anna", not "button".
+            tooltip: l10n.removePlayer(player.name),
+            onPressed: onRemove,
+            icon: const Icon(Icons.close),
+          ),
         ],
       ),
     );
@@ -405,6 +422,10 @@ class _AddPlayerRowState extends State<_AddPlayerRow> {
             controller: _controller,
             decoration: InputDecoration(hintText: widget.hint),
             textInputAction: TextInputAction.done,
+            // Names: capitalized, no autocorrect, bounded (HIG text input).
+            textCapitalization: TextCapitalization.words,
+            autocorrect: false,
+            inputFormatters: [LengthLimitingTextInputFormatter(maxNameLength)],
             onSubmitted: (_) => _submit(),
           ),
         ),
@@ -419,6 +440,9 @@ class _AddPlayerRowState extends State<_AddPlayerRow> {
   }
 }
 
+/// Longest player or team name the UI lays out for.
+const int maxNameLength = 24;
+
 class _TeamNameField extends StatelessWidget {
   const _TeamNameField({required this.hint, required this.onChanged});
 
@@ -428,6 +452,10 @@ class _TeamNameField extends StatelessWidget {
   @override
   Widget build(BuildContext context) => TextField(
     decoration: InputDecoration(hintText: hint),
+    textInputAction: TextInputAction.done,
+    textCapitalization: TextCapitalization.words,
+    autocorrect: false,
+    inputFormatters: [LengthLimitingTextInputFormatter(maxNameLength)],
     onChanged: onChanged,
   );
 }
@@ -451,8 +479,9 @@ class _HouseRules extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final policyLabel = switch (setup.overshootPolicy) {
-      OvershootPolicy.resetToFixed =>
-        l10n.policyReset(setup.rules.overshootResetValue),
+      OvershootPolicy.resetToFixed => l10n.policyReset(
+        setup.rules.overshootResetValue,
+      ),
       OvershootPolicy.resetToHalfTarget => l10n.policyHalf,
       OvershootPolicy.none => l10n.policyNone,
     };
@@ -472,16 +501,13 @@ class _HouseRules extends StatelessWidget {
       subtitle: Text(summary, maxLines: 2, overflow: TextOverflow.ellipsis),
       children: [
         _RuleLabel(l10n.targetScore),
-        SegmentedButton<int>(
-          showSelectedIcon: false,
-          segments: [
-            for (final t in presetTargets)
-              ButtonSegment(value: t, label: Text('$t')),
-            ButtonSegment(value: -1, label: Text(l10n.custom)),
+        AdaptiveChoice<int>(
+          options: [
+            for (final t in presetTargets) ChoiceOption(value: t, label: '$t'),
+            ChoiceOption(value: -1, label: l10n.custom),
           ],
-          selected: {isCustom ? -1 : setup.targetScore},
-          onSelectionChanged: (s) {
-            final v = s.first;
+          selected: isCustom ? -1 : setup.targetScore,
+          onSelected: (v) {
             onCustomTargetChanged(v == -1);
             if (v != -1) controller.setTargetScore(v);
           },
@@ -491,7 +517,13 @@ class _HouseRules extends StatelessWidget {
             padding: const EdgeInsets.only(top: IKubbSpacing.sm),
             child: TextFormField(
               initialValue: '${setup.targetScore}',
-              keyboardType: TextInputType.number,
+              // Signed keyboard carries a Done key on iOS; digits only.
+              keyboardType: const TextInputType.numberWithOptions(signed: true),
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly,
+                LengthLimitingTextInputFormatter(4),
+              ],
+              textInputAction: TextInputAction.done,
               decoration: InputDecoration(labelText: l10n.custom),
               onChanged: (v) {
                 final parsed = int.tryParse(v);
@@ -500,24 +532,20 @@ class _HouseRules extends StatelessWidget {
             ),
           ),
         _RuleLabel(l10n.overshootRule),
-        SegmentedButton<OvershootPolicy>(
-          showSelectedIcon: false,
-          segments: [
-            ButtonSegment(
+        AdaptiveChoice<OvershootPolicy>(
+          options: [
+            ChoiceOption(
               value: OvershootPolicy.resetToFixed,
-              label: Text(l10n.policyReset(setup.rules.overshootResetValue)),
+              label: l10n.policyReset(setup.rules.overshootResetValue),
             ),
-            ButtonSegment(
+            ChoiceOption(
               value: OvershootPolicy.resetToHalfTarget,
-              label: Text(l10n.policyHalf),
+              label: l10n.policyHalf,
             ),
-            ButtonSegment(
-              value: OvershootPolicy.none,
-              label: Text(l10n.policyNone),
-            ),
+            ChoiceOption(value: OvershootPolicy.none, label: l10n.policyNone),
           ],
-          selected: {setup.overshootPolicy},
-          onSelectionChanged: (s) => controller.setOvershootPolicy(s.first),
+          selected: setup.overshootPolicy,
+          onSelected: controller.setOvershootPolicy,
         ),
         SwitchListTile.adaptive(
           contentPadding: EdgeInsets.zero,
@@ -582,28 +610,25 @@ class _KubbOptions extends StatelessWidget {
       children: [
         SectionHeader(l10n.matchLabel),
         const SizedBox(height: IKubbSpacing.sm),
-        SegmentedButton<int>(
-          showSelectedIcon: false,
-          segments: [
-            ButtonSegment(value: 1, label: Text(l10n.bestOfSingle)),
-            ButtonSegment(value: 3, label: Text(l10n.bestOfThree)),
+        AdaptiveChoice<int>(
+          options: [
+            ChoiceOption(value: 1, label: l10n.bestOfSingle),
+            ChoiceOption(value: 3, label: l10n.bestOfThree),
           ],
-          selected: {setup.kubbBestOf},
-          onSelectionChanged: (s) => controller.setKubbBestOf(s.first),
+          selected: setup.kubbBestOf,
+          onSelected: controller.setKubbBestOf,
         ),
         const SizedBox(height: IKubbSpacing.lg),
         SectionHeader(l10n.turnClockLabel),
         const SizedBox(height: IKubbSpacing.sm),
-        SegmentedButton<int>(
-          showSelectedIcon: false,
-          segments: [
-            ButtonSegment(value: 0, label: Text(l10n.offLabel)),
-            const ButtonSegment(value: 30, label: Text('30s')),
-            const ButtonSegment(value: 60, label: Text('60s')),
+        AdaptiveChoice<int>(
+          options: [
+            ChoiceOption(value: 0, label: l10n.offLabel),
+            ChoiceOption(value: 30, label: l10n.secondsShort(30)),
+            ChoiceOption(value: 60, label: l10n.secondsShort(60)),
           ],
-          selected: {setup.kubbClockSeconds ?? 0},
-          onSelectionChanged: (s) =>
-              controller.setKubbClock(s.first == 0 ? null : s.first),
+          selected: setup.kubbClockSeconds ?? 0,
+          onSelected: (v) => controller.setKubbClock(v == 0 ? null : v),
         ),
         const SizedBox(height: IKubbSpacing.sm),
       ],

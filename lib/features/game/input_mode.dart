@@ -14,15 +14,15 @@ class InputModeController extends Notifier<InputMode> {
     SharedPreferences.getInstance().then((prefs) {
       final stored = prefs.getString(_prefsKey);
       if (stored == InputMode.pad.name) state = InputMode.pad;
-    });
+    }).ignore();
     return InputMode.pins;
   }
 
   void toggle() {
     state = state == InputMode.pins ? InputMode.pad : InputMode.pins;
-    SharedPreferences.getInstance().then(
-      (prefs) => prefs.setString(_prefsKey, state.name),
-    );
+    SharedPreferences.getInstance()
+        .then((prefs) => prefs.setString(_prefsKey, state.name))
+        .ignore();
   }
 }
 

@@ -1,5 +1,7 @@
 import 'dart:ui' as ui;
 
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
@@ -45,37 +47,67 @@ Future<void> showShareCardDialog(
     context: context,
     builder: (context) {
       final l10n = AppLocalizations.of(context)!;
+      // The card never exceeds the viewport: narrow phones shrink it and
+      // large Dynamic Type scrolls it instead of overflowing.
+      final cardWidth = math.min(
+        ShareCard.defaultWidth,
+        MediaQuery.sizeOf(context).width - 2 * IKubbSpacing.xl,
+      );
       return Dialog(
         backgroundColor: Colors.transparent,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            RepaintBoundary(
-              key: boundaryKey,
-              child: ShareCard(
-                banner: banner,
-                rows: rows,
-                winnerColor: winnerColor,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              RepaintBoundary(
+                key: boundaryKey,
+                child: ShareCard(
+                  banner: banner,
+                  rows: rows,
+                  winnerColor: winnerColor,
+                  width: cardWidth,
+                ),
               ),
-            ),
-            const SizedBox(height: IKubbSpacing.md),
-            FilledButton.icon(
-              style: FilledButton.styleFrom(
-                backgroundColor: IKubbPalette.birchLight,
-                foregroundColor: IKubbPalette.forestDeep,
+              const SizedBox(height: IKubbSpacing.md),
+              // Builder: the share sheet is anchored to this very button,
+              // which iPad needs to place the popover (HIG).
+              Builder(
+                builder: (buttonContext) => FilledButton.icon(
+                  style: FilledButton.styleFrom(
+                    backgroundColor: IKubbPalette.birchLight,
+                    foregroundColor: IKubbPalette.forestDeep,
+                  ),
+                  onPressed: () => _captureAndShare(
+                    boundaryKey,
+                    origin: _rectOf(buttonContext),
+                  ),
+                  icon: Icon(Icons.adaptive.share),
+                  label: Text(l10n.share),
+                ),
               ),
-              onPressed: () => _captureAndShare(boundaryKey),
-              icon: Icon(Icons.adaptive.share),
-              label: Text(l10n.share),
-            ),
-          ],
+              TextButton(
+                style: TextButton.styleFrom(
+                  foregroundColor: IKubbPalette.birchLight,
+                ),
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text(l10n.closeLabel),
+              ),
+            ],
+          ),
         ),
       );
     },
   );
 }
 
-Future<void> _captureAndShare(GlobalKey boundaryKey) async {
+/// Global rect of a widget, for anchoring the iPad share popover.
+Rect? _rectOf(BuildContext context) {
+  final box = context.findRenderObject() as RenderBox?;
+  if (box == null || !box.hasSize) return null;
+  return box.localToGlobal(Offset.zero) & box.size;
+}
+
+Future<void> _captureAndShare(GlobalKey boundaryKey, {Rect? origin}) async {
   try {
     final boundary =
         boundaryKey.currentContext?.findRenderObject()
@@ -90,6 +122,7 @@ Future<void> _captureAndShare(GlobalKey boundaryKey) async {
           XFile.fromData(bytes.buffer.asUint8List(), mimeType: 'image/png'),
         ],
         fileNameOverrides: ['ikubb-result.png'],
+        sharePositionOrigin: origin,
       ),
     );
   } on Object {
@@ -105,17 +138,21 @@ class ShareCard extends StatelessWidget {
     required this.banner,
     required this.rows,
     required this.winnerColor,
+    this.width = defaultWidth,
   });
+
+  static const double defaultWidth = 320;
 
   final String banner;
   final List<ShareRow> rows;
   final Color winnerColor;
+  final double width;
 
   @override
   Widget build(BuildContext context) {
     final locale = Localizations.localeOf(context).toString();
     return Container(
-      width: 320,
+      width: width,
       decoration: BoxDecoration(
         color: IKubbPalette.birchLight,
         borderRadius: BorderRadius.circular(IKubbRadius.xl),

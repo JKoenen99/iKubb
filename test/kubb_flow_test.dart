@@ -96,7 +96,7 @@ void main() {
     // Confirming loses on the spot: Team B takes the game and match.
     await tester.tap(find.byType(KubbKing));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('King'));
+    await tester.tap(find.text('Topple the king'));
     await tester.pumpAndSettle();
     expect(find.text('Team B wins!'), findsOneWidget);
   });

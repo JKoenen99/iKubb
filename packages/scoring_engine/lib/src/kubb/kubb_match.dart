@@ -10,8 +10,9 @@ import 'kubb_rules.dart';
 @immutable
 class KubbMatch {
   KubbMatch._(this.sides, this.rules, List<List<KubbEvent>> gameEvents)
-      : gameEvents = List.unmodifiable(
-            [for (final g in gameEvents) List<KubbEvent>.unmodifiable(g)]) {
+    : gameEvents = List.unmodifiable([
+        for (final g in gameEvents) List<KubbEvent>.unmodifiable(g),
+      ]) {
     games = List.unmodifiable([
       for (final (i, eventList) in this.gameEvents.indexed)
         _replayGame(i, eventList),
@@ -26,15 +27,14 @@ class KubbMatch {
     matchWinner = winCounts[0] >= needed
         ? sides[0]
         : winCounts[1] >= needed
-            ? sides[1]
-            : null;
+        ? sides[1]
+        : null;
   }
 
   factory KubbMatch.start({
     required List<Side> sides,
     KubbRules rules = KubbRules.classic,
-  }) =>
-      KubbMatch._(List.unmodifiable(sides), rules, const [[]]);
+  }) => KubbMatch._(List.unmodifiable(sides), rules, const [[]]);
 
   final List<Side> sides;
   final KubbRules rules;
@@ -93,25 +93,32 @@ class KubbMatch {
   bool get hasEvents => gameEvents.any((g) => g.isNotEmpty);
 
   Map<String, Object?> toJson() => {
-        'sides': [for (final s in sides) s.toJson()],
-        'rules': rules.toJson(),
-        'games': [
-          for (final g in gameEvents) [for (final e in g) e.toJson()],
-        ],
-      };
+    'sides': [for (final s in sides) s.toJson()],
+    'rules': rules.toJson(),
+    'games': [
+      for (final g in gameEvents) [for (final e in g) e.toJson()],
+    ],
+  };
 
-  factory KubbMatch.fromJson(Map<String, Object?> json) => KubbMatch._(
-        List.unmodifiable([
-          for (final s in json['sides'] as List)
-            Side.fromJson((s as Map).cast<String, Object?>()),
-        ]),
-        KubbRules.fromJson((json['rules'] as Map).cast<String, Object?>()),
-        [
-          for (final g in json['games'] as List)
-            [
-              for (final e in g as List)
-                KubbEvent.fromJson((e as Map).cast<String, Object?>()),
-            ],
-        ],
-      );
+  /// Every game is replayed through the engine's validation on
+  /// construction (see [_replayGame]), so a corrupt log throws instead of
+  /// resuming into an impossible match.
+  factory KubbMatch.fromJson(Map<String, Object?> json) {
+    final games = (json['games'] as List);
+    if (games.isEmpty) throw const FormatException('A match has ≥1 game');
+    return KubbMatch._(
+      List.unmodifiable([
+        for (final s in json['sides'] as List)
+          Side.fromJson((s as Map).cast<String, Object?>()),
+      ]),
+      KubbRules.fromJson((json['rules'] as Map).cast<String, Object?>()),
+      [
+        for (final g in games)
+          [
+            for (final e in g as List)
+              KubbEvent.fromJson((e as Map).cast<String, Object?>()),
+          ],
+      ],
+    );
+  }
 }

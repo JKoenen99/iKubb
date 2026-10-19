@@ -180,19 +180,19 @@ abstract class AppLocalizations {
   /// **'Undo'**
   String get undo;
 
-  /// No description provided for @needsExactly.
+  /// Helper line under the active side: points still needed
   ///
   /// In en, this message translates to:
   /// **'Needs exactly {points}'**
   String needsExactly(int points);
 
-  /// No description provided for @overshootWarning.
+  /// Confirm-button label when the selection would bust; value is the reset score
   ///
   /// In en, this message translates to:
   /// **'Overshoot — back to {resetScore}'**
   String overshootWarning(int resetScore);
 
-  /// No description provided for @winnerBanner.
+  /// Celebration banner with the winning side name
   ///
   /// In en, this message translates to:
   /// **'{name} wins!'**
@@ -264,11 +264,11 @@ abstract class AppLocalizations {
   /// **'Overshoot'**
   String get overshootRule;
 
-  /// No description provided for @policyReset.
+  /// Overshoot policy label; value is the score a side drops to
   ///
   /// In en, this message translates to:
   /// **'Back to {score}'**
-  String policyReset(Object score);
+  String policyReset(int score);
 
   /// No description provided for @policyHalf.
   ///
@@ -393,7 +393,7 @@ abstract class AppLocalizations {
   /// No description provided for @ruleFormationBody.
   ///
   /// In en, this message translates to:
-  /// **'The 12 numbered pins start in a tight diamond formation, 3 to 4 metres from the throwing line.'**
+  /// **'The 12 numbered pins start in a tight diamond formation, 3 to 4 meters from the throwing line.'**
   String get ruleFormationBody;
 
   /// No description provided for @rulePinsStandTitle.
@@ -405,7 +405,7 @@ abstract class AppLocalizations {
   /// No description provided for @rulePinsStandBody.
   ///
   /// In en, this message translates to:
-  /// **'After each throw, knocked pins are stood upright on the spot where they landed — the field spreads out as the game goes on.'**
+  /// **'After each throw, knocked-over pins are stood upright on the spot where they landed — the field spreads out as the game goes on.'**
   String get rulePinsStandBody;
 
   /// No description provided for @ruleTurnsTitle.
@@ -690,7 +690,7 @@ abstract class AppLocalizations {
   /// **'Home'**
   String get homeLabel;
 
-  /// No description provided for @pinSemantics.
+  /// VoiceOver label of one pin in the diagram
   ///
   /// In en, this message translates to:
   /// **'Pin {number}'**
@@ -713,12 +713,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You\'ll lose the game that\'s underway.'**
   String get newGameConfirmBody;
-
-  /// No description provided for @resumeGame.
-  ///
-  /// In en, this message translates to:
-  /// **'Resume game'**
-  String get resumeGame;
 
   /// No description provided for @theme.
   ///
@@ -783,7 +777,7 @@ abstract class AppLocalizations {
   /// No description provided for @bestOfThree.
   ///
   /// In en, this message translates to:
-  /// **'Best of 3'**
+  /// **'Best of three'**
   String get bestOfThree;
 
   /// No description provided for @turnClockLabel.
@@ -813,7 +807,7 @@ abstract class AppLocalizations {
   /// No description provided for @kingWarningBody.
   ///
   /// In en, this message translates to:
-  /// **'Not everything is down yet — hitting the king now loses the game.'**
+  /// **'Not everything is down yet — toppling the king now loses the game.'**
   String get kingWarningBody;
 
   /// No description provided for @advantageLine.
@@ -825,7 +819,7 @@ abstract class AppLocalizations {
   /// No description provided for @throwInTitle.
   ///
   /// In en, this message translates to:
-  /// **'Throw the knocked-over kubbs into the attacker\'s half.'**
+  /// **'Throw the knocked-over kubbs into the attackers\' half.'**
   String get throwInTitle;
 
   /// No description provided for @outTwice.
@@ -846,7 +840,7 @@ abstract class AppLocalizations {
   /// **'Next game'**
   String get nextGameLabel;
 
-  /// No description provided for @earlyKingBanner.
+  /// Shown when a team loses by toppling the king too early
   ///
   /// In en, this message translates to:
   /// **'{name} toppled the king too early!'**
@@ -891,19 +885,19 @@ abstract class AppLocalizations {
   /// No description provided for @ruleKubbFieldDetail.
   ///
   /// In en, this message translates to:
-  /// **'Tournament fields measure 5 × 8 metres. In the park, two jackets and a good guess work fine — just keep the halves roughly equal.'**
+  /// **'Tournament fields measure 5 × 8 meters. In the park, two jackets and a good guess work fine — just keep the halves roughly equal.'**
   String get ruleKubbFieldDetail;
 
   /// No description provided for @ruleKubbTeamsTitle.
   ///
   /// In en, this message translates to:
-  /// **'One to six a side'**
+  /// **'One to six per team'**
   String get ruleKubbTeamsTitle;
 
   /// No description provided for @ruleKubbTeamsBody.
   ///
   /// In en, this message translates to:
-  /// **'Kubb is a team game: one to six players per side. Teammates share the six batons and take turns throwing.'**
+  /// **'Kubb is a team game: one to six players per team. Teammates share the six batons and take turns throwing.'**
   String get ruleKubbTeamsBody;
 
   /// No description provided for @ruleKubbBatonsTitle.
@@ -999,7 +993,7 @@ abstract class AppLocalizations {
   /// No description provided for @ruleKubbEarlyKingBody.
   ///
   /// In en, this message translates to:
-  /// **'Knock the king over before everything else is down — even by accident — and your team loses the game on the spot.'**
+  /// **'Topple the king before everything else is down — even by accident — and your team loses the game on the spot.'**
   String get ruleKubbEarlyKingBody;
 
   /// No description provided for @ruleKubbMatchTitle.
@@ -1011,7 +1005,7 @@ abstract class AppLocalizations {
   /// No description provided for @ruleKubbMatchBody.
   ///
   /// In en, this message translates to:
-  /// **'Tournaments play a match as best of three games. The teams alternate which side opens each game.'**
+  /// **'Tournaments play a match as best of three games. The teams alternate which team opens each game.'**
   String get ruleKubbMatchBody;
 
   /// No description provided for @ruleKubbMatchDetail.
@@ -1092,23 +1086,17 @@ abstract class AppLocalizations {
   /// **'Decrease'**
   String get decreaseLabel;
 
-  /// No description provided for @kubbStandingSemantics.
+  /// VoiceOver label of a standing kubb block (1-based index)
   ///
   /// In en, this message translates to:
   /// **'Kubb {number}, standing'**
-  String kubbStandingSemantics(Object number);
+  String kubbStandingSemantics(int number);
 
-  /// No description provided for @kubbSelectedSemantics.
+  /// VoiceOver label of a kubb marked as felled this baton
   ///
   /// In en, this message translates to:
   /// **'Kubb {number}, marked as knocked over'**
-  String kubbSelectedSemantics(Object number);
-
-  /// No description provided for @kubbFelledSemantics.
-  ///
-  /// In en, this message translates to:
-  /// **'Kubb {number}, down'**
-  String kubbFelledSemantics(Object number);
+  String kubbSelectedSemantics(int number);
 
   /// No description provided for @kingSafeSemantics.
   ///
@@ -1119,20 +1107,20 @@ abstract class AppLocalizations {
   /// No description provided for @kingRiskySemantics.
   ///
   /// In en, this message translates to:
-  /// **'The king — hitting it now loses the game'**
+  /// **'The king — toppling it now loses the game'**
   String get kingRiskySemantics;
 
-  /// No description provided for @batonsLeftSemantics.
+  /// VoiceOver summary of the batons-left dot row
   ///
   /// In en, this message translates to:
   /// **'{remaining} of {total} batons left'**
-  String batonsLeftSemantics(Object remaining, Object total);
+  String batonsLeftSemantics(int remaining, int total);
 
-  /// No description provided for @missesSemantics.
+  /// VoiceOver summary of the miss-streak dot row
   ///
   /// In en, this message translates to:
   /// **'{count} of {limit} misses'**
-  String missesSemantics(Object count, Object limit);
+  String missesSemantics(int count, int limit);
 
   /// No description provided for @statsErrorBody.
   ///
@@ -1200,29 +1188,113 @@ abstract class AppLocalizations {
   /// **'Open-source licenses'**
   String get licensesLabel;
 
-  /// No description provided for @confirmThrowCount.
+  /// Confirm button with the points (or kubbs) the throw adds
   ///
   /// In en, this message translates to:
   /// **'Confirm throw (+{count})'**
-  String confirmThrowCount(Object count);
+  String confirmThrowCount(int count);
 
-  /// No description provided for @resumeGameSummary.
+  /// Home primary action for an interrupted game; summary lists sides and scores
   ///
   /// In en, this message translates to:
   /// **'Resume game · {summary}'**
-  String resumeGameSummary(Object summary);
+  String resumeGameSummary(String summary);
 
-  /// No description provided for @matchScore.
+  /// Games won in a best-of match, side A first
   ///
   /// In en, this message translates to:
   /// **'{a} – {b}'**
-  String matchScore(Object a, Object b);
+  String matchScore(int a, int b);
 
   /// No description provided for @deleteGameConfirmBody.
   ///
   /// In en, this message translates to:
   /// **'This game will be removed from your history.'**
   String get deleteGameConfirmBody;
+
+  /// No description provided for @newMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'New match'**
+  String get newMatch;
+
+  /// Default name for an unnamed quick-start player; n is 1-based
+  ///
+  /// In en, this message translates to:
+  /// **'Player {n}'**
+  String playerN(int n);
+
+  /// Compact seconds value, e.g. in the active-rules chips
+  ///
+  /// In en, this message translates to:
+  /// **'{seconds}s'**
+  String secondsShort(int seconds);
+
+  /// Accessibility label of the remove button in a setup player row
+  ///
+  /// In en, this message translates to:
+  /// **'Remove {name}'**
+  String removePlayer(String name);
+
+  /// No description provided for @showDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'More details'**
+  String get showDetails;
+
+  /// No description provided for @toppleKing.
+  ///
+  /// In en, this message translates to:
+  /// **'Topple the king'**
+  String get toppleKing;
+
+  /// VoiceOver label of the kubb turn clock
+  ///
+  /// In en, this message translates to:
+  /// **'{seconds} seconds left on the turn clock'**
+  String turnClockSemantics(int seconds);
+
+  /// VoiceOver label of the per-team kubbs-remaining number
+  ///
+  /// In en, this message translates to:
+  /// **'{count} baseline kubbs standing'**
+  String baselineStandingSemantics(int count);
+
+  /// No description provided for @opensRuleHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Opens the rule'**
+  String get opensRuleHint;
+
+  /// No description provided for @clearSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear search'**
+  String get clearSearch;
+
+  /// Announced to assistive tech after a scoring throw
+  ///
+  /// In en, this message translates to:
+  /// **'{name} scores {points}, now at {total}'**
+  String scoredAnnouncement(String name, int points, int total);
+
+  /// Announced to assistive tech after a miss
+  ///
+  /// In en, this message translates to:
+  /// **'{name} misses'**
+  String missAnnouncement(String name);
+
+  /// Announced to assistive tech after an overshoot
+  ///
+  /// In en, this message translates to:
+  /// **'{name} overshoots and drops to {total}'**
+  String overshootAnnouncement(String name, int total);
+
+  /// Announced to assistive tech when a side is eliminated
+  ///
+  /// In en, this message translates to:
+  /// **'{name} is out'**
+  String eliminatedAnnouncement(String name);
 }
 
 class _AppLocalizationsDelegate

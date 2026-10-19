@@ -2,6 +2,8 @@ import 'package:scoring_engine/scoring_engine.dart';
 import 'package:test/test.dart';
 
 void main() {
+  _corruptKubbDataTests();
+
   const ravens = Side(id: 'a', name: 'Ravens');
   const bears = Side(id: 'b', name: 'Bears');
 
@@ -20,7 +22,8 @@ void main() {
       final fellBaseline = fellField == 0 && baselineLeft > 0 ? 1 : 0;
       baselineLeft -= fellBaseline;
       game = game.applyEvent(
-          KubbBaton(felledField: fellField, felledBaseline: fellBaseline));
+        KubbBaton(felledField: fellField, felledBaseline: fellBaseline),
+      );
       if (game.phase != KubbPhase.throwing) break;
     }
     if (game.phase == KubbPhase.throwIn) {
@@ -36,8 +39,11 @@ void main() {
       expect(g.baseline, [5, 3]);
       expect(g.field, [2, 0], reason: 'thrown into the Ravens half');
       expect(g.attackerIndex, 1, reason: 'Bears attack next');
-      expect(g.targetFieldStanding, 2,
-          reason: 'Bears must clear the field kubbs in the Ravens half');
+      expect(
+        g.targetFieldStanding,
+        2,
+        reason: 'Bears must clear the field kubbs in the Ravens half',
+      );
     });
 
     test('a turn with no fells skips the throw-in', () {
@@ -150,8 +156,7 @@ void main() {
       return match;
     }
 
-    test('best-of-three plays to two game wins with alternating starts',
-        () {
+    test('best-of-three plays to two game wins with alternating starts', () {
       var m = KubbMatch.start(
         sides: const [ravens, bears],
         rules: KubbRules.tournament,
@@ -160,8 +165,11 @@ void main() {
       expect(m.wins, [1, 0]);
       expect(m.needsNextGame, isTrue);
       m = m.nextGame();
-      expect(m.currentGame.attackerIndex, 1,
-          reason: 'game two starts with the other side');
+      expect(
+        m.currentGame.attackerIndex,
+        1,
+        reason: 'game two starts with the other side',
+      );
       m = playGameTo(m, winnerSide: 1);
       expect(m.wins, [1, 1]);
       m = m.nextGame();
@@ -172,7 +180,9 @@ void main() {
 
     test('undo crosses game boundaries seamlessly', () {
       var m = KubbMatch.start(
-          sides: const [ravens, bears], rules: KubbRules.tournament);
+        sides: const [ravens, bears],
+        rules: KubbRules.tournament,
+      );
       m = playGameTo(m, winnerSide: 0);
       m = m.nextGame();
       expect(m.games.length, 2);
@@ -184,7 +194,9 @@ void main() {
 
     test('a match round-trips through JSON exactly', () {
       var m = KubbMatch.start(
-          sides: const [ravens, bears], rules: KubbRules.tournament);
+        sides: const [ravens, bears],
+        rules: KubbRules.tournament,
+      );
       m = m.applyEvent(const KubbBaton(felledBaseline: 1));
       m = m.applyEvent(const KubbBaton());
       final restored = KubbMatch.fromJson(m.toJson());
@@ -192,6 +204,49 @@ void main() {
       expect(restored.currentGame.batonsThrown, 2);
       expect(restored.rules, m.rules);
       expect(restored.undo().undo().currentGame.baseline, [5, 5]);
+    });
+  });
+}
+
+void _corruptKubbDataTests() {
+  group('corrupt persisted kubb data', () {
+    const sides = [Side(id: 'a', name: 'A'), Side(id: 'b', name: 'B')];
+
+    test('an impossible event log is rejected on restore', () {
+      final json = KubbMatch.start(sides: sides).toJson();
+      // Six field kubbs felled while none stand.
+      (json['games'] as List)[0] = [
+        {'type': 'baton', 'felledField': 6, 'felledBaseline': 0},
+      ];
+      expect(() => KubbMatch.fromJson(json), throwsArgumentError);
+    });
+
+    test('a throw-in outside the throw-in phase is rejected', () {
+      final json = KubbMatch.start(sides: sides).toJson();
+      (json['games'] as List)[0] = [
+        {'type': 'throwIn', 'penalties': 0},
+      ];
+      expect(() => KubbMatch.fromJson(json), throwsStateError);
+    });
+
+    test('an even best-of is rejected', () {
+      final json = KubbMatch.start(sides: sides).toJson();
+      (json['rules'] as Map)['bestOf'] = 2;
+      expect(() => KubbMatch.fromJson(json), throwsFormatException);
+    });
+
+    test('a match without games is rejected', () {
+      final json = KubbMatch.start(sides: sides).toJson();
+      json['games'] = [];
+      expect(() => KubbMatch.fromJson(json), throwsFormatException);
+    });
+
+    test('a valid match still round-trips', () {
+      final match = KubbMatch.start(sides: sides)
+          .applyEvent(const KubbBaton(felledBaseline: 2));
+      final restored = KubbMatch.fromJson(match.toJson());
+      expect(restored.currentGame.baseline[1], 3);
+      expect(restored.currentGame.batonsThrown, 1);
     });
   });
 }

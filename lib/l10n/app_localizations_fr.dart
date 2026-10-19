@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
+
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -90,7 +91,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get overshootRule => 'Dépassement';
 
   @override
-  String policyReset(Object score) {
+  String policyReset(int score) {
     return 'Retour à $score';
   }
 
@@ -333,9 +334,6 @@ class AppLocalizationsFr extends AppLocalizations {
   String get newGameConfirmBody => 'Vous perdrez la partie en cours.';
 
   @override
-  String get resumeGame => 'Reprendre la partie';
-
-  @override
   String get theme => 'Thème';
 
   @override
@@ -383,7 +381,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get kingWarningBody =>
-      'Tout n\'est pas encore tombé — toucher le roi maintenant fait perdre la manche.';
+      'Tout n\'est pas encore tombé — toucher le roi maintenant fait perdre la partie.';
 
   @override
   String get advantageLine => 'Ligne d\'avantage';
@@ -434,7 +432,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get ruleKubbTeamsBody =>
-      'Le kubb est un jeu d\'équipe : de un à six joueurs par camp. Les coéquipiers se partagent les six bâtons et lancent à tour de rôle.';
+      'Le kubb est un jeu d\'équipe : de un à six joueurs par équipe. Les coéquipiers se partagent les six bâtons et lancent à tour de rôle.';
 
   @override
   String get ruleKubbBatonsTitle => 'Six bâtons par tour';
@@ -544,18 +542,13 @@ class AppLocalizationsFr extends AppLocalizations {
   String get decreaseLabel => 'Diminuer';
 
   @override
-  String kubbStandingSemantics(Object number) {
+  String kubbStandingSemantics(int number) {
     return 'Kubb $number, debout';
   }
 
   @override
-  String kubbSelectedSemantics(Object number) {
+  String kubbSelectedSemantics(int number) {
     return 'Kubb $number, marqué comme renversé';
-  }
-
-  @override
-  String kubbFelledSemantics(Object number) {
-    return 'Kubb $number, à terre';
   }
 
   @override
@@ -566,12 +559,12 @@ class AppLocalizationsFr extends AppLocalizations {
       'Le roi — le toucher maintenant fait perdre la partie';
 
   @override
-  String batonsLeftSemantics(Object remaining, Object total) {
+  String batonsLeftSemantics(int remaining, int total) {
     return '$remaining bâtons sur $total restants';
   }
 
   @override
-  String missesSemantics(Object count, Object limit) {
+  String missesSemantics(int count, int limit) {
     return '$count échecs sur $limit';
   }
 
@@ -609,21 +602,81 @@ class AppLocalizationsFr extends AppLocalizations {
   String get licensesLabel => 'Licences open source';
 
   @override
-  String confirmThrowCount(Object count) {
+  String confirmThrowCount(int count) {
     return 'Confirmer le lancer (+$count)';
   }
 
   @override
-  String resumeGameSummary(Object summary) {
+  String resumeGameSummary(String summary) {
     return 'Reprendre la partie · $summary';
   }
 
   @override
-  String matchScore(Object a, Object b) {
+  String matchScore(int a, int b) {
     return '$a – $b';
   }
 
   @override
   String get deleteGameConfirmBody =>
       'Cette partie sera retirée de votre historique.';
+
+  @override
+  String get newMatch => 'Nouveau match';
+
+  @override
+  String playerN(int n) {
+    return 'Joueur $n';
+  }
+
+  @override
+  String secondsShort(int seconds) {
+    return '$seconds s';
+  }
+
+  @override
+  String removePlayer(String name) {
+    return 'Retirer $name';
+  }
+
+  @override
+  String get showDetails => 'Plus de détails';
+
+  @override
+  String get toppleKing => 'Renverser le roi';
+
+  @override
+  String turnClockSemantics(int seconds) {
+    return '$seconds secondes restantes à l\'horloge de tour';
+  }
+
+  @override
+  String baselineStandingSemantics(int count) {
+    return '$count kubbs de ligne de fond debout';
+  }
+
+  @override
+  String get opensRuleHint => 'Ouvre la règle';
+
+  @override
+  String get clearSearch => 'Effacer la recherche';
+
+  @override
+  String scoredAnnouncement(String name, int points, int total) {
+    return '$name marque $points, désormais à $total';
+  }
+
+  @override
+  String missAnnouncement(String name) {
+    return '$name rate';
+  }
+
+  @override
+  String overshootAnnouncement(String name, int total) {
+    return '$name dépasse et retombe à $total';
+  }
+
+  @override
+  String eliminatedAnnouncement(String name) {
+    return '$name est éliminé';
+  }
 }

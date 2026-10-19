@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
+
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -90,7 +91,7 @@ class AppLocalizationsFi extends AppLocalizations {
   String get overshootRule => 'Ylitys';
 
   @override
-  String policyReset(Object score) {
+  String policyReset(int score) {
     return 'Takaisin $score:een';
   }
 
@@ -104,7 +105,7 @@ class AppLocalizationsFi extends AppLocalizations {
   String get eliminationRule => 'Putoaminen';
 
   @override
-  String get missLimit => 'Hudit ennen putoamista';
+  String get missLimit => 'Ohiheitot ennen putoamista';
 
   @override
   String get shuffleOrder => 'Sekoita järjestys';
@@ -333,9 +334,6 @@ class AppLocalizationsFi extends AppLocalizations {
   String get newGameConfirmBody => 'Menetät käynnissä olevan pelin.';
 
   @override
-  String get resumeGame => 'Jatka peliä';
-
-  @override
   String get theme => 'Teema';
 
   @override
@@ -429,11 +427,11 @@ class AppLocalizationsFi extends AppLocalizations {
       'Turnauskentät ovat 5 × 8 metriä. Puistossa riittävät kaksi takkia ja hyvä arvio — pidä puoliskot suunnilleen yhtä suurina.';
 
   @override
-  String get ruleKubbTeamsTitle => 'Yhdestä kuuteen pelaajaa';
+  String get ruleKubbTeamsTitle => 'Yhdestä kuuteen per joukkue';
 
   @override
   String get ruleKubbTeamsBody =>
-      'Kubb on joukkuepeli: yhdestä kuuteen pelaajaa per puoli. Joukkuetoverit jakavat kuusi kapulaa ja heittävät vuorotellen.';
+      'Kubb on joukkuepeli: yhdestä kuuteen pelaajaa per joukkue. Joukkuetoverit jakavat kuusi kapulaa ja heittävät vuorotellen.';
 
   @override
   String get ruleKubbBatonsTitle => 'Kuusi kapulaa vuorossa';
@@ -501,7 +499,7 @@ class AppLocalizationsFi extends AppLocalizations {
 
   @override
   String get ruleKubbMatchDetail =>
-      'Vuorokellon ollessa päällä joukkueella on kiinteä aika kuuden kapulan heittoon. Kello on ohjeellinen — sovellus ei koskaan estä heittoa.';
+      'Heittokellon ollessa päällä joukkueella on kiinteä aika kuuden kapulan heittoon. Kello on ohjeellinen — sovellus ei koskaan estä heittoa.';
 
   @override
   String get tourModePickTitle => 'Mitä peliä pelaatte?';
@@ -543,18 +541,13 @@ class AppLocalizationsFi extends AppLocalizations {
   String get decreaseLabel => 'Vähennä';
 
   @override
-  String kubbStandingSemantics(Object number) {
+  String kubbStandingSemantics(int number) {
     return 'Kubb $number, pystyssä';
   }
 
   @override
-  String kubbSelectedSemantics(Object number) {
+  String kubbSelectedSemantics(int number) {
     return 'Kubb $number, merkitty kaatuneeksi';
-  }
-
-  @override
-  String kubbFelledSemantics(Object number) {
-    return 'Kubb $number, kaatunut';
   }
 
   @override
@@ -565,12 +558,12 @@ class AppLocalizationsFi extends AppLocalizations {
       'Kuningas — siihen osuminen nyt häviää pelin';
 
   @override
-  String batonsLeftSemantics(Object remaining, Object total) {
+  String batonsLeftSemantics(int remaining, int total) {
     return '$remaining/$total kapulaa jäljellä';
   }
 
   @override
-  String missesSemantics(Object count, Object limit) {
+  String missesSemantics(int count, int limit) {
     return '$count/$limit hutia';
   }
 
@@ -608,20 +601,80 @@ class AppLocalizationsFi extends AppLocalizations {
   String get licensesLabel => 'Avoimen lähdekoodin lisenssit';
 
   @override
-  String confirmThrowCount(Object count) {
+  String confirmThrowCount(int count) {
     return 'Vahvista heitto (+$count)';
   }
 
   @override
-  String resumeGameSummary(Object summary) {
+  String resumeGameSummary(String summary) {
     return 'Jatka peliä · $summary';
   }
 
   @override
-  String matchScore(Object a, Object b) {
+  String matchScore(int a, int b) {
     return '$a – $b';
   }
 
   @override
   String get deleteGameConfirmBody => 'Tämä peli poistetaan historiastasi.';
+
+  @override
+  String get newMatch => 'Uusi ottelu';
+
+  @override
+  String playerN(int n) {
+    return 'Pelaaja $n';
+  }
+
+  @override
+  String secondsShort(int seconds) {
+    return '$seconds s';
+  }
+
+  @override
+  String removePlayer(String name) {
+    return 'Poista $name';
+  }
+
+  @override
+  String get showDetails => 'Lisätietoja';
+
+  @override
+  String get toppleKing => 'Kaada kuningas';
+
+  @override
+  String turnClockSemantics(int seconds) {
+    return 'Heittokellossa $seconds sekuntia jäljellä';
+  }
+
+  @override
+  String baselineStandingSemantics(int count) {
+    return '$count takalinjan kubbia pystyssä';
+  }
+
+  @override
+  String get opensRuleHint => 'Avaa säännön';
+
+  @override
+  String get clearSearch => 'Tyhjennä haku';
+
+  @override
+  String scoredAnnouncement(String name, int points, int total) {
+    return '$name heittää $points, nyt $total';
+  }
+
+  @override
+  String missAnnouncement(String name) {
+    return '$name heittää ohi';
+  }
+
+  @override
+  String overshootAnnouncement(String name, int total) {
+    return '$name ylittää ja putoaa $total:een';
+  }
+
+  @override
+  String eliminatedAnnouncement(String name) {
+    return '$name putoaa pelistä';
+  }
 }

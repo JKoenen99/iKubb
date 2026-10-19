@@ -1,3 +1,4 @@
+import 'dart:async' show unawaited;
 import 'dart:io';
 
 import 'package:live_activities/live_activities.dart';
@@ -18,6 +19,11 @@ class _LiveScoreIos implements LiveScore {
   bool _initialized = false;
   String? _activityId;
   bool _busy = false;
+
+  /// The newest state that arrived while a platform call was in flight. It
+  /// runs as soon as the call finishes, so the Live Activity always ends on
+  /// the latest throw — including the winning one.
+  ({bool ended, Map<String, dynamic> data})? _pending;
 
   @override
   void sync(Game game) {
@@ -60,7 +66,10 @@ class _LiveScoreIos implements LiveScore {
     required bool ended,
     required Map<String, dynamic> data,
   }) async {
-    if (_busy) return; // last-write-wins; the next sync carries fresh state
+    if (_busy) {
+      _pending = (ended: ended, data: data); // last write wins, never lost
+      return;
+    }
     _busy = true;
     try {
       if (!_initialized) {
@@ -87,6 +96,10 @@ class _LiveScoreIos implements LiveScore {
       // Missing extension, iOS < 16.1, simulator, permissions — all fine.
     } finally {
       _busy = false;
+      if (_pending case final next?) {
+        _pending = null;
+        unawaited(_syncAsync(ended: next.ended, data: next.data));
+      }
     }
   }
 }

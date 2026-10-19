@@ -14,6 +14,7 @@ import 'stats.dart';
 import '../../theme/tokens.dart';
 import '../../theme/typography.dart';
 import '../../widgets/confirm_dialog.dart';
+
 import 'package:go_router/go_router.dart';
 
 /// Player statistics and game history (SPEC.md §3.5), computed by
@@ -30,6 +31,16 @@ class StatsScreen extends ConsumerStatefulWidget {
 
 class _StatsScreenState extends ConsumerState<StatsScreen> {
   GameMode? _filter;
+
+  /// Ids swiped away but not yet removed from storage: a dismissed
+  /// Dismissible must leave the tree in the same frame.
+  final Set<String> _dismissed = {};
+
+  Future<void> _delete(String id) async {
+    setState(() => _dismissed.add(id));
+    await ref.read(gameRecordsRepositoryProvider).deleteFinished(id);
+    ref.invalidate(gameHistoryProvider);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +60,8 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
         ],
       ),
       body: history.when(
-        loading: () => const Center(child: CircularProgressIndicator()),
+        loading: () =>
+            const Center(child: CircularProgressIndicator.adaptive()),
         error: (e, _) => Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -95,87 +107,97 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
               games.any((g) => g.isKubb) && games.any((g) => !g.isKubb);
           final filtered = [
             for (final g in games)
-              if (_filter == null ||
-                  (_filter == GameMode.classicKubb) == g.isKubb)
+              if (!_dismissed.contains(g.id) &&
+                  (_filter == null ||
+                      (_filter == GameMode.classicKubb) == g.isKubb))
                 g,
           ];
-          return Center(
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: IKubbLayout.maxPanel),
-              child: ListView(
-                padding: const EdgeInsets.all(IKubbSpacing.lg),
-                children: [
-                  SectionHeader(l10n.players, padded: true),
-                  for (final name in names)
-                    _PlayerCard(
-                      name: name,
-                      molkky: molkky[name],
-                      kubb: kubb[name],
-                      showSections: hasBothModes,
-                    ),
-                  const SizedBox(height: IKubbSpacing.lg),
-                  SectionHeader(l10n.historyTitle, padded: true),
-                  if (hasBothModes)
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: IKubbSpacing.sm),
-                      child: Wrap(
-                        spacing: 8,
-                        children: [
-                          for (final (label, value) in [
-                            (l10n.filterAll, null),
-                            (l10n.modeNumber, GameMode.numberKubb),
-                            (l10n.modeKubb, GameMode.classicKubb),
-                          ])
-                            FilterChip(
-                              label: Text(label),
-                              selected: _filter == value,
-                              onSelected: (_) =>
-                                  setState(() => _filter = value),
-                            ),
-                        ],
+          // SafeArea: the explicit ListView padding disables the automatic
+          // inset, so the last history row would hide under the home bar.
+          return SafeArea(
+            child: Center(
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(
+                  maxWidth: IKubbLayout.maxPanel,
+                ),
+                child: ListView(
+                  padding: const EdgeInsets.all(IKubbSpacing.lg),
+                  children: [
+                    SectionHeader(l10n.players, padded: true),
+                    for (final name in names)
+                      _PlayerCard(
+                        name: name,
+                        molkky: molkky[name],
+                        kubb: kubb[name],
+                        showSections: hasBothModes,
                       ),
-                    ),
-                  for (final finished in filtered)
-                    Dismissible(
-                      key: ValueKey(finished.id),
-                      direction: DismissDirection.endToStart,
-                      background: Container(
-                        alignment: Alignment.centerRight,
-                        padding: const EdgeInsets.only(right: IKubbSpacing.lg),
-                        decoration: BoxDecoration(
-                          color: IKubbPalette.berry,
-                          borderRadius: BorderRadius.circular(IKubbRadius.md),
-                        ),
-                        child: const Icon(
-                          Icons.delete_outline,
-                          color: IKubbPalette.birchLight,
+                    const SizedBox(height: IKubbSpacing.lg),
+                    SectionHeader(l10n.historyTitle, padded: true),
+                    if (hasBothModes)
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: IKubbSpacing.sm),
+                        child: Wrap(
+                          spacing: 8,
+                          children: [
+                            for (final (label, value) in [
+                              (l10n.filterAll, null),
+                              (l10n.modeNumber, GameMode.numberKubb),
+                              (l10n.modeKubb, GameMode.classicKubb),
+                            ])
+                              FilterChip(
+                                label: Text(label),
+                                selected: _filter == value,
+                                onSelected: (_) =>
+                                    setState(() => _filter = value),
+                              ),
+                          ],
                         ),
                       ),
-                      onDismissed: (_) async {
-                        await ref
-                            .read(gameRecordsRepositoryProvider)
-                            .deleteFinished(finished.id);
-                        ref.invalidate(gameHistoryProvider);
-                      },
-                      child: _HistoryTile(
-                        finished: finished,
-                        onDelete: () async {
-                          final confirmed = await confirmAdaptive(
-                            context,
-                            title: l10n.deleteGameLabel,
-                            body: l10n.deleteGameConfirmBody,
-                            confirmLabel: l10n.delete,
-                            isDestructive: true,
-                          );
-                          if (!confirmed) return;
-                          await ref
-                              .read(gameRecordsRepositoryProvider)
-                              .deleteFinished(finished.id);
-                          ref.invalidate(gameHistoryProvider);
-                        },
+                    for (final finished in filtered)
+                      Dismissible(
+                        key: ValueKey(finished.id),
+                        direction: DismissDirection.endToStart,
+                        // Swipe and long-press share one destructive confirm
+                        // (HIG: destructive actions need consent or undo).
+                        confirmDismiss: (_) => confirmAdaptive(
+                          context,
+                          title: l10n.deleteGameLabel,
+                          body: l10n.deleteGameConfirmBody,
+                          confirmLabel: l10n.delete,
+                          isDestructive: true,
+                        ),
+                        background: Container(
+                          alignment: Alignment.centerRight,
+                          padding: const EdgeInsets.only(
+                            right: IKubbSpacing.lg,
+                          ),
+                          decoration: BoxDecoration(
+                            color: IKubbPalette.berry,
+                            borderRadius: BorderRadius.circular(IKubbRadius.md),
+                          ),
+                          child: const Icon(
+                            Icons.delete_outline,
+                            color: IKubbPalette.birchLight,
+                          ),
+                        ),
+                        onDismissed: (_) => _delete(finished.id),
+                        child: _HistoryTile(
+                          finished: finished,
+                          onDelete: () async {
+                            final confirmed = await confirmAdaptive(
+                              context,
+                              title: l10n.deleteGameLabel,
+                              body: l10n.deleteGameConfirmBody,
+                              confirmLabel: l10n.delete,
+                              isDestructive: true,
+                            );
+                            if (!confirmed) return;
+                            await _delete(finished.id);
+                          },
+                        ),
                       ),
-                    ),
-                ],
+                  ],
+                ),
               ),
             ),
           );
@@ -340,9 +362,10 @@ class _HistoryTile extends StatelessWidget {
     final game = finished.game;
     final kubb = finished.kubbMatch;
     final summary = game != null
-        ? game.sideStates.map((s) => '${s.side.name} ${s.score}').join('  ·  ')
-        : '${kubb!.sides[0].name} ${kubb.wins[0]} – '
-              '${kubb.wins[1]} ${kubb.sides[1].name}';
+        ? game.sideStates.map((s) => '${s.side.name} ${s.score}').join(' · ')
+        : '${kubb!.sides[0].name} '
+              '${l10n.matchScore(kubb.wins[0], kubb.wins[1])} '
+              '${kubb.sides[1].name}';
     final winnerName = game?.winner?.name ?? kubb?.matchWinner?.name ?? '';
     return Semantics(
       customSemanticsActions: {
@@ -357,7 +380,7 @@ class _HistoryTile extends StatelessWidget {
         title: Text(summary, maxLines: 1, overflow: TextOverflow.ellipsis),
         subtitle: Text(
           '${DateFormat.yMMMd(locale).add_Hm().format(finished.finishedAt)}'
-          '  —  $winnerName',
+          ' · $winnerName',
         ),
         onLongPress: onDelete,
       ),

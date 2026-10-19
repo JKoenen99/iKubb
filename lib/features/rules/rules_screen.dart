@@ -28,10 +28,12 @@ class RulesScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: IKubbLayout.maxPanel),
-          child: const RulesView(),
+      body: SafeArea(
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: IKubbLayout.maxPanel),
+            child: const RulesView(),
+          ),
         ),
       ),
     );

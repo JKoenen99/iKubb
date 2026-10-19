@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:scoring_engine/scoring_engine.dart';
 
 import '../../l10n/app_localizations.dart';
+import '../../widgets/adaptive_choice.dart';
 import '../game/game_controller.dart';
 import '../game/game_mode.dart';
 import '../kubb/kubb_controller.dart';
@@ -61,8 +62,15 @@ class RulesView extends ConsumerStatefulWidget {
 }
 
 class _RulesViewState extends ConsumerState<RulesView> {
+  final _searchController = TextEditingController();
   String _query = '';
   GameMode? _modeOverride;
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -110,25 +118,32 @@ class _RulesViewState extends ConsumerState<RulesView> {
         IKubbSpacing.xl,
       ),
       children: [
-        SegmentedButton<GameMode>(
-          segments: [
-            ButtonSegment(
-              value: GameMode.numberKubb,
-              label: Text(l10n.modeNumber),
-            ),
-            ButtonSegment(
-              value: GameMode.classicKubb,
-              label: Text(l10n.modeKubb),
-            ),
+        AdaptiveChoice<GameMode>(
+          options: [
+            ChoiceOption(value: GameMode.numberKubb, label: l10n.modeNumber),
+            ChoiceOption(value: GameMode.classicKubb, label: l10n.modeKubb),
           ],
-          selected: {mode},
-          onSelectionChanged: (s) => setState(() => _modeOverride = s.first),
+          selected: mode,
+          onSelected: (m) => setState(() => _modeOverride = m),
         ),
         const SizedBox(height: IKubbSpacing.md),
         TextField(
+          controller: _searchController,
+          textInputAction: TextInputAction.search,
           decoration: InputDecoration(
             hintText: l10n.rulesSearchHint,
             prefixIcon: const Icon(Icons.search),
+            // A clear affordance, also the way out of "no results".
+            suffixIcon: _query.isEmpty
+                ? null
+                : IconButton(
+                    tooltip: l10n.clearSearch,
+                    icon: const Icon(Icons.clear),
+                    onPressed: () {
+                      _searchController.clear();
+                      setState(() => _query = '');
+                    },
+                  ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(IKubbRadius.lg),
             ),
@@ -179,9 +194,7 @@ class _RulesViewState extends ConsumerState<RulesView> {
 /// game being played. Both modes feed the same chip strip.
 List<String> _numberRuleChips(GameRules rules, AppLocalizations l10n) {
   final policyLabel = switch (rules.overshootPolicy) {
-    OvershootPolicy.resetToFixed => l10n.policyReset(
-      rules.overshootResetValue,
-    ),
+    OvershootPolicy.resetToFixed => l10n.policyReset(rules.overshootResetValue),
     OvershootPolicy.resetToHalfTarget =>
       '${l10n.policyHalf} (${rules.overshootResult()})',
     OvershootPolicy.none => l10n.policyNone,
@@ -191,7 +204,7 @@ List<String> _numberRuleChips(GameRules rules, AppLocalizations l10n) {
     policyLabel,
     rules.eliminationEnabled
         ? '${l10n.eliminationRule}: ${rules.missLimit}'
-        : '${l10n.eliminationRule}: —',
+        : '${l10n.eliminationRule}: ${l10n.offLabel}',
   ];
 }
 
@@ -199,7 +212,8 @@ List<String> _kubbRuleChips(KubbRules rules, AppLocalizations l10n) {
   final clock = rules.turnClockSeconds;
   return [
     rules.bestOf > 1 ? l10n.bestOfThree : l10n.bestOfSingle,
-    '${l10n.turnClockLabel}: ${clock == null ? l10n.offLabel : '${clock}s'}',
+    '${l10n.turnClockLabel}: '
+        '${clock == null ? l10n.offLabel : l10n.secondsShort(clock)}',
   ];
 }
 
@@ -255,26 +269,34 @@ class _RuleCardTile extends StatelessWidget {
                   labelStyle: Theme.of(context).textTheme.labelSmall,
                 ),
               ),
+            // Illustrations are decorative: the title and body carry the
+            // rule, so VoiceOver skips the drawn numbers and initials.
             if (ruleIllustration(card.id) case final illustration?)
-              Padding(
-                padding: const EdgeInsets.only(
-                  bottom: IKubbSpacing.md,
-                  top: IKubbSpacing.xxs,
+              ExcludeSemantics(
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    bottom: IKubbSpacing.md,
+                    top: IKubbSpacing.xxs,
+                  ),
+                  child: Center(child: illustration),
                 ),
-                child: Center(child: illustration),
               ),
             Text(card.title, style: IKubbType.strong),
             const SizedBox(height: IKubbSpacing.xs),
             Text(card.body),
             if (card.detail != null)
               Theme(
-                data: Theme.of(
-                  context,
-                ).copyWith(dividerColor: Colors.transparent),
+                data: Theme.of(context)
+                    .copyWith(dividerColor: Colors.transparent),
                 child: ExpansionTile(
                   tilePadding: EdgeInsets.zero,
                   dense: true,
-                  title: Icon(Icons.more_horiz, color: scheme.primary),
+                  // A named control, not a bare icon (HIG / WCAG 4.1.2).
+                  title: Text(
+                    AppLocalizations.of(context)!.showDetails,
+                    style: Theme.of(context).textTheme.labelLarge
+                        ?.copyWith(color: scheme.primary),
+                  ),
                   children: [
                     Align(
                       alignment: Alignment.centerLeft,

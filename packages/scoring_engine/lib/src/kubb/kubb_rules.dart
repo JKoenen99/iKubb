@@ -10,9 +10,9 @@ class KubbRules {
     this.batonsPerTurn = 6,
     this.bestOf = 1,
     this.turnClockSeconds,
-  })  : assert(baselineKubbs > 0),
-        assert(batonsPerTurn > 0),
-        assert(bestOf > 0 && bestOf % 2 == 1, 'bestOf must be odd');
+  }) : assert(baselineKubbs > 0),
+       assert(batonsPerTurn > 0),
+       assert(bestOf > 0 && bestOf % 2 == 1, 'bestOf must be odd');
 
   static const classic = KubbRules();
   static const tournament = KubbRules(bestOf: 3, turnClockSeconds: 60);
@@ -29,18 +29,32 @@ class KubbRules {
   int get gamesToWin => bestOf ~/ 2 + 1;
 
   Map<String, Object?> toJson() => {
-        'baselineKubbs': baselineKubbs,
-        'batonsPerTurn': batonsPerTurn,
-        'bestOf': bestOf,
-        'turnClockSeconds': turnClockSeconds,
-      };
+    'baselineKubbs': baselineKubbs,
+    'batonsPerTurn': batonsPerTurn,
+    'bestOf': bestOf,
+    'turnClockSeconds': turnClockSeconds,
+  };
 
-  factory KubbRules.fromJson(Map<String, Object?> json) => KubbRules(
-        baselineKubbs: (json['baselineKubbs'] as num).toInt(),
-        batonsPerTurn: (json['batonsPerTurn'] as num).toInt(),
-        bestOf: (json['bestOf'] as num).toInt(),
-        turnClockSeconds: (json['turnClockSeconds'] as num?)?.toInt(),
-      );
+  /// Persisted data is untrusted: the constructor's asserts only run in
+  /// debug builds, so the same invariants are enforced here explicitly.
+  factory KubbRules.fromJson(Map<String, Object?> json) {
+    final baseline = (json['baselineKubbs'] as num).toInt();
+    final batons = (json['batonsPerTurn'] as num).toInt();
+    final bestOf = (json['bestOf'] as num).toInt();
+    final clock = (json['turnClockSeconds'] as num?)?.toInt();
+    if (baseline <= 0 || batons <= 0 || bestOf <= 0 || bestOf.isEven) {
+      throw FormatException('Kubb rules out of range', json);
+    }
+    if (clock != null && clock <= 0) {
+      throw FormatException('turnClockSeconds must be positive', json);
+    }
+    return KubbRules(
+      baselineKubbs: baseline,
+      batonsPerTurn: batons,
+      bestOf: bestOf,
+      turnClockSeconds: clock,
+    );
+  }
 
   @override
   bool operator ==(Object other) =>

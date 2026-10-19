@@ -9,7 +9,8 @@ full specification and feature list.
 
 ## Getting started
 
-Requires Flutter 3.44+ (stable).
+Requires Flutter 3.47+ (stable); CI pins the exact version in
+`.github/workflows/web-preview.yml`.
 
 ```sh
 flutter pub get

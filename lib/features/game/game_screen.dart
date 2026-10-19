@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/semantics.dart' show SemanticsService;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:scoring_engine/scoring_engine.dart';
@@ -82,12 +83,50 @@ class _GameScreenState extends ConsumerState<GameScreen> {
   void _confirm() {
     ref.read(gameControllerProvider.notifier).confirmPins(_selected);
     setState(_selected.clear);
-    _hapticAfterThrow();
+    _afterThrow();
   }
 
   void _padScore(int score) {
     ref.read(gameControllerProvider.notifier).confirmScore(score);
+    _afterThrow();
+  }
+
+  void _afterThrow() {
     _hapticAfterThrow();
+    _announceLastThrow();
+  }
+
+  /// Tells assistive tech what the throw did — the score cards change
+  /// silently otherwise. Only on platforms that support announcements
+  /// (iOS/web); Android deprecates them in favor of live regions, and the
+  /// win banner already is one.
+  void _announceLastThrow() {
+    if (!MediaQuery.supportsAnnounceOf(context)) return;
+    final game = ref.read(gameControllerProvider);
+    if (game.records.isEmpty || game.winner != null) return;
+    final record = game.records.last;
+    final name = game.sides[record.sideIndex].name;
+    final l10n = AppLocalizations.of(context)!;
+    final message = switch (record.outcome) {
+      ThrowOutcome.scored => l10n.scoredAnnouncement(
+        name,
+        record.thrown.score,
+        record.scoreAfter,
+      ),
+      ThrowOutcome.miss => l10n.missAnnouncement(name),
+      ThrowOutcome.overshoot => l10n.overshootAnnouncement(
+        name,
+        record.scoreAfter,
+      ),
+      ThrowOutcome.eliminated => l10n.eliminatedAnnouncement(name),
+      ThrowOutcome.win => null,
+    };
+    if (message == null) return;
+    SemanticsService.sendAnnouncement(
+      View.of(context),
+      message,
+      Directionality.of(context),
+    ).ignore();
   }
 
   /// New game discards a running game — confirm first (HIG/Material:
@@ -136,7 +175,8 @@ class _GameScreenState extends ConsumerState<GameScreen> {
         // Three visible actions only (audit #4): rules and undo stay, the
         // rest lives in an overflow menu with labeled rows.
         appBar: AppBar(
-          title: Text(l10n.appTitle),
+          // The title names the screen, not the app (HIG).
+          title: Text(l10n.modeNumber),
           leading: homeLeading(context),
           actions: [
             IconButton(
@@ -195,10 +235,14 @@ class _GameScreenState extends ConsumerState<GameScreen> {
           fit: StackFit.expand,
           children: [
             SafeArea(
-              // iPad/wide: standings beside the input area (SPEC.md §3.4);
-              // tall/narrow: standings above it.
+              // iPad/wide and phone landscape: standings beside the input
+              // area (SPEC.md §3.4), so the pin diagram keeps its height
+              // and every pin stays a ≥44pt target; tall/narrow: standings
+              // above it.
               child: LayoutBuilder(
-                builder: (context, constraints) => constraints.maxWidth >= 840
+                builder: (context, constraints) =>
+                    constraints.maxWidth >= 840 ||
+                        constraints.maxWidth > constraints.maxHeight
                     ? Row(
                         children: [
                           Expanded(
@@ -359,7 +403,7 @@ class _GameScreenState extends ConsumerState<GameScreen> {
                   child: Text(
                     wouldBust
                         ? l10n.overshootWarning(game.rules.overshootResult()!)
-                        : '${l10n.confirmThrow} (+$throwScore)',
+                        : l10n.confirmThrowCount(throwScore),
                   ),
                 ),
               ),
@@ -401,29 +445,48 @@ class _Standings extends ConsumerWidget {
           ),
         ),
     ];
+    if (vertical) {
+      return Padding(
+        padding: const EdgeInsets.all(IKubbSpacing.lg),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            for (final card in cards)
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: IKubbSpacing.xs),
+                child: card,
+              ),
+          ],
+        ),
+      );
+    }
+    // Up to three sides share one strip; more wrap into rows of ≤3 so a
+    // card never drops below a readable width (number kubb allows up to
+    // eight sides).
+    final perRow = cards.length <= maxPerRow
+        ? cards.length
+        : (cards.length / (cards.length / maxPerRow).ceil()).ceil();
     return Padding(
       padding: const EdgeInsets.all(IKubbSpacing.lg),
-      child: vertical
-          ? Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+      child: Column(
+        children: [
+          for (var start = 0; start < cards.length; start += perRow)
+            Row(
               children: [
-                for (final card in cards)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: IKubbSpacing.xs,
-                    ),
-                    child: card,
-                  ),
+                for (var i = start; i < start + perRow; i++)
+                  i < cards.length ? Expanded(child: cards[i]) : const Spacer(),
               ],
-            )
-          : Row(children: cards),
+            ),
+        ],
+      ),
     );
   }
 
-  /// In the horizontal strip every card shares the width equally; stacked
-  /// vertically the cards size themselves.
-  Widget _wrap(bool vertical, Widget child) =>
-      vertical ? child : Expanded(child: child);
+  static const int maxPerRow = 3;
+
+  /// Stacked vertically the cards size themselves; in a strip the row
+  /// builder wraps each one in [Expanded].
+  Widget _wrap(bool vertical, Widget child) => child;
 }
 
 class _SideCard extends StatelessWidget {
@@ -450,17 +513,24 @@ class _SideCard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ColorDotName(color: color, name: state.side.name, textColor: onColor),
-        RollingNumber(
-          value: state.score,
-          style:
-              IKubbType.score(
-                size: IKubbType.stepScoreLg,
-                color: state.isEliminated ? danger : onColor,
-              ).copyWith(
-                decoration: state.isEliminated
-                    ? TextDecoration.lineThrough
-                    : null,
-              ),
+        // Scales down in a crowded strip instead of painting past the card.
+        Align(
+          alignment: Alignment.centerLeft,
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: RollingNumber(
+              value: state.score,
+              style:
+                  IKubbType.score(
+                    size: IKubbType.stepScoreLg,
+                    color: state.isEliminated ? danger : onColor,
+                  ).copyWith(
+                    decoration: state.isEliminated
+                        ? TextDecoration.lineThrough
+                        : null,
+                  ),
+            ),
+          ),
         ),
         if (isActive)
           Text(needsLine, style: IKubbType.caption.copyWith(color: onColor)),
@@ -480,17 +550,20 @@ class _SideCard extends StatelessWidget {
                   mode: GameMode.numberKubb,
                   categoryId: RuleCategoryIds.misses,
                 ),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: DotRow(
-                    count: missLimit,
-                    filled: state.missStreak,
-                    activeColor: IKubbPalette.berry,
-                    idleColor: onColor.withValues(alpha: IKubbAlpha.dotIdle),
-                    padding: EdgeInsets.zero,
-                    semanticLabel: AppLocalizations.of(
-                      context,
-                    )!.missesSemantics(state.missStreak, missLimit),
+                child: Semantics(
+                  button: true,
+                  hint: AppLocalizations.of(context)!.opensRuleHint,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: DotRow(
+                      count: missLimit,
+                      filled: state.missStreak,
+                      activeColor: IKubbPalette.berry,
+                      idleColor: onColor.withValues(alpha: IKubbAlpha.dotIdle),
+                      padding: EdgeInsets.zero,
+                      semanticLabel: AppLocalizations.of(context)!
+                          .missesSemantics(state.missStreak, missLimit),
+                    ),
                   ),
                 ),
               ),

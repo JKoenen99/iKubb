@@ -111,7 +111,7 @@ class CelebrationScaffold extends StatelessWidget {
           const VikingMascot(pose: MascotPose.cheer, size: 150),
           const SizedBox(height: IKubbSpacing.md),
         ],
-        banner,
+        Semantics(liveRegion: true, child: banner),
         if (scoreLine != null) ...[
           const SizedBox(height: IKubbSpacing.sm),
           scoreLine!,
@@ -127,42 +127,47 @@ class CelebrationScaffold extends StatelessWidget {
         ],
       ],
     );
-    return Stack(
-      fit: StackFit.expand,
-      children: [
-        ColoredBox(color: scrim),
-        if (celebrate)
-          const WoodGrainBackground(
-            color: IKubbPalette.birchLight,
-            opacity: IKubbAlpha.grain,
-          ),
-        SafeArea(
-          child: Center(
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(
-                maxWidth: IKubbLayout.maxOverlay,
-              ),
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.all(IKubbSpacing.xl),
-                child: celebrate
-                    ? TweenAnimationBuilder<double>(
-                        tween: Tween(begin: 0.9, end: 1),
-                        duration: IKubbMotion.resolve(
-                          context,
-                          IKubbMotion.gentle,
-                        ),
-                        curve: IKubbMotion.emphasized,
-                        builder: (context, scale, child) =>
-                            Transform.scale(scale: scale, child: child),
-                        child: content,
-                      )
-                    : content,
+    // The overlay covers the live game: BlockSemantics keeps VoiceOver from
+    // reaching the hidden pins and buttons, and the banner is a live
+    // region so the result is announced the moment it appears.
+    return BlockSemantics(
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          ColoredBox(color: scrim),
+          if (celebrate)
+            const WoodGrainBackground(
+              color: IKubbPalette.birchLight,
+              opacity: IKubbAlpha.grain,
+            ),
+          SafeArea(
+            child: Center(
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(
+                  maxWidth: IKubbLayout.maxOverlay,
+                ),
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.all(IKubbSpacing.xl),
+                  child: celebrate
+                      ? TweenAnimationBuilder<double>(
+                          tween: Tween(begin: 0.9, end: 1),
+                          duration: IKubbMotion.resolve(
+                            context,
+                            IKubbMotion.gentle,
+                          ),
+                          curve: IKubbMotion.emphasized,
+                          builder: (context, scale, child) =>
+                              Transform.scale(scale: scale, child: child),
+                          child: content,
+                        )
+                      : content,
+                ),
               ),
             ),
           ),
-        ),
-        if (celebrate) const ConfettiBurst(),
-      ],
+          if (celebrate) const ConfettiBurst(),
+        ],
+      ),
     );
   }
 }

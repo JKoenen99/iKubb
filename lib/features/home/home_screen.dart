@@ -36,6 +36,23 @@ class HomeScreen extends ConsumerWidget {
               .map((e) => '${e.$2.name} ${match.currentGame.baseline[e.$1]}')
               .join(' · ')
         : game.sideStates.map((s) => '${s.side.name} ${s.score}').join(' · ');
+
+    // Quick start never lands on a stale win overlay: a finished game
+    // restarts as a rematch, and untouched defaults get localized names.
+    void quickStart() {
+      if (mode == GameMode.classicKubb) {
+        ref
+            .read(kubbControllerProvider.notifier)
+            .quickStart(defaultNames: (l10n.teamA, l10n.teamB));
+        context.go('/kubb');
+      } else {
+        ref
+            .read(gameControllerProvider.notifier)
+            .quickStart(defaultName: l10n.playerN);
+        context.go('/game');
+      }
+    }
+
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
@@ -89,9 +106,7 @@ class HomeScreen extends ConsumerWidget {
                         )
                       else
                         FilledButton(
-                          onPressed: () => context.go(
-                            mode == GameMode.classicKubb ? '/kubb' : '/game',
-                          ),
+                          onPressed: quickStart,
                           child: Text(l10n.quickStart),
                         ),
                       const SizedBox(height: IKubbSpacing.md),

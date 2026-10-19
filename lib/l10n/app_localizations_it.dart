@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
+
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -90,7 +91,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get overshootRule => 'Superamento';
 
   @override
-  String policyReset(Object score) {
+  String policyReset(int score) {
     return 'Torna a $score';
   }
 
@@ -333,9 +334,6 @@ class AppLocalizationsIt extends AppLocalizations {
   String get newGameConfirmBody => 'Perderai la partita in corso.';
 
   @override
-  String get resumeGame => 'Riprendi la partita';
-
-  @override
   String get theme => 'Tema';
 
   @override
@@ -434,7 +432,7 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get ruleKubbTeamsBody =>
-      'Il kubb è un gioco di squadra: da uno a sei giocatori per lato. I compagni si dividono i sei bastoni e lanciano a turno.';
+      'Il kubb è un gioco di squadra: da uno a sei giocatori per squadra. I compagni si dividono i sei bastoni e lanciano a turno.';
 
   @override
   String get ruleKubbBatonsTitle => 'Sei bastoni a turno';
@@ -498,11 +496,11 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get ruleKubbMatchBody =>
-      'Nei tornei un incontro si gioca al meglio delle tre partite. Le squadre si alternano ad aprire ogni partita.';
+      'Nei tornei un incontro si gioca al meglio delle tre partite. Le squadre si alternano a decidere quale squadra apre ogni partita.';
 
   @override
   String get ruleKubbMatchDetail =>
-      'Con l\'orologio di turno attivo, la squadra ha un tempo fisso per i suoi sei bastoni. L\'orologio è indicativo — l\'app non blocca mai un lancio.';
+      'Con il timer del turno attivo, la squadra ha un tempo fisso per i suoi sei bastoni. Il timer è indicativo — l\'app non blocca mai un lancio.';
 
   @override
   String get tourModePickTitle => 'A quale gioco giocate?';
@@ -543,18 +541,13 @@ class AppLocalizationsIt extends AppLocalizations {
   String get decreaseLabel => 'Riduci';
 
   @override
-  String kubbStandingSemantics(Object number) {
+  String kubbStandingSemantics(int number) {
     return 'Kubb $number, in piedi';
   }
 
   @override
-  String kubbSelectedSemantics(Object number) {
+  String kubbSelectedSemantics(int number) {
     return 'Kubb $number, segnato come abbattuto';
-  }
-
-  @override
-  String kubbFelledSemantics(Object number) {
-    return 'Kubb $number, a terra';
   }
 
   @override
@@ -564,12 +557,12 @@ class AppLocalizationsIt extends AppLocalizations {
   String get kingRiskySemantics => 'Il re — colpirlo ora fa perdere la partita';
 
   @override
-  String batonsLeftSemantics(Object remaining, Object total) {
+  String batonsLeftSemantics(int remaining, int total) {
     return '$remaining bastoni su $total rimasti';
   }
 
   @override
-  String missesSemantics(Object count, Object limit) {
+  String missesSemantics(int count, int limit) {
     return '$count errori su $limit';
   }
 
@@ -607,21 +600,81 @@ class AppLocalizationsIt extends AppLocalizations {
   String get licensesLabel => 'Licenze open source';
 
   @override
-  String confirmThrowCount(Object count) {
+  String confirmThrowCount(int count) {
     return 'Conferma lancio (+$count)';
   }
 
   @override
-  String resumeGameSummary(Object summary) {
+  String resumeGameSummary(String summary) {
     return 'Riprendi la partita · $summary';
   }
 
   @override
-  String matchScore(Object a, Object b) {
+  String matchScore(int a, int b) {
     return '$a – $b';
   }
 
   @override
   String get deleteGameConfirmBody =>
       'Questa partita sarà rimossa dalla cronologia.';
+
+  @override
+  String get newMatch => 'Nuovo incontro';
+
+  @override
+  String playerN(int n) {
+    return 'Giocatore $n';
+  }
+
+  @override
+  String secondsShort(int seconds) {
+    return '$seconds s';
+  }
+
+  @override
+  String removePlayer(String name) {
+    return 'Rimuovi $name';
+  }
+
+  @override
+  String get showDetails => 'Più dettagli';
+
+  @override
+  String get toppleKing => 'Abbatti il re';
+
+  @override
+  String turnClockSemantics(int seconds) {
+    return '$seconds secondi rimasti sul timer del turno';
+  }
+
+  @override
+  String baselineStandingSemantics(int count) {
+    return '$count kubb di linea di fondo in piedi';
+  }
+
+  @override
+  String get opensRuleHint => 'Apre la regola';
+
+  @override
+  String get clearSearch => 'Cancella ricerca';
+
+  @override
+  String scoredAnnouncement(String name, int points, int total) {
+    return '$name segna $points, ora a $total';
+  }
+
+  @override
+  String missAnnouncement(String name) {
+    return '$name manca il tiro';
+  }
+
+  @override
+  String overshootAnnouncement(String name, int total) {
+    return '$name supera e scende a $total';
+  }
+
+  @override
+  String eliminatedAnnouncement(String name) {
+    return '$name è eliminato';
+  }
 }

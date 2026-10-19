@@ -42,6 +42,10 @@ class _KubbScreenState extends ConsumerState<KubbScreen> {
   Timer? _clock;
   int _secondsLeft = 0;
 
+  /// Identity of the turn the clock is counting; it only restarts when
+  /// this changes (a rebuild mid-turn must not reset the countdown).
+  String? _clockTurn;
+
   @override
   void dispose() {
     _clock?.cancel();
@@ -55,12 +59,20 @@ class _KubbScreenState extends ConsumerState<KubbScreen> {
 
   void _syncClock(KubbMatch match) {
     final seconds = match.rules.turnClockSeconds;
-    if (seconds == null || match.currentGame.isFinished) {
+    final game = match.currentGame;
+    if (seconds == null || game.isFinished) {
       _clock?.cancel();
       _clock = null;
+      _clockTurn = null;
       return;
     }
-    if (match.currentGame.batonsThrown == 0 || _clock == null) {
+    // A turn is one attacker's set of batons in one game; the throw-in
+    // between turns belongs to the turn that just ended.
+    final turn =
+        '${match.games.length}:${game.attackerIndex}:'
+        '${game.phase == KubbPhase.throwIn}';
+    if (_clockTurn != turn) {
+      _clockTurn = turn;
       _secondsLeft = seconds;
     }
     _clock ??= Timer.periodic(const Duration(seconds: 1), (_) {
@@ -89,7 +101,7 @@ class _KubbScreenState extends ConsumerState<KubbScreen> {
         context,
         title: l10n.kingWarningTitle,
         body: l10n.kingWarningBody,
-        confirmLabel: l10n.kingLabel,
+        confirmLabel: l10n.toppleKing, // names the action, not the piece
         isDestructive: true,
       );
       if (!confirmed) return;
@@ -109,7 +121,7 @@ class _KubbScreenState extends ConsumerState<KubbScreen> {
         context,
         title: l10n.newMatchConfirmTitle,
         body: l10n.newMatchConfirmBody,
-        confirmLabel: l10n.newGame,
+        confirmLabel: l10n.newMatch,
         isDestructive: true,
       );
       if (!confirmed) return;
@@ -173,11 +185,11 @@ class _KubbScreenState extends ConsumerState<KubbScreen> {
                   ),
                 ),
                 PopupMenuItem(
-                  value: 'newGame',
+                  value: 'newMatch',
                   child: ListTile(
                     contentPadding: EdgeInsets.zero,
                     leading: const Icon(Icons.restart_alt),
-                    title: Text(l10n.newGame),
+                    title: Text(l10n.newMatch),
                   ),
                 ),
               ],
@@ -324,12 +336,13 @@ class _KubbScreenState extends ConsumerState<KubbScreen> {
               blockHeight: 24,
               standing: game.field[game.attackerIndex],
               felled: 0,
+              labelBuilder: (i, {required down}) =>
+                  l10n.kubbStandingSemantics(i + 1),
             ),
           Text(
             attacker.name,
-            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-              color: Theme.of(context).colorScheme.primary,
-            ),
+            style: Theme.of(context).textTheme.titleMedium
+                ?.copyWith(color: Theme.of(context).colorScheme.primary),
           ),
           // Batons left this turn: filled = still in hand.
           DotRow(
@@ -419,13 +432,37 @@ class _KubbStandings extends ConsumerWidget {
           if (clockSeconds != null)
             Padding(
               padding: const EdgeInsets.only(left: IKubbSpacing.sm),
-              child: Text(
-                '$clockSeconds',
-                style: IKubbType.score(
-                  size: IKubbType.stepTitle,
-                  color: clockSeconds! <= 10
-                      ? IKubbPalette.danger(Theme.of(context).brightness)
-                      : scheme.onSurface,
+              // The last ten seconds change color AND gain an icon (WCAG
+              // 1.4.1), and the number reads as "x seconds left".
+              child: Semantics(
+                label: AppLocalizations.of(context)!
+                    .turnClockSemantics(clockSeconds!),
+                liveRegion: clockSeconds! <= 10,
+                child: ExcludeSemantics(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (clockSeconds! <= 10)
+                        Icon(
+                          Icons.timer_outlined,
+                          size: IKubbIconSize.md,
+                          color: IKubbPalette.danger(
+                            Theme.of(context).brightness,
+                          ),
+                        ),
+                      Text(
+                        '$clockSeconds',
+                        style: IKubbType.score(
+                          size: IKubbType.stepTitle,
+                          color: clockSeconds! <= 10
+                              ? IKubbPalette.danger(
+                                  Theme.of(context).brightness,
+                                )
+                              : scheme.onSurface,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -453,9 +490,18 @@ class _KubbStandings extends ConsumerWidget {
           name: match.sides[i].name,
           textColor: onColor,
         ),
-        Text(
-          '${game.baseline[i]}',
-          style: IKubbType.score(size: IKubbType.stepScoreCard, color: onColor),
+        Semantics(
+          label: AppLocalizations.of(context)!
+              .baselineStandingSemantics(game.baseline[i]),
+          child: ExcludeSemantics(
+            child: Text(
+              '${game.baseline[i]}',
+              style: IKubbType.score(
+                size: IKubbType.stepScoreCard,
+                color: onColor,
+              ),
+            ),
+          ),
         ),
         if (match.rules.bestOf > 1)
           DotRow(
@@ -567,7 +613,7 @@ class _KubbMatchOverlay extends ConsumerWidget {
         ),
         OverlayOutlinedButton(
           onPressed: () => context.go('/setup'),
-          child: Text(l10n.newGame),
+          child: Text(l10n.newMatch),
         ),
       ],
     );

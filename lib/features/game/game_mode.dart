@@ -14,13 +14,16 @@ class LastModeController extends Notifier<GameMode> {
     SharedPreferences.getInstance().then((prefs) {
       final stored = GameMode.values.asNameMap()[prefs.getString(_key)];
       if (stored != null && stored != state) state = stored;
-    });
+    }).ignore();
     return GameMode.numberKubb;
   }
 
   void set(GameMode mode) {
+    if (mode == state) return; // avoid a redundant write per throw
     state = mode;
-    SharedPreferences.getInstance().then((p) => p.setString(_key, mode.name));
+    SharedPreferences.getInstance()
+        .then((p) => p.setString(_key, mode.name))
+        .ignore();
   }
 }
 

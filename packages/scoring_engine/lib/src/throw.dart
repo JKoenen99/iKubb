@@ -12,14 +12,18 @@ class Throw {
   /// Pin-tap mode: [pins] are the numbers (1–12) of the pins that fell.
   /// An empty set is a miss.
   Throw.pins(Set<int> pins)
-      : assert(pins.every((p) => p >= 1 && p <= 12)),
-        pins = Set.unmodifiable(pins),
-        score = switch (pins.length) { 0 => 0, 1 => pins.first, final n => n };
+    : assert(pins.every((p) => p >= 1 && p <= 12)),
+      pins = Set.unmodifiable(pins),
+      score = switch (pins.length) {
+        0 => 0,
+        1 => pins.first,
+        final n => n,
+      };
 
   /// Number-pad mode: the score is entered directly (0 = miss).
   const Throw.score(this.score)
-      : assert(score >= 0 && score <= 12),
-        pins = null;
+    : assert(score >= 0 && score <= 12),
+      pins = null;
 
   /// The pins that fell, when known (pin-tap mode only).
   final Set<int>? pins;
@@ -29,12 +33,29 @@ class Throw {
 
   bool get isMiss => score == 0;
 
-  Map<String, Object?> toJson() =>
-      pins == null ? {'score': score} : {'pins': [...pins!]};
+  Map<String, Object?> toJson() => pins == null
+      ? {'score': score}
+      : {
+          'pins': [...pins!],
+        };
 
-  factory Throw.fromJson(Map<String, Object?> json) => json['pins'] != null
-      ? Throw.pins({for (final p in json['pins'] as List) (p as num).toInt()})
-      : Throw.score((json['score'] as num).toInt());
+  /// Persisted data is untrusted: values outside the 0–12 / 1–12 ranges
+  /// are rejected with a [FormatException] (the asserts in the constructors
+  /// only run in debug builds).
+  factory Throw.fromJson(Map<String, Object?> json) {
+    if (json['pins'] case final List pins) {
+      final set = {for (final p in pins) (p as num).toInt()};
+      if (set.any((p) => p < 1 || p > 12)) {
+        throw FormatException('Pin out of range', pins);
+      }
+      return Throw.pins(set);
+    }
+    final score = (json['score'] as num).toInt();
+    if (score < 0 || score > 12) {
+      throw FormatException('Score out of range', score);
+    }
+    return Throw.score(score);
+  }
 
   @override
   bool operator ==(Object other) =>

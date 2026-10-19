@@ -53,10 +53,15 @@ class _TourScreenState extends ConsumerState<TourScreen> {
       _finish(context);
       return;
     }
+    final duration = IKubbMotion.resolve(context, IKubbMotion.entrance);
+    if (duration == Duration.zero) {
+      _pageController.jumpToPage(_page + 1); // Reduce Motion: no slide
+      return;
+    }
     _pageController.animateToPage(
       _page + 1,
-      duration: IKubbMotion.entrance,
-      curve: Curves.easeOutCubic,
+      duration: duration,
+      curve: IKubbMotion.enter,
     );
   }
 
@@ -374,9 +379,8 @@ class _ScoringDemoCardState extends State<_ScoringDemoCard> {
             const SizedBox(height: IKubbSpacing.lg),
             RollingNumber(
               value: score,
-              style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                color: Theme.of(context).colorScheme.primary,
-              ),
+              style: Theme.of(context).textTheme.displayLarge
+                  ?.copyWith(color: Theme.of(context).colorScheme.primary),
             ),
             const SizedBox(height: IKubbSpacing.sm),
             Text(

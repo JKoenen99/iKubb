@@ -17,10 +17,15 @@ class RecentPlayersRepository {
     final prefs = await SharedPreferences.getInstance();
     final raw = prefs.getString(_key);
     if (raw == null) return const [];
-    final list = jsonDecode(raw) as List<dynamic>;
-    return [
-      for (final e in list) Player.fromJson((e as Map).cast<String, Object?>()),
-    ];
+    try {
+      final list = jsonDecode(raw) as List<dynamic>;
+      return [
+        for (final e in list)
+          Player.fromJson((e as Map).cast<String, Object?>()),
+      ];
+    } on Object {
+      return const []; // A corrupt list must never block starting a game.
+    }
   }
 
   /// Moves [used] to the front of the recents list and saves.
@@ -33,5 +38,10 @@ class RecentPlayersRepository {
       _key,
       jsonEncode([for (final p in merged.take(_cap)) p.toJson()]),
     );
+  }
+
+  Future<void> clear() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_key);
   }
 }

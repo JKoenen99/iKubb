@@ -5,6 +5,8 @@ import 'package:flutter/material.dart' show ThemeMode;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../l10n/app_localizations.dart';
+
 /// App settings (SPEC.md §3.8), each persisted individually and loaded
 /// lazily — a missing value falls back to the default without blocking
 /// startup.
@@ -17,16 +19,23 @@ class LocaleController extends Notifier<Locale?> {
   Locale? build() {
     SharedPreferences.getInstance().then((prefs) {
       final code = prefs.getString(_key);
-      if (code != null && code.isNotEmpty) state = Locale(code);
-    });
+      // Only restore a language the app actually ships; a stale or edited
+      // value falls back to the device language.
+      if (code != null &&
+          AppLocalizations.supportedLocales.any(
+            (l) => l.languageCode == code,
+          )) {
+        state = Locale(code);
+      }
+    }).ignore();
     return null;
   }
 
   void set(Locale? locale) {
     state = locale;
-    SharedPreferences.getInstance().then(
-      (p) => p.setString(_key, locale?.languageCode ?? ''),
-    );
+    SharedPreferences.getInstance()
+        .then((p) => p.setString(_key, locale?.languageCode ?? ''))
+        .ignore();
   }
 }
 
@@ -46,13 +55,13 @@ class _BoolSetting extends Notifier<bool> {
     SharedPreferences.getInstance().then((prefs) {
       final stored = prefs.getBool(key);
       if (stored != null && stored != state) state = stored;
-    });
+    }).ignore();
     return defaultValue;
   }
 
   void set(bool value) {
     state = value;
-    SharedPreferences.getInstance().then((p) => p.setBool(key, value));
+    SharedPreferences.getInstance().then((p) => p.setBool(key, value)).ignore();
   }
 }
 
@@ -66,13 +75,15 @@ class ThemeModeController extends Notifier<ThemeMode> {
       final stored = prefs.getString(_key);
       final mode = ThemeMode.values.asNameMap()[stored];
       if (mode != null && mode != state) state = mode;
-    });
+    }).ignore();
     return ThemeMode.system;
   }
 
   void set(ThemeMode mode) {
     state = mode;
-    SharedPreferences.getInstance().then((p) => p.setString(_key, mode.name));
+    SharedPreferences.getInstance()
+        .then((p) => p.setString(_key, mode.name))
+        .ignore();
   }
 }
 

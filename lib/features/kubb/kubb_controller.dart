@@ -13,6 +13,9 @@ import '../stats/game_records_repository.dart';
 class KubbController extends Notifier<KubbMatch> {
   late String _matchId;
 
+  /// Side ids of the built-in quick-start match (before any setup).
+  static const defaultSideIds = ['team-a', 'team-b'];
+
   @override
   KubbMatch build() {
     final restored = ref.read(restoredGameProvider);
@@ -55,25 +58,51 @@ class KubbController extends Notifier<KubbMatch> {
     _persist();
   }
 
+  /// Quick start from Home: a decided match restarts with the same teams,
+  /// an untouched default match takes the localized default team names.
+  void quickStart({required (String, String) defaultNames}) {
+    if (state.isFinished) {
+      newMatch();
+      return;
+    }
+    final untouchedDefaults =
+        !state.hasEvents &&
+        state.sides.indexed.every((e) => e.$2.id == defaultSideIds[e.$1]);
+    if (!untouchedDefaults) return;
+    final names = [defaultNames.$1, defaultNames.$2];
+    if (state.sides.indexed.any((e) => e.$2.name != names[e.$1])) {
+      newMatch(
+        sides: [
+          for (final (i, side) in state.sides.indexed)
+            Side(id: side.id, name: names[i]),
+        ],
+      );
+    }
+  }
+
   void _persist() {
     liveScore.syncKubb(state);
     ref.read(lastModeProvider.notifier).set(GameMode.classicKubb);
     final repo = ref.read(gameRecordsRepositoryProvider);
-    repo.saveActive(
-      ActiveRecord(
-        id: _matchId,
-        kubb: state,
-        sideColors: ref.read(sideColorsProvider),
-      ),
-    );
+    repo
+        .saveActive(
+          ActiveRecord(
+            id: _matchId,
+            kubb: state,
+            sideColors: ref.read(sideColorsProvider),
+          ),
+        )
+        .ignore();
     if (state.isFinished) {
-      repo.recordFinished(
-        FinishedGame(
-          id: _matchId,
-          finishedAt: DateTime.now(),
-          kubbMatch: state,
-        ),
-      );
+      repo
+          .recordFinished(
+            FinishedGame(
+              id: _matchId,
+              finishedAt: DateTime.now(),
+              kubbMatch: state,
+            ),
+          )
+          .ignore();
     }
   }
 }
