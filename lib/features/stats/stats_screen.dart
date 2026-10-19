@@ -390,7 +390,7 @@ class _HistoryTile extends StatelessWidget {
         contentPadding: EdgeInsets.zero,
         leading: Icon(
           finished.isKubb ? Icons.crop_square : Icons.emoji_events,
-          color: IKubbPalette.oak,
+          color: IKubbPalette.woodAccent(Theme.of(context).brightness),
         ),
         title: Text(summary, maxLines: 1, overflow: TextOverflow.ellipsis),
         subtitle: Text(

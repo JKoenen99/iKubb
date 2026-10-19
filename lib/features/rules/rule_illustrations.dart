@@ -149,11 +149,7 @@ class _AlternatingTurns extends StatelessWidget {
         border: Border.all(color: IKubbPalette.birchLight, width: 2),
       ),
     );
-    const arrow = Icon(
-      Icons.arrow_forward,
-      size: 20,
-      color: IKubbPalette.walnut,
-    );
+    const arrow = _WoodArrow();
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -171,20 +167,53 @@ class _AlternatingTurns extends StatelessWidget {
   }
 }
 
+/// The "then" arrow between illustration steps, in the wood accent that
+/// reads on the current surface (walnut on birch, sanded oak on charcoal).
+class _WoodArrow extends StatelessWidget {
+  const _WoodArrow();
+
+  @override
+  Widget build(BuildContext context) => Icon(
+    Icons.arrow_forward,
+    size: 20,
+    color: IKubbPalette.woodAccent(Theme.of(context).brightness),
+  );
+}
+
+/// The trophy glyph ("this wins"), same wood accent as the arrows.
+class _Trophy extends StatelessWidget {
+  const _Trophy({this.size = 28});
+
+  final double size;
+
+  @override
+  Widget build(BuildContext context) => Icon(
+    Icons.emoji_events,
+    size: size,
+    color: IKubbPalette.woodAccent(Theme.of(context).brightness),
+  );
+}
+
 /// The stick flies underhand: a low-to-high arc.
 class _UnderhandThrow extends StatelessWidget {
   const _UnderhandThrow();
 
   @override
-  Widget build(BuildContext context) => const SizedBox(
+  Widget build(BuildContext context) => SizedBox(
     width: 150,
     height: 64,
-    child: CustomPaint(painter: _UnderhandPainter()),
+    child: CustomPaint(
+      painter: _UnderhandPainter(
+        stick: IKubbPalette.woodAccent(Theme.of(context).brightness),
+      ),
+    ),
   );
 }
 
 class _UnderhandPainter extends CustomPainter {
-  const _UnderhandPainter();
+  const _UnderhandPainter({required this.stick});
+
+  final Color stick;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -217,7 +246,7 @@ class _UnderhandPainter extends CustomPainter {
     final stick = Paint()
       ..strokeWidth = 7
       ..strokeCap = StrokeCap.round
-      ..color = IKubbPalette.walnut;
+      ..color = this.stick;
     canvas.save();
     canvas.translate(size.width * 0.42, size.height * 0.28);
     canvas.rotate(-0.5);
@@ -226,7 +255,8 @@ class _UnderhandPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(_UnderhandPainter oldDelegate) => false;
+  bool shouldRepaint(_UnderhandPainter oldDelegate) =>
+      oldDelegate.stick != stick;
 }
 
 /// N pins down → the resulting score, side by side.
@@ -247,7 +277,7 @@ class _ScoreExample extends StatelessWidget {
             child: _MiniPin(number: pin, fallen: true, angle: 0.5),
           ),
         const SizedBox(width: 10),
-        const Icon(Icons.arrow_forward, size: 20, color: IKubbPalette.walnut),
+        const _WoodArrow(),
         const SizedBox(width: 10),
         _ScoreChip('+$score'),
       ],
@@ -350,7 +380,7 @@ class _ExactTarget extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 8),
-        const Icon(Icons.emoji_events, size: 28, color: IKubbPalette.oak),
+        const _Trophy(),
       ],
     );
   }
@@ -378,11 +408,7 @@ class _LastStanding extends StatelessWidget {
             child: const _MiniPin(fallen: true, angle: 0.9),
           ),
           const Positioned(left: 84, bottom: 0, child: _MiniPin()),
-          const Positioned(
-            left: 88,
-            top: 0,
-            child: Icon(Icons.emoji_events, size: 22, color: IKubbPalette.oak),
-          ),
+          const Positioned(left: 88, top: 0, child: _Trophy(size: 22)),
         ],
       ),
     );
@@ -439,7 +465,7 @@ class _BatonRow extends StatelessWidget {
                 width: 7,
                 height: 34,
                 decoration: BoxDecoration(
-                  color: IKubbPalette.walnut,
+                  color: IKubbPalette.woodAccent(Theme.of(context).brightness),
                   borderRadius: BorderRadius.circular(4),
                 ),
               ),
@@ -487,11 +513,7 @@ class _FieldFirstOrder extends StatelessWidget {
         numbered(const KubbBlock(width: 22, height: 30), '1'),
         const Padding(
           padding: EdgeInsets.only(bottom: 26, left: 8, right: 8),
-          child: Icon(
-            Icons.arrow_forward,
-            size: 20,
-            color: IKubbPalette.walnut,
-          ),
+          child: _WoodArrow(),
         ),
         numbered(const KubbBlock(), '2'),
       ],
@@ -514,7 +536,7 @@ class _PenaltyKubb extends StatelessWidget {
         Icon(Icons.cancel, size: 24, color: danger),
         Icon(Icons.cancel, size: 24, color: danger),
         const SizedBox(width: 10),
-        const Icon(Icons.arrow_forward, size: 20, color: IKubbPalette.walnut),
+        const _WoodArrow(),
         const SizedBox(width: 10),
         const KubbBlock(),
         const KubbKing(),
@@ -551,11 +573,7 @@ class _KingWins extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Row(
       mainAxisSize: MainAxisSize.min,
-      children: [
-        KubbKing(),
-        SizedBox(width: 12),
-        Icon(Icons.emoji_events, size: 30, color: IKubbPalette.oak),
-      ],
+      children: [KubbKing(), SizedBox(width: 12), _Trophy(size: 30)],
     );
   }
 }

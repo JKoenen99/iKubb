@@ -20,7 +20,9 @@ class OnboardingScreen extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          const WoodGrainBackground(color: IKubbPalette.walnut),
+          WoodGrainBackground(
+            color: IKubbPalette.woodGrain(Theme.of(context).brightness),
+          ),
           SafeArea(
             child: Center(
               child: ConstrainedBox(

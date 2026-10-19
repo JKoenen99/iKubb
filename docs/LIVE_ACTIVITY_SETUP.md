@@ -33,5 +33,5 @@ een Mac (signing + target-registratie).
 - Start bij de eerste worp; update bij elke worp/undo; verdwijnt bij
   winst of nieuw spel (en bij het geforceerd afsluiten van de app).
 - Compact: beide scores (oak/birch). Expanded: namen + scores + doel.
-- Merk-kleuren (birch/forest/oak) hardcoded in de widget — pas ze aan in
+- Merk-kleuren (birch/forest/oak, zie `docs/WOOD_PALETTE.md`) hardcoded in de widget — pas ze aan in
   `LiveScoreWidgetLiveActivity.swift` als de tokens ooit wijzigen.

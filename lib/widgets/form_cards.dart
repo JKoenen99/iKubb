@@ -538,7 +538,7 @@ class AvatarCircle extends StatelessWidget {
         child: Text(
           label,
           style: TextStyle(
-            color: IKubbPalette.birchLight,
+            color: IKubbPalette.on(color),
             fontWeight: FontWeight.w700,
             fontSize: size * 0.42,
           ),
@@ -584,7 +584,7 @@ class TintPill extends StatelessWidget {
               child: Text(
                 label,
                 style: IKubbType.emphasis.copyWith(
-                  color: IKubbPalette.birchLight,
+                  color: IKubbPalette.on(color),
                   fontSize: IKubbType.stepChip + 1,
                 ),
               ),

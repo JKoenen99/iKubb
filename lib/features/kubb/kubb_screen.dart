@@ -353,10 +353,9 @@ class _KubbScreenState extends ConsumerState<KubbScreen> {
           DotRow(
             count: game.rules.batonsPerTurn,
             filled: game.batonsRemaining,
-            activeColor: IKubbPalette.walnut,
-            idleColor: IKubbPalette.walnut.withValues(
-              alpha: IKubbAlpha.dotIdle,
-            ),
+            activeColor: IKubbPalette.woodAccent(Theme.of(context).brightness),
+            idleColor: IKubbPalette.woodAccent(Theme.of(context).brightness)
+                .withValues(alpha: IKubbAlpha.dotIdle),
             size: IKubbIconSize.md,
             padding: const EdgeInsets.all(IKubbSpacing.xs),
             semanticLabel: l10n.batonsLeftSemantics(

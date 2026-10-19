@@ -58,7 +58,9 @@ class HomeScreen extends ConsumerWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          const WoodGrainBackground(color: IKubbPalette.walnut),
+          WoodGrainBackground(
+            color: IKubbPalette.woodGrain(Theme.of(context).brightness),
+          ),
           SafeArea(
             child: Align(
               alignment: Alignment.topRight,

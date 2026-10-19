@@ -39,7 +39,7 @@ private struct ScoreData {
 // Brand palette.
 private let birch = Color(red: 0.961, green: 0.937, blue: 0.902)
 private let forestDeep = Color(red: 0.118, green: 0.200, blue: 0.165)
-private let oak = Color(red: 0.725, green: 0.541, blue: 0.306)
+private let oak = Color(red: 0.776, green: 0.561, blue: 0.263)
 
 struct LiveScoreWidgetLiveActivity: Widget {
   var body: some WidgetConfiguration {

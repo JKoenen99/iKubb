@@ -241,8 +241,10 @@ best-of-N with an indicative turn clock).
 
 - **Palette (design tokens).** Light birchwood neutrals for surfaces
   (`#F5EFE6`–`#E8DCC8` range), deep forest greens for primary actions and
-  brand (`#2F4A3C`, `#1E332A` range), warm oak/walnut tones for accents and
-  pin illustrations, off-black ink for text. Full light **and** dark themes
+  brand (`#2F4A3C`, `#1E332A` range), a four-tone wood ramp (sanded oak
+  `#DDB67A`, honey oak `#C68F43`, walnut `#5F3D25`, bark `#3B2616`; see
+  `docs/WOOD_PALETTE.md`) for accents and pin illustrations, off-black ink
+  for text. Full light **and** dark themes
   (dark = night-forest greens on deep charcoal-wood).
 - **Typography.** Clean humanist sans (SF Pro; rounded display cuts for
   scores); scores use large tabular-lining numerals.

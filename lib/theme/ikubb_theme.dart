@@ -22,13 +22,15 @@ abstract final class IKubbTheme {
     ),
   );
 
-  // Dark: oak is the accent of the redesign (selected cards, toggles,
-  // the Start button) — 6.3:1 on charcoal as text, ink on oak for fills.
+  // Dark: sanded oak is the accent (selected cards, toggles, the Start
+  // button): 8.7:1 on charcoal as text, ink on it for fills. Honey oak is
+  // reserved for pins, kubbs and player 1 so the accent never collides
+  // with an identity color.
   static ThemeData get dark => _base(
     const ColorScheme.dark(
-      primary: IKubbPalette.oak,
+      primary: IKubbPalette.oakLight,
       onPrimary: IKubbPalette.ink,
-      secondary: IKubbPalette.oak,
+      secondary: IKubbPalette.oakLight,
       onSecondary: IKubbPalette.ink,
       surface: IKubbPalette.charcoalWood,
       onSurface: IKubbPalette.birchLight,

@@ -1,0 +1,180 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="760" viewBox="0 0 1180 760" font-family="-apple-system, Helvetica, Arial, sans-serif">
+<rect width="1180" height="760" fill="#FFFFFF"/>
+<text x="24" y="36" font-size="22" fill="#22201B" font-weight="700" text-anchor="start">iKubb wood accents: before and after</text>
+<text x="24" y="58" font-size="13" fill="#555" font-weight="400" text-anchor="start">Rows: light theme on birch, dark theme on charcoal. Numbers are WCAG contrast ratios (AA text = 4.5:1, AA graphics = 3:1).</text>
+<rect x="24" y="80" width="560" height="290" rx="18" fill="#F5EFE6"/>
+<text x="44" y="112" font-size="16" fill="#22201B" font-weight="700" text-anchor="start">Before · light</text>
+<rect x="44.0" y="128" width="166.66666666666666" height="44" rx="8" fill="#B98A4E" stroke="#22201B" stroke-opacity="0.25"/>
+<text x="127.33333333333333" y="192" font-size="11" fill="#22201B" font-weight="600" text-anchor="middle">oak</text>
+<text x="127.33333333333333" y="206" font-size="10" fill="#22201B" font-weight="400" text-anchor="middle">#B98A4E</text>
+<rect x="220.66666666666666" y="128" width="166.66666666666666" height="44" rx="8" fill="#6B4A2F" stroke="#22201B" stroke-opacity="0.25"/>
+<text x="304.0" y="192" font-size="11" fill="#22201B" font-weight="600" text-anchor="middle">walnut</text>
+<text x="304.0" y="206" font-size="10" fill="#22201B" font-weight="400" text-anchor="middle">#6B4A2F</text>
+<rect x="397.3333333333333" y="128" width="166.66666666666666" height="44" rx="8" fill="#B05C2A" stroke="#22201B" stroke-opacity="0.25"/>
+<text x="480.66666666666663" y="192" font-size="11" fill="#22201B" font-weight="600" text-anchor="middle">copper</text>
+<text x="480.66666666666663" y="206" font-size="10" fill="#22201B" font-weight="400" text-anchor="middle">#B05C2A</text>
+<circle cx="74" cy="266" r="24" fill="#B98A4E" stroke="#6B4A2F" stroke-width="2.5"/>
+<circle cx="74" cy="266" r="13" fill="#E8DCC8"/>
+<text x="74" y="271" font-size="13" fill="#22201B" font-weight="700" text-anchor="middle">7</text>
+<g transform="rotate(20 134 290)"><circle cx="134" cy="266" r="24" fill="#6B4A2F" stroke="#E8DCC8" stroke-width="2.5"/><circle cx="134" cy="266" r="13" fill="#E8DCC8"/></g>
+<text x="104" y="316" font-size="11" fill="#22201B" font-weight="400" text-anchor="middle">pins</text>
+<rect x="184" y="246" width="150" height="44" rx="22" fill="#2F4A3C"/>
+<text x="259" y="274" font-size="14" fill="#F5EFE6" font-weight="700" text-anchor="middle">Start game →</text>
+<text x="259" y="316" font-size="11" fill="#22201B" font-weight="400" text-anchor="middle">primary</text>
+<circle cx="374" cy="266" r="20" fill="#B98A4E"/>
+<text x="374" y="272" font-size="16" fill="#F5EFE6" font-weight="700" text-anchor="middle">J</text>
+<text x="374" y="302" font-size="10" fill="#22201B" font-weight="400" text-anchor="middle">2.7:1</text>
+<circle cx="426" cy="266" r="20" fill="#B05C2A"/>
+<text x="426" y="272" font-size="16" fill="#F5EFE6" font-weight="700" text-anchor="middle">F</text>
+<text x="426" y="302" font-size="10" fill="#22201B" font-weight="400" text-anchor="middle">4.2:1</text>
+<circle cx="478" cy="266" r="20" fill="#4A6B8A"/>
+<text x="478" y="272" font-size="16" fill="#F5EFE6" font-weight="700" text-anchor="middle">E</text>
+<text x="478" y="302" font-size="10" fill="#22201B" font-weight="400" text-anchor="middle">4.9:1</text>
+<text x="426" y="316" font-size="11" fill="#22201B" font-weight="400" text-anchor="middle">avatars</text>
+<rect x="554" y="246" width="92" height="40" rx="20" fill="#6B4A2F"/>
+<text x="600" y="271" font-size="13" fill="#F5EFE6" font-weight="700" text-anchor="middle">Team A</text>
+<text x="600" y="316" font-size="11" fill="#22201B" font-weight="400" text-anchor="middle">pill</text>
+<path d="M684 266 h40 m-10 -10 l10 10 l-10 10" stroke="#6B4A2F" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M746 252 h22 v8 a11 11 0 0 1 -22 0 z M751 276 h12 v4 h-12 z" fill="#6B4A2F"/>
+<text x="724" y="302" font-size="10" fill="#22201B" font-weight="400" text-anchor="middle">6.9:1 on surface</text>
+<text x="724" y="316" font-size="11" fill="#22201B" font-weight="400" text-anchor="middle">wood icons</text>
+<rect x="814" y="242" width="150" height="50" rx="12" fill="#2F4A3C" fill-opacity="0.12" stroke="#2F4A3C" stroke-width="2"/>
+<circle cx="834" cy="267" r="7" fill="none" stroke="#2F4A3C" stroke-width="2"/><circle cx="834" cy="267" r="3.5" fill="#2F4A3C"/>
+<text x="850" y="272" font-size="13" fill="#22201B" font-weight="600" text-anchor="start">Number kubb</text>
+<text x="889" y="316" font-size="11" fill="#22201B" font-weight="400" text-anchor="middle">selected card</text>
+<rect x="596" y="80" width="560" height="290" rx="18" fill="#F5EFE6"/>
+<text x="616" y="112" font-size="16" fill="#22201B" font-weight="700" text-anchor="start">After · light</text>
+<rect x="616.0" y="128" width="96.0" height="44" rx="8" fill="#DDB67A" stroke="#22201B" stroke-opacity="0.25"/>
+<text x="664.0" y="192" font-size="11" fill="#22201B" font-weight="600" text-anchor="middle">oakLight</text>
+<text x="664.0" y="206" font-size="10" fill="#22201B" font-weight="400" text-anchor="middle">#DDB67A</text>
+<rect x="722.0" y="128" width="96.0" height="44" rx="8" fill="#C68F43" stroke="#22201B" stroke-opacity="0.25"/>
+<text x="770.0" y="192" font-size="11" fill="#22201B" font-weight="600" text-anchor="middle">oak</text>
+<text x="770.0" y="206" font-size="10" fill="#22201B" font-weight="400" text-anchor="middle">#C68F43</text>
+<rect x="828.0" y="128" width="96.0" height="44" rx="8" fill="#5F3D25" stroke="#22201B" stroke-opacity="0.25"/>
+<text x="876.0" y="192" font-size="11" fill="#22201B" font-weight="600" text-anchor="middle">walnut</text>
+<text x="876.0" y="206" font-size="10" fill="#22201B" font-weight="400" text-anchor="middle">#5F3D25</text>
+<rect x="934.0" y="128" width="96.0" height="44" rx="8" fill="#3B2616" stroke="#22201B" stroke-opacity="0.25"/>
+<text x="982.0" y="192" font-size="11" fill="#22201B" font-weight="600" text-anchor="middle">bark</text>
+<text x="982.0" y="206" font-size="10" fill="#22201B" font-weight="400" text-anchor="middle">#3B2616</text>
+<rect x="1040.0" y="128" width="96.0" height="44" rx="8" fill="#A85420" stroke="#22201B" stroke-opacity="0.25"/>
+<text x="1088.0" y="192" font-size="11" fill="#22201B" font-weight="600" text-anchor="middle">copper</text>
+<text x="1088.0" y="206" font-size="10" fill="#22201B" font-weight="400" text-anchor="middle">#A85420</text>
+<circle cx="646" cy="266" r="24" fill="#C68F43" stroke="#3B2616" stroke-width="2.5"/>
+<circle cx="646" cy="266" r="13" fill="#E8DCC8"/>
+<text x="646" y="271" font-size="13" fill="#22201B" font-weight="700" text-anchor="middle">7</text>
+<g transform="rotate(20 706 290)"><circle cx="706" cy="266" r="24" fill="#5F3D25" stroke="#E8DCC8" stroke-width="2.5"/><circle cx="706" cy="266" r="13" fill="#E8DCC8"/></g>
+<text x="676" y="316" font-size="11" fill="#22201B" font-weight="400" text-anchor="middle">pins</text>
+<rect x="756" y="246" width="150" height="44" rx="22" fill="#2F4A3C"/>
+<text x="831" y="274" font-size="14" fill="#F5EFE6" font-weight="700" text-anchor="middle">Start game →</text>
+<text x="831" y="316" font-size="11" fill="#22201B" font-weight="400" text-anchor="middle">primary</text>
+<circle cx="946" cy="266" r="20" fill="#C68F43"/>
+<text x="946" y="272" font-size="16" fill="#22201B" font-weight="700" text-anchor="middle">J</text>
+<text x="946" y="302" font-size="10" fill="#22201B" font-weight="400" text-anchor="middle">5.7:1</text>
+<circle cx="998" cy="266" r="20" fill="#A85420"/>
+<text x="998" y="272" font-size="16" fill="#F5EFE6" font-weight="700" text-anchor="middle">F</text>
+<text x="998" y="302" font-size="10" fill="#22201B" font-weight="400" text-anchor="middle">4.6:1</text>
+<circle cx="1050" cy="266" r="20" fill="#4A6B8A"/>
+<text x="1050" y="272" font-size="16" fill="#F5EFE6" font-weight="700" text-anchor="middle">E</text>
+<text x="1050" y="302" font-size="10" fill="#22201B" font-weight="400" text-anchor="middle">4.9:1</text>
+<text x="998" y="316" font-size="11" fill="#22201B" font-weight="400" text-anchor="middle">avatars</text>
+<rect x="1126" y="246" width="92" height="40" rx="20" fill="#5F3D25"/>
+<text x="1172" y="271" font-size="13" fill="#F5EFE6" font-weight="700" text-anchor="middle">Team A</text>
+<text x="1172" y="316" font-size="11" fill="#22201B" font-weight="400" text-anchor="middle">pill</text>
+<path d="M1256 266 h40 m-10 -10 l10 10 l-10 10" stroke="#5F3D25" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M1318 252 h22 v8 a11 11 0 0 1 -22 0 z M1323 276 h12 v4 h-12 z" fill="#5F3D25"/>
+<text x="1296" y="302" font-size="10" fill="#22201B" font-weight="400" text-anchor="middle">8.4:1 on surface</text>
+<text x="1296" y="316" font-size="11" fill="#22201B" font-weight="400" text-anchor="middle">wood icons</text>
+<rect x="1386" y="242" width="150" height="50" rx="12" fill="#2F4A3C" fill-opacity="0.12" stroke="#2F4A3C" stroke-width="2"/>
+<circle cx="1406" cy="267" r="7" fill="none" stroke="#2F4A3C" stroke-width="2"/><circle cx="1406" cy="267" r="3.5" fill="#2F4A3C"/>
+<text x="1422" y="272" font-size="13" fill="#22201B" font-weight="600" text-anchor="start">Number kubb</text>
+<text x="1461" y="316" font-size="11" fill="#22201B" font-weight="400" text-anchor="middle">selected card</text>
+<rect x="24" y="390" width="560" height="290" rx="18" fill="#181C18"/>
+<text x="44" y="422" font-size="16" fill="#F5EFE6" font-weight="700" text-anchor="start">Before · dark (primary was oak)</text>
+<rect x="44.0" y="438" width="166.66666666666666" height="44" rx="8" fill="#B98A4E" stroke="#F5EFE6" stroke-opacity="0.25"/>
+<text x="127.33333333333333" y="502" font-size="11" fill="#F5EFE6" font-weight="600" text-anchor="middle">oak</text>
+<text x="127.33333333333333" y="516" font-size="10" fill="#F5EFE6" font-weight="400" text-anchor="middle">#B98A4E</text>
+<rect x="220.66666666666666" y="438" width="166.66666666666666" height="44" rx="8" fill="#6B4A2F" stroke="#F5EFE6" stroke-opacity="0.25"/>
+<text x="304.0" y="502" font-size="11" fill="#F5EFE6" font-weight="600" text-anchor="middle">walnut</text>
+<text x="304.0" y="516" font-size="10" fill="#F5EFE6" font-weight="400" text-anchor="middle">#6B4A2F</text>
+<rect x="397.3333333333333" y="438" width="166.66666666666666" height="44" rx="8" fill="#B05C2A" stroke="#F5EFE6" stroke-opacity="0.25"/>
+<text x="480.66666666666663" y="502" font-size="11" fill="#F5EFE6" font-weight="600" text-anchor="middle">copper</text>
+<text x="480.66666666666663" y="516" font-size="10" fill="#F5EFE6" font-weight="400" text-anchor="middle">#B05C2A</text>
+<circle cx="74" cy="576" r="24" fill="#B98A4E" stroke="#6B4A2F" stroke-width="2.5"/>
+<circle cx="74" cy="576" r="13" fill="#E8DCC8"/>
+<text x="74" y="581" font-size="13" fill="#22201B" font-weight="700" text-anchor="middle">7</text>
+<g transform="rotate(20 134 600)"><circle cx="134" cy="576" r="24" fill="#6B4A2F" stroke="#E8DCC8" stroke-width="2.5"/><circle cx="134" cy="576" r="13" fill="#E8DCC8"/></g>
+<text x="104" y="626" font-size="11" fill="#F5EFE6" font-weight="400" text-anchor="middle">pins</text>
+<rect x="184" y="556" width="150" height="44" rx="22" fill="#B98A4E"/>
+<text x="259" y="584" font-size="14" fill="#22201B" font-weight="700" text-anchor="middle">Start game →</text>
+<text x="259" y="626" font-size="11" fill="#F5EFE6" font-weight="400" text-anchor="middle">primary</text>
+<circle cx="374" cy="576" r="20" fill="#B98A4E"/>
+<text x="374" y="582" font-size="16" fill="#F5EFE6" font-weight="700" text-anchor="middle">J</text>
+<text x="374" y="612" font-size="10" fill="#F5EFE6" font-weight="400" text-anchor="middle">2.7:1</text>
+<circle cx="426" cy="576" r="20" fill="#B05C2A"/>
+<text x="426" y="582" font-size="16" fill="#F5EFE6" font-weight="700" text-anchor="middle">F</text>
+<text x="426" y="612" font-size="10" fill="#F5EFE6" font-weight="400" text-anchor="middle">4.2:1</text>
+<circle cx="478" cy="576" r="20" fill="#4A6B8A"/>
+<text x="478" y="582" font-size="16" fill="#F5EFE6" font-weight="700" text-anchor="middle">E</text>
+<text x="478" y="612" font-size="10" fill="#F5EFE6" font-weight="400" text-anchor="middle">4.9:1</text>
+<text x="426" y="626" font-size="11" fill="#F5EFE6" font-weight="400" text-anchor="middle">avatars</text>
+<rect x="554" y="556" width="92" height="40" rx="20" fill="#6B4A2F"/>
+<text x="600" y="581" font-size="13" fill="#F5EFE6" font-weight="700" text-anchor="middle">Team A</text>
+<text x="600" y="626" font-size="11" fill="#F5EFE6" font-weight="400" text-anchor="middle">pill</text>
+<path d="M684 576 h40 m-10 -10 l10 10 l-10 10" stroke="#B98A4E" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M746 562 h22 v8 a11 11 0 0 1 -22 0 z M751 586 h12 v4 h-12 z" fill="#B98A4E"/>
+<text x="724" y="612" font-size="10" fill="#F5EFE6" font-weight="400" text-anchor="middle">5.6:1 on surface</text>
+<text x="724" y="626" font-size="11" fill="#F5EFE6" font-weight="400" text-anchor="middle">wood icons</text>
+<rect x="814" y="552" width="150" height="50" rx="12" fill="#B98A4E" fill-opacity="0.12" stroke="#B98A4E" stroke-width="2"/>
+<circle cx="834" cy="577" r="7" fill="none" stroke="#B98A4E" stroke-width="2"/><circle cx="834" cy="577" r="3.5" fill="#B98A4E"/>
+<text x="850" y="582" font-size="13" fill="#F5EFE6" font-weight="600" text-anchor="start">Number kubb</text>
+<text x="889" y="626" font-size="11" fill="#F5EFE6" font-weight="400" text-anchor="middle">selected card</text>
+<rect x="596" y="390" width="560" height="290" rx="18" fill="#181C18"/>
+<text x="616" y="422" font-size="16" fill="#F5EFE6" font-weight="700" text-anchor="start">After · dark (primary is sanded oak)</text>
+<rect x="616.0" y="438" width="96.0" height="44" rx="8" fill="#DDB67A" stroke="#F5EFE6" stroke-opacity="0.25"/>
+<text x="664.0" y="502" font-size="11" fill="#F5EFE6" font-weight="600" text-anchor="middle">oakLight</text>
+<text x="664.0" y="516" font-size="10" fill="#F5EFE6" font-weight="400" text-anchor="middle">#DDB67A</text>
+<rect x="722.0" y="438" width="96.0" height="44" rx="8" fill="#C68F43" stroke="#F5EFE6" stroke-opacity="0.25"/>
+<text x="770.0" y="502" font-size="11" fill="#F5EFE6" font-weight="600" text-anchor="middle">oak</text>
+<text x="770.0" y="516" font-size="10" fill="#F5EFE6" font-weight="400" text-anchor="middle">#C68F43</text>
+<rect x="828.0" y="438" width="96.0" height="44" rx="8" fill="#5F3D25" stroke="#F5EFE6" stroke-opacity="0.25"/>
+<text x="876.0" y="502" font-size="11" fill="#F5EFE6" font-weight="600" text-anchor="middle">walnut</text>
+<text x="876.0" y="516" font-size="10" fill="#F5EFE6" font-weight="400" text-anchor="middle">#5F3D25</text>
+<rect x="934.0" y="438" width="96.0" height="44" rx="8" fill="#3B2616" stroke="#F5EFE6" stroke-opacity="0.25"/>
+<text x="982.0" y="502" font-size="11" fill="#F5EFE6" font-weight="600" text-anchor="middle">bark</text>
+<text x="982.0" y="516" font-size="10" fill="#F5EFE6" font-weight="400" text-anchor="middle">#3B2616</text>
+<rect x="1040.0" y="438" width="96.0" height="44" rx="8" fill="#A85420" stroke="#F5EFE6" stroke-opacity="0.25"/>
+<text x="1088.0" y="502" font-size="11" fill="#F5EFE6" font-weight="600" text-anchor="middle">copper</text>
+<text x="1088.0" y="516" font-size="10" fill="#F5EFE6" font-weight="400" text-anchor="middle">#A85420</text>
+<circle cx="646" cy="576" r="24" fill="#C68F43" stroke="#3B2616" stroke-width="2.5"/>
+<circle cx="646" cy="576" r="13" fill="#E8DCC8"/>
+<text x="646" y="581" font-size="13" fill="#22201B" font-weight="700" text-anchor="middle">7</text>
+<g transform="rotate(20 706 600)"><circle cx="706" cy="576" r="24" fill="#5F3D25" stroke="#E8DCC8" stroke-width="2.5"/><circle cx="706" cy="576" r="13" fill="#E8DCC8"/></g>
+<text x="676" y="626" font-size="11" fill="#F5EFE6" font-weight="400" text-anchor="middle">pins</text>
+<rect x="756" y="556" width="150" height="44" rx="22" fill="#DDB67A"/>
+<text x="831" y="584" font-size="14" fill="#22201B" font-weight="700" text-anchor="middle">Start game →</text>
+<text x="831" y="626" font-size="11" fill="#F5EFE6" font-weight="400" text-anchor="middle">primary</text>
+<circle cx="946" cy="576" r="20" fill="#C68F43"/>
+<text x="946" y="582" font-size="16" fill="#22201B" font-weight="700" text-anchor="middle">J</text>
+<text x="946" y="612" font-size="10" fill="#F5EFE6" font-weight="400" text-anchor="middle">5.7:1</text>
+<circle cx="998" cy="576" r="20" fill="#A85420"/>
+<text x="998" y="582" font-size="16" fill="#F5EFE6" font-weight="700" text-anchor="middle">F</text>
+<text x="998" y="612" font-size="10" fill="#F5EFE6" font-weight="400" text-anchor="middle">4.6:1</text>
+<circle cx="1050" cy="576" r="20" fill="#4A6B8A"/>
+<text x="1050" y="582" font-size="16" fill="#F5EFE6" font-weight="700" text-anchor="middle">E</text>
+<text x="1050" y="612" font-size="10" fill="#F5EFE6" font-weight="400" text-anchor="middle">4.9:1</text>
+<text x="998" y="626" font-size="11" fill="#F5EFE6" font-weight="400" text-anchor="middle">avatars</text>
+<rect x="1126" y="556" width="92" height="40" rx="20" fill="#5F3D25"/>
+<text x="1172" y="581" font-size="13" fill="#F5EFE6" font-weight="700" text-anchor="middle">Team A</text>
+<text x="1172" y="626" font-size="11" fill="#F5EFE6" font-weight="400" text-anchor="middle">pill</text>
+<path d="M1256 576 h40 m-10 -10 l10 10 l-10 10" stroke="#DDB67A" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M1318 562 h22 v8 a11 11 0 0 1 -22 0 z M1323 586 h12 v4 h-12 z" fill="#DDB67A"/>
+<text x="1296" y="612" font-size="10" fill="#F5EFE6" font-weight="400" text-anchor="middle">9.1:1 on surface</text>
+<text x="1296" y="626" font-size="11" fill="#F5EFE6" font-weight="400" text-anchor="middle">wood icons</text>
+<rect x="1386" y="552" width="150" height="50" rx="12" fill="#DDB67A" fill-opacity="0.12" stroke="#DDB67A" stroke-width="2"/>
+<circle cx="1406" cy="577" r="7" fill="none" stroke="#DDB67A" stroke-width="2"/><circle cx="1406" cy="577" r="3.5" fill="#DDB67A"/>
+<text x="1422" y="582" font-size="13" fill="#F5EFE6" font-weight="600" text-anchor="start">Number kubb</text>
+<text x="1461" y="626" font-size="11" fill="#F5EFE6" font-weight="400" text-anchor="middle">selected card</text>
+<defs><linearGradient id="ramp" x1="0" x2="1"><stop offset="0" stop-color="#F5EFE6"/><stop offset="0.2" stop-color="#E8DCC8"/><stop offset="0.4" stop-color="#DDB67A"/><stop offset="0.6" stop-color="#C68F43"/><stop offset="0.8" stop-color="#5F3D25"/><stop offset="1" stop-color="#3B2616"/></linearGradient></defs>
+<rect x="24" y="704" width="1132" height="26" rx="8" fill="url(#ramp)"/>
+<text x="24" y="750" font-size="12" fill="#555" font-weight="400" text-anchor="start">One plank: birchLight · birch · oakLight · oak · walnut · bark (hue 37° → 27°, saturation rising as the wood darkens)</text>
+</svg>

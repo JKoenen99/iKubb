@@ -95,12 +95,15 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
                 ],
               ),
               const _SwatchGrid(
-                title: 'Wood accents',
+                title: 'Wood ramp (one material, light to dark)',
                 entries: [
-                  ('oak', IKubbPalette.oak),
-                  ('walnut', IKubbPalette.walnut),
+                  ('oakLight · dark accent', IKubbPalette.oakLight),
+                  ('oak · light fills, pins', IKubbPalette.oak),
+                  ('walnut · light accent, Team A', IKubbPalette.walnut),
+                  ('bark · edges, knots', IKubbPalette.bark),
                 ],
               ),
+              const _WoodRampStrip(),
               const _SwatchGrid(
                 title: 'Signals',
                 entries: [
@@ -632,6 +635,90 @@ class _Gap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => const SizedBox(height: IKubbSpacing.xl);
+}
+
+/// The ramp as one plank, and the accent pairings the palette promises
+/// (text on fill) with their measured contrast, so a change to a token
+/// shows its effect on this page before it reaches a screen.
+class _WoodRampStrip extends StatelessWidget {
+  const _WoodRampStrip();
+
+  static String _ratio(Color fg, Color bg) {
+    final a = fg.computeLuminance() + 0.05;
+    final b = bg.computeLuminance() + 0.05;
+    return '${(a > b ? a / b : b / a).toStringAsFixed(1)}:1';
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
+    final surface = Theme.of(context).colorScheme.surface;
+    final accent = IKubbPalette.woodAccent(brightness);
+    Widget pairing(String label, Color fg, Color bg) => Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: IKubbSpacing.md,
+        vertical: IKubbSpacing.sm,
+      ),
+      decoration: BoxDecoration(
+        color: bg,
+        borderRadius: BorderRadius.circular(IKubbRadius.sm),
+        border: Border.all(
+          color: Theme.of(context).colorScheme.onSurface
+              .withValues(alpha: IKubbAlpha.dotIdle),
+        ),
+      ),
+      child: Text(
+        '$label  ${_ratio(fg, bg)}',
+        style: IKubbType.caption.copyWith(
+          color: fg,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
+    );
+    return Padding(
+      padding: const EdgeInsets.only(bottom: IKubbSpacing.md),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            height: 28,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(IKubbRadius.sm),
+              gradient: const LinearGradient(
+                colors: [
+                  IKubbPalette.birchLight,
+                  IKubbPalette.birch,
+                  IKubbPalette.oakLight,
+                  IKubbPalette.oak,
+                  IKubbPalette.walnut,
+                  IKubbPalette.bark,
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: IKubbSpacing.sm),
+          Wrap(
+            spacing: IKubbSpacing.sm,
+            runSpacing: IKubbSpacing.sm,
+            children: [
+              pairing('ink on oak', IKubbPalette.ink, IKubbPalette.oak),
+              pairing(
+                'ink on oakLight',
+                IKubbPalette.ink,
+                IKubbPalette.oakLight,
+              ),
+              pairing(
+                'birch on walnut',
+                IKubbPalette.birchLight,
+                IKubbPalette.walnut,
+              ),
+              pairing('woodAccent on surface', accent, surface),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 class _SwatchGrid extends StatelessWidget {

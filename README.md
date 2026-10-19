@@ -77,6 +77,13 @@ skipped, team cards, and steppers for the house rules. The same cards
 (`lib/widgets/form_cards.dart`) build Settings and the `/designsystem`
 page. Design notes: [docs/NEW_GAME_REDESIGN.md](docs/NEW_GAME_REDESIGN.md).
 
+## Wood palette
+
+Accents come from a four-tone wood ramp (sanded oak, honey oak, walnut,
+bark), each tone placed where it passes WCAG AA, with theme-aware helpers
+for icons and grain. Rationale and contrast table:
+[docs/WOOD_PALETTE.md](docs/WOOD_PALETTE.md).
+
 ## Layout
 
 - `lib/` — app code (theme tokens, router, feature folders, 10-language ARB catalogs)

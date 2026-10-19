@@ -71,6 +71,7 @@ class _Particle {
     IKubbPalette.forest,
     IKubbPalette.pine,
     IKubbPalette.oak,
+    IKubbPalette.oakLight,
     IKubbPalette.amber,
     IKubbPalette.birch,
   ];

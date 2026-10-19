@@ -71,7 +71,7 @@ class _Pin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Wooden pins in both themes (UX audit #3/#8): standing = light oak,
-    // fallen = dark walnut; the number sits on a painted birch disc, like
+    // fallen = walnut, edged in bark; the number sits on a birch disc, like
     // a number painted on the wood.
     return Semantics(
       button: onTap != null,
@@ -91,7 +91,7 @@ class _Pin extends StatelessWidget {
             color: isDown ? IKubbPalette.walnut : IKubbPalette.oak,
             shape: BoxShape.circle,
             border: Border.all(
-              color: isDown ? IKubbPalette.birch : IKubbPalette.walnut,
+              color: isDown ? IKubbPalette.birch : IKubbPalette.bark,
               width: 2.5,
             ),
           ),

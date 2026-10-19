@@ -5,7 +5,8 @@ import '../../theme/tokens.dart';
 import '../../theme/typography.dart';
 
 /// A wooden kubb block in the game's visual language: oak standing,
-/// walnut when (marked as) felled — the same wood grammar as the pins.
+/// walnut when (marked as) felled, edged in bark — the same wood grammar
+/// as the pins.
 /// Interactive blocks get a ≥44pt hit area around the small visual and a
 /// full semantic identity (role, label, selected state).
 class KubbBlock extends StatelessWidget {
@@ -43,7 +44,7 @@ class KubbBlock extends StatelessWidget {
         color: down ? IKubbPalette.walnut : IKubbPalette.oak,
         borderRadius: BorderRadius.circular(6),
         border: Border.all(
-          color: down ? IKubbPalette.birch : IKubbPalette.walnut,
+          color: down ? IKubbPalette.birch : IKubbPalette.bark,
           width: IKubbBorder.line,
         ),
       ),
