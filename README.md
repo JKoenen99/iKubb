@@ -84,6 +84,14 @@ bark), each tone placed where it passes WCAG AA, with theme-aware helpers
 for icons and grain. Rationale and contrast table:
 [docs/WOOD_PALETTE.md](docs/WOOD_PALETTE.md).
 
+## Inputs and the design-system catalog
+
+Every input follows one recipe (quiet fill, neutral line at rest, primary
+line on focus): [docs/INPUTS.md](docs/INPUTS.md). The `/designsystem`
+page documents every token and component Storybook-style, with props,
+variants and accessibility notes, in both themes:
+[docs/DESIGN_SYSTEM.md](docs/DESIGN_SYSTEM.md).
+
 ## Layout
 
 - `lib/` — app code (theme tokens, router, feature folders, 10-language ARB catalogs)

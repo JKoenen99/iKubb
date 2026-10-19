@@ -61,6 +61,6 @@ verlagen de eerste knop.
 - Visuele controle op een iPhone met iOS 26 en met Reduce Transparency
   aan; die instelling is in Flutter niet uitleesbaar, dus het dekkende
   fallbackpad is alleen via Increase Contrast getest.
-- De `/designsystem`-reviewpagina toont de glascomponenten nog niet;
-  de kaartcomponenten van de New game-redesign staan er wel (zie
-  `NEW_GAME_REDESIGN.md`).
+- De `/designsystem`-pagina toont de glascomponenten met een
+  "Preview iOS chrome"-schakelaar (zie `DESIGN_SYSTEM.md`); een echte
+  blur-controle blijft toestelwerk.
