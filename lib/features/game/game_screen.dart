@@ -22,7 +22,9 @@ import 'mascot_reaction.dart';
 import 'number_pad.dart';
 import 'pin_diagram.dart';
 import 'win_overlay.dart';
+import '../../theme/glass.dart';
 import '../../theme/tokens.dart';
+import '../../widgets/ikubb_app_bar.dart';
 import '../../widgets/confirm_dialog.dart';
 import '../settings/haptics.dart';
 
@@ -172,9 +174,10 @@ class _GameScreenState extends ConsumerState<GameScreen> {
 
     return KeepAwake(
       child: Scaffold(
+        extendBodyBehindAppBar: LiquidGlass.isCupertino(context),
         // Three visible actions only (audit #4): rules and undo stay, the
         // rest lives in an overflow menu with labeled rows.
-        appBar: AppBar(
+        appBar: IKubbAppBar(
           // The title names the screen, not the app (HIG).
           title: Text(l10n.modeNumber),
           leading: homeLeading(context),
@@ -370,13 +373,7 @@ class _GameScreenState extends ConsumerState<GameScreen> {
             ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(
-            IKubbSpacing.lg,
-            0,
-            IKubbSpacing.lg,
-            IKubbSpacing.lg,
-          ),
+        BottomActionBar(
           child: Row(
             children: [
               Expanded(

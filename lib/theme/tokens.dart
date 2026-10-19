@@ -31,6 +31,17 @@ abstract final class IKubbRadius {
 
   /// Large surfaces: overlays, scoreboard columns, share card.
   static const double xl = 24;
+
+  /// Liquid Glass containers (bars, button groups): concentric with the
+  /// capsule controls inside them (HIG: rounder forms nestle into the
+  /// display corners).
+  static const double glass = 26;
+
+  /// Sheets on iOS 26: the increased corner radius of inset half sheets.
+  static const double sheet = 34;
+
+  /// Pills and circular buttons.
+  static const double capsule = 999;
 }
 
 abstract final class IKubbBorder {
@@ -60,6 +71,9 @@ abstract final class IKubbMotion {
   static const emphasized = Curves.easeOutBack;
   static const enter = Curves.easeOutCubic;
 
+  /// Backdrop blur radius of Liquid Glass surfaces.
+  static const double glassBlur = 18;
+
   /// [duration], or zero when the platform asks for reduced motion.
   static Duration resolve(BuildContext context, Duration duration) =>
       MediaQuery.disableAnimationsOf(context) ? Duration.zero : duration;
@@ -81,6 +95,21 @@ abstract final class IKubbAlpha {
 
   /// Wood-grain texture on brand surfaces.
   static const double grain = 0.06;
+
+  // Liquid Glass (iOS). Regular glass tints the blurred backdrop with the
+  // surface color strongly enough that onSurface text stays AA; clear
+  // glass dims rich media by the HIG's 35% before anything sits on it.
+  static const double glassTint = 0.72;
+  static const double glassDim = 0.35;
+
+  /// Specular rim and top sheen: the optical cue that reads as glass.
+  static const double glassRim = 0.18;
+  static const double glassRimOpaque = 0.3;
+  static const double glassSheen = 0.16;
+  static const double glassShadow = 0.16;
+
+  /// Monochrome secondary buttons inside a glass toolbar.
+  static const double glassControl = 0.1;
 }
 
 abstract final class IKubbIconSize {

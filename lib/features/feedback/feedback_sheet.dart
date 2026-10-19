@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../l10n/app_localizations.dart';
+import '../../theme/glass.dart';
 import '../../theme/tokens.dart';
 import '../../theme/typography.dart';
 import 'feedback_controller.dart';
@@ -36,12 +37,15 @@ Future<FeedbackResult?> showFeedbackSheet(
     context: context,
     isScrollControlled: true,
     useSafeArea: true,
-    showDragHandle: true,
+    showDragHandle: !LiquidGlass.isCupertino(context),
     constraints: const BoxConstraints(maxWidth: IKubbLayout.maxPanel),
-    builder: (context) => _FeedbackForm(
-      trigger: trigger,
-      initialRating: initialRating,
-      eventContext: eventContext,
+    builder: (context) => glassSheet(
+      context,
+      _FeedbackForm(
+        trigger: trigger,
+        initialRating: initialRating,
+        eventContext: eventContext,
+      ),
     ),
   );
   if (!context.mounted) return result;

@@ -25,7 +25,9 @@ import '../settings/haptics.dart';
 import '../setup/player.dart' show playerColors;
 import 'kubb_controller.dart';
 import 'kubb_field.dart';
+import '../../theme/glass.dart';
 import '../../theme/tokens.dart';
+import '../../widgets/ikubb_app_bar.dart';
 
 /// Classic kubb (SPEC: teams + king): the attacker always plays from the
 /// bottom of the field; tap the blocks a baton felled, confirm per baton.
@@ -141,7 +143,8 @@ class _KubbScreenState extends ConsumerState<KubbScreen> {
 
     return KeepAwake(
       child: Scaffold(
-        appBar: AppBar(
+        extendBodyBehindAppBar: LiquidGlass.isCupertino(context),
+        appBar: IKubbAppBar(
           title: Text(l10n.modeKubb),
           leading: homeLeading(context),
           actions: [
@@ -379,13 +382,7 @@ class _KubbScreenState extends ConsumerState<KubbScreen> {
       );
     }
     final selection = _selectedField.length + _selectedBaseline.length;
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(
-        IKubbSpacing.lg,
-        0,
-        IKubbSpacing.lg,
-        IKubbSpacing.lg,
-      ),
+    return BottomActionBar(
       child: Row(
         children: [
           Expanded(

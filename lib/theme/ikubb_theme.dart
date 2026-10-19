@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart' show CupertinoPageTransitionsBuilder;
+import 'package:flutter/foundation.dart' show defaultTargetPlatform;
 import 'package:flutter/material.dart';
 
 import 'palette.dart';
@@ -35,6 +36,20 @@ abstract final class IKubbTheme {
     ),
   );
 
+  /// iOS/macOS get the Liquid Glass idiom: capsule-shaped controls that
+  /// are concentric with the glass bars holding them, bars with no
+  /// background of their own (the glass widgets provide it), translucent
+  /// menus. Android keeps the Material shapes.
+  static bool get _cupertino =>
+      defaultTargetPlatform == TargetPlatform.iOS ||
+      defaultTargetPlatform == TargetPlatform.macOS;
+
+  static OutlinedBorder _controlShape(double materialRadius) => _cupertino
+      ? const StadiumBorder()
+      : RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(materialRadius),
+        );
+
   static ThemeData _base(ColorScheme scheme) => ThemeData(
     colorScheme: scheme,
     scaffoldBackgroundColor: scheme.surface,
@@ -55,9 +70,7 @@ abstract final class IKubbTheme {
           fontSize: IKubbType.stepBody,
           fontWeight: FontWeight.w600,
         ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(IKubbRadius.lg),
-        ),
+        shape: _controlShape(IKubbRadius.lg),
       ),
     ),
     outlinedButtonTheme: OutlinedButtonThemeData(
@@ -67,35 +80,64 @@ abstract final class IKubbTheme {
           fontSize: IKubbType.stepLabel,
           fontWeight: FontWeight.w600,
         ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(IKubbRadius.lg),
-        ),
+        shape: _controlShape(IKubbRadius.lg),
       ),
     ),
     textButtonTheme: TextButtonThemeData(
-      style: TextButton.styleFrom(minimumSize: const Size(48, 44)),
+      style: TextButton.styleFrom(
+        minimumSize: const Size(48, 44),
+        shape: _cupertino ? const StadiumBorder() : null,
+      ),
     ),
     // Segments meet the 48pt tap minimum (outdoor thumbs, WCAG 2.5.8).
     segmentedButtonTheme: SegmentedButtonThemeData(
-      style: SegmentedButton.styleFrom(minimumSize: const Size(48, 48)),
+      style: SegmentedButton.styleFrom(
+        minimumSize: const Size(48, 48),
+        shape: _cupertino ? const StadiumBorder() : null,
+      ),
     ),
+    chipTheme: _cupertino ? const ChipThemeData(shape: StadiumBorder()) : null,
     dialogTheme: DialogThemeData(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(IKubbRadius.xl),
       ),
     ),
+    // Menus: translucent, rounder, with icons (HIG: menus adopt glass).
     popupMenuTheme: PopupMenuThemeData(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(IKubbRadius.md),
-      ),
+      color: _cupertino
+          ? scheme.surface.withValues(alpha: IKubbAlpha.glassTint + 0.16)
+          : null,
+      elevation: _cupertino ? 2 : null,
+      shape: _cupertino
+          ? RoundedSuperellipseBorder(
+              borderRadius: BorderRadius.circular(IKubbRadius.glass),
+            )
+          : RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(IKubbRadius.md),
+            ),
     ),
+    // Sheets draw their own glass body; the Material behind is invisible.
+    bottomSheetTheme: _cupertino
+        ? const BottomSheetThemeData(
+            backgroundColor: Colors.transparent,
+            surfaceTintColor: Colors.transparent,
+            elevation: 0,
+            shape: RoundedRectangleBorder(),
+          )
+        : null,
     cardTheme: const CardThemeData(elevation: 0),
-    // The wordmark and every screen title carry the brand font.
+    // The wordmark and every screen title carry the brand font. On iOS
+    // the bar itself is transparent: its buttons float in glass and a
+    // scroll-edge fade keeps the title legible (see IKubbAppBar).
     appBarTheme: AppBarTheme(
       titleTextStyle: IKubbType.heading(
         size: IKubbType.stepTitle,
         color: scheme.onSurface,
       ),
+      backgroundColor: _cupertino ? Colors.transparent : null,
+      surfaceTintColor: _cupertino ? Colors.transparent : null,
+      scrolledUnderElevation: _cupertino ? 0 : null,
+      centerTitle: _cupertino ? true : null,
     ),
     textTheme: Typography.blackMountainView
         .copyWith(

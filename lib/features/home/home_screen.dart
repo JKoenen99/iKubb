@@ -9,6 +9,7 @@ import '../../widgets/wood_grain.dart';
 import '../game/game_controller.dart';
 import '../game/game_mode.dart';
 import '../kubb/kubb_controller.dart';
+import '../../theme/glass.dart';
 import '../../theme/tokens.dart';
 
 /// Landing screen after onboarding: quick start front and center.
@@ -63,10 +64,13 @@ class HomeScreen extends ConsumerWidget {
               alignment: Alignment.topRight,
               child: Padding(
                 padding: const EdgeInsets.all(IKubbSpacing.sm),
-                child: IconButton(
-                  tooltip: l10n.settings,
-                  onPressed: () => context.push('/settings'),
-                  icon: const Icon(Icons.settings_outlined),
+                child: glassIconButton(
+                  context,
+                  IconButton(
+                    tooltip: l10n.settings,
+                    onPressed: () => context.push('/settings'),
+                    icon: const Icon(Icons.settings_outlined),
+                  ),
                 ),
               ),
             ),

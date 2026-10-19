@@ -61,6 +61,14 @@ flutter test                     # app widget tests
 dart test -C packages/scoring_engine   # pure Dart rules engine tests
 ```
 
+## iOS look: Liquid Glass
+
+On iOS the chrome follows Apple's Liquid Glass guidelines: transparent
+navigation bars whose buttons float in glass, glass toolbars for the
+primary actions, inset glass half sheets, capsule controls. Android and
+web keep the Material look from the same widget tree. Rules, fallbacks
+(Increase Contrast) and what stays native: [docs/LIQUID_GLASS.md](docs/LIQUID_GLASS.md).
+
 ## Layout
 
 - `lib/` — app code (theme tokens, router, feature folders, 10-language ARB catalogs)

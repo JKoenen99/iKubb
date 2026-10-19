@@ -13,7 +13,9 @@ import '../game/pin_diagram.dart';
 import '../rules/rule_illustrations.dart';
 import '../setup/setup_controller.dart';
 import 'onboarding_state.dart';
+import '../../theme/glass.dart';
 import '../../theme/tokens.dart';
+import '../../widgets/ikubb_app_bar.dart';
 import '../../theme/typography.dart';
 
 /// "Teach me the game": swipeable illustrated rule cards, skippable at
@@ -134,7 +136,8 @@ class _TourScreenState extends ConsumerState<TourScreen> {
     final l10n = AppLocalizations.of(context)!;
     final isLast = _page == _pageCount - 1;
     return Scaffold(
-      appBar: AppBar(
+      extendBodyBehindAppBar: LiquidGlass.isCupertino(context),
+      appBar: IKubbAppBar(
         actions: [
           // Skip stays visible on every card (SPEC.md §3.1).
           TextButton(onPressed: () => _finish(context), child: Text(l10n.skip)),
@@ -183,8 +186,7 @@ class _TourScreenState extends ConsumerState<TourScreen> {
                       ),
                   ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(IKubbSpacing.lg),
+                BottomActionBar(
                   child: SizedBox(
                     width: double.infinity,
                     child: FilledButton(

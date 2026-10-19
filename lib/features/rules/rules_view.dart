@@ -9,6 +9,7 @@ import '../game/game_mode.dart';
 import '../kubb/kubb_controller.dart';
 import 'rule_illustrations.dart';
 import 'rules_content.dart';
+import '../../theme/glass.dart';
 import '../../theme/tokens.dart';
 import '../../theme/typography.dart';
 
@@ -27,15 +28,19 @@ Future<void> showRulesPanel(
     isScrollControlled: true,
     useSafeArea: true,
     constraints: const BoxConstraints(maxWidth: IKubbLayout.maxPanel),
-    showDragHandle: true,
-    builder: (context) => DraggableScrollableSheet(
-      expand: false,
-      initialChildSize: 0.85,
-      minChildSize: 0.4,
-      builder: (context, scrollController) => RulesView(
-        scrollController: scrollController,
-        initialCategoryId: categoryId,
-        initialMode: mode,
+    // On iOS the glass sheet draws its own grabber.
+    showDragHandle: !LiquidGlass.isCupertino(context),
+    builder: (context) => glassSheet(
+      context,
+      DraggableScrollableSheet(
+        expand: false,
+        initialChildSize: 0.85,
+        minChildSize: 0.4,
+        builder: (context, scrollController) => RulesView(
+          scrollController: scrollController,
+          initialCategoryId: categoryId,
+          initialMode: mode,
+        ),
       ),
     ),
   );
@@ -111,9 +116,11 @@ class _RulesViewState extends ConsumerState<RulesView> {
 
     return ListView(
       controller: widget.scrollController,
-      padding: const EdgeInsets.fromLTRB(
+      // Full-screen the bar is transparent on iOS: start below it. In the
+      // sheet the safe area is already consumed, so this adds nothing.
+      padding: EdgeInsets.fromLTRB(
         IKubbSpacing.lg,
-        IKubbSpacing.sm,
+        MediaQuery.paddingOf(context).top + IKubbSpacing.sm,
         IKubbSpacing.lg,
         IKubbSpacing.xl,
       ),

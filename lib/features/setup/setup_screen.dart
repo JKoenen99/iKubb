@@ -15,7 +15,9 @@ import '../kubb/kubb_controller.dart';
 import '../rules/rules_view.dart';
 import 'player.dart';
 import 'setup_controller.dart';
+import '../../theme/glass.dart';
 import '../../theme/tokens.dart';
+import '../../widgets/ikubb_app_bar.dart';
 import '../../theme/typography.dart';
 import '../../widgets/confirm_dialog.dart';
 
@@ -92,7 +94,8 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
     ];
 
     return Scaffold(
-      appBar: AppBar(
+      extendBodyBehindAppBar: LiquidGlass.isCupertino(context),
+      appBar: IKubbAppBar(
         title: Text(l10n.newGame),
         leading: homeLeading(context),
         actions: [
@@ -247,13 +250,7 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(
-                    IKubbSpacing.lg,
-                    0,
-                    IKubbSpacing.lg,
-                    IKubbSpacing.lg,
-                  ),
+                BottomActionBar(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [

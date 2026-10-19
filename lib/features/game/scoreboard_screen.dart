@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../../theme/palette.dart';
+import '../../theme/glass.dart';
 import '../../theme/tokens.dart';
 import '../../theme/typography.dart';
 import '../../widgets/dot_row.dart';
@@ -126,12 +127,15 @@ class _ScoreboardShell extends StatelessWidget {
                   alignment: Alignment.topRight,
                   child: Padding(
                     padding: const EdgeInsets.all(IKubbSpacing.sm),
-                    child: IconButton(
-                      tooltip: l10n.closeLabel,
-                      onPressed: () => context.pop(),
-                      icon: const Icon(
-                        Icons.close,
-                        color: IKubbPalette.birchLight,
+                    child: glassIconButton(
+                      context,
+                      IconButton(
+                        tooltip: l10n.closeLabel,
+                        onPressed: () => context.pop(),
+                        icon: const Icon(
+                          Icons.close,
+                          color: IKubbPalette.birchLight,
+                        ),
                       ),
                     ),
                   ),

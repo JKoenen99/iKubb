@@ -11,7 +11,9 @@ import '../../widgets/viking_mascot.dart';
 import '../game/game_mode.dart';
 import 'game_records_repository.dart';
 import 'stats.dart';
+import '../../theme/glass.dart';
 import '../../theme/tokens.dart';
+import '../../widgets/ikubb_app_bar.dart';
 import '../../theme/typography.dart';
 import '../../widgets/confirm_dialog.dart';
 
@@ -47,7 +49,8 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
     final l10n = AppLocalizations.of(context)!;
     final history = ref.watch(gameHistoryProvider);
     return Scaffold(
-      appBar: AppBar(
+      extendBodyBehindAppBar: LiquidGlass.isCupertino(context),
+      appBar: IKubbAppBar(
         title: Text(l10n.stats),
         leading: homeLeading(context),
         actions: [
@@ -115,88 +118,100 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
           // SafeArea: the explicit ListView padding disables the automatic
           // inset, so the last history row would hide under the home bar.
           return SafeArea(
+            top: false,
             child: Center(
               child: ConstrainedBox(
                 constraints: const BoxConstraints(
                   maxWidth: IKubbLayout.maxPanel,
                 ),
-                child: ListView(
-                  padding: const EdgeInsets.all(IKubbSpacing.lg),
-                  children: [
-                    SectionHeader(l10n.players, padded: true),
-                    for (final name in names)
-                      _PlayerCard(
-                        name: name,
-                        molkky: molkky[name],
-                        kubb: kubb[name],
-                        showSections: hasBothModes,
-                      ),
-                    const SizedBox(height: IKubbSpacing.lg),
-                    SectionHeader(l10n.historyTitle, padded: true),
-                    if (hasBothModes)
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: IKubbSpacing.sm),
-                        child: Wrap(
-                          spacing: 8,
-                          children: [
-                            for (final (label, value) in [
-                              (l10n.filterAll, null),
-                              (l10n.modeNumber, GameMode.numberKubb),
-                              (l10n.modeKubb, GameMode.classicKubb),
-                            ])
-                              FilterChip(
-                                label: Text(label),
-                                selected: _filter == value,
-                                onSelected: (_) =>
-                                    setState(() => _filter = value),
-                              ),
-                          ],
+                child: Builder(
+                  builder: (context) => ListView(
+                    padding: EdgeInsets.fromLTRB(
+                      IKubbSpacing.lg,
+                      MediaQuery.paddingOf(context).top + IKubbSpacing.lg,
+                      IKubbSpacing.lg,
+                      IKubbSpacing.lg,
+                    ),
+                    children: [
+                      SectionHeader(l10n.players, padded: true),
+                      for (final name in names)
+                        _PlayerCard(
+                          name: name,
+                          molkky: molkky[name],
+                          kubb: kubb[name],
+                          showSections: hasBothModes,
                         ),
-                      ),
-                    for (final finished in filtered)
-                      Dismissible(
-                        key: ValueKey(finished.id),
-                        direction: DismissDirection.endToStart,
-                        // Swipe and long-press share one destructive confirm
-                        // (HIG: destructive actions need consent or undo).
-                        confirmDismiss: (_) => confirmAdaptive(
-                          context,
-                          title: l10n.deleteGameLabel,
-                          body: l10n.deleteGameConfirmBody,
-                          confirmLabel: l10n.delete,
-                          isDestructive: true,
-                        ),
-                        background: Container(
-                          alignment: Alignment.centerRight,
+                      const SizedBox(height: IKubbSpacing.lg),
+                      SectionHeader(l10n.historyTitle, padded: true),
+                      if (hasBothModes)
+                        Padding(
                           padding: const EdgeInsets.only(
-                            right: IKubbSpacing.lg,
+                            bottom: IKubbSpacing.sm,
                           ),
-                          decoration: BoxDecoration(
-                            color: IKubbPalette.berry,
-                            borderRadius: BorderRadius.circular(IKubbRadius.md),
-                          ),
-                          child: const Icon(
-                            Icons.delete_outline,
-                            color: IKubbPalette.birchLight,
+                          child: Wrap(
+                            spacing: 8,
+                            children: [
+                              for (final (label, value) in [
+                                (l10n.filterAll, null),
+                                (l10n.modeNumber, GameMode.numberKubb),
+                                (l10n.modeKubb, GameMode.classicKubb),
+                              ])
+                                FilterChip(
+                                  label: Text(label),
+                                  selected: _filter == value,
+                                  onSelected: (_) =>
+                                      setState(() => _filter = value),
+                                ),
+                            ],
                           ),
                         ),
-                        onDismissed: (_) => _delete(finished.id),
-                        child: _HistoryTile(
-                          finished: finished,
-                          onDelete: () async {
-                            final confirmed = await confirmAdaptive(
-                              context,
-                              title: l10n.deleteGameLabel,
-                              body: l10n.deleteGameConfirmBody,
-                              confirmLabel: l10n.delete,
-                              isDestructive: true,
-                            );
-                            if (!confirmed) return;
-                            await _delete(finished.id);
-                          },
+                      for (final finished in filtered)
+                        Dismissible(
+                          key: ValueKey(finished.id),
+                          direction: DismissDirection.endToStart,
+                          // Swipe and long-press share one destructive confirm
+                          // (HIG: destructive actions need consent or undo).
+                          confirmDismiss: (_) => confirmAdaptive(
+                            context,
+                            title: l10n.deleteGameLabel,
+                            body: l10n.deleteGameConfirmBody,
+                            confirmLabel: l10n.delete,
+                            isDestructive: true,
+                          ),
+                          background: Container(
+                            alignment: Alignment.centerRight,
+                            padding: const EdgeInsets.only(
+                              right: IKubbSpacing.lg,
+                            ),
+                            decoration: BoxDecoration(
+                              color: IKubbPalette.berry,
+                              borderRadius: BorderRadius.circular(
+                                IKubbRadius.md,
+                              ),
+                            ),
+                            child: const Icon(
+                              Icons.delete_outline,
+                              color: IKubbPalette.birchLight,
+                            ),
+                          ),
+                          onDismissed: (_) => _delete(finished.id),
+                          child: _HistoryTile(
+                            finished: finished,
+                            onDelete: () async {
+                              final confirmed = await confirmAdaptive(
+                                context,
+                                title: l10n.deleteGameLabel,
+                                body: l10n.deleteGameConfirmBody,
+                                confirmLabel: l10n.delete,
+                                isDestructive: true,
+                              );
+                              if (!confirmed) return;
+                              await _delete(finished.id);
+                            },
+                          ),
                         ),
-                      ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
