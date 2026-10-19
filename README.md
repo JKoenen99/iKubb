@@ -43,9 +43,13 @@ Without the two defines below the app runs with the local outbox only.
 
 ```sh
 flutter build ipa \
-  --dart-define=SUPABASE_URL=https://<project-ref>.supabase.co \
-  --dart-define=SUPABASE_ANON_KEY=<anon public key>
+  --dart-define=SUPABASE_URL=https://cebkosufhtkddecfroij.supabase.co \
+  --dart-define=SUPABASE_ANON_KEY=sb_publishable_qaavkaafBNirBzeW9k3toA_FOi_Dx-d
 ```
+
+The publishable key is public by design (every build ships it) and Row
+Level Security limits it to inserting feedback rows; reading needs your
+dashboard login. The web preview workflow passes the same two values.
 
 Schema, privacy model, and analysis queries: [docs/FEEDBACK.md](docs/FEEDBACK.md);
 the table lives in `supabase/migrations/`.

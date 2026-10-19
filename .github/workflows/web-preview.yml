@@ -28,6 +28,8 @@ concurrency:
 
 env:
   FLUTTER_VERSION: 3.47.7
+  SUPABASE_URL: https://cebkosufhtkddecfroij.supabase.co
+  SUPABASE_ANON_KEY: sb_publishable_qaavkaafBNirBzeW9k3toA_FOi_Dx-d
 
 jobs:
   build:
@@ -63,7 +65,12 @@ jobs:
       - name: Widget tests
         run: flutter test
 
-      - run: flutter build web --release --base-href /iKubb/
+      # Feedback backend. The publishable key is public by design (it ships
+      # inside every app build) and RLS limits it to inserting feedback.
+      - run: >
+          flutter build web --release --base-href /iKubb/
+          --dart-define=SUPABASE_URL=${{ env.SUPABASE_URL }}
+          --dart-define=SUPABASE_ANON_KEY=${{ env.SUPABASE_ANON_KEY }}
 
       - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:

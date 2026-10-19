@@ -3,7 +3,9 @@
 -- the other columns are extracted copies for indexing, GROUP BY and
 -- dashboards. Moving to another system = `select payload from ...`.
 --
--- Apply with: supabase db push   (or paste into the SQL editor)
+-- Applied to the project on 2026-10-19 through the Supabase connector
+-- (as three migrations: table, policy, views). Kept here as the single
+-- source of truth for a fresh project: supabase db push / SQL editor.
 
 create table if not exists public.feedback_events (
   event_id      uuid        primary key,
@@ -29,24 +31,23 @@ create index if not exists feedback_events_install_idx     on public.feedback_ev
 create index if not exists feedback_events_tags_idx        on public.feedback_events using gin (tags);
 create index if not exists feedback_events_payload_idx     on public.feedback_events using gin (payload jsonb_path_ops);
 
--- The app ships the anon key: it may append rows and nothing else.
+-- The app ships the publishable (anon) key: it may append rows and
+-- nothing else. No select/update/delete policy for anon: reading is for
+-- you (dashboard / SQL editor / service role) only.
 alter table public.feedback_events enable row level security;
 
-drop policy if exists "anon can insert feedback" on public.feedback_events;
 create policy "anon can insert feedback"
   on public.feedback_events for insert
   to anon
   with check (true);
 
--- No select/update/delete policy for anon: reading is for you (service
--- role / dashboard / SQL editor) only.
-revoke all on public.feedback_events from anon;
 grant insert on public.feedback_events to anon;
 
 -- Handy views for analysis -------------------------------------------------
 
 -- Response rate and average rating per trigger and app version.
-create or replace view public.feedback_summary as
+create or replace view public.feedback_summary
+  with (security_invoker = true) as
 select
   app_version,
   trigger,
@@ -61,7 +62,8 @@ group by app_version, trigger
 order by app_version desc, trigger;
 
 -- Tag frequency, split by sentiment.
-create or replace view public.feedback_tag_counts as
+create or replace view public.feedback_tag_counts
+  with (security_invoker = true) as
 select
   case when rating >= 4 then 'positive' else 'improvement' end as sentiment,
   unnest(tags)                                                 as tag,
@@ -72,7 +74,8 @@ group by 1, 2
 order by 1, n desc;
 
 -- Ratings by game mode (from the context document).
-create or replace view public.feedback_by_mode as
+create or replace view public.feedback_by_mode
+  with (security_invoker = true) as
 select
   payload -> 'context' ->> 'mode'            as mode,
   round(avg(rating), 2)                       as avg_rating,
@@ -81,3 +84,10 @@ from public.feedback_events
 where response = 'submitted' and trigger = 'game_end'
 group by 1
 order by n desc;
+
+-- Supabase's default privileges hand new objects REFERENCES/TRIGGER/
+-- TRUNCATE for the API roles; the app key needs none of that.
+revoke references, trigger, truncate
+  on public.feedback_events, public.feedback_summary,
+     public.feedback_tag_counts, public.feedback_by_mode
+  from anon, authenticated;

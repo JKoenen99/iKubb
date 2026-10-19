@@ -190,11 +190,43 @@ void main() {
         'https://xyz.supabase.co/rest/v1/feedback_events',
       );
       expect(seen.headers['apikey'], 'anon');
-      expect(seen.headers['Prefer'], contains('ignore-duplicates'));
-      final rows = jsonDecode(seen.body) as List;
-      expect(rows.single['event_id'], event.eventId);
-      expect(rows.single['rating'], 4);
-      expect(rows.single['payload']['context']['mode'], 'number_kubb');
+      expect(seen.headers.containsKey('Authorization'), isFalse);
+      expect(seen.headers['Prefer'], 'return=minimal');
+      final row = jsonDecode(seen.body) as Map;
+      expect(row['event_id'], event.eventId);
+      expect(row['rating'], 4);
+      expect(row['payload']['context']['mode'], 'number_kubb');
+    });
+
+    test(
+      'a duplicate (409) counts as delivered, one request per event',
+      () async {
+        var calls = 0;
+        final sink = SupabaseFeedbackSink(
+          projectUrl: 'https://xyz.supabase.co',
+          anonKey: 'anon',
+          client: MockClient((_) async {
+            calls++;
+            return http.Response('{"code":"23505"}', 409);
+          }),
+        );
+        expect(await sink.send([event, event]), isTrue);
+        expect(calls, 2);
+      },
+    );
+
+    test('a legacy anon JWT also becomes the bearer token', () async {
+      late http.Request seen;
+      final sink = SupabaseFeedbackSink(
+        projectUrl: 'https://xyz.supabase.co',
+        anonKey: 'eyJhbGciOiJIUzI1NiJ9.x.y',
+        client: MockClient((request) async {
+          seen = request;
+          return http.Response('', 201);
+        }),
+      );
+      await sink.send([event]);
+      expect(seen.headers['Authorization'], 'Bearer eyJhbGciOiJIUzI1NiJ9.x.y');
     });
 
     test('Supabase sink reports failure instead of throwing', () async {

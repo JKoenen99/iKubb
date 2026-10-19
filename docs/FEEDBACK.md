@@ -102,27 +102,30 @@ Een id verandert nooit; nieuwe ids toevoegen is additief.
    tabel met het volledige document in `payload jsonb` plus losse
    kolommen voor indexen en GROUP BY, de RLS-policy, en drie views.
 
-### Supabase inrichten (eenmalig)
+### Supabase: ingericht op 2026-10-19
 
-```sh
-supabase login
-supabase init                      # alleen als er nog geen supabase/ map is
-supabase link --project-ref <ref>
-supabase db push                   # voert de migratie uit
-```
+Project `iKubb` (`cebkosufhtkddecfroij`, eu-west-1, Postgres 17). De
+migratie is via de Supabase-connector uitgevoerd (tabel, policy, views)
+en geverifieerd: de anon-rol kan invoegen, kan niet lezen (42501) en een
+dubbele `event_id` geeft 23505 (REST: 409). De security-advisor meldt
+niets. Voor een vers project: `supabase link` + `supabase db push`, of
+de SQL uit `supabase/migrations/` in de SQL-editor plakken.
 
-Of plak de SQL uit de migratie in de SQL-editor van het dashboard.
-Haal daarna **Project URL** en **anon public key** op (Settings → API)
-en geef ze mee aan de build:
+Build-configuratie (publishable key is publiek; RLS beperkt hem tot
+invoegen):
 
 ```sh
 flutter build ipa \
-  --dart-define=SUPABASE_URL=https://<ref>.supabase.co \
-  --dart-define=SUPABASE_ANON_KEY=<anon key>
+  --dart-define=SUPABASE_URL=https://cebkosufhtkddecfroij.supabase.co \
+  --dart-define=SUPABASE_ANON_KEY=sb_publishable_qaavkaafBNirBzeW9k3toA_FOi_Dx-d
 ```
 
+Let op: de REST-call stuurt één event per request en behandelt 409 als
+"al opgeslagen"; `ON CONFLICT` zou SELECT-rechten vereisen die de app-key
+bewust niet heeft.
+
 Zonder deze defines draait de app met alleen de lokale outbox (dat is
-ook wat tests en de webpreview doen).
+wat de tests doen; de webpreview bouwt mét backend).
 
 ## 5. Analyse
 
