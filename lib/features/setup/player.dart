@@ -1,4 +1,4 @@
-import 'dart:ui';
+import 'package:flutter/widgets.dart';
 
 import '../../theme/palette.dart';
 
@@ -20,18 +20,36 @@ const playerColors = <Color>[
 /// An app-level player. The scoring engine only sees a [Side]; avatar and
 /// color are presentation concerns kept here.
 class Player {
-  const Player({required this.id, required this.name, this.colorIndex = 0});
+  const Player({
+    required this.id,
+    required this.name,
+    this.colorIndex = 0,
+    this.autoNumber,
+  });
 
   final String id;
   final String name;
   final int colorIndex;
 
+  /// Set while the player still carries the generated "Player N" name:
+  /// the avatar shows this number instead of an initial, and the player
+  /// is not remembered as a recent until renamed.
+  final int? autoNumber;
+
+  bool get isAutoNamed => autoNumber != null;
+
   Color get color => playerColors[colorIndex % playerColors.length];
 
-  Player copyWith({String? name, int? colorIndex}) => Player(
+  /// The avatar label: the number for unnamed players, else the initial.
+  String get avatarLabel => autoNumber != null
+      ? '$autoNumber'
+      : (name.isEmpty ? '?' : name.characters.first.toUpperCase());
+
+  Player copyWith({String? name, int? colorIndex, int? autoNumber}) => Player(
     id: id,
     name: name ?? this.name,
     colorIndex: colorIndex ?? this.colorIndex,
+    autoNumber: autoNumber,
   );
 
   Map<String, Object?> toJson() => {

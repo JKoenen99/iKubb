@@ -69,6 +69,14 @@ primary actions, inset glass half sheets, capsule controls. Android and
 web keep the Material look from the same widget tree. Rules, fallbacks
 (Increase Contrast) and what stays native: [docs/LIQUID_GLASS.md](docs/LIQUID_GLASS.md).
 
+## New game screen and form cards
+
+The New game screen is card based: a two-column layout on tablets, one
+column on phones, inline renaming, numbered players when names are
+skipped, team cards, and steppers for the house rules. The same cards
+(`lib/widgets/form_cards.dart`) build Settings and the `/designsystem`
+page. Design notes: [docs/NEW_GAME_REDESIGN.md](docs/NEW_GAME_REDESIGN.md).
+
 ## Layout
 
 - `lib/` — app code (theme tokens, router, feature folders, 10-language ARB catalogs)

@@ -762,4 +762,99 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get tagOther => 'Anders';
+
+  @override
+  String get gameSection => 'Spel';
+
+  @override
+  String get modeNumberDesc =>
+      'Punten per kegel. Wie eerst het doel haalt, wint.';
+
+  @override
+  String get modeKubbDesc => 'Klassieke regels. Veld leeg, dan de koning.';
+
+  @override
+  String modeNumberHint(int target) {
+    return 'Punten per kegel. Wie eerst $target haalt, wint.';
+  }
+
+  @override
+  String playersCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count spelers',
+      one: '1 speler',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get namesOptionalHint =>
+      'Namen zijn optioneel. Tik op een naam om die te wijzigen.';
+
+  @override
+  String get recentLabel => 'Recent';
+
+  @override
+  String get teamsOffDesc => 'Iedereen speelt voor zichzelf.';
+
+  @override
+  String get teamsOnDesc =>
+      'De score telt per team. Tik op een pil om een speler te verplaatsen.';
+
+  @override
+  String get swapTeams => 'Teams wisselen';
+
+  @override
+  String moveToTeam(String name, String team) {
+    return '$name naar $team verplaatsen';
+  }
+
+  @override
+  String get resetLabel => 'Herstellen';
+
+  @override
+  String get targetScoreDesc => 'Precies raken om te winnen';
+
+  @override
+  String get backToLabel => 'Terug naar';
+
+  @override
+  String get backToDesc => 'Score als je te veel gooit';
+
+  @override
+  String get eliminationDesc => 'Missers op rij voor je eruit ligt';
+
+  @override
+  String summaryFirstTo(int target) {
+    return 'eerst naar $target';
+  }
+
+  @override
+  String summaryBackTo(int reset) {
+    return 'terug naar $reset';
+  }
+
+  @override
+  String summaryOutAfter(int misses) {
+    return 'eruit na $misses missers';
+  }
+
+  @override
+  String get summaryNoPenalty => 'geen straf';
+
+  @override
+  String get summaryNoElimination => 'geen uitschakeling';
+
+  @override
+  String get summaryInTeams => 'in teams';
+
+  @override
+  String get editValueTitle => 'Voer een waarde in';
+
+  @override
+  String renamePlayer(String name) {
+    return '$name hernoemen';
+  }
 }

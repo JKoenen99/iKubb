@@ -110,6 +110,9 @@ abstract final class IKubbAlpha {
 
   /// Monochrome secondary buttons inside a glass toolbar.
   static const double glassControl = 0.1;
+
+  /// Accent wash behind a selected choice card.
+  static const double choiceTint = 0.12;
 }
 
 abstract final class IKubbIconSize {
@@ -136,4 +139,7 @@ abstract final class IKubbLayout {
   static const double maxOverlay = 480;
   static const double maxContent = 560;
   static const double maxPanel = 640;
+
+  /// Two-column forms (setup on iPad).
+  static const double maxWide = 960;
 }

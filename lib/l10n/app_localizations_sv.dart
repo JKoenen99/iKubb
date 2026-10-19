@@ -762,4 +762,98 @@ class AppLocalizationsSv extends AppLocalizations {
 
   @override
   String get tagOther => 'Annat';
+
+  @override
+  String get gameSection => 'Spel';
+
+  @override
+  String get modeNumberDesc => 'Poäng per kägla. Först till målet vinner.';
+
+  @override
+  String get modeKubbDesc => 'Klassiska regler. Rensa planen, sedan kungen.';
+
+  @override
+  String modeNumberHint(int target) {
+    return 'Poäng per kägla. Först till $target vinner.';
+  }
+
+  @override
+  String playersCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count spelare',
+      one: '1 spelare',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get namesOptionalHint =>
+      'Namn är valfria. Tryck på ett namn för att ändra det.';
+
+  @override
+  String get recentLabel => 'Senaste';
+
+  @override
+  String get teamsOffDesc => 'Alla spelar för sig själva.';
+
+  @override
+  String get teamsOnDesc =>
+      'Poängen räknas per lag. Tryck på en pill för att flytta en spelare.';
+
+  @override
+  String get swapTeams => 'Byt lag';
+
+  @override
+  String moveToTeam(String name, String team) {
+    return 'Flytta $name till $team';
+  }
+
+  @override
+  String get resetLabel => 'Återställ';
+
+  @override
+  String get targetScoreDesc => 'Träffa exakt för att vinna';
+
+  @override
+  String get backToLabel => 'Tillbaka till';
+
+  @override
+  String get backToDesc => 'Poäng när du skjuter över';
+
+  @override
+  String get eliminationDesc => 'Missar i rad innan du är ute';
+
+  @override
+  String summaryFirstTo(int target) {
+    return 'först till $target';
+  }
+
+  @override
+  String summaryBackTo(int reset) {
+    return 'tillbaka till $reset';
+  }
+
+  @override
+  String summaryOutAfter(int misses) {
+    return 'ute efter $misses missar';
+  }
+
+  @override
+  String get summaryNoPenalty => 'ingen straff';
+
+  @override
+  String get summaryNoElimination => 'ingen utslagning';
+
+  @override
+  String get summaryInTeams => 'i lag';
+
+  @override
+  String get editValueTitle => 'Ange ett värde';
+
+  @override
+  String renamePlayer(String name) {
+    return 'Byt namn på $name';
+  }
 }

@@ -29,25 +29,13 @@ Future<void> pumpHome(
   await tester.pumpAndSettle();
 }
 
-Future<void> addPlayers(WidgetTester tester, List<String> names) async {
-  for (final name in names) {
-    await tester.enterText(find.byType(TextField).first, name);
-    await tester.tap(find.text('Add player'));
-    await tester.pumpAndSettle();
-  }
-}
-
 /// Anna vs Björn to 12; one throw on pin 12 wins.
 Future<void> winAGame(WidgetTester tester) async {
   await pumpHome(tester);
   await tester.tap(find.text('New game'));
   await tester.pumpAndSettle();
   await addPlayers(tester, ['Anna', 'Björn']);
-  await tester.tapVisible(find.text('House rules'));
-  await tester.pumpAndSettle();
-  await tester.tapVisible(find.text('Custom'));
-  await tester.pumpAndSettle();
-  await tester.enterText(find.widgetWithText(TextFormField, 'Custom'), '12');
+  await setTarget(tester, 12);
   await tester.tapVisible(find.text('Start game'));
   await tester.pumpAndSettle();
   await tester.tap(find.text('12'));
@@ -145,7 +133,7 @@ void main() {
     await tester.tap(find.text('New game'));
     await tester.pumpAndSettle();
     expect(find.text('Add player'), findsOneWidget);
-    expect(find.text('Recent players'), findsNothing);
+    expect(find.text('Recent'), findsNothing);
     expect(tester.takeException(), isNull);
   });
 
@@ -156,8 +144,7 @@ void main() {
     await tester.tap(find.text('New game'));
     await tester.pumpAndSettle();
     await addPlayers(tester, ['Anna', 'Björn']);
-    await tester.tapVisible(find.text('Teams'));
-    await tester.pumpAndSettle();
+    await toggleTeams(tester);
     final handle = tester.ensureSemantics();
     await expectLater(tester, meetsGuideline(androidTapTargetGuideline));
     await expectLater(tester, meetsGuideline(labeledTapTargetGuideline));

@@ -761,4 +761,100 @@ class AppLocalizationsFi extends AppLocalizations {
 
   @override
   String get tagOther => 'Muu';
+
+  @override
+  String get gameSection => 'Peli';
+
+  @override
+  String get modeNumberDesc =>
+      'Pisteitä keilaa kohden. Ensimmäisenä maaliin voittaa.';
+
+  @override
+  String get modeKubbDesc =>
+      'Klassiset säännöt. Tyhjennä kenttä, sitten kuningas.';
+
+  @override
+  String modeNumberHint(int target) {
+    return 'Pisteitä keilaa kohden. Ensimmäisenä $target:een voittaa.';
+  }
+
+  @override
+  String playersCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count pelaajaa',
+      one: '1 pelaaja',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get namesOptionalHint =>
+      'Nimet ovat valinnaisia. Napauta nimeä muuttaaksesi sen.';
+
+  @override
+  String get recentLabel => 'Viimeisimmät';
+
+  @override
+  String get teamsOffDesc => 'Jokainen pelaa itsekseen.';
+
+  @override
+  String get teamsOnDesc =>
+      'Pisteet lasketaan joukkueittain. Napauta pilleriä siirtääksesi pelaajan.';
+
+  @override
+  String get swapTeams => 'Vaihda joukkueet';
+
+  @override
+  String moveToTeam(String name, String team) {
+    return 'Siirrä $name joukkueeseen $team';
+  }
+
+  @override
+  String get resetLabel => 'Palauta';
+
+  @override
+  String get targetScoreDesc => 'Osu tarkalleen voittaaksesi';
+
+  @override
+  String get backToLabel => 'Takaisin';
+
+  @override
+  String get backToDesc => 'Pisteet, kun ylität';
+
+  @override
+  String get eliminationDesc => 'Ohiheittoja peräkkäin ennen putoamista';
+
+  @override
+  String summaryFirstTo(int target) {
+    return 'ensin $target:een';
+  }
+
+  @override
+  String summaryBackTo(int reset) {
+    return 'takaisin $reset:een';
+  }
+
+  @override
+  String summaryOutAfter(int misses) {
+    return 'ulos $misses ohiheiton jälkeen';
+  }
+
+  @override
+  String get summaryNoPenalty => 'ei rangaistusta';
+
+  @override
+  String get summaryNoElimination => 'ei putoamista';
+
+  @override
+  String get summaryInTeams => 'joukkueissa';
+
+  @override
+  String get editValueTitle => 'Syötä arvo';
+
+  @override
+  String renamePlayer(String name) {
+    return 'Nimeä $name uudelleen';
+  }
 }

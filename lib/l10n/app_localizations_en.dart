@@ -759,4 +759,99 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get tagOther => 'Other';
+
+  @override
+  String get gameSection => 'Game';
+
+  @override
+  String get modeNumberDesc =>
+      'Score points per kubb. First to the target wins.';
+
+  @override
+  String get modeKubbDesc => 'Classic rules. Clear the field, then the king.';
+
+  @override
+  String modeNumberHint(int target) {
+    return 'Score points per kubb. First to $target wins.';
+  }
+
+  @override
+  String playersCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count players',
+      one: '1 player',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get namesOptionalHint =>
+      'Names are optional. Tap a name to change it.';
+
+  @override
+  String get recentLabel => 'Recent';
+
+  @override
+  String get teamsOffDesc => 'Everyone plays for themselves.';
+
+  @override
+  String get teamsOnDesc =>
+      'Score counts per team. Tap a pill to move a player.';
+
+  @override
+  String get swapTeams => 'Swap teams';
+
+  @override
+  String moveToTeam(String name, String team) {
+    return 'Move $name to $team';
+  }
+
+  @override
+  String get resetLabel => 'Reset';
+
+  @override
+  String get targetScoreDesc => 'Hit it exactly to win';
+
+  @override
+  String get backToLabel => 'Back to';
+
+  @override
+  String get backToDesc => 'Score when you overshoot';
+
+  @override
+  String get eliminationDesc => 'Misses in a row before you are out';
+
+  @override
+  String summaryFirstTo(int target) {
+    return 'first to $target';
+  }
+
+  @override
+  String summaryBackTo(int reset) {
+    return 'back to $reset';
+  }
+
+  @override
+  String summaryOutAfter(int misses) {
+    return 'out after $misses misses';
+  }
+
+  @override
+  String get summaryNoPenalty => 'no penalty';
+
+  @override
+  String get summaryNoElimination => 'no elimination';
+
+  @override
+  String get summaryInTeams => 'in teams';
+
+  @override
+  String get editValueTitle => 'Enter a value';
+
+  @override
+  String renamePlayer(String name) {
+    return 'Rename $name';
+  }
 }

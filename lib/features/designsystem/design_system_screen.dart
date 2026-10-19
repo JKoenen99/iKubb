@@ -13,6 +13,7 @@ import '../../widgets/dot_row.dart';
 import '../../widgets/home_leading.dart';
 import '../../widgets/rolling_number.dart';
 import '../../widgets/section_header.dart';
+import '../../widgets/form_cards.dart';
 import '../../widgets/settings_tiles.dart';
 import '../../widgets/share_card.dart';
 import '../../widgets/side_card.dart';
@@ -34,6 +35,9 @@ class DesignSystemScreen extends ConsumerStatefulWidget {
 class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
   var _rolling = 42;
   var _motionOn = false;
+  var _stepper = 50;
+  var _toggle = true;
+  var _choice = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -513,6 +517,106 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
                 title: 'Switch tile',
                 value: true,
                 onChanged: (_) {},
+              ),
+              const _Gap(),
+              const SectionHeader('Form cards (New game redesign)'),
+              const SizedBox(height: IKubbSpacing.sm),
+              IntrinsicHeight(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Expanded(
+                      child: ChoiceCard(
+                        title: l10n.modeNumber,
+                        subtitle: l10n.modeNumberDesc,
+                        selected: _choice == 0,
+                        onTap: () => setState(() => _choice = 0),
+                      ),
+                    ),
+                    const SizedBox(width: IKubbSpacing.md),
+                    Expanded(
+                      child: ChoiceCard(
+                        title: l10n.modeKubb,
+                        subtitle: l10n.modeKubbDesc,
+                        selected: _choice == 1,
+                        onTap: () => setState(() => _choice = 1),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: IKubbSpacing.md),
+              StepperCard(
+                title: l10n.targetScore,
+                subtitle: l10n.targetScoreDesc,
+                value: _stepper,
+                min: 10,
+                max: 200,
+                step: 5,
+                onChanged: (v) => setState(() => _stepper = v),
+                editTitle: l10n.editValueTitle,
+                decreaseLabel: l10n.decreaseLabel,
+                increaseLabel: l10n.increaseLabel,
+                cancelLabel: l10n.cancel,
+                doneLabel: l10n.done,
+              ),
+              SwitchCard(
+                title: l10n.teams,
+                subtitle: _toggle ? l10n.teamsOnDesc : l10n.teamsOffDesc,
+                value: _toggle,
+                onChanged: (v) => setState(() => _toggle = v),
+              ),
+              SettingCard(
+                title: l10n.houseRules,
+                subtitle: 'First to 50, back to 25, out after 3 misses',
+                onTap: () {},
+              ),
+              FormCard(
+                padding: const EdgeInsets.fromLTRB(
+                  IKubbSpacing.md,
+                  IKubbSpacing.sm,
+                  IKubbSpacing.sm,
+                  IKubbSpacing.sm,
+                ),
+                child: Row(
+                  children: [
+                    const AvatarCircle(color: IKubbPalette.oak, label: 'J'),
+                    const SizedBox(width: IKubbSpacing.md),
+                    const Expanded(
+                      child: Text('Player row', style: IKubbType.emphasis),
+                    ),
+                    TintPill(
+                      label: l10n.teamA,
+                      color: IKubbPalette.walnut,
+                      onTap: () {},
+                    ),
+                    IconButton(
+                      tooltip: l10n.removePlayer('Jasper'),
+                      onPressed: () {},
+                      icon: const Icon(Icons.close),
+                    ),
+                  ],
+                ),
+              ),
+              DashedAddButton(label: l10n.addPlayer, onPressed: () {}),
+              const SizedBox(height: IKubbSpacing.md),
+              Wrap(
+                spacing: IKubbSpacing.sm,
+                children: [
+                  RecentChip(
+                    name: 'Jasper',
+                    color: IKubbPalette.oak,
+                    initial: 'J',
+                    onPressed: () {},
+                  ),
+                  const RecentChip(
+                    name: 'Kato',
+                    color: IKubbPalette.fjord,
+                    initial: 'K',
+                    dimmed: true,
+                    onPressed: null,
+                  ),
+                ],
               ),
               const SizedBox(height: IKubbSpacing.huge),
             ],

@@ -764,4 +764,100 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get tagOther => 'Sonstiges';
+
+  @override
+  String get gameSection => 'Spiel';
+
+  @override
+  String get modeNumberDesc =>
+      'Punkte pro Kegel. Wer zuerst das Ziel trifft, gewinnt.';
+
+  @override
+  String get modeKubbDesc =>
+      'Klassische Regeln. Erst das Feld, dann der König.';
+
+  @override
+  String modeNumberHint(int target) {
+    return 'Punkte pro Kegel. Wer zuerst $target erreicht, gewinnt.';
+  }
+
+  @override
+  String playersCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Spieler',
+      one: '1 Spieler',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get namesOptionalHint =>
+      'Namen sind optional. Tippe auf einen Namen, um ihn zu ändern.';
+
+  @override
+  String get recentLabel => 'Zuletzt';
+
+  @override
+  String get teamsOffDesc => 'Jeder spielt für sich.';
+
+  @override
+  String get teamsOnDesc =>
+      'Punkte zählen pro Team. Tippe auf eine Pille, um einen Spieler zu verschieben.';
+
+  @override
+  String get swapTeams => 'Teams tauschen';
+
+  @override
+  String moveToTeam(String name, String team) {
+    return '$name zu $team verschieben';
+  }
+
+  @override
+  String get resetLabel => 'Zurücksetzen';
+
+  @override
+  String get targetScoreDesc => 'Genau treffen, um zu gewinnen';
+
+  @override
+  String get backToLabel => 'Zurück auf';
+
+  @override
+  String get backToDesc => 'Punktestand nach Überwerfen';
+
+  @override
+  String get eliminationDesc => 'Fehlwürfe in Folge, bis du draußen bist';
+
+  @override
+  String summaryFirstTo(int target) {
+    return 'zuerst auf $target';
+  }
+
+  @override
+  String summaryBackTo(int reset) {
+    return 'zurück auf $reset';
+  }
+
+  @override
+  String summaryOutAfter(int misses) {
+    return 'raus nach $misses Fehlwürfen';
+  }
+
+  @override
+  String get summaryNoPenalty => 'keine Strafe';
+
+  @override
+  String get summaryNoElimination => 'kein Ausscheiden';
+
+  @override
+  String get summaryInTeams => 'in Teams';
+
+  @override
+  String get editValueTitle => 'Wert eingeben';
+
+  @override
+  String renamePlayer(String name) {
+    return '$name umbenennen';
+  }
 }

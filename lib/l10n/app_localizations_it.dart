@@ -761,4 +761,99 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get tagOther => 'Altro';
+
+  @override
+  String get gameSection => 'Gioco';
+
+  @override
+  String get modeNumberDesc =>
+      'Punti per birillo. Vince chi arriva per primo al traguardo.';
+
+  @override
+  String get modeKubbDesc => 'Regole classiche. Libera il campo, poi il re.';
+
+  @override
+  String modeNumberHint(int target) {
+    return 'Punti per birillo. Vince chi arriva per primo a $target.';
+  }
+
+  @override
+  String playersCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count giocatori',
+      one: '1 giocatore',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get namesOptionalHint =>
+      'I nomi sono facoltativi. Tocca un nome per cambiarlo.';
+
+  @override
+  String get recentLabel => 'Recenti';
+
+  @override
+  String get teamsOffDesc => 'Ognuno gioca per sé.';
+
+  @override
+  String get teamsOnDesc =>
+      'Il punteggio conta per squadra. Tocca un’etichetta per spostare un giocatore.';
+
+  @override
+  String get swapTeams => 'Scambia squadre';
+
+  @override
+  String moveToTeam(String name, String team) {
+    return 'Sposta $name in $team';
+  }
+
+  @override
+  String get resetLabel => 'Ripristina';
+
+  @override
+  String get targetScoreDesc => 'Raggiungilo esattamente per vincere';
+
+  @override
+  String get backToLabel => 'Torna a';
+
+  @override
+  String get backToDesc => 'Punteggio se superi';
+
+  @override
+  String get eliminationDesc => 'Errori di fila prima di essere eliminato';
+
+  @override
+  String summaryFirstTo(int target) {
+    return 'primo a $target';
+  }
+
+  @override
+  String summaryBackTo(int reset) {
+    return 'torna a $reset';
+  }
+
+  @override
+  String summaryOutAfter(int misses) {
+    return 'fuori dopo $misses errori';
+  }
+
+  @override
+  String get summaryNoPenalty => 'nessuna penalità';
+
+  @override
+  String get summaryNoElimination => 'nessuna eliminazione';
+
+  @override
+  String get summaryInTeams => 'a squadre';
+
+  @override
+  String get editValueTitle => 'Inserisci un valore';
+
+  @override
+  String renamePlayer(String name) {
+    return 'Rinomina $name';
+  }
 }

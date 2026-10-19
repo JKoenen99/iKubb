@@ -764,4 +764,100 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get tagOther => 'Autre';
+
+  @override
+  String get gameSection => 'Jeu';
+
+  @override
+  String get modeNumberDesc =>
+      'Des points par quille. Le premier au total gagne.';
+
+  @override
+  String get modeKubbDesc =>
+      'Règles classiques. Videz le terrain, puis le roi.';
+
+  @override
+  String modeNumberHint(int target) {
+    return 'Des points par quille. Le premier à $target gagne.';
+  }
+
+  @override
+  String playersCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count joueurs',
+      one: '1 joueur',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get namesOptionalHint =>
+      'Les noms sont facultatifs. Touchez un nom pour le modifier.';
+
+  @override
+  String get recentLabel => 'Récents';
+
+  @override
+  String get teamsOffDesc => 'Chacun joue pour soi.';
+
+  @override
+  String get teamsOnDesc =>
+      'Le score compte par équipe. Touchez une pastille pour déplacer un joueur.';
+
+  @override
+  String get swapTeams => 'Échanger les équipes';
+
+  @override
+  String moveToTeam(String name, String team) {
+    return 'Déplacer $name vers $team';
+  }
+
+  @override
+  String get resetLabel => 'Réinitialiser';
+
+  @override
+  String get targetScoreDesc => 'À atteindre exactement pour gagner';
+
+  @override
+  String get backToLabel => 'Retour à';
+
+  @override
+  String get backToDesc => 'Score en cas de dépassement';
+
+  @override
+  String get eliminationDesc => 'Ratés d’affilée avant élimination';
+
+  @override
+  String summaryFirstTo(int target) {
+    return 'premier à $target';
+  }
+
+  @override
+  String summaryBackTo(int reset) {
+    return 'retour à $reset';
+  }
+
+  @override
+  String summaryOutAfter(int misses) {
+    return 'éliminé après $misses ratés';
+  }
+
+  @override
+  String get summaryNoPenalty => 'sans pénalité';
+
+  @override
+  String get summaryNoElimination => 'sans élimination';
+
+  @override
+  String get summaryInTeams => 'en équipes';
+
+  @override
+  String get editValueTitle => 'Saisir une valeur';
+
+  @override
+  String renamePlayer(String name) {
+    return 'Renommer $name';
+  }
 }

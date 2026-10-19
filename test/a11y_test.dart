@@ -5,6 +5,8 @@ import 'package:ikubb/app.dart';
 import 'package:ikubb/features/onboarding/onboarding_state.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'test_utils.dart';
+
 Future<void> pumpHome(WidgetTester tester) async {
   await tester.pumpWidget(
     ProviderScope(
@@ -45,11 +47,7 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('Kubb'));
     await tester.pumpAndSettle();
-    for (final name in ['Anna', 'Björn']) {
-      await tester.enterText(find.byType(TextField).first, name);
-      await tester.tap(find.text('Add player'));
-      await tester.pumpAndSettle();
-    }
+    await addPlayers(tester, ['Anna', 'Björn']);
     await tester.tap(find.text('Start game'));
     await tester.pumpAndSettle();
     await checkGuidelines(tester);

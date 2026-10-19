@@ -425,5 +425,88 @@
   "tagTooManyTaps": "Too many taps",
   "tagRulesUnclear": "Rules unclear",
   "tagTranslation": "Translation issue",
-  "tagOther": "Other"
+  "tagOther": "Other",
+  "gameSection": "Game",
+  "modeNumberDesc": "Score points per kubb. First to the target wins.",
+  "modeKubbDesc": "Classic rules. Clear the field, then the king.",
+  "modeNumberHint": "Score points per kubb. First to {target} wins.",
+  "@modeNumberHint": {
+    "description": "Phone-layout helper line under the mode picker",
+    "placeholders": {
+      "target": {
+        "type": "int"
+      }
+    }
+  },
+  "playersCount": "{count, plural, =1{1 player} other{{count} players}}",
+  "@playersCount": {
+    "description": "Player count after the Players header and in the summary bar",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "namesOptionalHint": "Names are optional. Tap a name to change it.",
+  "recentLabel": "Recent",
+  "teamsOffDesc": "Everyone plays for themselves.",
+  "teamsOnDesc": "Score counts per team. Tap a pill to move a player.",
+  "swapTeams": "Swap teams",
+  "moveToTeam": "Move {name} to {team}",
+  "@moveToTeam": {
+    "description": "VoiceOver label of the team pill on a player row",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "team": {
+        "type": "String"
+      }
+    }
+  },
+  "resetLabel": "Reset",
+  "targetScoreDesc": "Hit it exactly to win",
+  "backToLabel": "Back to",
+  "backToDesc": "Score when you overshoot",
+  "eliminationDesc": "Misses in a row before you are out",
+  "summaryFirstTo": "first to {target}",
+  "@summaryFirstTo": {
+    "description": "House-rules summary fragment",
+    "placeholders": {
+      "target": {
+        "type": "int"
+      }
+    }
+  },
+  "summaryBackTo": "back to {reset}",
+  "@summaryBackTo": {
+    "description": "House-rules summary fragment",
+    "placeholders": {
+      "reset": {
+        "type": "int"
+      }
+    }
+  },
+  "summaryOutAfter": "out after {misses} misses",
+  "@summaryOutAfter": {
+    "description": "House-rules summary fragment",
+    "placeholders": {
+      "misses": {
+        "type": "int"
+      }
+    }
+  },
+  "summaryNoPenalty": "no penalty",
+  "summaryNoElimination": "no elimination",
+  "summaryInTeams": "in teams",
+  "editValueTitle": "Enter a value",
+  "renamePlayer": "Rename {name}",
+  "@renamePlayer": {
+    "description": "VoiceOver label of a tappable player name",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  }
 }

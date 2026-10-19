@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
 import '../theme/tokens.dart';
+import 'form_cards.dart';
 import 'section_header.dart';
+
+/// Settings rows in the card language of the New game redesign: a titled
+/// group of quiet cards, each with one control (chevron, switch, or a
+/// control placed below the label).
 
 /// A titled group of settings rows (HIG grouped-list pattern).
 class SettingsSection extends StatelessWidget {
@@ -22,7 +27,7 @@ class SettingsSection extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(
             top: IKubbSpacing.lg,
-            bottom: IKubbSpacing.xs,
+            bottom: IKubbSpacing.sm,
           ),
           child: SectionHeader(title),
         ),
@@ -32,7 +37,7 @@ class SettingsSection extends StatelessWidget {
   }
 }
 
-/// A navigation row: icon, title, disclosure chevron.
+/// A navigation row: icon, title, optional subtitle, disclosure chevron.
 class SettingsNavTile extends StatelessWidget {
   const SettingsNavTile({
     super.key,
@@ -49,12 +54,10 @@ class SettingsNavTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      contentPadding: EdgeInsets.zero,
+    return SettingCard(
       leading: Icon(icon),
-      title: Text(title),
-      subtitle: subtitle == null ? null : Text(subtitle!),
-      trailing: const Icon(Icons.chevron_right),
+      title: title,
+      subtitle: subtitle,
       onTap: onTap,
     );
   }
@@ -79,19 +82,18 @@ class SettingsSwitchTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SwitchListTile.adaptive(
-      contentPadding: EdgeInsets.zero,
-      secondary: Icon(icon),
-      title: Text(title),
-      subtitle: subtitle == null ? null : Text(subtitle!),
+    return SwitchCard(
+      leading: Icon(icon),
+      title: title,
+      subtitle: subtitle,
       value: value,
       onChanged: onChanged,
     );
   }
 }
 
-/// A row whose control doesn't fit the trailing slot: label tile with the
-/// control right below, visually one unit.
+/// A row whose control doesn't fit the trailing slot: label on top, the
+/// control right below, one card.
 class SettingsChoiceTile extends StatelessWidget {
   const SettingsChoiceTile({
     super.key,
@@ -108,21 +110,24 @@ class SettingsChoiceTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        ListTile(
-          contentPadding: EdgeInsets.zero,
-          leading: Icon(icon),
-          title: Text(title),
-          trailing: trailing,
-        ),
-        if (below != null)
-          Padding(
-            padding: const EdgeInsets.only(bottom: IKubbSpacing.md),
-            child: below,
+    return FormCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            children: [
+              Icon(icon),
+              const SizedBox(width: IKubbSpacing.md),
+              Expanded(child: FormLabel(title: title)),
+              ?trailing,
+            ],
           ),
-      ],
+          if (below != null) ...[
+            const SizedBox(height: IKubbSpacing.md),
+            below!,
+          ],
+        ],
+      ),
     );
   }
 }

@@ -155,11 +155,7 @@ void main() {
       await pumpHome(tester);
       await tester.tap(find.text('New game'));
       await tester.pumpAndSettle();
-      for (final name in ['Anna', 'Björn']) {
-        await tester.enterText(find.byType(TextField).first, name);
-        await tester.tap(find.text('Add player'));
-        await tester.pumpAndSettle();
-      }
+      await addPlayers(tester, ['Anna', 'Björn']);
       await checkGuidelines(tester);
       await tester.tapVisible(find.text('Start game'));
       await tester.pumpAndSettle();

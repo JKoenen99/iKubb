@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ikubb/app.dart';
@@ -17,16 +16,8 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('I know the rules, start scoring'));
     await tester.pumpAndSettle();
-    for (final name in ['Anna', 'Björn']) {
-      await tester.enterText(find.byType(TextField).first, name);
-      await tester.tap(find.text('Add player'));
-      await tester.pumpAndSettle();
-    }
-    await tester.tapVisible(find.text('House rules'));
-    await tester.pumpAndSettle();
-    await tester.tapVisible(find.text('Custom'));
-    await tester.pumpAndSettle();
-    await tester.enterText(find.widgetWithText(TextFormField, 'Custom'), '12');
+    await addPlayers(tester, ['Anna', 'Björn']);
+    await setTarget(tester, 12);
     await tester.tapVisible(find.text('Start game'));
     await tester.pumpAndSettle();
 

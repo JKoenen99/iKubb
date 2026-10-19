@@ -1,9 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ikubb/app.dart';
 import 'package:ikubb/features/game/game_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'test_utils.dart';
 
 void main() {
   setUp(() => SharedPreferences.setMockInitialValues({}));
@@ -18,11 +19,7 @@ void main() {
     await tester.pumpAndSettle();
 
     // Set up a classic 2-player game.
-    for (final name in ['Player 1', 'Player 2']) {
-      await tester.enterText(find.byType(TextField).first, name);
-      await tester.tap(find.text('Add player'));
-      await tester.pumpAndSettle();
-    }
+    await addPlayers(tester, ['Player 1', 'Player 2']);
     await tester.tap(find.text('Start game'));
     await tester.pumpAndSettle();
     expect(find.byType(GameScreen), findsOneWidget);

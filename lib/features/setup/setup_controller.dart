@@ -22,10 +22,14 @@ class SetupState {
     this.teamAName = '',
     this.teamBName = '',
     this.targetScore = 50,
-    this.overshootPolicy = OvershootPolicy.resetToFixed,
-    this.eliminationEnabled = true,
+    this.overshootResetValue = 25,
     this.missLimit = 3,
   });
+
+  /// The official rules sheet: first to 50, back to 25, out after 3.
+  static const classicTarget = 50;
+  static const classicReset = 25;
+  static const classicMissLimit = 3;
 
   final GameMode mode;
   final int kubbBestOf;
@@ -44,9 +48,17 @@ class SetupState {
   final String teamBName;
 
   final int targetScore;
-  final OvershootPolicy overshootPolicy;
-  final bool eliminationEnabled;
+
+  /// Score a side drops back to on overshoot; 0 means no penalty.
+  final int overshootResetValue;
+
+  /// Consecutive misses that eliminate a side; 0 means no elimination.
   final int missLimit;
+
+  OvershootPolicy get overshootPolicy => overshootResetValue == 0
+      ? OvershootPolicy.none
+      : OvershootPolicy.resetToFixed;
+  bool get eliminationEnabled => missLimit > 0;
 
   Team teamFor(Player p) => teamOf[p.id] ?? Team.values[players.indexOf(p) % 2];
 
@@ -56,10 +68,9 @@ class SetupState {
   ];
 
   bool get isClassic =>
-      targetScore == 50 &&
-      overshootPolicy == OvershootPolicy.resetToFixed &&
-      eliminationEnabled &&
-      missLimit == 3;
+      targetScore == classicTarget &&
+      overshootResetValue == classicReset &&
+      missLimit == classicMissLimit;
 
   /// Null when the game can start; otherwise which validation failed.
   SetupProblem? get problem {
@@ -76,10 +87,10 @@ class SetupState {
   GameRules get rules => GameRules(
     targetScore: targetScore,
     overshootPolicy: overshootPolicy,
-    // Classic pairs 50 with 25; other targets fall back to half.
-    overshootResetValue: targetScore == 50 ? 25 : max(1, targetScore ~/ 2),
+    overshootResetValue: overshootResetValue,
     eliminationEnabled: eliminationEnabled,
-    missLimit: missLimit,
+    // The engine wants a positive limit even when elimination is off.
+    missLimit: max(1, missLimit),
   );
 
   SetupState copyWith({
@@ -93,8 +104,7 @@ class SetupState {
     String? teamAName,
     String? teamBName,
     int? targetScore,
-    OvershootPolicy? overshootPolicy,
-    bool? eliminationEnabled,
+    int? overshootResetValue,
     int? missLimit,
   }) => SetupState(
     mode: mode ?? this.mode,
@@ -109,8 +119,7 @@ class SetupState {
     teamAName: teamAName ?? this.teamAName,
     teamBName: teamBName ?? this.teamBName,
     targetScore: targetScore ?? this.targetScore,
-    overshootPolicy: overshootPolicy ?? this.overshootPolicy,
-    eliminationEnabled: eliminationEnabled ?? this.eliminationEnabled,
+    overshootResetValue: overshootResetValue ?? this.overshootResetValue,
     missLimit: missLimit ?? this.missLimit,
   );
 }
@@ -137,6 +146,8 @@ class SetupController extends Notifier<SetupState> {
     state = state.copyWith(recents: recents);
   }
 
+  int _autoCounter = 0;
+
   void addPlayer(String name) {
     final trimmed = name.trim();
     if (trimmed.isEmpty) return;
@@ -146,6 +157,31 @@ class SetupController extends Notifier<SetupState> {
       colorIndex: state.players.length % playerColors.length,
     );
     state = state.copyWith(players: [...state.players, player]);
+  }
+
+  /// Adds a player with a generated name ("Player N"); names are optional
+  /// and can be changed by tapping the row. [nameFor] localizes the name.
+  void addAutoPlayer(String Function(int n) nameFor) {
+    final n = ++_autoCounter;
+    final player = Player(
+      id: 'p${DateTime.now().microsecondsSinceEpoch}',
+      name: nameFor(n),
+      colorIndex: state.players.length % playerColors.length,
+      autoNumber: n,
+    );
+    state = state.copyWith(players: [...state.players, player]);
+  }
+
+  /// Renames a player; an empty name keeps the current one.
+  void renamePlayer(Player player, String name) {
+    final trimmed = name.trim();
+    if (trimmed.isEmpty || trimmed == player.name) return;
+    state = state.copyWith(
+      players: [
+        for (final p in state.players)
+          if (p.id == player.id) p.copyWith(name: trimmed) else p,
+      ],
+    );
   }
 
   /// Adds a recent player (no-op if already selected).
@@ -194,21 +230,41 @@ class SetupController extends Notifier<SetupState> {
       ? state.copyWith(teamAName: name)
       : state.copyWith(teamBName: name);
 
+  /// Every player changes team.
+  void swapTeams() => state = state.copyWith(
+    teamOf: {
+      for (final p in state.players)
+        p.id: state.teamFor(p) == Team.a ? Team.b : Team.a,
+    },
+  );
+
+  static const minTarget = 10;
+  static const maxTarget = 200;
+  static const maxMissLimit = 9;
+
+  /// The overshoot reset always stays below the target.
   void setTargetScore(int target) {
-    if (target < 2) return;
-    state = state.copyWith(targetScore: target);
+    final t = target.clamp(minTarget, maxTarget);
+    state = state.copyWith(
+      targetScore: t,
+      overshootResetValue: min(state.overshootResetValue, t - 1),
+    );
   }
 
-  void setOvershootPolicy(OvershootPolicy policy) =>
-      state = state.copyWith(overshootPolicy: policy);
+  /// 0 = no penalty on overshoot.
+  void setOvershootReset(int value) => state = state.copyWith(
+    overshootResetValue: value.clamp(0, state.targetScore - 1),
+  );
 
-  void setElimination(bool enabled) =>
-      state = state.copyWith(eliminationEnabled: enabled);
+  /// 0 = no elimination.
+  void setMissLimit(int limit) =>
+      state = state.copyWith(missLimit: limit.clamp(0, maxMissLimit));
 
-  void setMissLimit(int limit) {
-    if (limit < 1 || limit > 9) return;
-    state = state.copyWith(missLimit: limit);
-  }
+  void resetHouseRules() => state = state.copyWith(
+    targetScore: SetupState.classicTarget,
+    overshootResetValue: SetupState.classicReset,
+    missLimit: SetupState.classicMissLimit,
+  );
 
   /// Builds the sides for the engine, or null if setup is invalid.
   /// [defaultTeamNames] supplies the localized "Team A"/"Team B" fallbacks.
@@ -232,7 +288,11 @@ class SetupController extends Notifier<SetupState> {
 
   void _saveRecents() {
     // Fire and forget: persistence must never block starting a game.
-    ref.read(recentPlayersRepositoryProvider).markUsed(state.players).ignore();
+    // Players who kept their generated name are not worth remembering.
+    ref.read(recentPlayersRepositoryProvider).markUsed([
+      for (final p in state.players)
+        if (!p.isAutoNamed) p,
+    ]).ignore();
   }
 }
 

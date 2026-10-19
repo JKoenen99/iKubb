@@ -1457,6 +1457,150 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Other'**
   String get tagOther;
+
+  /// No description provided for @gameSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Game'**
+  String get gameSection;
+
+  /// No description provided for @modeNumberDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Score points per kubb. First to the target wins.'**
+  String get modeNumberDesc;
+
+  /// No description provided for @modeKubbDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Classic rules. Clear the field, then the king.'**
+  String get modeKubbDesc;
+
+  /// Phone-layout helper line under the mode picker
+  ///
+  /// In en, this message translates to:
+  /// **'Score points per kubb. First to {target} wins.'**
+  String modeNumberHint(int target);
+
+  /// Player count after the Players header and in the summary bar
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 player} other{{count} players}}'**
+  String playersCount(int count);
+
+  /// No description provided for @namesOptionalHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Names are optional. Tap a name to change it.'**
+  String get namesOptionalHint;
+
+  /// No description provided for @recentLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent'**
+  String get recentLabel;
+
+  /// No description provided for @teamsOffDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Everyone plays for themselves.'**
+  String get teamsOffDesc;
+
+  /// No description provided for @teamsOnDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Score counts per team. Tap a pill to move a player.'**
+  String get teamsOnDesc;
+
+  /// No description provided for @swapTeams.
+  ///
+  /// In en, this message translates to:
+  /// **'Swap teams'**
+  String get swapTeams;
+
+  /// VoiceOver label of the team pill on a player row
+  ///
+  /// In en, this message translates to:
+  /// **'Move {name} to {team}'**
+  String moveToTeam(String name, String team);
+
+  /// No description provided for @resetLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get resetLabel;
+
+  /// No description provided for @targetScoreDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Hit it exactly to win'**
+  String get targetScoreDesc;
+
+  /// No description provided for @backToLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to'**
+  String get backToLabel;
+
+  /// No description provided for @backToDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Score when you overshoot'**
+  String get backToDesc;
+
+  /// No description provided for @eliminationDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Misses in a row before you are out'**
+  String get eliminationDesc;
+
+  /// House-rules summary fragment
+  ///
+  /// In en, this message translates to:
+  /// **'first to {target}'**
+  String summaryFirstTo(int target);
+
+  /// House-rules summary fragment
+  ///
+  /// In en, this message translates to:
+  /// **'back to {reset}'**
+  String summaryBackTo(int reset);
+
+  /// House-rules summary fragment
+  ///
+  /// In en, this message translates to:
+  /// **'out after {misses} misses'**
+  String summaryOutAfter(int misses);
+
+  /// No description provided for @summaryNoPenalty.
+  ///
+  /// In en, this message translates to:
+  /// **'no penalty'**
+  String get summaryNoPenalty;
+
+  /// No description provided for @summaryNoElimination.
+  ///
+  /// In en, this message translates to:
+  /// **'no elimination'**
+  String get summaryNoElimination;
+
+  /// No description provided for @summaryInTeams.
+  ///
+  /// In en, this message translates to:
+  /// **'in teams'**
+  String get summaryInTeams;
+
+  /// No description provided for @editValueTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a value'**
+  String get editValueTitle;
+
+  /// VoiceOver label of a tappable player name
+  ///
+  /// In en, this message translates to:
+  /// **'Rename {name}'**
+  String renamePlayer(String name);
 }
 
 class _AppLocalizationsDelegate

@@ -5,16 +5,14 @@ import 'package:ikubb/app.dart';
 import 'package:ikubb/features/game/scoreboard_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'test_utils.dart';
+
 Future<void> pumpToGame(WidgetTester tester) async {
   await tester.pumpWidget(const ProviderScope(child: IKubbApp()));
   await tester.pumpAndSettle();
   await tester.tap(find.text('I know the rules, start scoring'));
   await tester.pumpAndSettle();
-  for (final name in ['Anna', 'Björn']) {
-    await tester.enterText(find.byType(TextField).first, name);
-    await tester.tap(find.text('Add player'));
-    await tester.pumpAndSettle();
-  }
+  await addPlayers(tester, ['Anna', 'Björn']);
   await tester.tap(find.text('Start game'));
   await tester.pumpAndSettle();
 }

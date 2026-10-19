@@ -761,4 +761,98 @@ class AppLocalizationsNb extends AppLocalizations {
 
   @override
   String get tagOther => 'Annet';
+
+  @override
+  String get gameSection => 'Spill';
+
+  @override
+  String get modeNumberDesc => 'Poeng per kjegle. Først til målet vinner.';
+
+  @override
+  String get modeKubbDesc => 'Klassiske regler. Rydd banen, så kongen.';
+
+  @override
+  String modeNumberHint(int target) {
+    return 'Poeng per kjegle. Først til $target vinner.';
+  }
+
+  @override
+  String playersCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count spillere',
+      one: '1 spiller',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get namesOptionalHint =>
+      'Navn er valgfritt. Trykk på et navn for å endre det.';
+
+  @override
+  String get recentLabel => 'Nylige';
+
+  @override
+  String get teamsOffDesc => 'Alle spiller for seg selv.';
+
+  @override
+  String get teamsOnDesc =>
+      'Poeng telles per lag. Trykk på en pille for å flytte en spiller.';
+
+  @override
+  String get swapTeams => 'Bytt lag';
+
+  @override
+  String moveToTeam(String name, String team) {
+    return 'Flytt $name til $team';
+  }
+
+  @override
+  String get resetLabel => 'Tilbakestill';
+
+  @override
+  String get targetScoreDesc => 'Treff nøyaktig for å vinne';
+
+  @override
+  String get backToLabel => 'Tilbake til';
+
+  @override
+  String get backToDesc => 'Poeng når du bommer over';
+
+  @override
+  String get eliminationDesc => 'Bom på rad før du er ute';
+
+  @override
+  String summaryFirstTo(int target) {
+    return 'først til $target';
+  }
+
+  @override
+  String summaryBackTo(int reset) {
+    return 'tilbake til $reset';
+  }
+
+  @override
+  String summaryOutAfter(int misses) {
+    return 'ute etter $misses bom';
+  }
+
+  @override
+  String get summaryNoPenalty => 'ingen straff';
+
+  @override
+  String get summaryNoElimination => 'ingen eliminering';
+
+  @override
+  String get summaryInTeams => 'i lag';
+
+  @override
+  String get editValueTitle => 'Skriv inn en verdi';
+
+  @override
+  String renamePlayer(String name) {
+    return 'Gi $name nytt navn';
+  }
 }

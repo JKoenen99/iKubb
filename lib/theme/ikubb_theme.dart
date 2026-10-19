@@ -22,9 +22,11 @@ abstract final class IKubbTheme {
     ),
   );
 
+  // Dark: oak is the accent of the redesign (selected cards, toggles,
+  // the Start button) — 6.3:1 on charcoal as text, ink on oak for fills.
   static ThemeData get dark => _base(
     const ColorScheme.dark(
-      primary: IKubbPalette.sage,
+      primary: IKubbPalette.oak,
       onPrimary: IKubbPalette.ink,
       secondary: IKubbPalette.oak,
       onSecondary: IKubbPalette.ink,
