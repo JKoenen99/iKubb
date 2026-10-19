@@ -87,6 +87,11 @@ Een id verandert nooit; nieuwe ids toevoegen is additief.
 - De tekst in het formulier zegt precies wat bewaard wordt.
 - De anon key in de app mag alleen **INSERT** op de feedbacktabel (RLS);
   lezen kan uitsluitend met jouw service role / dashboard.
+- De insert-policy controleert de vorm van een rij (schema v1, id in het
+  document gelijk aan de rij, tijdstip binnen 30 dagen, begrensde
+  groottes) en een trigger beperkt het tot 30 events per installatie per
+  uur, zodat de publieke key niet voor spam te gebruiken is
+  (`supabase/migrations/0002_feedback_insert_hardening.sql`).
 
 ## 4. Opslag: lokaal eerst, dan Supabase
 
@@ -122,7 +127,9 @@ flutter build ipa \
 
 Let op: de REST-call stuurt één event per request en behandelt 409 als
 "al opgeslagen"; `ON CONFLICT` zou SELECT-rechten vereisen die de app-key
-bewust niet heeft.
+bewust niet heeft. Een definitieve afwijzing (andere 4xx, bijvoorbeeld
+door de policy) wordt uit de outbox verwijderd; 408/429 en 5xx worden
+opnieuw geprobeerd.
 
 Zonder deze defines draait de app met alleen de lokale outbox (dat is
 wat de tests doen; de webpreview bouwt mét backend).

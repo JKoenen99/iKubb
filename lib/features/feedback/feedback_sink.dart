@@ -85,7 +85,15 @@ class SupabaseFeedbackSink implements FeedbackSink {
           )
           .timeout(const Duration(seconds: 10));
       final code = response.statusCode;
-      return (code >= 200 && code < 300) || code == 409;
+      if (code >= 200 && code < 300) return true;
+      // Duplicate: already stored. Other 4xx (policy or validation
+      // rejection) will never succeed on retry; drop it from the outbox
+      // rather than block every later event behind it. 408/429 do retry.
+      if (code == 409) return true;
+      if (code >= 400 && code < 500 && code != 408 && code != 429) {
+        return true;
+      }
+      return false;
     } on Object {
       return false; // offline, DNS, timeout: the outbox keeps it
     }

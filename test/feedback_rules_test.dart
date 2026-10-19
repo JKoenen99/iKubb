@@ -229,6 +229,22 @@ void main() {
       expect(seen.headers['Authorization'], 'Bearer eyJhbGciOiJIUzI1NiJ9.x.y');
     });
 
+    test(
+      'a permanent rejection (4xx) leaves the outbox, 429 retries',
+      () async {
+        FeedbackSink withStatus(int code) => SupabaseFeedbackSink(
+          projectUrl: 'https://xyz.supabase.co',
+          anonKey: 'anon',
+          client: MockClient((_) async => http.Response('', code)),
+        );
+        expect(await withStatus(403).send([event]), isTrue);
+        expect(await withStatus(400).send([event]), isTrue);
+        expect(await withStatus(429).send([event]), isFalse);
+        expect(await withStatus(408).send([event]), isFalse);
+        expect(await withStatus(500).send([event]), isFalse);
+      },
+    );
+
     test('Supabase sink reports failure instead of throwing', () async {
       final sink = SupabaseFeedbackSink(
         projectUrl: 'https://xyz.supabase.co',
