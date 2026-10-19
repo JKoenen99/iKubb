@@ -78,6 +78,30 @@ void main() {
     });
   });
 
+  test('input lines reach 3:1 on the cards they sit on (WCAG 1.4.11)', () {
+    expect(
+      contrast(IKubbPalette.lineLight, IKubbPalette.birch),
+      greaterThan(3),
+    );
+    expect(
+      contrast(IKubbPalette.lineLight, IKubbPalette.birchLight),
+      greaterThan(3),
+    );
+    expect(
+      contrast(IKubbPalette.lineDark, IKubbPalette.nightSurface),
+      greaterThan(3),
+    );
+    expect(
+      contrast(IKubbPalette.lineDark, IKubbPalette.charcoalWood),
+      greaterThan(3),
+    );
+    // The dark-theme error color is the one that reads on dark cards.
+    expect(
+      contrast(IKubbPalette.berryLight, IKubbPalette.nightSurface),
+      greaterThan(4.5),
+    );
+  });
+
   test('on() picks an AA foreground for every player color', () {
     for (final color in playerColors) {
       expect(

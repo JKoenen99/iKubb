@@ -6,8 +6,9 @@ import '../../l10n/app_localizations.dart';
 import '../../theme/glass.dart';
 import '../../theme/tokens.dart';
 import '../../widgets/ikubb_app_bar.dart';
-import '../../widgets/adaptive_choice.dart';
 import '../../widgets/home_leading.dart';
+import '../../widgets/adaptive_choice.dart';
+import '../../widgets/form_cards.dart';
 import '../../widgets/settings_tiles.dart';
 import '../feedback/feedback_controller.dart';
 import '../feedback/feedback_event.dart';
@@ -89,24 +90,18 @@ class SettingsScreen extends ConsumerWidget {
                       SettingsChoiceTile(
                         icon: Icons.language,
                         title: l10n.language,
-                        trailing: DropdownButton<String>(
+                        below: SelectField<String>(
                           value: locale?.languageCode ?? '',
+                          semanticLabel: l10n.language,
                           onChanged: (code) => ref
                               .read(localeControllerProvider.notifier)
-                              .set(
-                                code == null || code.isEmpty
-                                    ? null
-                                    : Locale(code),
-                              ),
-                          items: [
-                            DropdownMenuItem(
-                              value: '',
-                              child: Text(l10n.systemDefault),
-                            ),
+                              .set(code.isEmpty ? null : Locale(code)),
+                          options: [
+                            ChoiceOption(value: '', label: l10n.systemDefault),
                             for (final entry in _languageNames.entries)
-                              DropdownMenuItem(
+                              ChoiceOption(
                                 value: entry.key,
-                                child: Text(entry.value),
+                                label: entry.value,
                               ),
                           ],
                         ),

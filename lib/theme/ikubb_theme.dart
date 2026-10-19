@@ -17,6 +17,8 @@ abstract final class IKubbTheme {
       surface: IKubbPalette.birchLight,
       onSurface: IKubbPalette.ink,
       surfaceContainerHighest: IKubbPalette.birch,
+      outline: IKubbPalette.lineLight,
+      outlineVariant: IKubbPalette.lineSoftLight,
       error: IKubbPalette.berry,
       onError: IKubbPalette.birchLight,
     ),
@@ -35,8 +37,10 @@ abstract final class IKubbTheme {
       surface: IKubbPalette.charcoalWood,
       onSurface: IKubbPalette.birchLight,
       surfaceContainerHighest: IKubbPalette.nightSurface,
-      error: IKubbPalette.berry,
-      onError: IKubbPalette.birchLight,
+      outline: IKubbPalette.lineDark,
+      outlineVariant: IKubbPalette.lineSoftDark,
+      error: IKubbPalette.berryLight,
+      onError: IKubbPalette.ink,
     ),
   );
 
@@ -54,8 +58,45 @@ abstract final class IKubbTheme {
           borderRadius: BorderRadius.circular(materialRadius),
         );
 
+  /// Inputs follow one recipe (the Airbnb / Polaris / HIG consensus): a
+  /// quiet fill one step lighter than the card, a visible neutral border at
+  /// rest, the primary color at twice the weight on focus, the danger color
+  /// on error, and a soft border when disabled. Text fields, the select
+  /// field and the segmented control all read as the same family.
+  static InputDecorationTheme _inputTheme(ColorScheme scheme) {
+    OutlineInputBorder border(Color color, double width) => OutlineInputBorder(
+      borderRadius: BorderRadius.circular(IKubbRadius.md),
+      borderSide: BorderSide(color: color, width: width),
+    );
+    return InputDecorationTheme(
+      filled: true,
+      fillColor: scheme.surface,
+      contentPadding: const EdgeInsets.symmetric(
+        horizontal: IKubbSpacing.lg,
+        vertical: IKubbSpacing.md,
+      ),
+      hintStyle: TextStyle(
+        color: scheme.onSurface.withValues(alpha: IKubbAlpha.faded),
+      ),
+      suffixIconColor: scheme.onSurface,
+      prefixIconColor: scheme.onSurface,
+      border: border(scheme.outline, IKubbBorder.hairline),
+      enabledBorder: border(scheme.outline, IKubbBorder.hairline),
+      focusedBorder: border(scheme.primary, IKubbBorder.line),
+      errorBorder: border(scheme.error, IKubbBorder.hairline),
+      focusedErrorBorder: border(scheme.error, IKubbBorder.line),
+      disabledBorder: border(scheme.outlineVariant, IKubbBorder.hairline),
+    );
+  }
+
   static ThemeData _base(ColorScheme scheme) => ThemeData(
     colorScheme: scheme,
+    inputDecorationTheme: _inputTheme(scheme),
+    dropdownMenuTheme: DropdownMenuThemeData(
+      inputDecorationTheme: _inputTheme(scheme),
+    ),
+    textSelectionTheme: TextSelectionThemeData(cursorColor: scheme.primary),
+    dividerTheme: DividerThemeData(color: scheme.outlineVariant),
     scaffoldBackgroundColor: scheme.surface,
     // Outdoor-first ergonomics: oversized touch targets everywhere.
     materialTapTargetSize: MaterialTapTargetSize.padded,
@@ -93,14 +134,48 @@ abstract final class IKubbTheme {
         shape: _cupertino ? const StadiumBorder() : null,
       ),
     ),
-    // Segments meet the 48pt tap minimum (outdoor thumbs, WCAG 2.5.8).
+    // Segmented control: the input border at rest, the primary fill for
+    // the chosen segment (a strong, unambiguous selected state), and the
+    // 48pt tap minimum (outdoor thumbs, WCAG 2.5.8).
     segmentedButtonTheme: SegmentedButtonThemeData(
       style: SegmentedButton.styleFrom(
         minimumSize: const Size(48, 48),
-        shape: _cupertino ? const StadiumBorder() : null,
+        shape: _controlShape(IKubbRadius.md),
+        side: BorderSide(color: scheme.outline, width: IKubbBorder.hairline),
+        backgroundColor: scheme.surface,
+        foregroundColor: scheme.onSurface,
+        selectedBackgroundColor: scheme.primary,
+        selectedForegroundColor: scheme.onPrimary,
+        textStyle: const TextStyle(fontWeight: FontWeight.w600),
       ),
     ),
-    chipTheme: _cupertino ? const ChipThemeData(shape: StadiumBorder()) : null,
+    // Chips share the recipe: neutral line at rest, primary when selected.
+    chipTheme: ChipThemeData(
+      shape: _cupertino ? const StadiumBorder() : null,
+      backgroundColor: scheme.surface,
+      selectedColor: scheme.primary,
+      checkmarkColor: scheme.onPrimary,
+      side: WidgetStateBorderSide.resolveWith(
+        (states) => BorderSide(
+          color: states.contains(WidgetState.selected)
+              ? scheme.primary
+              : scheme.outline,
+          width: IKubbBorder.hairline,
+        ),
+      ),
+      labelStyle: WidgetStateTextStyle.resolveWith(
+        (states) => TextStyle(
+          color: states.contains(WidgetState.selected)
+              ? scheme.onPrimary
+              : scheme.onSurface,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+      secondaryLabelStyle: TextStyle(
+        color: scheme.onPrimary,
+        fontWeight: FontWeight.w600,
+      ),
+    ),
     dialogTheme: DialogThemeData(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(IKubbRadius.xl),

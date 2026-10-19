@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import '../theme/palette.dart';
 import '../theme/tokens.dart';
 import '../theme/typography.dart';
+import 'adaptive_choice.dart';
 
 /// The card-based form language of the New game redesign, shared by setup,
 /// settings and the design-system page: quiet surface cards with a
@@ -155,19 +156,22 @@ class SwitchCard extends StatelessWidget {
   final String title;
   final String? subtitle;
   final bool value;
-  final ValueChanged<bool> onChanged;
+
+  /// Null renders the row disabled (switch greyed, card not tappable).
+  final ValueChanged<bool>? onChanged;
   final Widget? leading;
 
   @override
   Widget build(BuildContext context) {
     // One semantics node: "Haptics, switch, on" instead of a label and an
     // unnamed toggle side by side.
+    final onChanged = this.onChanged;
     return MergeSemantics(
       child: SettingCard(
         title: title,
         subtitle: subtitle,
         leading: leading,
-        onTap: () => onChanged(!value),
+        onTap: onChanged == null ? null : () => onChanged(!value),
         trailing: Switch.adaptive(value: value, onChanged: onChanged),
       ),
     );
@@ -507,6 +511,90 @@ class _DashedBorderPainter extends CustomPainter {
   @override
   bool shouldRepaint(_DashedBorderPainter old) =>
       old.color != color || old.radius != radius;
+}
+
+/// A select ("dropdown") that looks like every other input: the themed
+/// outlined field with the current value and a chevron. Tapping opens a
+/// menu as wide as the field, with a check on the current option.
+class SelectField<T> extends StatelessWidget {
+  const SelectField({
+    super.key,
+    required this.value,
+    required this.options,
+    required this.onChanged,
+    this.semanticLabel,
+  });
+
+  final T value;
+  final List<ChoiceOption<T>> options;
+  final ValueChanged<T> onChanged;
+
+  /// What the field is for ("Language"); the current value is announced
+  /// after it.
+  final String? semanticLabel;
+
+  Future<void> _open(BuildContext context) async {
+    final box = context.findRenderObject()! as RenderBox;
+    final overlay =
+        Overlay.of(context).context.findRenderObject()! as RenderBox;
+    final rect = Rect.fromPoints(
+      box.localToGlobal(Offset(0, box.size.height), ancestor: overlay),
+      box.localToGlobal(box.size.bottomRight(Offset.zero), ancestor: overlay),
+    );
+    final picked = await showMenu<T>(
+      context: context,
+      position: RelativeRect.fromRect(rect, Offset.zero & overlay.size),
+      constraints: BoxConstraints(minWidth: box.size.width),
+      items: [
+        for (final o in options)
+          PopupMenuItem<T>(
+            value: o.value,
+            child: Row(
+              children: [
+                if (o.icon != null) ...[
+                  Icon(o.icon, size: IKubbIconSize.md),
+                  const SizedBox(width: IKubbSpacing.md),
+                ],
+                Expanded(child: Text(o.label)),
+                if (o.value == value)
+                  const Icon(Icons.check, size: IKubbIconSize.md),
+              ],
+            ),
+          ),
+      ],
+    );
+    if (picked != null && picked != value) onChanged(picked);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final current = options.firstWhere(
+      (o) => o.value == value,
+      orElse: () => options.first,
+    );
+    return Semantics(
+      button: true,
+      label: semanticLabel,
+      value: current.label,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(IKubbRadius.md),
+        onTap: () => _open(context),
+        child: InputDecorator(
+          decoration: const InputDecoration(
+            suffixIcon: Icon(Icons.expand_more),
+          ),
+          child: ExcludeSemantics(
+            child: Text(
+              current.label,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: IKubbType.emphasis,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }
 
 /// A player's identity disc: an initial, or a number for unnamed players.

@@ -151,9 +151,6 @@ class _RulesViewState extends ConsumerState<RulesView> {
                       setState(() => _query = '');
                     },
                   ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(IKubbRadius.lg),
-            ),
           ),
           onChanged: (v) => setState(() => _query = v),
         ),

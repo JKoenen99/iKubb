@@ -188,7 +188,7 @@ void main() {
       200,
       scrollable: find.byType(Scrollable).first,
     );
-    await tester.tap(find.text('Give feedback'));
+    await tester.tapVisible(find.text('Give feedback'));
     await tester.pumpAndSettle();
     expect(find.text('Your feedback'), findsOneWidget);
     await tester.tap(find.byTooltip('4 of 5 stars'));

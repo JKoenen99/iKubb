@@ -517,8 +517,10 @@ class _PlayerRowState extends State<_PlayerRow> {
         autofocus: true,
         decoration: const InputDecoration(
           isDense: true,
-          border: InputBorder.none,
-          contentPadding: EdgeInsets.zero,
+          contentPadding: EdgeInsets.symmetric(
+            horizontal: IKubbSpacing.md,
+            vertical: IKubbSpacing.sm + IKubbSpacing.xxs,
+          ),
         ),
         style: IKubbType.emphasis,
         textCapitalization: TextCapitalization.words,
@@ -716,8 +718,10 @@ class _TeamCard extends ConsumerWidget {
             decoration: InputDecoration(
               hintText: hint,
               isDense: true,
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.zero,
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: IKubbSpacing.md,
+                vertical: IKubbSpacing.sm + IKubbSpacing.xxs,
+              ),
             ),
             style: IKubbType.emphasis.copyWith(
               fontSize: IKubbType.stepChip + 1,

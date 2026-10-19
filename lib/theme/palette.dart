@@ -62,6 +62,19 @@ abstract final class IKubbPalette {
   static Color danger(Brightness brightness) =>
       brightness == Brightness.dark ? berryLight : berry;
 
+  // Input and control borders ("lines"): warm neutrals mixed from ink and
+  // birch, at 3:1 against the card they sit on (WCAG 1.4.11 for the
+  // boundary of a text field or segmented control). The soft variants are
+  // dividers and disabled borders, decorative by design.
+  static const lineLight = Color(0xFF7F796E);
+  static const lineDark = Color(0xFF858880);
+  static const lineSoftLight = Color(0xFFCFC6B6);
+  static const lineSoftDark = Color(0xFF3C443D);
+
+  /// Resting border of an input on the current theme's cards.
+  static Color line(Brightness brightness) =>
+      brightness == Brightness.dark ? lineDark : lineLight;
+
   // Dark theme (night-forest greens on charcoal-wood)
   static const charcoalWood = Color(0xFF181C18);
   static const nightSurface = Color(0xFF232A24);

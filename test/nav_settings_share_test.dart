@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ikubb/app.dart';
+import 'package:ikubb/widgets/form_cards.dart';
 import 'package:ikubb/widgets/share_card.dart';
 import 'package:ikubb/features/onboarding/onboarding_state.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -64,7 +65,7 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Settings'), findsOneWidget);
 
-    await tester.tap(find.byType(DropdownButton<String>));
+    await tester.tap(find.byType(SelectField<String>));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Nederlands').last);
     await tester.pumpAndSettle();

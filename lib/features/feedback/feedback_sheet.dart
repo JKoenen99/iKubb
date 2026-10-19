@@ -193,9 +193,6 @@ class _FeedbackFormState extends ConsumerState<_FeedbackForm> {
                   textInputAction: TextInputAction.done,
                   decoration: InputDecoration(
                     hintText: l10n.feedbackCommentHint,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(IKubbRadius.lg),
-                    ),
                   ),
                 ),
               ],
