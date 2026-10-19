@@ -56,6 +56,8 @@ class SupabaseFeedbackSink implements FeedbackSink {
   final String table;
   final http.Client _client;
 
+  static const _permanent = {409, 400, 403, 404, 413, 422};
+
   /// One request per event (volumes are tiny), so a single duplicate
   /// never fails a whole batch. A 409 means the row is already there —
   /// a retry after a lost response — and counts as delivered. The app key
@@ -86,14 +88,11 @@ class SupabaseFeedbackSink implements FeedbackSink {
           .timeout(const Duration(seconds: 10));
       final code = response.statusCode;
       if (code >= 200 && code < 300) return true;
-      // Duplicate: already stored. Other 4xx (policy or validation
-      // rejection) will never succeed on retry; drop it from the outbox
-      // rather than block every later event behind it. 408/429 do retry.
-      if (code == 409) return true;
-      if (code >= 400 && code < 500 && code != 408 && code != 429) {
-        return true;
-      }
-      return false;
+      // 409: already stored. The others are rejections of this very row
+      // (policy, validation, size) that no retry will fix: drop them from
+      // the outbox rather than block every later event. Everything else
+      // (401 wrong key, 408/429 back-off, 5xx) stays and retries.
+      return _permanent.contains(code);
     } on Object {
       return false; // offline, DNS, timeout: the outbox keeps it
     }

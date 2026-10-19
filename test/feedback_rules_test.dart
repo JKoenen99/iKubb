@@ -239,6 +239,7 @@ void main() {
         );
         expect(await withStatus(403).send([event]), isTrue);
         expect(await withStatus(400).send([event]), isTrue);
+        expect(await withStatus(401).send([event]), isFalse); // wrong key
         expect(await withStatus(429).send([event]), isFalse);
         expect(await withStatus(408).send([event]), isFalse);
         expect(await withStatus(500).send([event]), isFalse);
