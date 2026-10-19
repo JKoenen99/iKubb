@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:scoring_engine/scoring_engine.dart';
 
+import '../feedback/feedback_controller.dart';
 import '../game/game_controller.dart' show sideColorsProvider;
 import '../game/game_mode.dart';
 import '../game/live_score/live_score.dart';
@@ -94,6 +95,7 @@ class KubbController extends Notifier<KubbMatch> {
         )
         .ignore();
     if (state.isFinished) {
+      ref.read(finishedGameCountProvider.notifier).markFinished(_matchId);
       repo
           .recordFinished(
             FinishedGame(

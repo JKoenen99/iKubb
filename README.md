@@ -34,6 +34,22 @@ Note: a GitHub Pages site is publicly reachable by anyone with the URL.
 The web build is a development preview only — releases ship as native
 iOS/Android apps.
 
+## In-app feedback (optional backend)
+
+Players can rate the app (stars, tags, a comment) at the end of a game,
+after the tour, and from Settings. Events are stored on the device as
+portable JSON and, when a backend is configured, posted to Supabase.
+Without the two defines below the app runs with the local outbox only.
+
+```sh
+flutter build ipa \
+  --dart-define=SUPABASE_URL=https://<project-ref>.supabase.co \
+  --dart-define=SUPABASE_ANON_KEY=<anon public key>
+```
+
+Schema, privacy model, and analysis queries: [docs/FEEDBACK.md](docs/FEEDBACK.md);
+the table lives in `supabase/migrations/`.
+
 ## Tests
 
 ```sh

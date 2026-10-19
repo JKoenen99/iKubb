@@ -6,6 +6,8 @@ import 'package:scoring_engine/scoring_engine.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/rolling_number.dart';
 import '../../widgets/viking_mascot.dart';
+import '../feedback/feedback_event.dart';
+import '../feedback/feedback_prompt.dart';
 import '../game/game_mode.dart';
 import '../game/pin_diagram.dart';
 import '../rules/rule_illustrations.dart';
@@ -85,9 +87,18 @@ class _TourScreenState extends ConsumerState<TourScreen> {
     _TourCard(
       title: l10n.ruleExactTitle,
       body: l10n.ruleExactBody,
+      footer: _tourFeedback(l10n, 'number_kubb'),
       child: const VikingMascot(pose: MascotPose.cheer, size: 150),
     ),
   ];
+
+  /// Asked once, on the first completed tour: did the explanation land?
+  Widget _tourFeedback(AppLocalizations l10n, String mode) =>
+      FeedbackPromptCard(
+        trigger: FeedbackTrigger.tourEnd,
+        title: l10n.feedbackPromptTourTitle,
+        eventContext: {'mode': mode},
+      );
 
   List<Widget> _kubbCards(AppLocalizations l10n) => [
     _TourCard(
@@ -113,6 +124,7 @@ class _TourScreenState extends ConsumerState<TourScreen> {
     _TourCard(
       title: l10n.ruleKubbKingTitle,
       body: l10n.ruleKubbKingBody,
+      footer: _tourFeedback(l10n, 'classic_kubb'),
       child: const VikingMascot(pose: MascotPose.cheer, size: 150),
     ),
   ];
@@ -306,11 +318,19 @@ class _ModeOption extends StatelessWidget {
 }
 
 class _TourCard extends StatelessWidget {
-  const _TourCard({required this.title, required this.body, this.child});
+  const _TourCard({
+    required this.title,
+    required this.body,
+    this.child,
+    this.footer,
+  });
 
   final String title;
   final String body;
   final Widget? child;
+
+  /// Below the body: the last card's feedback ask.
+  final Widget? footer;
 
   @override
   Widget build(BuildContext context) {
@@ -333,6 +353,10 @@ class _TourCard extends StatelessWidget {
             ),
             const SizedBox(height: IKubbSpacing.md),
             Text(body, textAlign: TextAlign.center, style: IKubbType.reading),
+            if (footer != null) ...[
+              const SizedBox(height: IKubbSpacing.xl),
+              footer!,
+            ],
           ],
         ),
       ),

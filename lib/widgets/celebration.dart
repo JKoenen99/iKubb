@@ -81,6 +81,7 @@ class CelebrationScaffold extends StatelessWidget {
     this.winnerColor,
     this.scoreLine,
     this.details,
+    this.footer,
     this.celebrate = true,
   });
 
@@ -93,6 +94,10 @@ class CelebrationScaffold extends StatelessWidget {
 
   /// Optional block between the banner and the actions (standings rows).
   final Widget? details;
+
+  /// Optional block under the actions (the feedback ask): last in reading
+  /// order, so it never competes with Rematch/Share.
+  final Widget? footer;
   final bool celebrate;
 
   @override
@@ -124,6 +129,10 @@ class CelebrationScaffold extends StatelessWidget {
         for (final (i, action) in actions.indexed) ...[
           if (i > 0) const SizedBox(height: IKubbSpacing.md),
           action,
+        ],
+        if (footer != null) ...[
+          const SizedBox(height: IKubbSpacing.xl),
+          footer!,
         ],
       ],
     );

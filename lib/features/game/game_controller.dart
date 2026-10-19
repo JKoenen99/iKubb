@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:scoring_engine/scoring_engine.dart';
 
+import '../feedback/feedback_controller.dart';
 import '../stats/game_records_repository.dart';
 import 'game_mode.dart';
 import 'live_score/live_score.dart';
@@ -111,6 +112,7 @@ class GameController extends Notifier<Game> {
         )
         .ignore();
     if (state.winner != null) {
+      ref.read(finishedGameCountProvider.notifier).markFinished(_gameId);
       repo
           .recordFinished(
             FinishedGame(id: _gameId, finishedAt: DateTime.now(), game: state),

@@ -7,6 +7,9 @@ import '../../theme/tokens.dart';
 import '../../widgets/adaptive_choice.dart';
 import '../../widgets/home_leading.dart';
 import '../../widgets/settings_tiles.dart';
+import '../feedback/feedback_controller.dart';
+import '../feedback/feedback_event.dart';
+import '../feedback/feedback_sheet.dart';
 import 'settings_controller.dart';
 
 /// Language names shown as endonyms — they must never be translated.
@@ -124,6 +127,27 @@ class SettingsScreen extends ConsumerWidget {
                       icon: Icons.school_outlined,
                       title: l10n.teachMe,
                       onTap: () => context.push('/tour'),
+                    ),
+                  ],
+                ),
+                SettingsSection(
+                  title: l10n.feedbackSection,
+                  children: [
+                    SettingsNavTile(
+                      icon: Icons.rate_review_outlined,
+                      title: l10n.feedbackGive,
+                      subtitle: l10n.feedbackGiveSubtitle,
+                      onTap: () async {
+                        final result = await showFeedbackSheet(
+                          context,
+                          trigger: FeedbackTrigger.settings,
+                        );
+                        if (result?.storeReview ?? false) {
+                          await ref
+                              .read(feedbackControllerProvider.notifier)
+                              .requestStoreReview();
+                        }
+                      },
                     ),
                   ],
                 ),

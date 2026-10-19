@@ -17,6 +17,8 @@ import '../../widgets/keep_awake.dart';
 import '../../widgets/share_card.dart';
 import '../../widgets/side_card.dart';
 import '../../widgets/confirm_dialog.dart';
+import '../feedback/feedback_event.dart';
+import '../feedback/feedback_prompt.dart';
 import '../rules/rules_content.dart';
 import '../rules/rules_view.dart';
 import '../settings/haptics.dart';
@@ -616,6 +618,19 @@ class _KubbMatchOverlay extends ConsumerWidget {
           child: Text(l10n.newMatch),
         ),
       ],
+      footer: FeedbackPromptCard(
+        trigger: FeedbackTrigger.gameEnd,
+        title: l10n.feedbackPromptGameTitle,
+        onDark: true,
+        eventContext: {
+          'mode': 'classic_kubb',
+          'best_of': match.rules.bestOf,
+          'games': match.games.length,
+          'turn_clock_seconds': match.rules.turnClockSeconds,
+          'early_king': match.games.any((g) => g.earlyKing),
+          'events': match.gameEvents.fold<int>(0, (n, g) => n + g.length),
+        },
+      ),
     );
   }
 }

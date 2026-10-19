@@ -390,5 +390,40 @@
         "type": "String"
       }
     }
-  }
+  },
+  "feedbackPromptGameTitle": "How was scoring with iKubb?",
+  "feedbackPromptTourTitle": "Did the tour explain the game?",
+  "feedbackSheetTitle": "Your feedback",
+  "feedbackNotNow": "Not now",
+  "feedbackStarsSemantics": "{count} of 5 stars",
+  "@feedbackStarsSemantics": {
+    "description": "VoiceOver label of one star button in the rating row",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "feedbackWhatLiked": "What worked well?",
+  "feedbackWhatImprove": "What could be better?",
+  "feedbackCommentHint": "Anything else? (optional)",
+  "feedbackSubmit": "Send feedback",
+  "feedbackThanks": "Thanks, that helps us improve!",
+  "feedbackSection": "Feedback",
+  "feedbackGive": "Give feedback",
+  "feedbackGiveSubtitle": "Tell the maker what to improve",
+  "feedbackPrivacyNote": "Anonymous: we store only your rating, tags, comment, and the app version.",
+  "tagEasyScoring": "Easy scoring",
+  "tagRulesHelpful": "Rules helped",
+  "tagLooksGreat": "Looks great",
+  "tagFast": "Fast",
+  "tagStatsFun": "Stats are fun",
+  "tagShareCard": "Share card",
+  "tagConfusing": "Confusing",
+  "tagMissingFeature": "Missing a feature",
+  "tagBug": "Something broke",
+  "tagTooManyTaps": "Too many taps",
+  "tagRulesUnclear": "Rules unclear",
+  "tagTranslation": "Translation issue",
+  "tagOther": "Other"
 }

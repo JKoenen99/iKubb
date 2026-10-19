@@ -675,4 +675,88 @@ class AppLocalizationsEn extends AppLocalizations {
   String eliminatedAnnouncement(String name) {
     return '$name is out';
   }
+
+  @override
+  String get feedbackPromptGameTitle => 'How was scoring with iKubb?';
+
+  @override
+  String get feedbackPromptTourTitle => 'Did the tour explain the game?';
+
+  @override
+  String get feedbackSheetTitle => 'Your feedback';
+
+  @override
+  String get feedbackNotNow => 'Not now';
+
+  @override
+  String feedbackStarsSemantics(int count) {
+    return '$count of 5 stars';
+  }
+
+  @override
+  String get feedbackWhatLiked => 'What worked well?';
+
+  @override
+  String get feedbackWhatImprove => 'What could be better?';
+
+  @override
+  String get feedbackCommentHint => 'Anything else? (optional)';
+
+  @override
+  String get feedbackSubmit => 'Send feedback';
+
+  @override
+  String get feedbackThanks => 'Thanks, that helps us improve!';
+
+  @override
+  String get feedbackSection => 'Feedback';
+
+  @override
+  String get feedbackGive => 'Give feedback';
+
+  @override
+  String get feedbackGiveSubtitle => 'Tell the maker what to improve';
+
+  @override
+  String get feedbackPrivacyNote =>
+      'Anonymous: we store only your rating, tags, comment, and the app version.';
+
+  @override
+  String get tagEasyScoring => 'Easy scoring';
+
+  @override
+  String get tagRulesHelpful => 'Rules helped';
+
+  @override
+  String get tagLooksGreat => 'Looks great';
+
+  @override
+  String get tagFast => 'Fast';
+
+  @override
+  String get tagStatsFun => 'Stats are fun';
+
+  @override
+  String get tagShareCard => 'Share card';
+
+  @override
+  String get tagConfusing => 'Confusing';
+
+  @override
+  String get tagMissingFeature => 'Missing a feature';
+
+  @override
+  String get tagBug => 'Something broke';
+
+  @override
+  String get tagTooManyTaps => 'Too many taps';
+
+  @override
+  String get tagRulesUnclear => 'Rules unclear';
+
+  @override
+  String get tagTranslation => 'Translation issue';
+
+  @override
+  String get tagOther => 'Other';
 }

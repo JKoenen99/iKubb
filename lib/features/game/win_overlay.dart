@@ -9,8 +9,11 @@ import '../../theme/typography.dart';
 import '../../theme/tokens.dart';
 import '../../widgets/celebration.dart';
 import '../../widgets/share_card.dart';
+import '../feedback/feedback_event.dart';
+import '../feedback/feedback_prompt.dart';
 import '../setup/player.dart' show playerColors;
 import 'game_controller.dart';
+import 'input_mode.dart';
 
 /// Full-screen, personalized win celebration (SPEC.md §3.3): the winner's
 /// name and color star in it, the mascot cheers, confetti falls.
@@ -98,6 +101,25 @@ class WinOverlay extends ConsumerWidget {
           child: Text(l10n.newGame),
         ),
       ],
+      // The ask comes after the celebration and the actions: the natural
+      // end of the visit, with the result still on screen.
+      footer: FeedbackPromptCard(
+        trigger: FeedbackTrigger.gameEnd,
+        title: l10n.feedbackPromptGameTitle,
+        onDark: true,
+        eventContext: {
+          'mode': 'number_kubb',
+          'sides': game.sides.length,
+          'throws': game.throws.length,
+          'target_score': game.rules.targetScore,
+          'overshoot_policy': game.rules.overshootPolicy.name,
+          'elimination': game.rules.eliminationEnabled,
+          'eliminated_sides': game.sideStates
+              .where((s) => s.isEliminated)
+              .length,
+          'input_mode': ref.read(inputModeProvider).name,
+        },
+      ),
     );
   }
 }

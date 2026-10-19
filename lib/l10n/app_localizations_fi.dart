@@ -677,4 +677,88 @@ class AppLocalizationsFi extends AppLocalizations {
   String eliminatedAnnouncement(String name) {
     return '$name putoaa pelistä';
   }
+
+  @override
+  String get feedbackPromptGameTitle => 'Miten pisteenlasku sujui iKubbilla?';
+
+  @override
+  String get feedbackPromptTourTitle => 'Selittikö kierros pelin?';
+
+  @override
+  String get feedbackSheetTitle => 'Palautteesi';
+
+  @override
+  String get feedbackNotNow => 'Ei nyt';
+
+  @override
+  String feedbackStarsSemantics(int count) {
+    return '$count/5 tähteä';
+  }
+
+  @override
+  String get feedbackWhatLiked => 'Mikä toimi hyvin?';
+
+  @override
+  String get feedbackWhatImprove => 'Mikä voisi olla paremmin?';
+
+  @override
+  String get feedbackCommentHint => 'Jotain muuta? (valinnainen)';
+
+  @override
+  String get feedbackSubmit => 'Lähetä palaute';
+
+  @override
+  String get feedbackThanks => 'Kiitos, tämä auttaa meitä parantamaan!';
+
+  @override
+  String get feedbackSection => 'Palaute';
+
+  @override
+  String get feedbackGive => 'Anna palautetta';
+
+  @override
+  String get feedbackGiveSubtitle => 'Kerro kehittäjälle, mitä parantaa';
+
+  @override
+  String get feedbackPrivacyNote =>
+      'Anonyymi: tallennamme vain arvion, tunnisteet, kommentin ja sovellusversion.';
+
+  @override
+  String get tagEasyScoring => 'Helppo pisteenlasku';
+
+  @override
+  String get tagRulesHelpful => 'Säännöt auttoivat';
+
+  @override
+  String get tagLooksGreat => 'Näyttää hyvältä';
+
+  @override
+  String get tagFast => 'Nopea';
+
+  @override
+  String get tagStatsFun => 'Tilastot ovat hauskoja';
+
+  @override
+  String get tagShareCard => 'Jakokortti';
+
+  @override
+  String get tagConfusing => 'Sekava';
+
+  @override
+  String get tagMissingFeature => 'Ominaisuus puuttuu';
+
+  @override
+  String get tagBug => 'Jokin meni rikki';
+
+  @override
+  String get tagTooManyTaps => 'Liikaa napautuksia';
+
+  @override
+  String get tagRulesUnclear => 'Säännöt epäselvät';
+
+  @override
+  String get tagTranslation => 'Käännösvirhe';
+
+  @override
+  String get tagOther => 'Muu';
 }

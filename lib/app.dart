@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'features/feedback/feedback_controller.dart';
 import 'features/settings/settings_controller.dart';
 import 'l10n/app_localizations.dart';
 import 'router.dart';
@@ -12,6 +13,8 @@ class IKubbApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(routerProvider);
+    // Loads the prompt state at launch (and retries the feedback outbox).
+    ref.watch(feedbackControllerProvider);
     return MaterialApp.router(
       onGenerateTitle: (context) => AppLocalizations.of(context)!.appTitle,
       // Dynamic Type is honored up to 2× — beyond that the field layouts

@@ -677,4 +677,88 @@ class AppLocalizationsNb extends AppLocalizations {
   String eliminatedAnnouncement(String name) {
     return '$name er ute';
   }
+
+  @override
+  String get feedbackPromptGameTitle => 'Hvordan var det å telle med iKubb?';
+
+  @override
+  String get feedbackPromptTourTitle => 'Forklarte omvisningen spillet?';
+
+  @override
+  String get feedbackSheetTitle => 'Din tilbakemelding';
+
+  @override
+  String get feedbackNotNow => 'Ikke nå';
+
+  @override
+  String feedbackStarsSemantics(int count) {
+    return '$count av 5 stjerner';
+  }
+
+  @override
+  String get feedbackWhatLiked => 'Hva fungerte bra?';
+
+  @override
+  String get feedbackWhatImprove => 'Hva kunne vært bedre?';
+
+  @override
+  String get feedbackCommentHint => 'Noe annet? (valgfritt)';
+
+  @override
+  String get feedbackSubmit => 'Send tilbakemelding';
+
+  @override
+  String get feedbackThanks => 'Takk, det hjelper oss videre!';
+
+  @override
+  String get feedbackSection => 'Tilbakemelding';
+
+  @override
+  String get feedbackGive => 'Gi tilbakemelding';
+
+  @override
+  String get feedbackGiveSubtitle => 'Fortell utvikleren hva som kan bli bedre';
+
+  @override
+  String get feedbackPrivacyNote =>
+      'Anonymt: vi lagrer bare vurderingen, taggene, kommentaren og appversjonen.';
+
+  @override
+  String get tagEasyScoring => 'Enkel telling';
+
+  @override
+  String get tagRulesHelpful => 'Reglene hjalp';
+
+  @override
+  String get tagLooksGreat => 'Ser bra ut';
+
+  @override
+  String get tagFast => 'Rask';
+
+  @override
+  String get tagStatsFun => 'Statistikken er gøy';
+
+  @override
+  String get tagShareCard => 'Delekort';
+
+  @override
+  String get tagConfusing => 'Forvirrende';
+
+  @override
+  String get tagMissingFeature => 'Mangler en funksjon';
+
+  @override
+  String get tagBug => 'Noe gikk galt';
+
+  @override
+  String get tagTooManyTaps => 'For mange trykk';
+
+  @override
+  String get tagRulesUnclear => 'Reglene er uklare';
+
+  @override
+  String get tagTranslation => 'Oversettelsesfeil';
+
+  @override
+  String get tagOther => 'Annet';
 }

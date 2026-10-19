@@ -677,4 +677,89 @@ class AppLocalizationsSv extends AppLocalizations {
   String eliminatedAnnouncement(String name) {
     return '$name är utslagen';
   }
+
+  @override
+  String get feedbackPromptGameTitle => 'Hur var det att räkna med iKubb?';
+
+  @override
+  String get feedbackPromptTourTitle => 'Förklarade rundturen spelet?';
+
+  @override
+  String get feedbackSheetTitle => 'Din feedback';
+
+  @override
+  String get feedbackNotNow => 'Inte nu';
+
+  @override
+  String feedbackStarsSemantics(int count) {
+    return '$count av 5 stjärnor';
+  }
+
+  @override
+  String get feedbackWhatLiked => 'Vad fungerade bra?';
+
+  @override
+  String get feedbackWhatImprove => 'Vad kunde vara bättre?';
+
+  @override
+  String get feedbackCommentHint => 'Något mer? (valfritt)';
+
+  @override
+  String get feedbackSubmit => 'Skicka feedback';
+
+  @override
+  String get feedbackThanks => 'Tack, det hjälper oss framåt!';
+
+  @override
+  String get feedbackSection => 'Feedback';
+
+  @override
+  String get feedbackGive => 'Ge feedback';
+
+  @override
+  String get feedbackGiveSubtitle =>
+      'Berätta för utvecklaren vad som kan bli bättre';
+
+  @override
+  String get feedbackPrivacyNote =>
+      'Anonymt: vi sparar bara betyget, taggarna, kommentaren och appversionen.';
+
+  @override
+  String get tagEasyScoring => 'Enkelt att räkna';
+
+  @override
+  String get tagRulesHelpful => 'Reglerna hjälpte';
+
+  @override
+  String get tagLooksGreat => 'Ser bra ut';
+
+  @override
+  String get tagFast => 'Snabb';
+
+  @override
+  String get tagStatsFun => 'Statistiken är kul';
+
+  @override
+  String get tagShareCard => 'Delningskort';
+
+  @override
+  String get tagConfusing => 'Förvirrande';
+
+  @override
+  String get tagMissingFeature => 'Saknar en funktion';
+
+  @override
+  String get tagBug => 'Något gick sönder';
+
+  @override
+  String get tagTooManyTaps => 'För många tryck';
+
+  @override
+  String get tagRulesUnclear => 'Reglerna är otydliga';
+
+  @override
+  String get tagTranslation => 'Översättningsfel';
+
+  @override
+  String get tagOther => 'Annat';
 }

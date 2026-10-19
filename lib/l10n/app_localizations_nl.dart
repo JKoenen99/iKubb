@@ -678,4 +678,88 @@ class AppLocalizationsNl extends AppLocalizations {
   String eliminatedAnnouncement(String name) {
     return '$name ligt eruit';
   }
+
+  @override
+  String get feedbackPromptGameTitle => 'Hoe was het scoren met iKubb?';
+
+  @override
+  String get feedbackPromptTourTitle => 'Legde de uitleg het spel goed uit?';
+
+  @override
+  String get feedbackSheetTitle => 'Jouw feedback';
+
+  @override
+  String get feedbackNotNow => 'Niet nu';
+
+  @override
+  String feedbackStarsSemantics(int count) {
+    return '$count van 5 sterren';
+  }
+
+  @override
+  String get feedbackWhatLiked => 'Wat werkte goed?';
+
+  @override
+  String get feedbackWhatImprove => 'Wat kan beter?';
+
+  @override
+  String get feedbackCommentHint => 'Nog iets? (optioneel)';
+
+  @override
+  String get feedbackSubmit => 'Feedback versturen';
+
+  @override
+  String get feedbackThanks => 'Dankjewel, hier worden we beter van!';
+
+  @override
+  String get feedbackSection => 'Feedback';
+
+  @override
+  String get feedbackGive => 'Feedback geven';
+
+  @override
+  String get feedbackGiveSubtitle => 'Vertel de maker wat beter kan';
+
+  @override
+  String get feedbackPrivacyNote =>
+      'Anoniem: we bewaren alleen je beoordeling, tags, opmerking en de appversie.';
+
+  @override
+  String get tagEasyScoring => 'Makkelijk scoren';
+
+  @override
+  String get tagRulesHelpful => 'Regels hielpen';
+
+  @override
+  String get tagLooksGreat => 'Ziet er goed uit';
+
+  @override
+  String get tagFast => 'Snel';
+
+  @override
+  String get tagStatsFun => 'Statistieken zijn leuk';
+
+  @override
+  String get tagShareCard => 'Deelkaart';
+
+  @override
+  String get tagConfusing => 'Verwarrend';
+
+  @override
+  String get tagMissingFeature => 'Mist een functie';
+
+  @override
+  String get tagBug => 'Er ging iets kapot';
+
+  @override
+  String get tagTooManyTaps => 'Te veel tikken';
+
+  @override
+  String get tagRulesUnclear => 'Regels onduidelijk';
+
+  @override
+  String get tagTranslation => 'Vertaalfout';
+
+  @override
+  String get tagOther => 'Anders';
 }

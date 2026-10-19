@@ -1295,6 +1295,168 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{name} is out'**
   String eliminatedAnnouncement(String name);
+
+  /// No description provided for @feedbackPromptGameTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'How was scoring with iKubb?'**
+  String get feedbackPromptGameTitle;
+
+  /// No description provided for @feedbackPromptTourTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Did the tour explain the game?'**
+  String get feedbackPromptTourTitle;
+
+  /// No description provided for @feedbackSheetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your feedback'**
+  String get feedbackSheetTitle;
+
+  /// No description provided for @feedbackNotNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Not now'**
+  String get feedbackNotNow;
+
+  /// VoiceOver label of one star button in the rating row
+  ///
+  /// In en, this message translates to:
+  /// **'{count} of 5 stars'**
+  String feedbackStarsSemantics(int count);
+
+  /// No description provided for @feedbackWhatLiked.
+  ///
+  /// In en, this message translates to:
+  /// **'What worked well?'**
+  String get feedbackWhatLiked;
+
+  /// No description provided for @feedbackWhatImprove.
+  ///
+  /// In en, this message translates to:
+  /// **'What could be better?'**
+  String get feedbackWhatImprove;
+
+  /// No description provided for @feedbackCommentHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Anything else? (optional)'**
+  String get feedbackCommentHint;
+
+  /// No description provided for @feedbackSubmit.
+  ///
+  /// In en, this message translates to:
+  /// **'Send feedback'**
+  String get feedbackSubmit;
+
+  /// No description provided for @feedbackThanks.
+  ///
+  /// In en, this message translates to:
+  /// **'Thanks, that helps us improve!'**
+  String get feedbackThanks;
+
+  /// No description provided for @feedbackSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback'**
+  String get feedbackSection;
+
+  /// No description provided for @feedbackGive.
+  ///
+  /// In en, this message translates to:
+  /// **'Give feedback'**
+  String get feedbackGive;
+
+  /// No description provided for @feedbackGiveSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tell the maker what to improve'**
+  String get feedbackGiveSubtitle;
+
+  /// No description provided for @feedbackPrivacyNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Anonymous: we store only your rating, tags, comment, and the app version.'**
+  String get feedbackPrivacyNote;
+
+  /// No description provided for @tagEasyScoring.
+  ///
+  /// In en, this message translates to:
+  /// **'Easy scoring'**
+  String get tagEasyScoring;
+
+  /// No description provided for @tagRulesHelpful.
+  ///
+  /// In en, this message translates to:
+  /// **'Rules helped'**
+  String get tagRulesHelpful;
+
+  /// No description provided for @tagLooksGreat.
+  ///
+  /// In en, this message translates to:
+  /// **'Looks great'**
+  String get tagLooksGreat;
+
+  /// No description provided for @tagFast.
+  ///
+  /// In en, this message translates to:
+  /// **'Fast'**
+  String get tagFast;
+
+  /// No description provided for @tagStatsFun.
+  ///
+  /// In en, this message translates to:
+  /// **'Stats are fun'**
+  String get tagStatsFun;
+
+  /// No description provided for @tagShareCard.
+  ///
+  /// In en, this message translates to:
+  /// **'Share card'**
+  String get tagShareCard;
+
+  /// No description provided for @tagConfusing.
+  ///
+  /// In en, this message translates to:
+  /// **'Confusing'**
+  String get tagConfusing;
+
+  /// No description provided for @tagMissingFeature.
+  ///
+  /// In en, this message translates to:
+  /// **'Missing a feature'**
+  String get tagMissingFeature;
+
+  /// No description provided for @tagBug.
+  ///
+  /// In en, this message translates to:
+  /// **'Something broke'**
+  String get tagBug;
+
+  /// No description provided for @tagTooManyTaps.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many taps'**
+  String get tagTooManyTaps;
+
+  /// No description provided for @tagRulesUnclear.
+  ///
+  /// In en, this message translates to:
+  /// **'Rules unclear'**
+  String get tagRulesUnclear;
+
+  /// No description provided for @tagTranslation.
+  ///
+  /// In en, this message translates to:
+  /// **'Translation issue'**
+  String get tagTranslation;
+
+  /// No description provided for @tagOther.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get tagOther;
 }
 
 class _AppLocalizationsDelegate

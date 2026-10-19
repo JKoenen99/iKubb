@@ -677,4 +677,88 @@ class AppLocalizationsIt extends AppLocalizations {
   String eliminatedAnnouncement(String name) {
     return '$name è eliminato';
   }
+
+  @override
+  String get feedbackPromptGameTitle => 'Com’è andato segnare con iKubb?';
+
+  @override
+  String get feedbackPromptTourTitle => 'Il tour ti ha spiegato il gioco?';
+
+  @override
+  String get feedbackSheetTitle => 'Il tuo feedback';
+
+  @override
+  String get feedbackNotNow => 'Non ora';
+
+  @override
+  String feedbackStarsSemantics(int count) {
+    return '$count stelle su 5';
+  }
+
+  @override
+  String get feedbackWhatLiked => 'Cosa ha funzionato bene?';
+
+  @override
+  String get feedbackWhatImprove => 'Cosa potrebbe migliorare?';
+
+  @override
+  String get feedbackCommentHint => 'Altro? (facoltativo)';
+
+  @override
+  String get feedbackSubmit => 'Invia feedback';
+
+  @override
+  String get feedbackThanks => 'Grazie, ci aiuta a migliorare!';
+
+  @override
+  String get feedbackSection => 'Feedback';
+
+  @override
+  String get feedbackGive => 'Lascia un feedback';
+
+  @override
+  String get feedbackGiveSubtitle => 'Di’ allo sviluppatore cosa migliorare';
+
+  @override
+  String get feedbackPrivacyNote =>
+      'Anonimo: salviamo solo valutazione, tag, commento e versione dell’app.';
+
+  @override
+  String get tagEasyScoring => 'Segnare è facile';
+
+  @override
+  String get tagRulesHelpful => 'Le regole hanno aiutato';
+
+  @override
+  String get tagLooksGreat => 'È bella';
+
+  @override
+  String get tagFast => 'Veloce';
+
+  @override
+  String get tagStatsFun => 'Le statistiche sono divertenti';
+
+  @override
+  String get tagShareCard => 'Card da condividere';
+
+  @override
+  String get tagConfusing => 'Confusa';
+
+  @override
+  String get tagMissingFeature => 'Manca una funzione';
+
+  @override
+  String get tagBug => 'Qualcosa si è rotto';
+
+  @override
+  String get tagTooManyTaps => 'Troppi tocchi';
+
+  @override
+  String get tagRulesUnclear => 'Regole poco chiare';
+
+  @override
+  String get tagTranslation => 'Problema di traduzione';
+
+  @override
+  String get tagOther => 'Altro';
 }
