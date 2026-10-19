@@ -2,35 +2,37 @@
 # can be tested on any device (iPad Safari included) without a native build.
 # Web is a dev-preview target only — releases ship native iOS/Android.
 #
+# Two jobs: `build` checks and builds on every push and pull request (so
+# Dependabot PRs get CI too); `deploy` publishes to Pages only for pushes
+# to the project's own branches, never for Dependabot branches or PRs.
+#
 # Supply-chain hygiene: every action is pinned to a full commit SHA (the
 # tag it corresponds to is in the comment); Dependabot keeps them current.
 name: Web preview
 
 on:
   push:
+    branches-ignore:
+      - 'dependabot/**'
+  pull_request:
   workflow_dispatch:
 
-# Least privilege: the job only needs to read the repo and publish Pages.
+# Least privilege by default; the deploy job widens what it needs.
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 # One Pages deployment at a time; the latest push wins.
 concurrency:
-  group: pages
+  group: pages-${{ github.ref }}
   cancel-in-progress: true
 
 env:
   FLUTTER_VERSION: 3.47.7
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -63,13 +65,27 @@ jobs:
 
       - run: flutter build web --release --base-href /iKubb/
 
-      - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
-        with:
-          enablement: true
-
       - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
           path: build/web
+
+  deploy:
+    # Pushes to the project's own branches only: PRs and Dependabot
+    # branches build and test above but never touch the public preview.
+    if: github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
+        with:
+          enablement: true
 
       - id: deployment
         uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
