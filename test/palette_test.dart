@@ -78,6 +78,26 @@ void main() {
     });
   });
 
+  test('night fills keep light labels in the dark theme', () {
+    expect(
+      contrast(IKubbPalette.birchLight, IKubbPalette.pineNight),
+      greaterThan(4.5),
+    );
+    expect(
+      contrast(IKubbPalette.pineNight, IKubbPalette.charcoalWood),
+      greaterThan(3),
+    );
+    expect(
+      contrast(IKubbPalette.birchLight, IKubbPalette.mossNight),
+      greaterThan(4.5),
+    );
+    // Sanded oak stays the text accent on dark surfaces.
+    expect(
+      contrast(IKubbPalette.oakLight, IKubbPalette.charcoalWood),
+      greaterThan(4.5),
+    );
+  });
+
   test('input lines reach 3:1 on the cards they sit on (WCAG 1.4.11)', () {
     expect(
       contrast(IKubbPalette.lineLight, IKubbPalette.birch),

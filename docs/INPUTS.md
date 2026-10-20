@@ -29,10 +29,11 @@ in `test/palette_test.dart`.
   Hetzelfde veld met de huidige waarde en een chevron; opent een menu zo
   breed als het veld, met een vinkje op de huidige optie. Semantiek: knop
   met label en waarde.
-- **Segmentknop** (`AdaptiveChoice`): neutrale lijn in rust, `primary`
-  vulling met `onPrimary` tekst voor het gekozen segment. Geen witte
+- **Segmentknop** (`AdaptiveChoice`): neutrale lijn in rust,
+  `primaryContainer`-vulling met lichte tekst voor het gekozen segment
+  (forest in licht, nacht-dennengroen in donker). Geen witte
   outline meer, geen houtvulling naast een lichte rand.
-- **Chips**: lijn in rust, `primary` vulling en `onPrimary` label bij
+- **Chips**: lijn in rust, `primaryContainer`-vulling en licht label bij
   selectie (feedback-tags, regelchips, de chip-variant van AdaptiveChoice).
 - **Dark theme**: `error` is nu `berryLight` (AA op donkere kaarten) en
   `outline`/`outlineVariant` zijn gezet, zodat Material-componenten die

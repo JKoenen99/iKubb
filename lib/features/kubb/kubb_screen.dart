@@ -477,7 +477,7 @@ class _KubbStandings extends ConsumerWidget {
     final game = match.currentGame;
     final isActive = i == game.attackerIndex && !game.isFinished;
     final scheme = Theme.of(context).colorScheme;
-    final onColor = isActive ? scheme.onPrimary : scheme.onSurface;
+    final onColor = isActive ? scheme.onPrimaryContainer : scheme.onSurface;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

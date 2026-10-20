@@ -12,8 +12,12 @@ abstract final class IKubbTheme {
     const ColorScheme.light(
       primary: IKubbPalette.forest,
       onPrimary: IKubbPalette.birchLight,
+      primaryContainer: IKubbPalette.forest,
+      onPrimaryContainer: IKubbPalette.birchLight,
       secondary: IKubbPalette.oak,
       onSecondary: IKubbPalette.ink,
+      secondaryContainer: IKubbPalette.oak,
+      onSecondaryContainer: IKubbPalette.ink,
       surface: IKubbPalette.birchLight,
       onSurface: IKubbPalette.ink,
       surfaceContainerHighest: IKubbPalette.birch,
@@ -24,16 +28,22 @@ abstract final class IKubbTheme {
     ),
   );
 
-  // Dark: sanded oak is the accent (selected cards, toggles, the Start
-  // button): 8.7:1 on charcoal as text, ink on it for fills. Honey oak is
-  // reserved for pins, kubbs and player 1 so the accent never collides
-  // with an identity color.
+  // Dark: sanded oak is the accent for text, strokes and focus (8.7:1 on
+  // charcoal); filled controls use the night greens so their labels stay
+  // light (primaryContainer / secondaryContainer, which every filled,
+  // tonal and selected control is themed to use). Honey oak is reserved
+  // for pins, kubbs and player 1, so the accent never collides with an
+  // identity color.
   static ThemeData get dark => _base(
     const ColorScheme.dark(
       primary: IKubbPalette.oakLight,
       onPrimary: IKubbPalette.ink,
+      primaryContainer: IKubbPalette.pineNight,
+      onPrimaryContainer: IKubbPalette.birchLight,
       secondary: IKubbPalette.oakLight,
       onSecondary: IKubbPalette.ink,
+      secondaryContainer: IKubbPalette.mossNight,
+      onSecondaryContainer: IKubbPalette.birchLight,
       surface: IKubbPalette.charcoalWood,
       onSurface: IKubbPalette.birchLight,
       surfaceContainerHighest: IKubbPalette.nightSurface,
@@ -108,8 +118,13 @@ abstract final class IKubbTheme {
         TargetPlatform.android: ZoomPageTransitionsBuilder(),
       },
     ),
+    // Filled controls draw on primaryContainer so the dark theme can keep
+    // light labels (see the dark scheme above); in the light theme the
+    // container pair equals primary/onPrimary.
     filledButtonTheme: FilledButtonThemeData(
       style: FilledButton.styleFrom(
+        backgroundColor: scheme.primaryContainer,
+        foregroundColor: scheme.onPrimaryContainer,
         minimumSize: const Size(64, 56),
         textStyle: const TextStyle(
           fontSize: IKubbType.stepBody,
@@ -144,8 +159,8 @@ abstract final class IKubbTheme {
         side: BorderSide(color: scheme.outline, width: IKubbBorder.hairline),
         backgroundColor: scheme.surface,
         foregroundColor: scheme.onSurface,
-        selectedBackgroundColor: scheme.primary,
-        selectedForegroundColor: scheme.onPrimary,
+        selectedBackgroundColor: scheme.primaryContainer,
+        selectedForegroundColor: scheme.onPrimaryContainer,
         textStyle: const TextStyle(fontWeight: FontWeight.w600),
       ),
     ),
@@ -153,27 +168,46 @@ abstract final class IKubbTheme {
     chipTheme: ChipThemeData(
       shape: _cupertino ? const StadiumBorder() : null,
       backgroundColor: scheme.surface,
-      selectedColor: scheme.primary,
-      checkmarkColor: scheme.onPrimary,
+      selectedColor: scheme.primaryContainer,
+      checkmarkColor: scheme.onPrimaryContainer,
       side: WidgetStateBorderSide.resolveWith(
         (states) => BorderSide(
           color: states.contains(WidgetState.selected)
-              ? scheme.primary
+              ? scheme.primaryContainer
               : scheme.outline,
           width: IKubbBorder.hairline,
         ),
       ),
-      labelStyle: WidgetStateTextStyle.resolveWith(
-        (states) => TextStyle(
-          color: states.contains(WidgetState.selected)
-              ? scheme.onPrimary
+      // Chips merge the theme style into their defaults, which keeps a
+      // state-aware *color* but not a state-aware style: resolve the
+      // color itself.
+      labelStyle: TextStyle(
+        color: WidgetStateColor.resolveWith(
+          (states) => states.contains(WidgetState.selected)
+              ? scheme.onPrimaryContainer
               : scheme.onSurface,
-          fontWeight: FontWeight.w600,
         ),
+        fontWeight: FontWeight.w600,
       ),
       secondaryLabelStyle: TextStyle(
-        color: scheme.onPrimary,
+        color: WidgetStateColor.resolveWith(
+          (states) => states.contains(WidgetState.selected)
+              ? scheme.onPrimaryContainer
+              : scheme.onSurface,
+        ),
         fontWeight: FontWeight.w600,
+      ),
+    ),
+    switchTheme: SwitchThemeData(
+      trackColor: WidgetStateProperty.resolveWith(
+        (states) => states.contains(WidgetState.selected)
+            ? scheme.primaryContainer
+            : null,
+      ),
+      thumbColor: WidgetStateProperty.resolveWith(
+        (states) => states.contains(WidgetState.selected)
+            ? scheme.onPrimaryContainer
+            : null,
       ),
     ),
     dialogTheme: DialogThemeData(

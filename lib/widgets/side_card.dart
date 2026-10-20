@@ -25,7 +25,9 @@ class ActiveSideCard extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: IKubbSpacing.xs),
       padding: const EdgeInsets.all(IKubbSpacing.md),
       decoration: BoxDecoration(
-        color: isActive ? scheme.primary : scheme.surfaceContainerHighest,
+        color: isActive
+            ? scheme.primaryContainer
+            : scheme.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(IKubbRadius.lg),
       ),
       child: child,

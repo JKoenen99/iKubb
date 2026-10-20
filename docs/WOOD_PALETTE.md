@@ -14,7 +14,7 @@ plek waar hij WCAG AA haalt.
 
 | Token | Hex | Naam | Rol | Contrast |
 |---|---|---|---|---|
-| `oakLight` | `#DDB67A` | geschuurd eiken | accent op donkere oppervlakken; dark-theme `primary`/`secondary`; highlights | 8,7:1 op charcoal, ink erop 8,4:1 |
+| `oakLight` | `#DDB67A` | geschuurd eiken | accent op donkere oppervlakken: tekst, randen, focus (dark-theme `primary`); highlights | 8,7:1 op charcoal |
 | `oak` | `#C68F43` | honingeiken | light-theme accentvulling (`secondary`), staande pins en kubbs, spelerkleur 1 | ink erop 5,7:1; 4,7:1 op forestDeep |
 | `walnut` | `#5F3D25` | walnoot | accent op lichte oppervlakken, Team A, gevelde pins, lijnwerk | 8,4:1 op birchLight; birch-tekst erop 8,4:1 |
 | `bark` | `#3B2616` | schors | diepste hout: randen, knoesten, pin-randen | 5,4:1 tegen oak |
@@ -36,9 +36,13 @@ plek waar hij WCAG AA haalt.
 
 ## Wat er zichtbaar verandert
 
-- **Dark theme**: de primary (Start-knop, geselecteerde kaart, schakelaars)
-  is geschuurd eiken in plaats van honingeiken: lichter, warmer, en niet
-  langer dezelfde kleur als speler 1.
+- **Dark theme**: geschuurd eiken is het accent voor tekst, randen en focus
+  (geselecteerde kaartrand, tekstknoppen, cursor). Gevulde knoppen, het
+  gekozen segment, de actieve standenkaart, chips en schakelaars gebruiken
+  de nachtgroenen `pineNight` (`#4F7260`) en `mossNight` (`#3A5244`) met
+  berken-tekst, zodat labels in het donker licht blijven (HIG- en
+  Airbnb-conventie). In code: `primaryContainer`/`secondaryContainer`, die
+  in het lichte thema gelijk zijn aan forest en oak.
 - **Pins en kubbs**: staande blokken honingeiken met een schorsrand, gevelde
   blokken walnoot met een berkenrand. Het contrast tussen staand en geveld
   is groter dan voorheen.

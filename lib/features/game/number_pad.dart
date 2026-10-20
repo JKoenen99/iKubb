@@ -58,7 +58,7 @@ class NumberPad extends StatelessWidget {
     final busts = overshootPenalty && score > pointsNeeded;
     final style = wins
         ? FilledButton.styleFrom(
-            backgroundColor: Theme.of(context).colorScheme.primary,
+            backgroundColor: Theme.of(context).colorScheme.primaryContainer,
           )
         : busts
         ? FilledButton.styleFrom(

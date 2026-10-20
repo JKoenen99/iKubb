@@ -504,7 +504,7 @@ class _SideCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
-    final onColor = isActive ? scheme.onPrimary : scheme.onSurface;
+    final onColor = isActive ? scheme.onPrimaryContainer : scheme.onSurface;
     final danger = IKubbPalette.danger(Theme.of(context).brightness);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

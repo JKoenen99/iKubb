@@ -730,7 +730,8 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
         name: 'FilledButton · OutlinedButton · TextButton · IconButton',
         source: 'theme/ikubb_theme.dart (themed Material buttons)',
         summary:
-            'Material buttons with the iKubb theme: 56pt filled primaries, '
+            'Material buttons with the iKubb theme: 56pt filled primaries '
+            '(primaryContainer: forest in light, night pine in dark), '
             '48pt outlined secondaries, capsules on iOS and 16pt corners '
             'elsewhere. One filled button per screen, trailing; tonal for '
             'the frequent in-game actions.',
@@ -1378,7 +1379,7 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
             'identity dot with the name.',
         usedIn: 'game screen standings, kubb screen',
         props: const [
-          Prop('isActive', 'bool', 'primary fill with onPrimary content'),
+          Prop('isActive', 'bool', 'primaryContainer fill with its on-color'),
           Prop('color / name / textColor', '', 'ColorDotName'),
         ],
         variants: [
@@ -1395,13 +1396,17 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
                         ColorDotName(
                           color: IKubbPalette.oak,
                           name: 'Freya',
-                          textColor: Theme.of(context).colorScheme.onPrimary,
+                          textColor: Theme.of(context)
+                              .colorScheme
+                              .onPrimaryContainer,
                         ),
                         RollingNumber(
                           value: _rolling,
                           style: IKubbType.score(
                             size: IKubbType.stepScoreLg,
-                            color: Theme.of(context).colorScheme.onPrimary,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onPrimaryContainer,
                           ),
                         ),
                       ],

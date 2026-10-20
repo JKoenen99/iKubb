@@ -79,6 +79,14 @@ abstract final class IKubbPalette {
   static const charcoalWood = Color(0xFF181C18);
   static const nightSurface = Color(0xFF232A24);
 
+  // Night fills: the dark theme keeps light labels on its filled controls
+  // (the HIG and Airbnb dark conventions), so fills are night greens that
+  // carry birch text at AA, while sanded oak stays the accent for text,
+  // strokes and focus. pineNight: primary fills (3.2:1 against charcoal);
+  // mossNight: tonal fills.
+  static const pineNight = Color(0xFF4F7260);
+  static const mossNight = Color(0xFF3A5244);
+
   // Player-identity hues (paired with oak/berry/amber above). Deliberately
   // exclude the brand surface greens so an identity color never disappears
   // against the active card or the scoreboard field.
