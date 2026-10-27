@@ -46,9 +46,32 @@ and reaches `main` only after the owner has seen it.
 `fix/<topic>` from `main`, merge that first, then merge `main` into the
 feature branch.
 
-**Names:** `feature/<topic>`, `design/<topic>`, `fix/<topic>`,
-`chore/<topic>`. A cloud session may come with a designated branch
-(`claude/...` or similar); use it for that session's topic and say so.
+**Names:** `<type>/<topic>`, so the branch list reads as a list of what
+is being worked on.
+
+- `<type>` is the kind of work, from the list above: `feature` (new
+  feature or screen), `design` (visual language, redesign), `fix` (a
+  bug), `chore` (refactors, renames, platform, release, CI, dependencies,
+  docs and working agreements).
+- `<topic>` names the subject in two to four lowercase English words
+  joined by hyphens: `feature/match-history`, `design/dark-theme-cards`,
+  `fix/stepper-overflow`, `chore/branch-naming`.
+- No dates, version numbers, ticket numbers, agent or tool names, or
+  random suffixes. If the name is taken, pick a more specific topic.
+
+**Cloud sessions with a generated branch.** A cloud session usually
+starts on a branch with a generated name (`claude/trusting-clarke-g9spa7`
+and the like). Do not do new work there. When the request needs a new
+branch by the rules above, create `<type>/<topic>` from `main`, commit
+and push there, and leave the generated branch untouched. This rule is
+the owner's standing permission to push to that branch instead of the
+designated one. Use the generated branch only when the owner asks for it
+in that session.
+
+**Existing branches keep their names.** Branches created before this
+naming rule (including generated `claude/...` names) are finished and
+merged as they are: do not rename, move or recreate them, and a
+continuation of one of them stays on it.
 
 **Say it every time.** Start each reply that changes code with one line:
 which branch, and whether that is a continuation or a new branch, and why.

@@ -20,8 +20,9 @@ repository name, and GitHub redirects the old URLs.
 ## Branches
 
 `main` is always installable; work happens on `feature/…`, `design/…`,
-`fix/…` and `chore/…` branches and is merged after review. When to start
-a branch and when not, and every other working agreement (checks,
+`fix/…` and `chore/…` branches named after their topic
+(`feature/match-history`) and is merged after review. When to start a
+branch, how to name it, and every other working agreement (checks,
 versions, design system, copy, docs): [AGENTS.md](AGENTS.md). Claude,
 Copilot and Gemini read it through `CLAUDE.md`,
 `.github/copilot-instructions.md` and `GEMINI.md`.

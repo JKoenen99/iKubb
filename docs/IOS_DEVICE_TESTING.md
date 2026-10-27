@@ -127,7 +127,10 @@ staan in `AGENTS.md` (sectie *Versions and changelog*); kort:
 ## Branches
 
 `main` is de versie die altijd werkt. Nieuw werk staat eerst op een eigen
-branch (`feature/…`, `design/…`, `fix/…`); Claude noemt bij elke
+branch met een naam die zegt waar het over gaat: soort werk en
+onderwerp, zoals `feature/match-history` of `fix/stepper-overflow`
+(ook als een cloudsessie met een willekeurige `claude/…`-naam start;
+branches van vóór deze afspraak houden hun naam). Claude noemt bij elke
 wijziging op welke branch het staat en met welk commando je het
 uitprobeert. Na jouw akkoord gaat het naar `main`. De regels staan in
 `AGENTS.md`.
