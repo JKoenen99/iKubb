@@ -7,6 +7,7 @@ import 'package:scoring_engine/scoring_engine.dart';
 import '../../l10n/app_localizations.dart';
 import '../../theme/palette.dart';
 import '../../theme/typography.dart';
+import '../../widgets/adaptive_choice.dart';
 import '../../widgets/rolling_number.dart';
 import '../../widgets/dot_row.dart';
 import '../../widgets/home_leading.dart';
@@ -289,29 +290,24 @@ class _GameScreenState extends ConsumerState<GameScreen> {
     return Center(
       child: Padding(
         padding: const EdgeInsets.only(top: IKubbSpacing.xs),
-        child: SegmentedButton<InputMode>(
-          showSelectedIcon: false,
-          segments: [
-            ButtonSegment(
-              value: InputMode.pins,
-              icon: const Icon(
-                Icons.touch_app_outlined,
-                size: IKubbIconSize.sm,
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: IKubbLayout.maxColumn),
+          child: AdaptiveChoice<InputMode>(
+            options: [
+              ChoiceOption(
+                value: InputMode.pins,
+                icon: Icons.touch_app_outlined,
+                label: l10n.tapPins,
               ),
-              label: Text(l10n.tapPins),
-            ),
-            ButtonSegment(
-              value: InputMode.pad,
-              icon: const Icon(Icons.grid_view_rounded, size: IKubbIconSize.sm),
-              label: Text(l10n.numberPad),
-            ),
-          ],
-          selected: {inputMode},
-          onSelectionChanged: (s) {
-            if (s.first != inputMode) {
-              ref.read(inputModeProvider.notifier).toggle();
-            }
-          },
+              ChoiceOption(
+                value: InputMode.pad,
+                icon: Icons.grid_view_rounded,
+                label: l10n.numberPad,
+              ),
+            ],
+            selected: inputMode,
+            onSelected: (_) => ref.read(inputModeProvider.notifier).toggle(),
+          ),
         ),
       ),
     );

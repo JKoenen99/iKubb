@@ -87,6 +87,10 @@ abstract final class IKubbPalette {
   static const pineNight = Color(0xFF4F7260);
   static const mossNight = Color(0xFF3A5244);
 
+  /// The raised tile of a segmented control in the dark theme: lifted
+  /// above the track (birch at 10%), birch labels at 5.4:1.
+  static const segmentTileDark = Color(0xFF5A645B);
+
   // Player-identity hues (paired with oak/berry/amber above). Deliberately
   // exclude the brand surface greens so an identity color never disappears
   // against the active card or the scoreboard field.

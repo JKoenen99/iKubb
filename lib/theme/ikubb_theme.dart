@@ -149,21 +149,8 @@ abstract final class IKubbTheme {
         shape: _cupertino ? const StadiumBorder() : null,
       ),
     ),
-    // Segmented control: the input border at rest, the primary fill for
-    // the chosen segment (a strong, unambiguous selected state), and the
-    // 48pt tap minimum (outdoor thumbs, WCAG 2.5.8).
-    segmentedButtonTheme: SegmentedButtonThemeData(
-      style: SegmentedButton.styleFrom(
-        minimumSize: const Size(48, 48),
-        shape: _controlShape(IKubbRadius.md),
-        side: BorderSide(color: scheme.outline, width: IKubbBorder.hairline),
-        backgroundColor: scheme.surface,
-        foregroundColor: scheme.onSurface,
-        selectedBackgroundColor: scheme.primaryContainer,
-        selectedForegroundColor: scheme.onPrimaryContainer,
-        textStyle: const TextStyle(fontWeight: FontWeight.w600),
-      ),
-    ),
+    // Segmented controls are custom (widgets/segmented_control.dart):
+    // a track and a raised tile, not Material's outlined SegmentedButton.
     // Chips share the recipe: neutral line at rest, primary when selected.
     chipTheme: ChipThemeData(
       shape: _cupertino ? const StadiumBorder() : null,

@@ -29,10 +29,14 @@ in `test/palette_test.dart`.
   Hetzelfde veld met de huidige waarde en een chevron; opent een menu zo
   breed als het veld, met een vinkje op de huidige optie. Semantiek: knop
   met label en waarde.
-- **Segmentknop** (`AdaptiveChoice`): neutrale lijn in rust,
-  `primaryContainer`-vulling met lichte tekst voor het gekozen segment
-  (forest in licht, nacht-dennengroen in donker). Geen witte
-  outline meer, geen houtvulling naast een lichte rand.
+- **Segmentknop** (`SegmentedControl`, via `AdaptiveChoice`): geen
+  Material-`SegmentedButton` meer maar de track-en-tegel-anatomie van iOS:
+  een verzonken track (tekstkleur op 8 % licht, 10 % donker), een
+  verhoogde tegel met zachte schaduw die naar het gekozen segment schuift,
+  gelijke segmentbreedtes, geen randen en geen merkkleurvulling. Hoeken
+  concentrisch: track 12, inzet 4, tegel 8 (geen capsule). Het actieve
+  label is volle kleur en semibold, de andere 70 % en medium. Pijltjestoetsen
+  verplaatsen de keuze. Bij grote tekst vallen de segmenten terug op chips.
 - **Chips**: lijn in rust, `primaryContainer`-vulling en licht label bij
   selectie (feedback-tags, regelchips, de chip-variant van AdaptiveChoice).
 - **Dark theme**: `error` is nu `berryLight` (AA op donkere kaarten) en

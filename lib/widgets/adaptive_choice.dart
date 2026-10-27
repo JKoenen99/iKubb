@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../theme/tokens.dart';
+import 'segmented_control.dart';
 
 /// One option of an [AdaptiveChoice].
 class ChoiceOption<T> {
@@ -13,7 +14,7 @@ class ChoiceOption<T> {
 
 /// The one way to pick one of a few options.
 ///
-/// Renders a [SegmentedButton] at normal text sizes and switches to a
+/// Renders a [SegmentedControl] at normal text sizes and switches to a
 /// wrapping row of [ChoiceChip]s once Dynamic Type grows past the point
 /// where fixed-width segments clip or overflow (HIG: controls must stay
 /// usable at every text size; WCAG 1.4.4). Both forms expose the same
@@ -61,20 +62,10 @@ class AdaptiveChoice<T> extends StatelessWidget {
         ],
       );
     }
-    return SegmentedButton<T>(
-      showSelectedIcon: false,
-      segments: [
-        for (final o in options)
-          ButtonSegment(
-            value: o.value,
-            label: Text(o.label),
-            icon: o.icon == null ? null : Icon(o.icon, size: IKubbIconSize.sm),
-          ),
-      ],
-      selected: {selected},
-      onSelectionChanged: (s) {
-        if (s.first != selected) onSelected(s.first);
-      },
+    return SegmentedControl<T>(
+      options: options,
+      selected: selected,
+      onSelected: onSelected,
     );
   }
 }

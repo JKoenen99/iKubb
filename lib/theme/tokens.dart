@@ -113,6 +113,13 @@ abstract final class IKubbAlpha {
 
   /// Accent wash behind a selected choice card.
   static const double choiceTint = 0.12;
+
+  /// Segmented control: the recessed track is the text color at this
+  /// alpha (light / dark), and the raised tile casts this shadow.
+  static const double segmentTrack = 0.08;
+  static const double segmentTrackDark = 0.10;
+  static const double segmentShadow = 0.14;
+  static const double segmentShadowDark = 0.35;
 }
 
 abstract final class IKubbIconSize {

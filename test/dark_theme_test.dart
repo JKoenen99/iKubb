@@ -75,9 +75,13 @@ void main() {
     await pumpDark(tester);
     await tester.tap(find.byIcon(Icons.settings_outlined));
     await tester.pumpAndSettle();
-    // Selected segment: birch on night pine; unselected: onSurface.
+    // Segmented control: the active label is full birch on the raised
+    // tile, the others birch at 70% on the track; never ink.
     expect(paintedColor(tester, find.text('Dark')), IKubbPalette.birchLight);
-    expect(paintedColor(tester, find.text('Light')), IKubbPalette.birchLight);
+    expect(
+      paintedColor(tester, find.text('Light')),
+      IKubbPalette.birchLight.withValues(alpha: 0.7),
+    );
     // Text accent: sanded oak (8.7:1 on charcoal).
     final scheme = Theme.of(tester.element(find.text('Dark'))).colorScheme;
     expect(scheme.primary, IKubbPalette.oakLight);

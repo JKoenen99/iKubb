@@ -4,6 +4,16 @@ Versies volgen `MAJOR.MINOR.PATCH+BUILD` uit `pubspec.yaml`; zie
 `docs/IOS_DEVICE_TESTING.md` voor de regels. De app toont de versie en
 commit onderaan Settings.
 
+## 0.3.0 (3)
+
+- **Segmentknop opnieuw ontworpen**: geen capsule met randen meer, maar
+  een verzonken track met een verhoogde tegel die naar de keuze schuift
+  (iOS-anatomie). Geldt overal: thema, spelmodus, wedstrijd, beurtklok,
+  regels en invoermodus in het spel. Pijltjestoetsen werken.
+- **Bijwerken op toestellen**: `tool/ios.sh` installeert over de
+  bestaande app heen. Je hoeft de ontwikkelaar niet steeds opnieuw te
+  vertrouwen en de gegevens in de app blijven bewaard.
+
 ## 0.2.0 (2)
 
 Eerste build met versienummer in de app.

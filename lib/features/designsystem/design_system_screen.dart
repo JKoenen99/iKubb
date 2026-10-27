@@ -16,6 +16,7 @@ import '../../widgets/home_leading.dart';
 import '../../widgets/ikubb_app_bar.dart';
 import '../../widgets/rolling_number.dart';
 import '../../widgets/section_header.dart';
+import '../../widgets/segmented_control.dart';
 import '../../widgets/settings_tiles.dart';
 import '../../widgets/share_card.dart';
 import '../../widgets/side_card.dart';
@@ -70,6 +71,7 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
   var _toggle = true;
   var _choice = 0;
   var _segment = 0;
+  var _segment3 = 0;
   var _select = '';
   var _stars = 0;
   var _iosChrome = false;
@@ -969,30 +971,98 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
             'the menu items are the options.',
       ),
       Story(
+        name: 'SegmentedControl<T>',
+        source: 'widgets/segmented_control.dart',
+        summary:
+            'Two to four short, mutually exclusive options that switch a view '
+            'or setting in place. Track-and-tile anatomy: a recessed track '
+            'tinted from the text color, and a raised tile with a soft '
+            'shadow that slides to the chosen segment. No outlines and no '
+            'brand-colored fill; equal segment widths.',
+        usedIn:
+            'through AdaptiveChoice: Settings theme, New game mode, '
+            'match and turn clock, rules panel mode, game input mode',
+        props: const [
+          Prop('options', 'List<ChoiceOption<T>>', 'value, label, icon?'),
+          Prop('selected', 'T', 'exactly one'),
+          Prop('onSelected', 'ValueChanged<T>', 'only fires on a change'),
+        ],
+        variants: [
+          Variant(
+            'Labels',
+            SegmentedControl<int>(
+              options: const [
+                ChoiceOption(value: 0, label: 'System'),
+                ChoiceOption(value: 1, label: 'Light'),
+                ChoiceOption(value: 2, label: 'Dark'),
+              ],
+              selected: _segment3,
+              onSelected: (v) => setState(() => _segment3 = v),
+            ),
+            note: 'Tap to see the tile slide (instant under Reduce Motion).',
+          ),
+          Variant(
+            'Icon and label',
+            SegmentedControl<int>(
+              options: const [
+                ChoiceOption(
+                  value: 0,
+                  icon: Icons.touch_app_outlined,
+                  label: 'Tap pins',
+                ),
+                ChoiceOption(
+                  value: 1,
+                  icon: Icons.grid_view_rounded,
+                  label: 'Number pad',
+                ),
+              ],
+              selected: _segment,
+              onSelected: (v) => setState(() => _segment = v),
+            ),
+          ),
+          Variant(
+            'On a card',
+            FormCard(
+              margin: EdgeInsets.zero,
+              child: SegmentedControl<int>(
+                options: const [
+                  ChoiceOption(value: 0, label: 'Single game'),
+                  ChoiceOption(value: 1, label: 'Best of three'),
+                ],
+                selected: _segment,
+                onSelected: (v) => setState(() => _segment = v),
+              ),
+            ),
+            note:
+                'The track is a tint, so it recedes from a card as well as '
+                'from the page.',
+          ),
+        ],
+        a11y:
+            'Each segment is a button in a mutually exclusive group with '
+            'selected state; arrow keys move the selection. The active state '
+            'is shown three ways: the raised tile, a semibold label and the '
+            'full-strength label color. Labels pass AA on track and tile. '
+            '48pt tall.',
+      ),
+      const _Anatomy(),
+      Story(
         name: 'AdaptiveChoice<T>',
         source: 'widgets/adaptive_choice.dart',
         summary:
-            'The one way to pick one of a few options. A segmented control '
-            'at normal text sizes; once Dynamic Type grows past 1.3× it '
-            'becomes a wrapping row of choice chips so labels never clip.',
-        usedIn: 'Settings theme, rules panel mode, game input mode',
+            'The one way to pick one of a few options in a screen. Renders a '
+            'SegmentedControl at normal text sizes; once Dynamic Type grows '
+            'past 1.3× it becomes a wrapping row of choice chips so labels '
+            'never clip.',
+        usedIn:
+            'Settings theme, New game mode, rules panel mode, game input '
+            'mode',
         props: const [
           Prop('options', 'List<ChoiceOption<T>>', 'two to four'),
           Prop('selected', 'T', 'exactly one'),
           Prop('onSelected', 'ValueChanged<T>', 'fires on change'),
         ],
         variants: [
-          Variant(
-            'Segmented (default)',
-            AdaptiveChoice<int>(
-              options: const [
-                ChoiceOption(value: 0, label: 'Tap pins'),
-                ChoiceOption(value: 1, label: 'Number pad'),
-              ],
-              selected: _segment,
-              onSelected: (v) => setState(() => _segment = v),
-            ),
-          ),
           Variant(
             'Large text · chips',
             MediaQuery(
@@ -1010,9 +1080,6 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
             note: 'Same semantics, same 48pt targets, at 1.4× text.',
           ),
         ],
-        a11y:
-            'Selected state is a fill, not just a color change; both '
-            'forms expose selected/button semantics.',
       ),
       Story(
         name: 'Chips',
@@ -2237,6 +2304,60 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
         ],
       ),
     ];
+  }
+}
+
+/// The labelled anatomy of a segmented control, like the blueprint:
+/// track, active tile, label, icon, active and inactive segments.
+class _Anatomy extends StatelessWidget {
+  const _Anatomy();
+
+  @override
+  Widget build(BuildContext context) {
+    final faded = Theme.of(context).colorScheme.onSurface
+        .withValues(alpha: IKubbAlpha.faded);
+    Widget part(String name, String what) => Padding(
+      padding: const EdgeInsets.only(bottom: IKubbSpacing.xs),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(width: 120, child: Text(name, style: IKubbType.strong)),
+          Expanded(
+            child: Text(what, style: IKubbType.caption.copyWith(color: faded)),
+          ),
+        ],
+      ),
+    );
+    return Padding(
+      padding: const EdgeInsets.only(bottom: IKubbSpacing.xl),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text('Anatomy', style: IKubbType.emphasis),
+          const SizedBox(height: IKubbSpacing.sm),
+          part(
+            'Track',
+            'Text color at 8% (light) or 10% (dark); radius 12; 48pt tall.',
+          ),
+          part(
+            'Active tile',
+            'Surface (birch) or segmentTileDark; radius 8, inset 4 so the '
+                'corners are concentric; soft shadow; slides in 200 ms.',
+          ),
+          part(
+            'Label',
+            'Active: full onSurface, semibold. Inactive: onSurface at 70%, '
+                'medium. One line, ellipsis.',
+          ),
+          part('Icon', 'Optional, 18pt, leading, same color as the label.'),
+          part(
+            'Segments',
+            'Equal widths across the track; the whole segment is the tap '
+                'target.',
+          ),
+        ],
+      ),
+    );
   }
 }
 
