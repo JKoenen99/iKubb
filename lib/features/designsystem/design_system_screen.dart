@@ -13,7 +13,7 @@ import '../../widgets/confirm_dialog.dart';
 import '../../widgets/dot_row.dart';
 import '../../widgets/form_cards.dart';
 import '../../widgets/home_leading.dart';
-import '../../widgets/ikubb_app_bar.dart';
+import '../../widgets/kaato_app_bar.dart';
 import '../../widgets/rolling_number.dart';
 import '../../widgets/section_header.dart';
 import '../../widgets/segmented_control.dart';
@@ -24,7 +24,6 @@ import '../../widgets/viking_mascot.dart';
 import '../../widgets/wood_grain.dart';
 import '../feedback/star_rating.dart';
 import '../game/pin_diagram.dart';
-import '../kubb/kubb_field.dart';
 import '../settings/settings_controller.dart';
 import 'story.dart';
 
@@ -82,16 +81,16 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
     if (target == null) return;
     await Scrollable.ensureVisible(
       target,
-      duration: IKubbMotion.resolve(context, IKubbMotion.entrance),
-      curve: IKubbMotion.enter,
+      duration: KaatoMotion.resolve(context, KaatoMotion.entrance),
+      curve: KaatoMotion.enter,
     );
   }
 
   Widget _anchor(_Section section) => Padding(
     key: _anchors[section],
     padding: const EdgeInsets.only(
-      top: IKubbSpacing.xl,
-      bottom: IKubbSpacing.md,
+      top: KaatoSpacing.xl,
+      bottom: KaatoSpacing.md,
     ),
     child: SectionHeader(section.title),
   );
@@ -114,9 +113,9 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
       ),
       body: Center(
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: IKubbLayout.maxPanel),
+          constraints: const BoxConstraints(maxWidth: KaatoLayout.maxPanel),
           child: SingleChildScrollView(
-            padding: const EdgeInsets.all(IKubbSpacing.lg),
+            padding: const EdgeInsets.all(KaatoSpacing.lg),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -132,7 +131,7 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
                 ..._pieces(),
                 ..._illustration(l10n, scheme),
                 ..._behaviours(scheme),
-                const SizedBox(height: IKubbSpacing.huge),
+                const SizedBox(height: KaatoSpacing.huge),
               ],
             ),
           ),
@@ -152,9 +151,9 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
           'primaries, a four-tone wood ramp for accents, ink for text. '
           'Every component below is the production widget, rendered live '
           'in the current theme, with its props and states.',
-          style: IKubbType.reading,
+          style: KaatoType.reading,
         ),
-        const SizedBox(height: IKubbSpacing.md),
+        const SizedBox(height: KaatoSpacing.md),
         AdaptiveChoice<ThemeMode>(
           options: const [
             ChoiceOption(value: ThemeMode.system, label: 'System'),
@@ -164,7 +163,7 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
           selected: ref.watch(themeModeProvider),
           onSelected: ref.read(themeModeProvider.notifier).set,
         ),
-        const SizedBox(height: IKubbSpacing.sm),
+        const SizedBox(height: KaatoSpacing.sm),
         SwitchCard(
           title: 'Preview iOS chrome',
           subtitle:
@@ -174,8 +173,8 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
           onChanged: (v) => setState(() => _iosChrome = v),
         ),
         Wrap(
-          spacing: IKubbSpacing.sm,
-          runSpacing: IKubbSpacing.xs,
+          spacing: KaatoSpacing.sm,
+          runSpacing: KaatoSpacing.xs,
           children: [
             for (final s in _Section.values)
               ActionChip(label: Text(s.title), onPressed: () => _jumpTo(s)),
@@ -195,7 +194,7 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
         height: 12,
         decoration: BoxDecoration(
           color: scheme.primary,
-          borderRadius: BorderRadius.circular(IKubbRadius.xs),
+          borderRadius: BorderRadius.circular(KaatoRadius.xs),
         ),
       ),
     );
@@ -228,7 +227,7 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
     return [
       _anchor(_Section.color),
       const Story(
-        name: 'IKubbPalette',
+        name: 'KaatoPalette',
         source: 'theme/palette.dart',
         summary:
             'Named colors only; no screen carries a hex. Surfaces are birch '
@@ -242,65 +241,65 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
       const _SwatchGrid(
         title: 'Neutrals (surfaces and text)',
         entries: [
-          ('birchLight', IKubbPalette.birchLight),
-          ('birch', IKubbPalette.birch),
-          ('charcoalWood', IKubbPalette.charcoalWood),
-          ('nightSurface', IKubbPalette.nightSurface),
-          ('ink', IKubbPalette.ink),
+          ('birchLight', KaatoPalette.birchLight),
+          ('birch', KaatoPalette.birch),
+          ('charcoalWood', KaatoPalette.charcoalWood),
+          ('nightSurface', KaatoPalette.nightSurface),
+          ('ink', KaatoPalette.ink),
         ],
       ),
       const _SwatchGrid(
         title: 'Brand greens',
         entries: [
-          ('forest', IKubbPalette.forest),
-          ('forestDeep', IKubbPalette.forestDeep),
-          ('pine', IKubbPalette.pine),
-          ('sage', IKubbPalette.sage),
+          ('forest', KaatoPalette.forest),
+          ('forestDeep', KaatoPalette.forestDeep),
+          ('pine', KaatoPalette.pine),
+          ('sage', KaatoPalette.sage),
         ],
       ),
       const _SwatchGrid(
         title: 'Wood ramp (one material, light to dark)',
         entries: [
-          ('oakLight · dark accent', IKubbPalette.oakLight),
-          ('oak · light fills, pins', IKubbPalette.oak),
-          ('walnut · light accent, Team A', IKubbPalette.walnut),
-          ('bark · edges, knots', IKubbPalette.bark),
+          ('oakLight · dark accent', KaatoPalette.oakLight),
+          ('oak · light fills, pins', KaatoPalette.oak),
+          ('walnut · light accent, Team A', KaatoPalette.walnut),
+          ('bark · edges, knots', KaatoPalette.bark),
         ],
       ),
       const _WoodRampStrip(),
       const _SwatchGrid(
         title: 'Lines (input and control borders, 3:1 on their card)',
         entries: [
-          ('lineLight', IKubbPalette.lineLight),
-          ('lineSoftLight', IKubbPalette.lineSoftLight),
-          ('lineDark', IKubbPalette.lineDark),
-          ('lineSoftDark', IKubbPalette.lineSoftDark),
+          ('lineLight', KaatoPalette.lineLight),
+          ('lineSoftLight', KaatoPalette.lineSoftLight),
+          ('lineDark', KaatoPalette.lineDark),
+          ('lineSoftDark', KaatoPalette.lineSoftDark),
         ],
       ),
       const _SwatchGrid(
         title: 'Signals',
         entries: [
-          ('amber · overshoot', IKubbPalette.amber),
-          ('berry · danger (light)', IKubbPalette.berry),
-          ('berryLight · danger (dark)', IKubbPalette.berryLight),
+          ('amber · overshoot', KaatoPalette.amber),
+          ('berry · danger (light)', KaatoPalette.berry),
+          ('berryLight · danger (dark)', KaatoPalette.berryLight),
         ],
       ),
       const _SwatchGrid(
         title: 'Player identity (never a brand green)',
         entries: [
-          ('oak', IKubbPalette.oak),
-          ('fjord', IKubbPalette.fjord),
-          ('berry', IKubbPalette.berry),
-          ('amber', IKubbPalette.amber),
-          ('plum', IKubbPalette.plum),
-          ('copper', IKubbPalette.copper),
-          ('slate', IKubbPalette.slate),
-          ('indigo', IKubbPalette.indigo),
+          ('oak', KaatoPalette.oak),
+          ('fjord', KaatoPalette.fjord),
+          ('berry', KaatoPalette.berry),
+          ('amber', KaatoPalette.amber),
+          ('plum', KaatoPalette.plum),
+          ('copper', KaatoPalette.copper),
+          ('slate', KaatoPalette.slate),
+          ('indigo', KaatoPalette.indigo),
         ],
       ),
       _anchor(_Section.type),
       const Story(
-        name: 'IKubbType',
+        name: 'KaatoType',
         source: 'theme/typography.dart',
         summary:
             'Baloo 2 for the wordmark, headings and scores (tabular-lining '
@@ -308,16 +307,16 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
             'text. One step scale from chip to scoreboard.',
       ),
       for (final (name, size) in const [
-        ('stepChip', IKubbType.stepChip),
-        ('stepLabel', IKubbType.stepLabel),
-        ('stepBody', IKubbType.stepBody),
-        ('stepTitle', IKubbType.stepTitle),
-        ('stepHeadline', IKubbType.stepHeadline),
-        ('stepScoreCard', IKubbType.stepScoreCard),
-        ('stepScoreLg', IKubbType.stepScoreLg),
-        ('stepHero', IKubbType.stepHero),
-        ('stepDisplay', IKubbType.stepDisplay),
-        ('stepWordmark', IKubbType.stepWordmark),
+        ('stepChip', KaatoType.stepChip),
+        ('stepLabel', KaatoType.stepLabel),
+        ('stepBody', KaatoType.stepBody),
+        ('stepTitle', KaatoType.stepTitle),
+        ('stepHeadline', KaatoType.stepHeadline),
+        ('stepScoreCard', KaatoType.stepScoreCard),
+        ('stepScoreLg', KaatoType.stepScoreLg),
+        ('stepHero', KaatoType.stepHero),
+        ('stepDisplay', KaatoType.stepDisplay),
+        ('stepWordmark', KaatoType.stepWordmark),
       ])
         TokenRow(
           name: name,
@@ -325,17 +324,17 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
           sample: FittedBox(
             fit: BoxFit.scaleDown,
             alignment: Alignment.centerLeft,
-            child: Text('Kubb 21', style: IKubbType.heading(size: size)),
+            child: Text('Kubb 21', style: KaatoType.heading(size: size)),
           ),
         ),
-      const SizedBox(height: IKubbSpacing.sm),
+      const SizedBox(height: KaatoSpacing.sm),
       for (final (name, style, use) in const [
-        ('emphasis', IKubbType.emphasis, 'side and player names'),
-        ('strong', IKubbType.strong, 'card titles in lists'),
-        ('reading', IKubbType.reading, 'long-form tour and rule text'),
-        ('statValue', IKubbType.statValue, 'stat and stepper values'),
-        ('cardTitle', IKubbType.cardTitle, 'player card names'),
-        ('caption', IKubbType.caption, 'dates, footnotes, hints'),
+        ('emphasis', KaatoType.emphasis, 'side and player names'),
+        ('strong', KaatoType.strong, 'card titles in lists'),
+        ('reading', KaatoType.reading, 'long-form tour and rule text'),
+        ('statValue', KaatoType.statValue, 'stat and stepper values'),
+        ('cardTitle', KaatoType.cardTitle, 'player card names'),
+        ('caption', KaatoType.caption, 'dates, footnotes, hints'),
       ])
         TokenRow(
           name: name,
@@ -344,7 +343,7 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
         ),
       _anchor(_Section.shape),
       const Story(
-        name: 'IKubbSpacing · IKubbRadius · IKubbBorder · IKubbIconSize',
+        name: 'KaatoSpacing · KaatoRadius · KaatoBorder · KaatoIconSize',
         source: 'theme/tokens.dart',
         summary:
             'A 4-point spacing scale, five corner radii plus the glass and '
@@ -352,38 +351,38 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
             'screen carries a raw spacing, radius or size literal.',
       ),
       for (final (name, v) in const [
-        ('xxs', IKubbSpacing.xxs),
-        ('xs', IKubbSpacing.xs),
-        ('sm', IKubbSpacing.sm),
-        ('md', IKubbSpacing.md),
-        ('lg', IKubbSpacing.lg),
-        ('xl', IKubbSpacing.xl),
-        ('xxl', IKubbSpacing.xxl),
-        ('huge', IKubbSpacing.huge),
+        ('xxs', KaatoSpacing.xxs),
+        ('xs', KaatoSpacing.xs),
+        ('sm', KaatoSpacing.sm),
+        ('md', KaatoSpacing.md),
+        ('lg', KaatoSpacing.lg),
+        ('xl', KaatoSpacing.xl),
+        ('xxl', KaatoSpacing.xxl),
+        ('huge', KaatoSpacing.huge),
       ])
         TokenRow(name: 'spacing.$name', value: '${v.toInt()}', sample: bar(v)),
-      const SizedBox(height: IKubbSpacing.sm),
+      const SizedBox(height: KaatoSpacing.sm),
       for (final (name, r) in const [
-        ('xs', IKubbRadius.xs),
-        ('sm', IKubbRadius.sm),
-        ('chip', IKubbRadius.chip),
-        ('md', IKubbRadius.md),
-        ('lg', IKubbRadius.lg),
-        ('xl', IKubbRadius.xl),
-        ('glass', IKubbRadius.glass),
-        ('sheet', IKubbRadius.sheet),
+        ('xs', KaatoRadius.xs),
+        ('sm', KaatoRadius.sm),
+        ('chip', KaatoRadius.chip),
+        ('md', KaatoRadius.md),
+        ('lg', KaatoRadius.lg),
+        ('xl', KaatoRadius.xl),
+        ('glass', KaatoRadius.glass),
+        ('sheet', KaatoRadius.sheet),
       ])
         TokenRow(
           name: 'radius.$name',
           value: '${r.toInt()}',
           sample: Align(alignment: Alignment.centerLeft, child: corner(r)),
         ),
-      const SizedBox(height: IKubbSpacing.sm),
+      const SizedBox(height: KaatoSpacing.sm),
       for (final (name, w, use) in const [
-        ('hairline', IKubbBorder.hairline, 'input at rest, chips'),
-        ('line', IKubbBorder.line, 'focus ring, pins, pills'),
-        ('focus', IKubbBorder.focus, 'keyboard focus'),
-        ('frame', IKubbBorder.frame, 'share card frame'),
+        ('hairline', KaatoBorder.hairline, 'input at rest, chips'),
+        ('line', KaatoBorder.line, 'focus ring, pins, pills'),
+        ('focus', KaatoBorder.focus, 'keyboard focus'),
+        ('frame', KaatoBorder.frame, 'share card frame'),
       ])
         TokenRow(
           name: 'border.$name',
@@ -391,31 +390,31 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
           sample: Row(
             children: [
               Expanded(child: line(w)),
-              const SizedBox(width: IKubbSpacing.md),
-              Text(use, style: IKubbType.caption),
+              const SizedBox(width: KaatoSpacing.md),
+              Text(use, style: KaatoType.caption),
             ],
           ),
         ),
-      const SizedBox(height: IKubbSpacing.sm),
+      const SizedBox(height: KaatoSpacing.sm),
       for (final (name, d) in const [
-        ('dot', IKubbIconSize.dot),
-        ('sm', IKubbIconSize.sm),
-        ('md', IKubbIconSize.md),
-        ('lg', IKubbIconSize.lg),
-        ('field', IKubbIconSize.field),
-        ('xl', IKubbIconSize.xl),
-        ('display', IKubbIconSize.display),
+        ('dot', KaatoIconSize.dot),
+        ('sm', KaatoIconSize.sm),
+        ('md', KaatoIconSize.md),
+        ('lg', KaatoIconSize.lg),
+        ('field', KaatoIconSize.field),
+        ('xl', KaatoIconSize.xl),
+        ('display', KaatoIconSize.display),
       ])
         TokenRow(name: 'icon.$name', value: '${d.toInt()}', sample: dot(d)),
-      const SizedBox(height: IKubbSpacing.sm),
+      const SizedBox(height: KaatoSpacing.sm),
       for (final (name, a, use) in const [
-        ('grain', IKubbAlpha.grain, 'wood grain on brand surfaces'),
-        ('choiceTint', IKubbAlpha.choiceTint, 'selected choice card wash'),
-        ('dotIdle', IKubbAlpha.dotIdle, 'idle dots, chip lines'),
-        ('activeTint', IKubbAlpha.activeTint, 'team card tint'),
-        ('faded', IKubbAlpha.faded, 'secondary text'),
-        ('glassTint', IKubbAlpha.glassTint, 'regular glass'),
-        ('scrim', IKubbAlpha.scrim, 'overlay scrim'),
+        ('grain', KaatoAlpha.grain, 'wood grain on brand surfaces'),
+        ('choiceTint', KaatoAlpha.choiceTint, 'selected choice card wash'),
+        ('dotIdle', KaatoAlpha.dotIdle, 'idle dots, chip lines'),
+        ('activeTint', KaatoAlpha.activeTint, 'team card tint'),
+        ('faded', KaatoAlpha.faded, 'secondary text'),
+        ('glassTint', KaatoAlpha.glassTint, 'regular glass'),
+        ('scrim', KaatoAlpha.scrim, 'overlay scrim'),
       ])
         TokenRow(
           name: 'alpha.$name',
@@ -423,35 +422,35 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
           sample: Row(
             children: [
               alpha(a),
-              const SizedBox(width: IKubbSpacing.md),
-              Text(use, style: IKubbType.caption),
+              const SizedBox(width: KaatoSpacing.md),
+              Text(use, style: KaatoType.caption),
             ],
           ),
         ),
-      const SizedBox(height: IKubbSpacing.sm),
+      const SizedBox(height: KaatoSpacing.sm),
       for (final (name, w, use) in const [
-        ('maxColumn', IKubbLayout.maxColumn, 'phone-first columns'),
-        ('maxOverlay', IKubbLayout.maxOverlay, 'win overlay content'),
-        ('maxContent', IKubbLayout.maxContent, 'readable text'),
-        ('maxPanel', IKubbLayout.maxPanel, 'settings, this page'),
-        ('maxWide', IKubbLayout.maxWide, 'two-column New game'),
+        ('maxColumn', KaatoLayout.maxColumn, 'phone-first columns'),
+        ('maxOverlay', KaatoLayout.maxOverlay, 'win overlay content'),
+        ('maxContent', KaatoLayout.maxContent, 'readable text'),
+        ('maxPanel', KaatoLayout.maxPanel, 'settings, this page'),
+        ('maxWide', KaatoLayout.maxWide, 'two-column New game'),
       ])
         TokenRow(
           name: 'layout.$name',
           value: '${w.toInt()}',
-          sample: Text(use, style: IKubbType.caption),
+          sample: Text(use, style: KaatoType.caption),
         ),
       TokenRow(
         name: 'tap.min',
-        value: '${IKubbTap.min.toInt()}',
+        value: '${KaatoTap.min.toInt()}',
         sample: const Text(
           'HIG 44pt; Material targets pad to 48',
-          style: IKubbType.caption,
+          style: KaatoType.caption,
         ),
       ),
       _anchor(_Section.motion),
       Story(
-        name: 'IKubbMotion',
+        name: 'KaatoMotion',
         source: 'theme/tokens.dart',
         summary:
             'Four durations (quick 200, base 250, entrance 300, gentle 350) '
@@ -466,7 +465,7 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
                 'MediaQuery.disableAnimations is set',
           ),
           Prop('standard', 'Curve', 'easeOut: most transitions'),
-          Prop('emphasized', 'Curve', 'easeOutBack: pins, kubbs, selection'),
+          Prop('emphasized', 'Curve', 'easeOutBack: pins, selection'),
           Prop('enter', 'Curve', 'easeOutCubic: screen entrances'),
           Prop('glassBlur', 'double', 'backdrop blur radius (18)'),
         ],
@@ -479,15 +478,15 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
                   onPressed: () => setState(() => _motionOn = !_motionOn),
                   child: const Text('Play'),
                 ),
-                const SizedBox(width: IKubbSpacing.lg),
+                const SizedBox(width: KaatoSpacing.lg),
                 AnimatedContainer(
-                  duration: IKubbMotion.resolve(context, IKubbMotion.base),
-                  curve: IKubbMotion.emphasized,
+                  duration: KaatoMotion.resolve(context, KaatoMotion.base),
+                  curve: KaatoMotion.emphasized,
                   width: _motionOn ? 120 : 48,
                   height: 32,
                   decoration: BoxDecoration(
                     color: scheme.primary,
-                    borderRadius: BorderRadius.circular(IKubbRadius.lg),
+                    borderRadius: BorderRadius.circular(KaatoRadius.lg),
                   ),
                 ),
               ],
@@ -507,11 +506,11 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
       child: Stack(
         fit: StackFit.expand,
         children: [
-          Container(color: dark ? IKubbPalette.forestDeep : scheme.surface),
+          Container(color: dark ? KaatoPalette.forestDeep : scheme.surface),
           WoodGrainBackground(
             color: dark
-                ? IKubbPalette.oakLight
-                : IKubbPalette.woodGrain(scheme.brightness),
+                ? KaatoPalette.oakLight
+                : KaatoPalette.woodGrain(scheme.brightness),
             opacity: 0.14,
           ),
           Center(child: child),
@@ -527,8 +526,8 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Story(
-                name: 'IKubbAppBar',
-                source: 'widgets/ikubb_app_bar.dart',
+                name: 'KaatoAppBar',
+                source: 'widgets/kaato_app_bar.dart',
                 summary:
                     'The app bar of every screen. On iOS it is transparent: '
                     'the leading button and the actions float in glass and '
@@ -551,7 +550,7 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
                     'Default',
                     SizedBox(
                       height: kToolbarHeight,
-                      child: IKubbAppBar(
+                      child: KaatoAppBar(
                         title: const Text('New game'),
                         leading: BackButton(onPressed: () {}),
                         actions: [
@@ -571,7 +570,7 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
               ),
               Story(
                 name:
-                    'IKubbGlass · GlassGroup · GlassToolbar · BottomActionBar',
+                    'KaatoGlass · GlassGroup · GlassToolbar · BottomActionBar',
                 source: 'theme/glass.dart',
                 summary:
                     'The Liquid Glass layer for navigation and controls, '
@@ -590,9 +589,9 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
                     'regular (surface tint '
                         '72%) or clear (dims rich media 35%)',
                   ),
-                  Prop('radius', 'double', 'IKubbGlass only; 26 by default'),
+                  Prop('radius', 'double', 'KaatoGlass only; 26 by default'),
                   Prop('padding', 'EdgeInsets', 'inside the glass'),
-                  Prop('shadow', 'bool', 'soft drop shadow (IKubbGlass)'),
+                  Prop('shadow', 'bool', 'soft drop shadow (KaatoGlass)'),
                 ],
                 variants: [
                   Variant(
@@ -627,7 +626,7 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
                               onPressed: () {},
                               child: const Text('Miss'),
                             ),
-                            const SizedBox(width: IKubbSpacing.sm),
+                            const SizedBox(width: KaatoSpacing.sm),
                             FilledButton(
                               onPressed: () {},
                               child: const Text('Score'),
@@ -662,11 +661,11 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
                         builder: (context) => glassSheet(
                           context,
                           const Padding(
-                            padding: EdgeInsets.all(IKubbSpacing.xl),
+                            padding: EdgeInsets.all(KaatoSpacing.xl),
                             child: Text(
                               'An inset half sheet with its own grabber on '
                               'iOS; a plain bottom sheet elsewhere.',
-                              style: IKubbType.reading,
+                              style: KaatoType.reading,
                             ),
                           ),
                         ),
@@ -730,9 +729,9 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
       _anchor(_Section.buttons),
       Story(
         name: 'FilledButton · OutlinedButton · TextButton · IconButton',
-        source: 'theme/ikubb_theme.dart (themed Material buttons)',
+        source: 'theme/kaato_theme.dart (themed Material buttons)',
         summary:
-            'Material buttons with the iKubb theme: 56pt filled primaries '
+            'Material buttons with the Kaato theme: 56pt filled primaries '
             '(primaryContainer: forest in light, night pine in dark), '
             '48pt outlined secondaries, capsules on iOS and 16pt corners '
             'elsewhere. One filled button per screen, trailing; tonal for '
@@ -756,8 +755,8 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
           Variant(
             'Hierarchy',
             Wrap(
-              spacing: IKubbSpacing.md,
-              runSpacing: IKubbSpacing.md,
+              spacing: KaatoSpacing.md,
+              runSpacing: KaatoSpacing.md,
               crossAxisAlignment: WrapCrossAlignment.center,
               children: [
                 FilledButton(onPressed: () {}, child: const Text('Filled')),
@@ -773,8 +772,8 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
           Variant(
             'With icon · disabled',
             Wrap(
-              spacing: IKubbSpacing.md,
-              runSpacing: IKubbSpacing.md,
+              spacing: KaatoSpacing.md,
+              runSpacing: KaatoSpacing.md,
               crossAxisAlignment: WrapCrossAlignment.center,
               children: [
                 FilledButton.icon(
@@ -786,7 +785,7 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
                 const FilledButton(onPressed: null, child: Text('Disabled')),
                 TextButton.icon(
                   onPressed: () {},
-                  icon: const Icon(Icons.shuffle, size: IKubbIconSize.sm),
+                  icon: const Icon(Icons.shuffle, size: KaatoIconSize.sm),
                   label: const Text('Shuffle order'),
                 ),
               ],
@@ -795,7 +794,7 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
           Variant(
             'Icon buttons',
             Wrap(
-              spacing: IKubbSpacing.md,
+              spacing: KaatoSpacing.md,
               crossAxisAlignment: WrapCrossAlignment.center,
               children: [
                 IconButton(
@@ -831,7 +830,7 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
             'The two actions of a full-screen overlay (win, early king): '
             'birch on the forest scrim, one filled primary and one outlined '
             'secondary.',
-        usedIn: 'win overlay, kubb match overlay, share dialog',
+        usedIn: 'win overlay, share dialog',
         props: const [
           Prop('onPressed', 'VoidCallback', 'required'),
           Prop('child', 'Widget', 'the label'),
@@ -841,8 +840,8 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
           Variant(
             'On the overlay scrim',
             Wrap(
-              spacing: IKubbSpacing.md,
-              runSpacing: IKubbSpacing.md,
+              spacing: KaatoSpacing.md,
+              runSpacing: KaatoSpacing.md,
               children: [
                 OverlayFilledButton(
                   onPressed: () {},
@@ -854,7 +853,7 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
                 ),
               ],
             ),
-            background: IKubbPalette.forestDeep,
+            background: KaatoPalette.forestDeep,
           ),
         ],
       ),
@@ -886,7 +885,7 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
       _anchor(_Section.inputs),
       Story(
         name: 'TextField (InputDecorationTheme)',
-        source: 'theme/ikubb_theme.dart',
+        source: 'theme/kaato_theme.dart',
         summary:
             'One recipe for every input: a quiet fill one step lighter '
             'than the card, a neutral 1.5pt line at rest, the primary color '
@@ -1083,7 +1082,7 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
       ),
       Story(
         name: 'Chips',
-        source: 'theme/ikubb_theme.dart (ChipThemeData)',
+        source: 'theme/kaato_theme.dart (ChipThemeData)',
         summary:
             'Chips share the input line at rest and the primary fill when '
             'selected. FilterChip for tags, ChoiceChip in AdaptiveChoice, '
@@ -1093,8 +1092,8 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
           Variant(
             'States',
             Wrap(
-              spacing: IKubbSpacing.sm,
-              runSpacing: IKubbSpacing.sm,
+              spacing: KaatoSpacing.sm,
+              runSpacing: KaatoSpacing.sm,
               children: [
                 FilterChip(
                   label: const Text('Selected'),
@@ -1139,8 +1138,8 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
                   onChanged: (v) => setState(() => _toggle = v),
                 ),
                 SwitchCard(
-                  title: 'Disabled (kubb mode)',
-                  subtitle: 'Teams are always on in kubb.',
+                  title: 'Disabled',
+                  subtitle: 'Shown when the option does not apply.',
                   value: true,
                   onChanged: null,
                 ),
@@ -1213,7 +1212,7 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
             'A selectable option card with a radio dot. The selected card '
             'carries the primary border and a 12% wash; the others stay '
             'quiet. Use two to three side by side.',
-        usedIn: 'New game, game mode (wide layout)',
+        usedIn: 'available; no screen uses it since the app plays one game',
         props: const [
           Prop('title', 'String', ''),
           Prop('subtitle', 'String', 'one line on the consequence'),
@@ -1229,17 +1228,17 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
                 children: [
                   Expanded(
                     child: ChoiceCard(
-                      title: l10n.modeNumber,
-                      subtitle: l10n.modeNumberDesc,
+                      title: 'Tap pins',
+                      subtitle: 'Tap the pins that fell; the app adds up.',
                       selected: _choice == 0,
                       onTap: () => setState(() => _choice = 0),
                     ),
                   ),
-                  const SizedBox(width: IKubbSpacing.md),
+                  const SizedBox(width: KaatoSpacing.md),
                   Expanded(
                     child: ChoiceCard(
-                      title: l10n.modeKubb,
-                      subtitle: l10n.modeKubbDesc,
+                      title: 'Number pad',
+                      subtitle: 'Type the score of the throw yourself.',
                       selected: _choice == 1,
                       onTap: () => setState(() => _choice = 1),
                     ),
@@ -1323,10 +1322,10 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
                 ),
                 FormCard(
                   margin: EdgeInsets.zero,
-                  borderColor: IKubbPalette.walnut,
+                  borderColor: KaatoPalette.walnut,
                   color: Color.alphaBlend(
-                    IKubbPalette.walnut.withValues(
-                      alpha: IKubbAlpha.activeTint,
+                    KaatoPalette.walnut.withValues(
+                      alpha: KaatoAlpha.activeTint,
                     ),
                     Theme.of(context).colorScheme.surfaceContainerHighest,
                   ),
@@ -1371,7 +1370,7 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
                   title: 'Turn clock',
                   trailing: TintPill(
                     label: '30s',
-                    color: IKubbPalette.fjord,
+                    color: KaatoPalette.fjord,
                     onTap: () {},
                   ),
                 ),
@@ -1429,7 +1428,7 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
                 SettingsNavTile(
                   icon: Icons.menu_book_outlined,
                   title: 'Rules',
-                  subtitle: 'Number kubb and kubb',
+                  subtitle: 'Number kubb',
                   onTap: () {},
                 ),
               ],
@@ -1444,7 +1443,7 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
             'A standings card: filled with the primary color when the side '
             'is up, a quiet surface otherwise. ColorDotName pairs the '
             'identity dot with the name.',
-        usedIn: 'game screen standings, kubb screen',
+        usedIn: 'game screen standings',
         props: const [
           Prop('isActive', 'bool', 'primaryContainer fill with its on-color'),
           Prop('color / name / textColor', '', 'ColorDotName'),
@@ -1461,7 +1460,7 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         ColorDotName(
-                          color: IKubbPalette.oak,
+                          color: KaatoPalette.oak,
                           name: 'Freya',
                           textColor: Theme.of(context)
                               .colorScheme
@@ -1469,8 +1468,8 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
                         ),
                         RollingNumber(
                           value: _rolling,
-                          style: IKubbType.score(
-                            size: IKubbType.stepScoreLg,
+                          style: KaatoType.score(
+                            size: KaatoType.stepScoreLg,
                             color: Theme.of(context)
                                 .colorScheme
                                 .onPrimaryContainer,
@@ -1487,14 +1486,14 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         ColorDotName(
-                          color: IKubbPalette.fjord,
+                          color: KaatoPalette.fjord,
                           name: 'Björn',
                           textColor: Theme.of(context).colorScheme.onSurface,
                         ),
                         Text(
                           '17',
-                          style: IKubbType.score(
-                            size: IKubbType.stepScoreLg,
+                          style: KaatoType.score(
+                            size: KaatoType.stepScoreLg,
                             color: Theme.of(context).colorScheme.onSurface,
                           ),
                         ),
@@ -1524,7 +1523,7 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
         summary:
             'A player\'s identity disc: the initial, or the number for an '
             'unnamed player. The glyph is ink on light fills and birch on '
-            'dark ones (IKubbPalette.on).',
+            'dark ones (KaatoPalette.on).',
         usedIn: 'player rows (also the drag handle), recent chips',
         props: [
           Prop('color', 'Color', 'one of playerColors'),
@@ -1536,18 +1535,18 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
           Variant(
             'Initial · number · dimmed · sizes',
             Wrap(
-              spacing: IKubbSpacing.md,
+              spacing: KaatoSpacing.md,
               crossAxisAlignment: WrapCrossAlignment.center,
               children: [
-                AvatarCircle(color: IKubbPalette.oak, label: 'J'),
-                AvatarCircle(color: IKubbPalette.fjord, label: '2'),
+                AvatarCircle(color: KaatoPalette.oak, label: 'J'),
+                AvatarCircle(color: KaatoPalette.fjord, label: '2'),
                 AvatarCircle(
-                  color: IKubbPalette.berry,
+                  color: KaatoPalette.berry,
                   label: 'E',
                   dimmed: true,
                 ),
-                AvatarCircle(color: IKubbPalette.amber, label: 'S', size: 24),
-                AvatarCircle(color: IKubbPalette.plum, label: 'K', size: 56),
+                AvatarCircle(color: KaatoPalette.amber, label: 'S', size: 24),
+                AvatarCircle(color: KaatoPalette.plum, label: 'K', size: 56),
               ],
             ),
           ),
@@ -1575,19 +1574,19 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
           Variant(
             'Team A · Team B · static',
             Wrap(
-              spacing: IKubbSpacing.sm,
+              spacing: KaatoSpacing.sm,
               children: [
                 TintPill(
                   label: l10n.teamA,
-                  color: IKubbPalette.walnut,
+                  color: KaatoPalette.walnut,
                   onTap: () {},
                 ),
                 TintPill(
                   label: l10n.teamB,
-                  color: IKubbPalette.fjord,
+                  color: KaatoPalette.fjord,
                   onTap: () {},
                 ),
-                const TintPill(label: '30s', color: IKubbPalette.fjord),
+                const TintPill(label: '30s', color: KaatoPalette.fjord),
               ],
             ),
           ),
@@ -1612,17 +1611,17 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
           Variant(
             'Available · picked',
             Wrap(
-              spacing: IKubbSpacing.sm,
+              spacing: KaatoSpacing.sm,
               children: [
                 RecentChip(
                   name: 'Jasper',
-                  color: IKubbPalette.oak,
+                  color: KaatoPalette.oak,
                   initial: 'J',
                   onPressed: () {},
                 ),
                 const RecentChip(
                   name: 'Kato',
-                  color: IKubbPalette.fjord,
+                  color: KaatoPalette.fjord,
                   initial: 'K',
                   dimmed: true,
                   onPressed: null,
@@ -1647,21 +1646,21 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
               children: [
                 FormCard(
                   padding: const EdgeInsets.fromLTRB(
-                    IKubbSpacing.md,
-                    IKubbSpacing.sm,
-                    IKubbSpacing.sm,
-                    IKubbSpacing.sm,
+                    KaatoSpacing.md,
+                    KaatoSpacing.sm,
+                    KaatoSpacing.sm,
+                    KaatoSpacing.sm,
                   ),
                   child: Row(
                     children: [
-                      const AvatarCircle(color: IKubbPalette.oak, label: 'J'),
-                      const SizedBox(width: IKubbSpacing.md),
+                      const AvatarCircle(color: KaatoPalette.oak, label: 'J'),
+                      const SizedBox(width: KaatoSpacing.md),
                       const Expanded(
-                        child: Text('Jasper', style: IKubbType.emphasis),
+                        child: Text('Jasper', style: KaatoType.emphasis),
                       ),
                       TintPill(
                         label: l10n.teamA,
-                        color: IKubbPalette.walnut,
+                        color: KaatoPalette.walnut,
                         onTap: () {},
                       ),
                       IconButton(
@@ -1675,26 +1674,26 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
                 FormCard(
                   margin: EdgeInsets.zero,
                   padding: const EdgeInsets.fromLTRB(
-                    IKubbSpacing.md,
-                    IKubbSpacing.sm,
-                    IKubbSpacing.sm,
-                    IKubbSpacing.sm,
+                    KaatoSpacing.md,
+                    KaatoSpacing.sm,
+                    KaatoSpacing.sm,
+                    KaatoSpacing.sm,
                   ),
                   child: Row(
                     children: [
-                      const AvatarCircle(color: IKubbPalette.fjord, label: '2'),
-                      const SizedBox(width: IKubbSpacing.md),
+                      const AvatarCircle(color: KaatoPalette.fjord, label: '2'),
+                      const SizedBox(width: KaatoSpacing.md),
                       Expanded(
                         child: TextField(
                           controller: TextEditingController(text: 'Player 2'),
                           decoration: const InputDecoration(
                             isDense: true,
                             contentPadding: EdgeInsets.symmetric(
-                              horizontal: IKubbSpacing.md,
-                              vertical: IKubbSpacing.sm + IKubbSpacing.xxs,
+                              horizontal: KaatoSpacing.md,
+                              vertical: KaatoSpacing.sm + KaatoSpacing.xxs,
                             ),
                           ),
-                          style: IKubbType.emphasis,
+                          style: KaatoType.emphasis,
                         ),
                       ),
                       IconButton(
@@ -1722,9 +1721,9 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
             'Team A',
             FormCard(
               margin: EdgeInsets.zero,
-              borderColor: IKubbPalette.walnut,
+              borderColor: KaatoPalette.walnut,
               color: Color.alphaBlend(
-                IKubbPalette.walnut.withValues(alpha: IKubbAlpha.activeTint),
+                KaatoPalette.walnut.withValues(alpha: KaatoAlpha.activeTint),
                 Theme.of(context).colorScheme.surfaceContainerHighest,
               ),
               child: Column(
@@ -1735,14 +1734,14 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
                       hintText: l10n.teamA,
                       isDense: true,
                       contentPadding: const EdgeInsets.symmetric(
-                        horizontal: IKubbSpacing.md,
-                        vertical: IKubbSpacing.sm + IKubbSpacing.xxs,
+                        horizontal: KaatoSpacing.md,
+                        vertical: KaatoSpacing.sm + KaatoSpacing.xxs,
                       ),
                     ),
-                    style: IKubbType.emphasis,
+                    style: KaatoType.emphasis,
                   ),
-                  const SizedBox(height: IKubbSpacing.xs),
-                  const Text('Jasper, Erik', style: IKubbType.caption),
+                  const SizedBox(height: KaatoSpacing.xs),
+                  const Text('Jasper, Erik', style: KaatoType.caption),
                 ],
               ),
             ),
@@ -1762,9 +1761,8 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
         source: 'widgets/dot_row.dart',
         summary:
             'A row of dots, filled up to a count: misses toward '
-            'elimination, match wins, batons left in hand. One semantic '
-            'label describes the whole row.',
-        usedIn: 'standings cards, scoreboard, kubb turn panel',
+            'elimination. One semantic label describes the whole row.',
+        usedIn: 'standings cards, scoreboard',
         props: const [
           Prop('count / filled', 'int', ''),
           Prop(
@@ -1778,38 +1776,29 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
         ],
         variants: [
           Variant(
-            'Misses · match wins · batons',
+            'Misses (danger) · neutral',
             Wrap(
-              spacing: IKubbSpacing.xl,
-              runSpacing: IKubbSpacing.md,
+              spacing: KaatoSpacing.xl,
+              runSpacing: KaatoSpacing.md,
               crossAxisAlignment: WrapCrossAlignment.center,
               children: [
                 DotRow(
                   count: 3,
                   filled: 2,
-                  activeColor: IKubbPalette.danger(scheme.brightness),
+                  activeColor: KaatoPalette.danger(scheme.brightness),
                   idleColor: scheme.onSurface.withValues(
-                    alpha: IKubbAlpha.dotIdle,
+                    alpha: KaatoAlpha.dotIdle,
                   ),
                   semanticLabel: 'misses 2/3',
                 ),
                 DotRow(
-                  count: 2,
+                  count: 3,
                   filled: 1,
-                  activeColor: IKubbPalette.amber,
-                  idleColor: scheme.onSurface.withValues(
-                    alpha: IKubbAlpha.dotIdle,
-                  ),
-                  semanticLabel: 'match 1/2',
-                ),
-                DotRow(
-                  count: 6,
-                  filled: 4,
-                  activeColor: IKubbPalette.woodAccent(scheme.brightness),
-                  idleColor: IKubbPalette.woodAccent(scheme.brightness)
-                      .withValues(alpha: IKubbAlpha.dotIdle),
-                  size: IKubbIconSize.md,
-                  semanticLabel: 'batons 4/6',
+                  activeColor: KaatoPalette.woodAccent(scheme.brightness),
+                  idleColor: KaatoPalette.woodAccent(scheme.brightness)
+                      .withValues(alpha: KaatoAlpha.dotIdle),
+                  size: KaatoIconSize.md,
+                  semanticLabel: '1 of 3',
                 ),
               ],
             ),
@@ -1828,7 +1817,7 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
           Prop(
             'style',
             'TextStyle?',
-            'use IKubbType.score for tabular '
+            'use KaatoType.score for tabular '
                 'digits',
           ),
         ],
@@ -1839,9 +1828,9 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
               children: [
                 RollingNumber(
                   value: _rolling,
-                  style: IKubbType.score(size: IKubbType.stepScoreLg),
+                  style: KaatoType.score(size: KaatoType.stepScoreLg),
                 ),
-                const SizedBox(width: IKubbSpacing.lg),
+                const SizedBox(width: KaatoSpacing.lg),
                 FilledButton.tonal(
                   onPressed: () => setState(() => _rolling += 3),
                   child: const Text('+3'),
@@ -1857,7 +1846,7 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
         summary:
             'The headline of an overlay ("Freya wins!") in the brand '
             'face, sized for the hero step.',
-        usedIn: 'win overlay, kubb match overlay',
+        usedIn: 'win overlay',
         props: const [
           Prop('text', 'String', ''),
           Prop('size', 'double?', 'stepHero by default'),
@@ -1866,7 +1855,7 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
           Variant(
             'On the scrim',
             CelebrationBanner('Freya wins!'),
-            background: IKubbPalette.forestDeep,
+            background: KaatoPalette.forestDeep,
           ),
         ],
       ),
@@ -1947,17 +1936,17 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
             SizedBox(
               height: 380,
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(IKubbRadius.lg),
+                borderRadius: BorderRadius.circular(KaatoRadius.lg),
                 child: CelebrationScaffold(
                   celebrate: false,
-                  winnerColor: IKubbPalette.oak,
+                  winnerColor: KaatoPalette.oak,
                   banner: const CelebrationBanner('Freya wins!'),
                   scoreLine: Text(
                     '50 – 42',
                     textAlign: TextAlign.center,
-                    style: IKubbType.score(
-                      size: IKubbType.stepScoreLg,
-                      color: IKubbPalette.birchLight,
+                    style: KaatoType.score(
+                      size: KaatoType.stepScoreLg,
+                      color: KaatoPalette.birchLight,
                     ),
                   ),
                   actions: [
@@ -2034,7 +2023,7 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
                   ShareRow('Björn', '42'),
                   ShareRow('Erik', '31', struck: true),
                 ],
-                winnerColor: IKubbPalette.oak,
+                winnerColor: KaatoPalette.oak,
               ),
             ),
           ),
@@ -2048,7 +2037,7 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
                   ShareRow('Freya', '50', emphasized: true),
                   ShareRow('Björn', '42'),
                 ],
-                winnerColor: IKubbPalette.oak,
+                winnerColor: KaatoPalette.oak,
               ),
               child: const Text('Open share dialog'),
             ),
@@ -2063,52 +2052,6 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
   List<Widget> _pieces() {
     return [
       _anchor(_Section.pieces),
-      const Story(
-        name: 'KubbBlock · KubbKing · KubbBlockRow · AdvantageLine',
-        source: 'features/kubb/kubb_field.dart',
-        summary:
-            'The wooden pieces of the kubb field in the app\'s wood '
-            'grammar: honey oak standing with a bark edge, walnut when '
-            'felled with a birch edge, the king in forest with a crown. '
-            'KubbBlockRow lays out a baseline with tappable blocks.',
-        usedIn: 'kubb screen, rules illustrations',
-        props: [
-          Prop('felled / selected', 'bool', 'both render as down'),
-          Prop('width / height', 'double', '26 × 36 by default'),
-          Prop('onTap / semanticLabel', '', 'tappable blocks'),
-          Prop('standing / felled / selectedIndices', '', 'KubbBlockRow'),
-          Prop('labelBuilder', 'Function', 'semantics per block'),
-        ],
-        variants: [
-          Variant(
-            'Standing · selected · felled · king',
-            Wrap(
-              spacing: IKubbSpacing.xl,
-              crossAxisAlignment: WrapCrossAlignment.end,
-              children: [
-                KubbBlock(),
-                KubbBlock(selected: true),
-                KubbBlock(felled: true),
-                KubbKing(),
-              ],
-            ),
-          ),
-          Variant(
-            'KubbBlockRow · AdvantageLine',
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                KubbBlockRow(standing: 3, felled: 2, selectedIndices: {1}),
-                SizedBox(height: IKubbSpacing.md),
-                AdvantageLine(label: 'Advantage line'),
-              ],
-            ),
-          ),
-        ],
-        a11y:
-            'Blocks are buttons with "standing/felled" state; the row is '
-            'one group.',
-      ),
       Story(
         name: 'PinDiagram',
         source: 'features/game/pin_diagram.dart',
@@ -2175,7 +2118,7 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
             'share card), never behind body text.',
         usedIn: 'Home, onboarding, share card',
         props: const [
-          Prop('color', 'Color', 'IKubbPalette.woodGrain(brightness)'),
+          Prop('color', 'Color', 'KaatoPalette.woodGrain(brightness)'),
           Prop(
             'opacity',
             'double',
@@ -2192,7 +2135,7 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
                 fit: StackFit.expand,
                 children: [
                   WoodGrainBackground(
-                    color: IKubbPalette.woodGrain(scheme.brightness),
+                    color: KaatoPalette.woodGrain(scheme.brightness),
                     opacity: 0.14,
                   ),
                 ],
@@ -2208,7 +2151,7 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
         summary:
             'Small text-free diagrams for the rules panel (throw arc, '
             'scoring, elimination, king). Arrows, trophies and sticks use '
-            'IKubbPalette.woodAccent so they read in both themes.',
+            'KaatoPalette.woodAccent so they read in both themes.',
         usedIn: 'rules panel',
         variants: [
           Variant(
@@ -2217,19 +2160,19 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
               children: [
                 Icon(
                   Icons.arrow_forward,
-                  color: IKubbPalette.woodAccent(scheme.brightness),
+                  color: KaatoPalette.woodAccent(scheme.brightness),
                 ),
-                const SizedBox(width: IKubbSpacing.md),
+                const SizedBox(width: KaatoSpacing.md),
                 Icon(
                   Icons.emoji_events,
-                  color: IKubbPalette.woodAccent(scheme.brightness),
+                  color: KaatoPalette.woodAccent(scheme.brightness),
                 ),
-                const SizedBox(width: IKubbSpacing.md),
+                const SizedBox(width: KaatoSpacing.md),
                 Text(
                   scheme.brightness == Brightness.dark
                       ? 'sanded oak on charcoal'
                       : 'walnut on birch',
-                  style: IKubbType.caption,
+                  style: KaatoType.caption,
                 ),
               ],
             ),
@@ -2250,7 +2193,7 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
         summary:
             'Wraps a screen and keeps the display on while it is visible, '
             'when the setting allows. Non-visual.',
-        usedIn: 'game and kubb screens',
+        usedIn: 'game screen and scoreboard',
         props: [Prop('child', 'Widget', '')],
       ),
       const Story(
@@ -2262,7 +2205,7 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
             'Theme.platform, which is how this page previews iOS.',
       ),
       Story(
-        name: 'IKubbPalette.on · woodAccent · woodGrain · danger',
+        name: 'KaatoPalette.on · woodAccent · woodGrain · danger',
         source: 'theme/palette.dart',
         summary:
             'Small color functions so screens never pick a foreground by '
@@ -2272,15 +2215,15 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
           Variant(
             'Live on this theme',
             Wrap(
-              spacing: IKubbSpacing.md,
-              runSpacing: IKubbSpacing.sm,
+              spacing: KaatoSpacing.md,
+              runSpacing: KaatoSpacing.sm,
               crossAxisAlignment: WrapCrossAlignment.center,
               children: [
                 for (final (name, c) in [
-                  ('woodAccent', IKubbPalette.woodAccent(scheme.brightness)),
-                  ('danger', IKubbPalette.danger(scheme.brightness)),
-                  ('on(oak)', IKubbPalette.on(IKubbPalette.oak)),
-                  ('on(walnut)', IKubbPalette.on(IKubbPalette.walnut)),
+                  ('woodAccent', KaatoPalette.woodAccent(scheme.brightness)),
+                  ('danger', KaatoPalette.danger(scheme.brightness)),
+                  ('on(oak)', KaatoPalette.on(KaatoPalette.oak)),
+                  ('on(walnut)', KaatoPalette.on(KaatoPalette.walnut)),
                 ])
                   Row(
                     mainAxisSize: MainAxisSize.min,
@@ -2294,7 +2237,7 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
                           border: Border.all(color: scheme.outlineVariant),
                         ),
                       ),
-                      const SizedBox(width: IKubbSpacing.xs),
+                      const SizedBox(width: KaatoSpacing.xs),
                       Text(name, style: Story.code),
                     ],
                   ),
@@ -2315,26 +2258,26 @@ class _Anatomy extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final faded = Theme.of(context).colorScheme.onSurface
-        .withValues(alpha: IKubbAlpha.faded);
+        .withValues(alpha: KaatoAlpha.faded);
     Widget part(String name, String what) => Padding(
-      padding: const EdgeInsets.only(bottom: IKubbSpacing.xs),
+      padding: const EdgeInsets.only(bottom: KaatoSpacing.xs),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(width: 120, child: Text(name, style: IKubbType.strong)),
+          SizedBox(width: 120, child: Text(name, style: KaatoType.strong)),
           Expanded(
-            child: Text(what, style: IKubbType.caption.copyWith(color: faded)),
+            child: Text(what, style: KaatoType.caption.copyWith(color: faded)),
           ),
         ],
       ),
     );
     return Padding(
-      padding: const EdgeInsets.only(bottom: IKubbSpacing.xl),
+      padding: const EdgeInsets.only(bottom: KaatoSpacing.xl),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Anatomy', style: IKubbType.emphasis),
-          const SizedBox(height: IKubbSpacing.sm),
+          const Text('Anatomy', style: KaatoType.emphasis),
+          const SizedBox(height: KaatoSpacing.sm),
           part(
             'Track',
             'Text color at 8% (light) or 10% (dark); radius 12; 48pt tall.',
@@ -2377,64 +2320,64 @@ class _WoodRampStrip extends StatelessWidget {
   Widget build(BuildContext context) {
     final brightness = Theme.of(context).brightness;
     final surface = Theme.of(context).colorScheme.surface;
-    final accent = IKubbPalette.woodAccent(brightness);
+    final accent = KaatoPalette.woodAccent(brightness);
     Widget pairing(String label, Color fg, Color bg) => Container(
       padding: const EdgeInsets.symmetric(
-        horizontal: IKubbSpacing.md,
-        vertical: IKubbSpacing.sm,
+        horizontal: KaatoSpacing.md,
+        vertical: KaatoSpacing.sm,
       ),
       decoration: BoxDecoration(
         color: bg,
-        borderRadius: BorderRadius.circular(IKubbRadius.sm),
+        borderRadius: BorderRadius.circular(KaatoRadius.sm),
         border: Border.all(
           color: Theme.of(context).colorScheme.onSurface
-              .withValues(alpha: IKubbAlpha.dotIdle),
+              .withValues(alpha: KaatoAlpha.dotIdle),
         ),
       ),
       child: Text(
         '$label  ${_ratio(fg, bg)}',
-        style: IKubbType.caption.copyWith(
+        style: KaatoType.caption.copyWith(
           color: fg,
           fontWeight: FontWeight.w700,
         ),
       ),
     );
     return Padding(
-      padding: const EdgeInsets.only(bottom: IKubbSpacing.md),
+      padding: const EdgeInsets.only(bottom: KaatoSpacing.md),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             height: 28,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(IKubbRadius.sm),
+              borderRadius: BorderRadius.circular(KaatoRadius.sm),
               gradient: const LinearGradient(
                 colors: [
-                  IKubbPalette.birchLight,
-                  IKubbPalette.birch,
-                  IKubbPalette.oakLight,
-                  IKubbPalette.oak,
-                  IKubbPalette.walnut,
-                  IKubbPalette.bark,
+                  KaatoPalette.birchLight,
+                  KaatoPalette.birch,
+                  KaatoPalette.oakLight,
+                  KaatoPalette.oak,
+                  KaatoPalette.walnut,
+                  KaatoPalette.bark,
                 ],
               ),
             ),
           ),
-          const SizedBox(height: IKubbSpacing.sm),
+          const SizedBox(height: KaatoSpacing.sm),
           Wrap(
-            spacing: IKubbSpacing.sm,
-            runSpacing: IKubbSpacing.sm,
+            spacing: KaatoSpacing.sm,
+            runSpacing: KaatoSpacing.sm,
             children: [
-              pairing('ink on oak', IKubbPalette.ink, IKubbPalette.oak),
+              pairing('ink on oak', KaatoPalette.ink, KaatoPalette.oak),
               pairing(
                 'ink on oakLight',
-                IKubbPalette.ink,
-                IKubbPalette.oakLight,
+                KaatoPalette.ink,
+                KaatoPalette.oakLight,
               ),
               pairing(
                 'birch on walnut',
-                IKubbPalette.birchLight,
-                IKubbPalette.walnut,
+                KaatoPalette.birchLight,
+                KaatoPalette.walnut,
               ),
               pairing('woodAccent on surface', accent, surface),
             ],
@@ -2456,15 +2399,15 @@ class _SwatchGrid extends StatelessWidget {
     String hex(Color c) =>
         '#${c.toARGB32().toRadixString(16).toUpperCase().substring(2)}';
     return Padding(
-      padding: const EdgeInsets.only(bottom: IKubbSpacing.md),
+      padding: const EdgeInsets.only(bottom: KaatoSpacing.md),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: IKubbType.emphasis),
-          const SizedBox(height: IKubbSpacing.xs),
+          Text(title, style: KaatoType.emphasis),
+          const SizedBox(height: KaatoSpacing.xs),
           Wrap(
-            spacing: IKubbSpacing.md,
-            runSpacing: IKubbSpacing.sm,
+            spacing: KaatoSpacing.md,
+            runSpacing: KaatoSpacing.sm,
             children: [
               for (final (name, color) in entries)
                 SizedBox(
@@ -2476,15 +2419,15 @@ class _SwatchGrid extends StatelessWidget {
                         height: 40,
                         decoration: BoxDecoration(
                           color: color,
-                          borderRadius: BorderRadius.circular(IKubbRadius.sm),
+                          borderRadius: BorderRadius.circular(KaatoRadius.sm),
                           border: Border.all(
                             color: Theme.of(context).colorScheme.onSurface
-                                .withValues(alpha: IKubbAlpha.dotIdle),
+                                .withValues(alpha: KaatoAlpha.dotIdle),
                           ),
                         ),
                       ),
-                      Text(name, style: IKubbType.caption),
-                      Text(hex(color), style: IKubbType.caption),
+                      Text(name, style: KaatoType.caption),
+                      Text(hex(color), style: KaatoType.caption),
                     ],
                   ),
                 ),

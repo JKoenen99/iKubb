@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ikubb/app.dart';
-import 'package:ikubb/features/feedback/feedback_controller.dart';
-import 'package:ikubb/features/feedback/feedback_event.dart';
-import 'package:ikubb/features/feedback/feedback_prompt.dart';
-import 'package:ikubb/features/feedback/feedback_repository.dart';
-import 'package:ikubb/features/feedback/feedback_sink.dart';
-import 'package:ikubb/features/onboarding/onboarding_state.dart';
+import 'package:kaato/app.dart';
+import 'package:kaato/features/feedback/feedback_controller.dart';
+import 'package:kaato/features/feedback/feedback_event.dart';
+import 'package:kaato/features/feedback/feedback_prompt.dart';
+import 'package:kaato/features/feedback/feedback_repository.dart';
+import 'package:kaato/features/feedback/feedback_sink.dart';
+import 'package:kaato/features/onboarding/onboarding_state.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'test_utils.dart';
@@ -43,7 +43,7 @@ Future<void> pumpApp(
         feedbackSinkProvider.overrideWithValue(sink),
         storeReviewProvider.overrideWithValue(review),
       ],
-      child: const IKubbApp(),
+      child: const KaatoApp(),
     ),
   );
   await tester.pumpAndSettle();
@@ -81,14 +81,14 @@ void main() {
     // First win: too early to ask.
     await winWithPin12(tester);
     expect(find.text('Anna wins!'), findsOneWidget);
-    expect(find.text('How was scoring with iKubb?'), findsNothing);
+    expect(find.text('How was scoring with Kaato?'), findsNothing);
 
     // Rematch and win again: now the card is there, under the actions.
     await tester.tap(find.text('Rematch'));
     await tester.pumpAndSettle();
     await winWithPin12(tester);
     await tester.pumpAndSettle();
-    expect(find.text('How was scoring with iKubb?'), findsOneWidget);
+    expect(find.text('How was scoring with Kaato?'), findsOneWidget);
 
     // Five stars opens the form with the positive pills.
     await tester.tapVisible(find.byTooltip('5 of 5 stars'));
@@ -124,7 +124,7 @@ void main() {
     await tester.pumpAndSettle();
     await winWithPin12(tester);
     await tester.pumpAndSettle();
-    expect(find.text('How was scoring with iKubb?'), findsNothing);
+    expect(find.text('How was scoring with Kaato?'), findsNothing);
   });
 
   testWidgets('a low rating asks what to improve and skips the store', (
@@ -167,7 +167,7 @@ void main() {
     await tester.tapVisible(find.text('Not now'));
     await tester.pumpAndSettle();
     expect(find.byType(FeedbackPromptCard), findsOneWidget);
-    expect(find.text('How was scoring with iKubb?'), findsNothing);
+    expect(find.text('How was scoring with Kaato?'), findsNothing);
 
     final pending = await FeedbackRepository().unsynced();
     expect(pending.single.response, FeedbackResponse.dismissed);
@@ -208,7 +208,8 @@ void main() {
     );
     await tester.tap(find.text('Teach me the game'));
     await tester.pumpAndSettle();
-    for (var i = 0; i < 5; i++) {
+    // Four Nexts: formation, demo, overshoot, misses, then the last card.
+    for (var i = 0; i < 4; i++) {
       await tester.tap(find.text('Next'));
       await tester.pumpAndSettle();
     }

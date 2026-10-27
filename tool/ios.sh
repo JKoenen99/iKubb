@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Put the latest iKubb on your own iPhone and iPad.
+# Put the latest Kaato on your own iPhone and iPad.
 #
 #   tool/ios.sh                  pull, build once, install on every connected
 #                                iPhone/iPad (cable or wireless)
@@ -94,7 +94,7 @@ if [ -n "$device" ]; then
 fi
 [ -n "$devices" ] || fail "No iPhone or iPad found. Connect one by cable, unlock it and tap Trust; or pair it for wireless in Xcode (Window > Devices and Simulators)."
 
-say "Building iKubb $version, commit $sha for iOS"
+say "Building Kaato $version, commit $sha for iOS"
 flutter build ios --release "${defines[@]}"
 
 # Install over the existing app, as Xcode does. Not `flutter install`: that
@@ -117,5 +117,5 @@ while IFS="$(printf '\t')" read -r id name; do
 done <<< "$devices"
 
 [ -n "$installed" ] || fail "Nothing was installed."
-say "Installed iKubb $version, commit $sha on:$installed"
+say "Installed Kaato $version, commit $sha on:$installed"
 echo "Check Settings > bottom of the screen on the device: it shows the same version and commit."

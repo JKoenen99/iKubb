@@ -102,18 +102,18 @@ class _FeedbackPromptCardState extends ConsumerState<FeedbackPromptCard> {
     _decide();
     final l10n = AppLocalizations.of(context)!;
     final scheme = Theme.of(context).colorScheme;
-    final fg = widget.onDark ? IKubbPalette.birchLight : scheme.onSurface;
+    final fg = widget.onDark ? KaatoPalette.birchLight : scheme.onSurface;
     final bg = widget.onDark
-        ? IKubbPalette.birchLight.withValues(alpha: 0.12)
+        ? KaatoPalette.birchLight.withValues(alpha: 0.12)
         : scheme.surfaceContainerHighest;
 
     if (_thanks) {
       return Padding(
-        padding: const EdgeInsets.symmetric(vertical: IKubbSpacing.sm),
+        padding: const EdgeInsets.symmetric(vertical: KaatoSpacing.sm),
         child: Text(
           l10n.feedbackThanks,
           textAlign: TextAlign.center,
-          style: IKubbType.emphasis.copyWith(color: fg),
+          style: KaatoType.emphasis.copyWith(color: fg),
         ),
       );
     }
@@ -122,16 +122,16 @@ class _FeedbackPromptCardState extends ConsumerState<FeedbackPromptCard> {
     return Semantics(
       container: true,
       child: AnimatedContainer(
-        duration: IKubbMotion.resolve(context, IKubbMotion.base),
+        duration: KaatoMotion.resolve(context, KaatoMotion.base),
         padding: const EdgeInsets.fromLTRB(
-          IKubbSpacing.lg,
-          IKubbSpacing.md,
-          IKubbSpacing.lg,
-          IKubbSpacing.xs,
+          KaatoSpacing.lg,
+          KaatoSpacing.md,
+          KaatoSpacing.lg,
+          KaatoSpacing.xs,
         ),
         decoration: BoxDecoration(
           color: bg,
-          borderRadius: BorderRadius.circular(IKubbRadius.lg),
+          borderRadius: BorderRadius.circular(KaatoRadius.lg),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -139,9 +139,9 @@ class _FeedbackPromptCardState extends ConsumerState<FeedbackPromptCard> {
             Text(
               widget.title,
               textAlign: TextAlign.center,
-              style: IKubbType.strong.copyWith(color: fg),
+              style: KaatoType.strong.copyWith(color: fg),
             ),
-            const SizedBox(height: IKubbSpacing.xs),
+            const SizedBox(height: KaatoSpacing.xs),
             StarRating(
               value: 0,
               onChanged: _rate,

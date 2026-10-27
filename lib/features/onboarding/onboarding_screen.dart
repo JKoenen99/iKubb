@@ -21,29 +21,29 @@ class OnboardingScreen extends StatelessWidget {
         fit: StackFit.expand,
         children: [
           WoodGrainBackground(
-            color: IKubbPalette.woodGrain(Theme.of(context).brightness),
+            color: KaatoPalette.woodGrain(Theme.of(context).brightness),
           ),
           SafeArea(
             child: Center(
               child: ConstrainedBox(
                 constraints: const BoxConstraints(
-                  maxWidth: IKubbLayout.maxColumn,
+                  maxWidth: KaatoLayout.maxColumn,
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(IKubbSpacing.xl),
+                  padding: const EdgeInsets.all(KaatoSpacing.xl),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       const VikingMascot(size: 160),
-                      const SizedBox(height: IKubbSpacing.sm),
+                      const SizedBox(height: KaatoSpacing.sm),
                       Text(
                         l10n.appTitle,
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.displayLarge,
                       ),
                       Text(l10n.tagline, textAlign: TextAlign.center),
-                      const SizedBox(height: IKubbSpacing.huge),
+                      const SizedBox(height: KaatoSpacing.huge),
                       FilledButton(
                         onPressed: () {
                           markOnboardingSeen();
@@ -51,7 +51,7 @@ class OnboardingScreen extends StatelessWidget {
                         },
                         child: Text(l10n.startScoring),
                       ),
-                      const SizedBox(height: IKubbSpacing.md),
+                      const SizedBox(height: KaatoSpacing.md),
                       OutlinedButton.icon(
                         onPressed: () {
                           markOnboardingSeen();

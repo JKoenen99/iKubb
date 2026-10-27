@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
-import 'package:ikubb/features/feedback/feedback_event.dart';
-import 'package:ikubb/features/feedback/feedback_repository.dart';
-import 'package:ikubb/features/feedback/feedback_scheduler.dart';
-import 'package:ikubb/features/feedback/feedback_sink.dart';
+import 'package:kaato/features/feedback/feedback_event.dart';
+import 'package:kaato/features/feedback/feedback_repository.dart';
+import 'package:kaato/features/feedback/feedback_scheduler.dart';
+import 'package:kaato/features/feedback/feedback_sink.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// The prompt rules, the document shape, and the Supabase sink — all

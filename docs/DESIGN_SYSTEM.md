@@ -32,7 +32,7 @@ Foundations: palet (incl. houtramp met gemeten contrast, lijnen, signalen,
 spelerkleuren), typografie (stappen en begeleidende stijlen), spacing,
 radius, randen, icoonmaten, alpha's, layoutbreedtes, tikminimum, motion.
 
-Componenten: IKubbAppBar; IKubbGlass, GlassGroup, GlassToolbar,
+Componenten: KaatoAppBar; KaatoGlass, GlassGroup, GlassToolbar,
 BottomActionBar, glassIconButton, glassSheet; SectionHeader; de Material-
 knoppen in de thema-hiërarchie; Overlay-knoppen; DashedAddButton; TextField
 (alle staten); SelectField; AdaptiveChoice (segment en chip-modus);

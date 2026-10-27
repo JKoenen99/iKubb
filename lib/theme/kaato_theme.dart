@@ -6,25 +6,25 @@ import 'palette.dart';
 import 'tokens.dart';
 import 'typography.dart';
 
-/// Light and dark themes built from the [IKubbPalette] tokens.
-abstract final class IKubbTheme {
+/// Light and dark themes built from the [KaatoPalette] tokens.
+abstract final class KaatoTheme {
   static ThemeData get light => _base(
     const ColorScheme.light(
-      primary: IKubbPalette.forest,
-      onPrimary: IKubbPalette.birchLight,
-      primaryContainer: IKubbPalette.forest,
-      onPrimaryContainer: IKubbPalette.birchLight,
-      secondary: IKubbPalette.oak,
-      onSecondary: IKubbPalette.ink,
-      secondaryContainer: IKubbPalette.oak,
-      onSecondaryContainer: IKubbPalette.ink,
-      surface: IKubbPalette.birchLight,
-      onSurface: IKubbPalette.ink,
-      surfaceContainerHighest: IKubbPalette.birch,
-      outline: IKubbPalette.lineLight,
-      outlineVariant: IKubbPalette.lineSoftLight,
-      error: IKubbPalette.berry,
-      onError: IKubbPalette.birchLight,
+      primary: KaatoPalette.forest,
+      onPrimary: KaatoPalette.birchLight,
+      primaryContainer: KaatoPalette.forest,
+      onPrimaryContainer: KaatoPalette.birchLight,
+      secondary: KaatoPalette.oak,
+      onSecondary: KaatoPalette.ink,
+      secondaryContainer: KaatoPalette.oak,
+      onSecondaryContainer: KaatoPalette.ink,
+      surface: KaatoPalette.birchLight,
+      onSurface: KaatoPalette.ink,
+      surfaceContainerHighest: KaatoPalette.birch,
+      outline: KaatoPalette.lineLight,
+      outlineVariant: KaatoPalette.lineSoftLight,
+      error: KaatoPalette.berry,
+      onError: KaatoPalette.birchLight,
     ),
   );
 
@@ -32,25 +32,25 @@ abstract final class IKubbTheme {
   // charcoal); filled controls use the night greens so their labels stay
   // light (primaryContainer / secondaryContainer, which every filled,
   // tonal and selected control is themed to use). Honey oak is reserved
-  // for pins, kubbs and player 1, so the accent never collides with an
+  // for pins and player 1, so the accent never collides with an
   // identity color.
   static ThemeData get dark => _base(
     const ColorScheme.dark(
-      primary: IKubbPalette.oakLight,
-      onPrimary: IKubbPalette.ink,
-      primaryContainer: IKubbPalette.pineNight,
-      onPrimaryContainer: IKubbPalette.birchLight,
-      secondary: IKubbPalette.oakLight,
-      onSecondary: IKubbPalette.ink,
-      secondaryContainer: IKubbPalette.mossNight,
-      onSecondaryContainer: IKubbPalette.birchLight,
-      surface: IKubbPalette.charcoalWood,
-      onSurface: IKubbPalette.birchLight,
-      surfaceContainerHighest: IKubbPalette.nightSurface,
-      outline: IKubbPalette.lineDark,
-      outlineVariant: IKubbPalette.lineSoftDark,
-      error: IKubbPalette.berryLight,
-      onError: IKubbPalette.ink,
+      primary: KaatoPalette.oakLight,
+      onPrimary: KaatoPalette.ink,
+      primaryContainer: KaatoPalette.pineNight,
+      onPrimaryContainer: KaatoPalette.birchLight,
+      secondary: KaatoPalette.oakLight,
+      onSecondary: KaatoPalette.ink,
+      secondaryContainer: KaatoPalette.mossNight,
+      onSecondaryContainer: KaatoPalette.birchLight,
+      surface: KaatoPalette.charcoalWood,
+      onSurface: KaatoPalette.birchLight,
+      surfaceContainerHighest: KaatoPalette.nightSurface,
+      outline: KaatoPalette.lineDark,
+      outlineVariant: KaatoPalette.lineSoftDark,
+      error: KaatoPalette.berryLight,
+      onError: KaatoPalette.ink,
     ),
   );
 
@@ -75,27 +75,27 @@ abstract final class IKubbTheme {
   /// field and the segmented control all read as the same family.
   static InputDecorationTheme _inputTheme(ColorScheme scheme) {
     OutlineInputBorder border(Color color, double width) => OutlineInputBorder(
-      borderRadius: BorderRadius.circular(IKubbRadius.md),
+      borderRadius: BorderRadius.circular(KaatoRadius.md),
       borderSide: BorderSide(color: color, width: width),
     );
     return InputDecorationTheme(
       filled: true,
       fillColor: scheme.surface,
       contentPadding: const EdgeInsets.symmetric(
-        horizontal: IKubbSpacing.lg,
-        vertical: IKubbSpacing.md,
+        horizontal: KaatoSpacing.lg,
+        vertical: KaatoSpacing.md,
       ),
       hintStyle: TextStyle(
-        color: scheme.onSurface.withValues(alpha: IKubbAlpha.faded),
+        color: scheme.onSurface.withValues(alpha: KaatoAlpha.faded),
       ),
       suffixIconColor: scheme.onSurface,
       prefixIconColor: scheme.onSurface,
-      border: border(scheme.outline, IKubbBorder.hairline),
-      enabledBorder: border(scheme.outline, IKubbBorder.hairline),
-      focusedBorder: border(scheme.primary, IKubbBorder.line),
-      errorBorder: border(scheme.error, IKubbBorder.hairline),
-      focusedErrorBorder: border(scheme.error, IKubbBorder.line),
-      disabledBorder: border(scheme.outlineVariant, IKubbBorder.hairline),
+      border: border(scheme.outline, KaatoBorder.hairline),
+      enabledBorder: border(scheme.outline, KaatoBorder.hairline),
+      focusedBorder: border(scheme.primary, KaatoBorder.line),
+      errorBorder: border(scheme.error, KaatoBorder.hairline),
+      focusedErrorBorder: border(scheme.error, KaatoBorder.line),
+      disabledBorder: border(scheme.outlineVariant, KaatoBorder.hairline),
     );
   }
 
@@ -127,20 +127,20 @@ abstract final class IKubbTheme {
         foregroundColor: scheme.onPrimaryContainer,
         minimumSize: const Size(64, 56),
         textStyle: const TextStyle(
-          fontSize: IKubbType.stepBody,
+          fontSize: KaatoType.stepBody,
           fontWeight: FontWeight.w600,
         ),
-        shape: _controlShape(IKubbRadius.lg),
+        shape: _controlShape(KaatoRadius.lg),
       ),
     ),
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
         minimumSize: const Size(64, 48),
         textStyle: const TextStyle(
-          fontSize: IKubbType.stepLabel,
+          fontSize: KaatoType.stepLabel,
           fontWeight: FontWeight.w600,
         ),
-        shape: _controlShape(IKubbRadius.lg),
+        shape: _controlShape(KaatoRadius.lg),
       ),
     ),
     textButtonTheme: TextButtonThemeData(
@@ -162,7 +162,7 @@ abstract final class IKubbTheme {
           color: states.contains(WidgetState.selected)
               ? scheme.primaryContainer
               : scheme.outline,
-          width: IKubbBorder.hairline,
+          width: KaatoBorder.hairline,
         ),
       ),
       // Chips merge the theme style into their defaults, which keeps a
@@ -199,21 +199,21 @@ abstract final class IKubbTheme {
     ),
     dialogTheme: DialogThemeData(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(IKubbRadius.xl),
+        borderRadius: BorderRadius.circular(KaatoRadius.xl),
       ),
     ),
     // Menus: translucent, rounder, with icons (HIG: menus adopt glass).
     popupMenuTheme: PopupMenuThemeData(
       color: _cupertino
-          ? scheme.surface.withValues(alpha: IKubbAlpha.glassTint + 0.16)
+          ? scheme.surface.withValues(alpha: KaatoAlpha.glassTint + 0.16)
           : null,
       elevation: _cupertino ? 2 : null,
       shape: _cupertino
           ? RoundedSuperellipseBorder(
-              borderRadius: BorderRadius.circular(IKubbRadius.glass),
+              borderRadius: BorderRadius.circular(KaatoRadius.glass),
             )
           : RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(IKubbRadius.md),
+              borderRadius: BorderRadius.circular(KaatoRadius.md),
             ),
     ),
     // Sheets draw their own glass body; the Material behind is invisible.
@@ -228,10 +228,10 @@ abstract final class IKubbTheme {
     cardTheme: const CardThemeData(elevation: 0),
     // The wordmark and every screen title carry the brand font. On iOS
     // the bar itself is transparent: its buttons float in glass and a
-    // scroll-edge fade keeps the title legible (see IKubbAppBar).
+    // scroll-edge fade keeps the title legible (see KaatoAppBar).
     appBarTheme: AppBarTheme(
-      titleTextStyle: IKubbType.heading(
-        size: IKubbType.stepTitle,
+      titleTextStyle: KaatoType.heading(
+        size: KaatoType.stepTitle,
         color: scheme.onSurface,
       ),
       backgroundColor: _cupertino ? Colors.transparent : null,
@@ -242,11 +242,11 @@ abstract final class IKubbTheme {
     textTheme: Typography.blackMountainView
         .copyWith(
           // Wordmark / hero numbers: brand font, tabular-lining numerals.
-          displayLarge: IKubbType.score(size: IKubbType.stepWordmark),
-          headlineMedium: IKubbType.heading(size: IKubbType.stepHeadline),
+          displayLarge: KaatoType.score(size: KaatoType.stepWordmark),
+          headlineMedium: KaatoType.heading(size: KaatoType.stepHeadline),
           titleMedium: const TextStyle(
-            fontFamily: IKubbType.family,
-            fontVariations: IKubbType.wBold,
+            fontFamily: KaatoType.family,
+            fontVariations: KaatoType.wBold,
             fontSize: 17,
           ),
         )

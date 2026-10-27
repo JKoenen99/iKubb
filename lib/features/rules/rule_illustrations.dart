@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../theme/palette.dart';
 import '../../theme/typography.dart';
 import '../game/pin_diagram.dart';
-import '../kubb/kubb_field.dart';
 import '../setup/player.dart' show playerColors;
 
 /// One small, text-free illustration per rule card — the visual carries
@@ -22,17 +21,6 @@ Widget? ruleIllustration(String ruleId) => switch (ruleId) {
   'exact' => const _ExactTarget(),
   'lastStanding' => const _LastStanding(),
   'teams' => const _TeamClusters(),
-  // Classic kubb — drawn with the same wooden blocks as the /kubb field.
-  'kubbField' => const KubbFieldSchematic(),
-  'kubbTeams' => const _TeamClusters(),
-  'kubbBatons' => const _BatonRow(),
-  'kubbThrowIn' => const _ThrowInArc(),
-  'kubbFieldFirst' => const _FieldFirstOrder(),
-  'kubbPenalty' => const _PenaltyKubb(),
-  'kubbAdvantage' => const _AdvantageIllustration(),
-  'kubbKing' => const _KingWins(),
-  'kubbEarlyKing' => const _EarlyKingLoses(),
-  'kubbMatch' => const _MatchDots(),
   _ => null,
 };
 
@@ -58,12 +46,12 @@ class _MiniPin extends StatelessWidget {
         width: size,
         height: size,
         decoration: BoxDecoration(
-          color: fallen ? IKubbPalette.walnut : IKubbPalette.oak,
+          color: fallen ? KaatoPalette.walnut : KaatoPalette.oak,
           shape: BoxShape.circle,
           border: Border.all(
             color: fallen
-                ? IKubbPalette.ink.withValues(alpha: 0.55)
-                : IKubbPalette.walnut,
+                ? KaatoPalette.ink.withValues(alpha: 0.55)
+                : KaatoPalette.walnut,
             width: 2,
           ),
         ),
@@ -74,15 +62,15 @@ class _MiniPin extends StatelessWidget {
                   width: size * 0.58,
                   height: size * 0.58,
                   decoration: const BoxDecoration(
-                    color: IKubbPalette.birchLight,
+                    color: KaatoPalette.birchLight,
                     shape: BoxShape.circle,
                   ),
                   child: Center(
                     child: Text(
                       '$number',
-                      style: IKubbType.score(
+                      style: KaatoType.score(
                         size: size * 0.34,
-                        color: IKubbPalette.ink,
+                        color: KaatoPalette.ink,
                       ),
                     ),
                   ),
@@ -102,12 +90,12 @@ class _ScoreChip extends StatelessWidget {
   Widget build(BuildContext context) => Container(
     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
     decoration: BoxDecoration(
-      color: IKubbPalette.forest,
+      color: KaatoPalette.forest,
       borderRadius: BorderRadius.circular(12),
     ),
     child: Text(
       text,
-      style: IKubbType.score(size: 16, color: IKubbPalette.birchLight),
+      style: KaatoType.score(size: 16, color: KaatoPalette.birchLight),
     ),
   );
 }
@@ -146,7 +134,7 @@ class _AlternatingTurns extends StatelessWidget {
       decoration: BoxDecoration(
         color: playerColors[colorIndex],
         shape: BoxShape.circle,
-        border: Border.all(color: IKubbPalette.birchLight, width: 2),
+        border: Border.all(color: KaatoPalette.birchLight, width: 2),
       ),
     );
     const arrow = _WoodArrow();
@@ -176,7 +164,7 @@ class _WoodArrow extends StatelessWidget {
   Widget build(BuildContext context) => Icon(
     Icons.arrow_forward,
     size: 20,
-    color: IKubbPalette.woodAccent(Theme.of(context).brightness),
+    color: KaatoPalette.woodAccent(Theme.of(context).brightness),
   );
 }
 
@@ -190,7 +178,7 @@ class _Trophy extends StatelessWidget {
   Widget build(BuildContext context) => Icon(
     Icons.emoji_events,
     size: size,
-    color: IKubbPalette.woodAccent(Theme.of(context).brightness),
+    color: KaatoPalette.woodAccent(Theme.of(context).brightness),
   );
 }
 
@@ -204,7 +192,7 @@ class _UnderhandThrow extends StatelessWidget {
     height: 64,
     child: CustomPaint(
       painter: _UnderhandPainter(
-        stick: IKubbPalette.woodAccent(Theme.of(context).brightness),
+        stick: KaatoPalette.woodAccent(Theme.of(context).brightness),
       ),
     ),
   );
@@ -221,7 +209,7 @@ class _UnderhandPainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = 3
       ..strokeCap = StrokeCap.round
-      ..color = IKubbPalette.pine;
+      ..color = KaatoPalette.pine;
     final path = Path()
       ..moveTo(8, size.height - 10)
       ..quadraticBezierTo(
@@ -305,7 +293,7 @@ class _LeaningPin extends StatelessWidget {
             child: Icon(
               Icons.cancel,
               size: 26,
-              color: IKubbPalette.danger(Theme.of(context).brightness),
+              color: KaatoPalette.danger(Theme.of(context).brightness),
             ),
           ),
         ],
@@ -320,7 +308,7 @@ class OvershootIllustration extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final style = IKubbType.score(
+    final style = KaatoType.score(
       size: 28,
       color: Theme.of(context).colorScheme.onSurface,
     );
@@ -331,9 +319,9 @@ class OvershootIllustration extends StatelessWidget {
         Text('47 + 8', style: style),
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: 10),
-          child: Icon(Icons.arrow_forward, size: 26, color: IKubbPalette.amber),
+          child: Icon(Icons.arrow_forward, size: 26, color: KaatoPalette.amber),
         ),
-        Text('25', style: style.copyWith(color: IKubbPalette.amber)),
+        Text('25', style: style.copyWith(color: KaatoPalette.amber)),
       ],
     );
   }
@@ -355,7 +343,7 @@ class MissDotsIllustration extends StatelessWidget {
             child: Icon(
               Icons.circle,
               size: 18,
-              color: IKubbPalette.danger(Theme.of(context).brightness),
+              color: KaatoPalette.danger(Theme.of(context).brightness),
             ),
           ),
       ],
@@ -374,7 +362,7 @@ class _ExactTarget extends StatelessWidget {
       children: [
         Text(
           '50',
-          style: IKubbType.score(
+          style: KaatoType.score(
             size: 32,
             color: Theme.of(context).colorScheme.primary,
           ),
@@ -415,213 +403,6 @@ class _LastStanding extends StatelessWidget {
   }
 }
 
-/// The kubb field in miniature: two baselines of five, the king alone in
-/// the middle. Public: the tour's kubb branch opens with it at full size.
-class KubbFieldSchematic extends StatelessWidget {
-  const KubbFieldSchematic({super.key, this.scale = 1});
-
-  final double scale;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        KubbBlockRow(
-          standing: 5,
-          felled: 0,
-          blockWidth: 16 * scale,
-          blockHeight: 22 * scale,
-        ),
-        SizedBox(height: 14 * scale),
-        const KubbKing(),
-        SizedBox(height: 14 * scale),
-        KubbBlockRow(
-          standing: 5,
-          felled: 0,
-          blockWidth: 16 * scale,
-          blockHeight: 22 * scale,
-        ),
-      ],
-    );
-  }
-}
-
-/// The six batons of a turn.
-class _BatonRow extends StatelessWidget {
-  const _BatonRow();
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        for (var i = 0; i < 6; i++)
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5),
-            child: Transform.rotate(
-              angle: 0.35,
-              child: Container(
-                width: 7,
-                height: 34,
-                decoration: BoxDecoration(
-                  color: IKubbPalette.woodAccent(Theme.of(context).brightness),
-                  borderRadius: BorderRadius.circular(4),
-                ),
-              ),
-            ),
-          ),
-      ],
-    );
-  }
-}
-
-/// A felled kubb arcs back into the other half and stands up again.
-class _ThrowInArc extends StatelessWidget {
-  const _ThrowInArc();
-
-  @override
-  Widget build(BuildContext context) {
-    return const Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        KubbBlock(felled: true),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10),
-          child: Icon(Icons.redo, size: 28, color: IKubbPalette.pine),
-        ),
-        KubbBlock(),
-      ],
-    );
-  }
-}
-
-/// Field kubbs are target number one, the baseline number two.
-class _FieldFirstOrder extends StatelessWidget {
-  const _FieldFirstOrder();
-
-  @override
-  Widget build(BuildContext context) {
-    Widget numbered(Widget block, String label) => Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [block, const SizedBox(height: 4), _ScoreChip(label)],
-    );
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        numbered(const KubbBlock(width: 22, height: 30), '1'),
-        const Padding(
-          padding: EdgeInsets.only(bottom: 26, left: 8, right: 8),
-          child: _WoodArrow(),
-        ),
-        numbered(const KubbBlock(), '2'),
-      ],
-    );
-  }
-}
-
-/// Thrown out twice: the kubb becomes a penalty placement.
-class _PenaltyKubb extends StatelessWidget {
-  const _PenaltyKubb();
-
-  @override
-  Widget build(BuildContext context) {
-    final danger = IKubbPalette.danger(Theme.of(context).brightness);
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const KubbBlock(felled: true),
-        const SizedBox(width: 10),
-        Icon(Icons.cancel, size: 24, color: danger),
-        Icon(Icons.cancel, size: 24, color: danger),
-        const SizedBox(width: 10),
-        const _WoodArrow(),
-        const SizedBox(width: 10),
-        const KubbBlock(),
-        const KubbKing(),
-      ],
-    );
-  }
-}
-
-/// A field kubb ahead of the baseline marks the new throwing line.
-class _AdvantageIllustration extends StatelessWidget {
-  const _AdvantageIllustration();
-
-  @override
-  Widget build(BuildContext context) {
-    return const SizedBox(
-      width: 190,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          KubbBlock(),
-          SizedBox(height: 4),
-          AdvantageLine(label: '→'),
-        ],
-      ),
-    );
-  }
-}
-
-/// A rightful king throw wins.
-class _KingWins extends StatelessWidget {
-  const _KingWins();
-
-  @override
-  Widget build(BuildContext context) {
-    return const Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [KubbKing(), SizedBox(width: 12), _Trophy(size: 30)],
-    );
-  }
-}
-
-/// The king down too soon: instant loss.
-class _EarlyKingLoses extends StatelessWidget {
-  const _EarlyKingLoses();
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Transform.rotate(angle: 0.9, child: const KubbKing()),
-        const SizedBox(width: 12),
-        Icon(
-          Icons.cancel,
-          size: 28,
-          color: IKubbPalette.danger(Theme.of(context).brightness),
-        ),
-      ],
-    );
-  }
-}
-
-/// Best-of-three match dots: two games taken, one to spare.
-class _MatchDots extends StatelessWidget {
-  const _MatchDots();
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        for (var i = 0; i < 3; i++)
-          Padding(
-            padding: const EdgeInsets.all(4),
-            child: Icon(
-              i < 2 ? Icons.circle : Icons.circle_outlined,
-              size: 20,
-              color: IKubbPalette.amber,
-            ),
-          ),
-      ],
-    );
-  }
-}
-
 /// Two team clusters in identity colors.
 class _TeamClusters extends StatelessWidget {
   const _TeamClusters();
@@ -635,7 +416,7 @@ class _TeamClusters extends StatelessWidget {
       decoration: BoxDecoration(
         color: playerColors[colorIndex],
         shape: BoxShape.circle,
-        border: Border.all(color: IKubbPalette.birchLight, width: 2),
+        border: Border.all(color: KaatoPalette.birchLight, width: 2),
       ),
     );
     return Row(
@@ -651,7 +432,7 @@ class _TeamClusters extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 14),
           child: Text(
             'vs',
-            style: IKubbType.heading(
+            style: KaatoType.heading(
               size: 16,
               color: Theme.of(context).colorScheme.onSurface,
             ),

@@ -1,4 +1,4 @@
-# iKubb
+# Kaato
 
 The number kubb scoreboard — Scandinavian modern, Viking soul.
 
@@ -6,6 +6,16 @@ A Flutter app (iOS first, Android later) that scores number kubb
 ("Scandinavisch kegelspel", the Mölkky-style game with 12 numbered pins),
 teaches the rules, and keeps player stats. See [SPEC.md](SPEC.md) for the
 full specification and feature list.
+
+## The name
+
+*Kaato* is Finnish for the felling: the knocked-over pin. Short, and easy
+to say in English, French and Finnish. Until version 0.4.0 the app was
+called iKubb and also scored classic kubb; it now does one game.
+
+The GitHub repository is still named `iKubb`. Renaming it in GitHub
+settings is safe: the web preview builds its base path from the
+repository name, and GitHub redirects the old URLs.
 
 ## Getting started
 

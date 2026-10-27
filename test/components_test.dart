@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ikubb/l10n/app_localizations.dart';
-import 'package:ikubb/widgets/confirm_dialog.dart';
-import 'package:ikubb/widgets/dot_row.dart';
-import 'package:ikubb/widgets/section_header.dart';
-import 'package:ikubb/widgets/settings_tiles.dart';
+import 'package:kaato/l10n/app_localizations.dart';
+import 'package:kaato/widgets/confirm_dialog.dart';
+import 'package:kaato/widgets/dot_row.dart';
+import 'package:kaato/widgets/section_header.dart';
+import 'package:kaato/widgets/settings_tiles.dart';
 
 Widget host(Widget child) => MaterialApp(
   localizationsDelegates: AppLocalizations.localizationsDelegates,

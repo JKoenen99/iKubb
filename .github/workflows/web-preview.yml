@@ -68,7 +68,7 @@ jobs:
       # Feedback backend. The publishable key is public by design (it ships
       # inside every app build) and RLS limits it to inserting feedback.
       - run: >
-          flutter build web --release --base-href /iKubb/
+          flutter build web --release --base-href /${{ github.event.repository.name }}/
           --dart-define=SUPABASE_URL=${{ env.SUPABASE_URL }}
           --dart-define=SUPABASE_ANON_KEY=${{ env.SUPABASE_ANON_KEY }}
           --dart-define=GIT_SHA=${{ github.sha }}

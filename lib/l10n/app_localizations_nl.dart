@@ -10,10 +10,10 @@ class AppLocalizationsNl extends AppLocalizations {
   AppLocalizationsNl([String locale = 'nl']) : super(locale);
 
   @override
-  String get appTitle => 'iKubb';
+  String get appTitle => 'Kaato';
 
   @override
-  String get tagline => 'Het kubb-scorebord';
+  String get tagline => 'Het nummerkubb-scorebord';
 
   @override
   String get startScoring => 'Ik ken de regels, start met scoren';
@@ -32,9 +32,6 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get stats => 'Statistieken';
-
-  @override
-  String get confirmThrow => 'Worp bevestigen';
 
   @override
   String get miss => 'Mis';
@@ -64,12 +61,6 @@ class AppLocalizationsNl extends AppLocalizations {
   String get addPlayer => 'Speler toevoegen';
 
   @override
-  String get playerName => 'Naam';
-
-  @override
-  String get recentPlayers => 'Recente spelers';
-
-  @override
   String get teams => 'Teams';
 
   @override
@@ -86,9 +77,6 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get targetScore => 'Doelscore';
-
-  @override
-  String get overshootRule => 'Te veel gegooid';
 
   @override
   String policyReset(int score) {
@@ -356,180 +344,10 @@ class AppLocalizationsNl extends AppLocalizations {
   String get modeNumber => 'Nummerkubb';
 
   @override
-  String get modeKubb => 'Kubb';
-
-  @override
-  String get matchLabel => 'Match';
-
-  @override
-  String get bestOfSingle => 'Eén partij';
-
-  @override
-  String get bestOfThree => 'Best of 3';
-
-  @override
-  String get turnClockLabel => 'Beurtklok';
-
-  @override
   String get offLabel => 'Uit';
 
   @override
-  String get kingLabel => 'Koning';
-
-  @override
-  String get kingWarningTitle => 'Koning omgooien?';
-
-  @override
-  String get kingWarningBody =>
-      'Nog niet alles ligt om — de koning nu omgooien verliest de partij.';
-
-  @override
-  String get advantageLine => 'Voordeellijn';
-
-  @override
-  String get throwInTitle =>
-      'Gooi de omgegooide kubbs in de helft van de aanvallers.';
-
-  @override
-  String get outTwice => 'Strafkubbs (twee keer uit)';
-
-  @override
   String get done => 'Klaar';
-
-  @override
-  String get nextGameLabel => 'Volgende partij';
-
-  @override
-  String earlyKingBanner(String name) {
-    return '$name gooide de koning te vroeg om!';
-  }
-
-  @override
-  String get catKubbSetup => 'Opstelling & teams';
-
-  @override
-  String get catKubbBatons => 'Werphoutjes';
-
-  @override
-  String get catKubbFieldKubbs => 'Veldkubbs';
-
-  @override
-  String get catKubbKing => 'De koning';
-
-  @override
-  String get ruleKubbFieldTitle => 'Het veld';
-
-  @override
-  String get ruleKubbFieldBody =>
-      'Twee teams staan tegenover elkaar op het veld. Elk team zet vijf kubbs op zijn achterlijn; de koning staat alleen in het midden.';
-
-  @override
-  String get ruleKubbFieldDetail =>
-      'Toernooivelden meten 5 × 8 meter. In het park volstaan twee jassen en een goede schatting — houd de helften ongeveer gelijk.';
-
-  @override
-  String get ruleKubbTeamsTitle => 'Eén tot zes per team';
-
-  @override
-  String get ruleKubbTeamsBody =>
-      'Kubb is een teamspel: één tot zes spelers per team. Teamgenoten verdelen de zes werphoutjes en gooien om de beurt.';
-
-  @override
-  String get ruleKubbBatonsTitle => 'Zes houtjes per beurt';
-
-  @override
-  String get ruleKubbBatonsBody =>
-      'Het aanvallende team gooit zes houtjes naar de kubbs van de tegenstander — onderhands, over de kop draaiend.';
-
-  @override
-  String get ruleKubbBatonsDetail =>
-      'Geen helikopterworpen: het houtje moet verticaal draaien, nooit zijwaarts. Gevelde kubbs blijven liggen tot de beurt voorbij is.';
-
-  @override
-  String get ruleKubbThrowInTitle => 'Gevelde kubbs komen terug';
-
-  @override
-  String get ruleKubbThrowInBody =>
-      'Na de houtjes gooien de verdedigers elke gevelde kubb in de helft van de aanvallers. Waar een kubb landt, wordt hij rechtop gezet als veldkubb.';
-
-  @override
-  String get ruleKubbThrowInDetail =>
-      'De verdedigers kiezen waar ze mikken — kubbs die dicht bij elkaar staan, zijn met één houtje veel makkelijker weg te spelen.';
-
-  @override
-  String get ruleKubbFieldFirstTitle => 'Veldkubbs eerst';
-
-  @override
-  String get ruleKubbFieldFirstBody =>
-      'Aanvallers moeten eerst alle staande veldkubbs vellen voordat een achterlijnkubb geraakt mag worden. Een te vroeg gevelde achterlijnkubb wordt weer rechtop gezet.';
-
-  @override
-  String get ruleKubbPenaltyTitle => 'Twee keer uit = strafkubb';
-
-  @override
-  String get ruleKubbPenaltyBody =>
-      'Een kubb die twee keer buiten het veld belandt, wordt een strafkubb: het andere team zet hem waar het wil in zijn helft — zelfs pal naast de koning.';
-
-  @override
-  String get ruleKubbAdvantageTitle => 'De voordeellijn';
-
-  @override
-  String get ruleKubbAdvantageBody =>
-      'Laten je tegenstanders veldkubbs in jouw helft staan, dan mag jouw team de houtjes gooien vanaf de kubb die het dichtst bij de koning staat.';
-
-  @override
-  String get ruleKubbKingTitle => 'De koning beslist';
-
-  @override
-  String get ruleKubbKingBody =>
-      'Pas als elke kubb in de verdedigende helft ligt, mag je op de koning mikken. Vel hem, en het spel is van jou.';
-
-  @override
-  String get ruleKubbEarlyKingTitle => 'Niet vóór de lijn ligt';
-
-  @override
-  String get ruleKubbEarlyKingBody =>
-      'Gooi je de koning om voordat al het andere ligt — ook per ongeluk — dan verliest je team het spel op slag.';
-
-  @override
-  String get ruleKubbMatchTitle => 'Best of three';
-
-  @override
-  String get ruleKubbMatchBody =>
-      'Op toernooien is een wedstrijd best of three. De teams wisselen af welk team elk spel opent.';
-
-  @override
-  String get ruleKubbMatchDetail =>
-      'Met de beurtklok aan heeft een team een vaste tijd om zijn zes houtjes te gooien. De klok is een richtlijn — de app blokkeert nooit een worp.';
-
-  @override
-  String get tourModePickTitle => 'Welk spel speel je?';
-
-  @override
-  String get tourModePickBody =>
-      'Beide zitten in deze app. Kies er één om te leren — wisselen kan altijd.';
-
-  @override
-  String get tourModeNumberDesc =>
-      'Twaalf genummerde kegels. Race naar precies 50.';
-
-  @override
-  String get tourModeKubbDesc => 'Twee teams, elk vijf kubbs — en de koning.';
-
-  @override
-  String get statKingsFelled => 'Koningen geveld';
-
-  @override
-  String get statKubbsPerBaton => 'Kubbs per houtje';
-
-  @override
-  String get statAdvantageTurns => 'Voordeelbeurten';
-
-  @override
-  String get statEarlyKings => 'Vroege koningen';
-
-  @override
-  String get filterAll => 'Alles';
 
   @override
   String get closeLabel => 'Sluiten';
@@ -539,28 +357,6 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get decreaseLabel => 'Minder';
-
-  @override
-  String kubbStandingSemantics(int number) {
-    return 'Kubb $number, staat';
-  }
-
-  @override
-  String kubbSelectedSemantics(int number) {
-    return 'Kubb $number, gemarkeerd als omgegooid';
-  }
-
-  @override
-  String get kingSafeSemantics => 'De koning — vel hem en win';
-
-  @override
-  String get kingRiskySemantics =>
-      'De koning — hem nu omgooien verliest de partij';
-
-  @override
-  String batonsLeftSemantics(int remaining, int total) {
-    return '$remaining van $total houtjes over';
-  }
 
   @override
   String missesSemantics(int count, int limit) {
@@ -575,12 +371,6 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get deleteGameLabel => 'Spel verwijderen';
-
-  @override
-  String get newMatchConfirmTitle => 'Nieuwe wedstrijd starten?';
-
-  @override
-  String get newMatchConfirmBody => 'Je verliest de wedstrijd die bezig is.';
 
   @override
   String get settingsAppearance => 'Weergave';
@@ -611,25 +401,12 @@ class AppLocalizationsNl extends AppLocalizations {
   }
 
   @override
-  String matchScore(int a, int b) {
-    return '$a – $b';
-  }
-
-  @override
   String get deleteGameConfirmBody =>
       'Dit spel wordt uit je geschiedenis verwijderd.';
 
   @override
-  String get newMatch => 'Nieuwe wedstrijd';
-
-  @override
   String playerN(int n) {
     return 'Speler $n';
-  }
-
-  @override
-  String secondsShort(int seconds) {
-    return '$seconds s';
   }
 
   @override
@@ -639,19 +416,6 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get showDetails => 'Meer details';
-
-  @override
-  String get toppleKing => 'Koning omgooien';
-
-  @override
-  String turnClockSemantics(int seconds) {
-    return '$seconds seconden over op de beurtklok';
-  }
-
-  @override
-  String baselineStandingSemantics(int count) {
-    return '$count basislijnkubbs staan';
-  }
 
   @override
   String get opensRuleHint => 'Opent de regel';
@@ -680,7 +444,7 @@ class AppLocalizationsNl extends AppLocalizations {
   }
 
   @override
-  String get feedbackPromptGameTitle => 'Hoe was het scoren met iKubb?';
+  String get feedbackPromptGameTitle => 'Hoe was het scoren met Kaato?';
 
   @override
   String get feedbackPromptTourTitle => 'Legde de uitleg het spel goed uit?';
@@ -762,21 +526,6 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get tagOther => 'Anders';
-
-  @override
-  String get gameSection => 'Spel';
-
-  @override
-  String get modeNumberDesc =>
-      'Punten per kegel. Wie eerst het doel haalt, wint.';
-
-  @override
-  String get modeKubbDesc => 'Klassieke regels. Veld leeg, dan de koning.';
-
-  @override
-  String modeNumberHint(int target) {
-    return 'Punten per kegel. Wie eerst $target haalt, wint.';
-  }
 
   @override
   String playersCount(int count) {

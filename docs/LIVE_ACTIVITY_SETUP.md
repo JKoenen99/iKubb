@@ -19,7 +19,7 @@ een Mac (signing + target-registratie).
    (File → Add Files…, target: LiveScoreWidget).
 4. **App Groups** (beide targets — Runner én LiveScoreWidget):
    Signing & Capabilities → + Capability → App Groups →
-   `group.nl.jasperkoenen.ikubb`.
+   `group.nl.jasperkoenen.kaato`.
 5. Zet in de LiveScoreWidget-target de minimum deployment op **iOS 16.1**.
 6. `NSSupportsLiveActivities` staat al in `ios/Runner/Info.plist` (klaar).
 7. Build & run op een fysiek toestel met Dynamic Island (of iOS 16.1+

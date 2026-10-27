@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ikubb/app.dart';
-import 'package:ikubb/features/game/win_overlay.dart';
-import 'package:ikubb/widgets/viking_mascot.dart';
+import 'package:kaato/app.dart';
+import 'package:kaato/features/game/win_overlay.dart';
+import 'package:kaato/widgets/viking_mascot.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'test_utils.dart';
@@ -10,7 +10,7 @@ import 'test_utils.dart';
 /// Sets up Anna vs Björn with a custom target of 12, so a single throw on
 /// pin 12 wins the game.
 Future<void> pumpToGameWithTarget12(WidgetTester tester) async {
-  await tester.pumpWidget(const ProviderScope(child: IKubbApp()));
+  await tester.pumpWidget(const ProviderScope(child: KaatoApp()));
   await tester.pumpAndSettle();
   await tester.tap(find.text('I know the rules, start scoring'));
   await tester.pumpAndSettle();

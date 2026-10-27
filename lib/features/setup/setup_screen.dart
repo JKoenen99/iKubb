@@ -8,15 +8,12 @@ import '../../theme/glass.dart';
 import '../../theme/palette.dart';
 import '../../theme/tokens.dart';
 import '../../theme/typography.dart';
-import '../../widgets/adaptive_choice.dart';
 import '../../widgets/confirm_dialog.dart';
 import '../../widgets/form_cards.dart';
 import '../../widgets/home_leading.dart';
-import '../../widgets/ikubb_app_bar.dart';
+import '../../widgets/kaato_app_bar.dart';
 import '../../widgets/section_header.dart';
 import '../game/game_controller.dart';
-import '../game/game_mode.dart';
-import '../kubb/kubb_controller.dart';
 import '../rules/rules_view.dart';
 import 'player.dart';
 import 'setup_controller.dart';
@@ -43,12 +40,9 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
 
   Future<void> _start() async {
     final l10n = AppLocalizations.of(context)!;
-    // Starting replaces the running game (either mode) — warn first.
+    // Starting replaces the running game — warn first.
     final active = ref.read(gameControllerProvider);
-    final activeKubb = ref.read(kubbControllerProvider);
-    final running =
-        (active.throws.isNotEmpty && active.winner == null) ||
-        (activeKubb.hasEvents && !activeKubb.isFinished);
+    final running = active.throws.isNotEmpty && active.winner == null;
     if (running) {
       final confirmed = await confirmAdaptive(
         context,
@@ -76,33 +70,24 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
                 }
               : {for (final p in setup.players) p.id: p.colorIndex},
         );
-    if (setup.mode == GameMode.classicKubb) {
-      ref
-          .read(kubbControllerProvider.notifier)
-          .newMatch(sides: sides, rules: setup.kubbRules);
-      context.go('/kubb');
-    } else {
-      ref
-          .read(gameControllerProvider.notifier)
-          .newGame(sides: sides, rules: setup.rules);
-      context.go('/game');
-    }
+    ref
+        .read(gameControllerProvider.notifier)
+        .newGame(sides: sides, rules: setup.rules);
+    context.go('/game');
   }
 
   @override
   Widget build(BuildContext context) {
-    final setup = ref.watch(setupControllerProvider);
     final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       extendBodyBehindAppBar: LiquidGlass.isCupertino(context),
-      appBar: IKubbAppBar(
+      appBar: KaatoAppBar(
         title: Text(l10n.newGame),
         leading: homeLeading(context),
         actions: [
           IconButton(
             tooltip: l10n.rules,
-            // The panel opens on whichever mode is being set up.
-            onPressed: () => showRulesPanel(context, mode: setup.mode),
+            onPressed: () => showRulesPanel(context),
             icon: const Icon(Icons.help_outline),
           ),
         ],
@@ -116,10 +101,10 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
                 child: Builder(
                   builder: (context) => ListView(
                     padding: EdgeInsets.fromLTRB(
-                      IKubbSpacing.lg,
-                      MediaQuery.paddingOf(context).top + IKubbSpacing.sm,
-                      IKubbSpacing.lg,
-                      IKubbSpacing.xl,
+                      KaatoSpacing.lg,
+                      MediaQuery.paddingOf(context).top + KaatoSpacing.sm,
+                      KaatoSpacing.lg,
+                      KaatoSpacing.xl,
                     ),
                     // Dragging the list puts the keyboard away (HIG).
                     keyboardDismissBehavior:
@@ -128,7 +113,7 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
                       Center(
                         child: ConstrainedBox(
                           constraints: const BoxConstraints(
-                            maxWidth: IKubbLayout.maxWide,
+                            maxWidth: KaatoLayout.maxWide,
                           ),
                           child: wide
                               ? const _WideLayout()
@@ -156,30 +141,22 @@ class _WideLayout extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final setup = ref.watch(setupControllerProvider);
-    final l10n = AppLocalizations.of(context)!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SectionHeader(l10n.gameSection, padded: true),
-        const _ModeCards(),
-        const SizedBox(height: IKubbSpacing.xl),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Expanded(flex: 11, child: _PlayersSection()),
-            const SizedBox(width: IKubbSpacing.xxl),
+            const SizedBox(width: KaatoSpacing.xxl),
             Expanded(
               flex: 9,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const _TeamsSection(),
-                  const SizedBox(height: IKubbSpacing.xl),
-                  if (setup.mode == GameMode.numberKubb)
-                    const _HouseRulesSection()
-                  else
-                    const _KubbOptionsSection(),
+                  const SizedBox(height: KaatoSpacing.xl),
+                  const _HouseRulesSection(),
                 ],
               ),
             ),
@@ -196,47 +173,18 @@ class _PhoneLayout extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final setup = ref.watch(setupControllerProvider);
-    final controller = ref.read(setupControllerProvider.notifier);
     final l10n = AppLocalizations.of(context)!;
-    final scheme = Theme.of(context).colorScheme;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        AdaptiveChoice<GameMode>(
-          options: [
-            ChoiceOption(value: GameMode.numberKubb, label: l10n.modeNumber),
-            ChoiceOption(value: GameMode.classicKubb, label: l10n.modeKubb),
-          ],
-          selected: setup.mode,
-          onSelected: controller.setMode,
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: IKubbSpacing.sm),
-          child: Text(
-            setup.mode == GameMode.numberKubb
-                ? l10n.modeNumberHint(setup.targetScore)
-                : l10n.modeKubbDesc,
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              color: scheme.onSurface.withValues(alpha: IKubbAlpha.faded),
-            ),
-          ),
-        ),
-        const SizedBox(height: IKubbSpacing.sm),
         const _PlayersSection(compact: true),
-        const SizedBox(height: IKubbSpacing.lg),
+        const SizedBox(height: KaatoSpacing.lg),
         const _TeamsSection(compact: true),
-        if (setup.mode == GameMode.numberKubb)
-          SettingCard(
-            title: l10n.houseRules,
-            subtitle: houseRulesSummary(l10n, setup),
-            onTap: () => _showSheet(context, const _HouseRulesSection()),
-          )
-        else
-          SettingCard(
-            title: l10n.matchLabel,
-            subtitle: kubbSummary(l10n, setup, withMode: false),
-            onTap: () => _showSheet(context, const _KubbOptionsSection()),
-          ),
+        SettingCard(
+          title: l10n.houseRules,
+          subtitle: houseRulesSummary(l10n, setup),
+          onTap: () => _showSheet(context, const _HouseRulesSection()),
+        ),
       ],
     );
   }
@@ -247,15 +195,15 @@ class _PhoneLayout extends ConsumerWidget {
         isScrollControlled: true,
         useSafeArea: true,
         showDragHandle: !LiquidGlass.isCupertino(context),
-        constraints: const BoxConstraints(maxWidth: IKubbLayout.maxPanel),
+        constraints: const BoxConstraints(maxWidth: KaatoLayout.maxPanel),
         builder: (context) => glassSheet(
           context,
           SingleChildScrollView(
             padding: const EdgeInsets.fromLTRB(
-              IKubbSpacing.lg,
-              IKubbSpacing.sm,
-              IKubbSpacing.lg,
-              IKubbSpacing.xl,
+              KaatoSpacing.lg,
+              KaatoSpacing.sm,
+              KaatoSpacing.lg,
+              KaatoSpacing.xl,
             ),
             child: child,
           ),
@@ -265,44 +213,6 @@ class _PhoneLayout extends ConsumerWidget {
 
 // ---------------------------------------------------------------------------
 // Sections
-
-/// The game picker: two selection cards side by side.
-class _ModeCards extends ConsumerWidget {
-  const _ModeCards();
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final setup = ref.watch(setupControllerProvider);
-    final controller = ref.read(setupControllerProvider.notifier);
-    final l10n = AppLocalizations.of(context)!;
-    // IntrinsicHeight: both cards share the taller one's height, which a
-    // stretched Row cannot do inside a scroll view's unbounded height.
-    return IntrinsicHeight(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Expanded(
-            child: ChoiceCard(
-              title: l10n.modeNumber,
-              subtitle: l10n.modeNumberDesc,
-              selected: setup.mode == GameMode.numberKubb,
-              onTap: () => controller.setMode(GameMode.numberKubb),
-            ),
-          ),
-          const SizedBox(width: IKubbSpacing.md),
-          Expanded(
-            child: ChoiceCard(
-              title: l10n.modeKubb,
-              subtitle: l10n.modeKubbDesc,
-              selected: setup.mode == GameMode.classicKubb,
-              onTap: () => controller.setMode(GameMode.classicKubb),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
 
 class _PlayersSection extends ConsumerStatefulWidget {
   const _PlayersSection({this.compact = false});
@@ -341,17 +251,17 @@ class _PlayersSectionState extends ConsumerState<_PlayersSection> {
                 )
               : TextButton.icon(
                   onPressed: canShuffle ? controller.shuffleOrder : null,
-                  icon: const Icon(Icons.shuffle, size: IKubbIconSize.sm),
+                  icon: const Icon(Icons.shuffle, size: KaatoIconSize.sm),
                   label: Text(l10n.shuffleOrder),
                 ),
         ),
         if (!widget.compact)
           Padding(
-            padding: const EdgeInsets.only(bottom: IKubbSpacing.md),
+            padding: const EdgeInsets.only(bottom: KaatoSpacing.md),
             child: Text(
               l10n.namesOptionalHint,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: scheme.onSurface.withValues(alpha: IKubbAlpha.faded),
+                color: scheme.onSurface.withValues(alpha: KaatoAlpha.faded),
               ),
             ),
           ),
@@ -387,19 +297,19 @@ class _PlayersSectionState extends ConsumerState<_PlayersSection> {
           onPressed: () => controller.addAutoPlayer(l10n.playerN),
         ),
         if (setup.recents.isNotEmpty) ...[
-          const SizedBox(height: IKubbSpacing.lg),
+          const SizedBox(height: KaatoSpacing.lg),
           if (widget.compact)
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 _RecentLabel(l10n.recentLabel),
-                const SizedBox(width: IKubbSpacing.md),
+                const SizedBox(width: KaatoSpacing.md),
                 Expanded(child: _RecentChips(setup: setup)),
               ],
             )
           else ...[
             _RecentLabel(l10n.recentLabel),
-            const SizedBox(height: IKubbSpacing.sm),
+            const SizedBox(height: KaatoSpacing.sm),
             _RecentChips(setup: setup),
           ],
         ],
@@ -418,7 +328,7 @@ class _RecentLabel extends StatelessWidget {
     text,
     style: Theme.of(context).textTheme.labelLarge?.copyWith(
       color: Theme.of(context).colorScheme.onSurface
-          .withValues(alpha: IKubbAlpha.faded),
+          .withValues(alpha: KaatoAlpha.faded),
     ),
   );
 }
@@ -432,8 +342,8 @@ class _RecentChips extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.read(setupControllerProvider.notifier);
     return Wrap(
-      spacing: IKubbSpacing.sm,
-      runSpacing: IKubbSpacing.sm,
+      spacing: KaatoSpacing.sm,
+      runSpacing: KaatoSpacing.sm,
       children: [
         for (final recent in setup.recents)
           () {
@@ -518,11 +428,11 @@ class _PlayerRowState extends State<_PlayerRow> {
         decoration: const InputDecoration(
           isDense: true,
           contentPadding: EdgeInsets.symmetric(
-            horizontal: IKubbSpacing.md,
-            vertical: IKubbSpacing.sm + IKubbSpacing.xxs,
+            horizontal: KaatoSpacing.md,
+            vertical: KaatoSpacing.sm + KaatoSpacing.xxs,
           ),
         ),
-        style: IKubbType.emphasis,
+        style: KaatoType.emphasis,
         textCapitalization: TextCapitalization.words,
         autocorrect: false,
         textInputAction: TextInputAction.done,
@@ -535,7 +445,7 @@ class _PlayerRowState extends State<_PlayerRow> {
         button: true,
         label: l10n.renamePlayer(widget.player.name),
         child: InkWell(
-          borderRadius: BorderRadius.circular(IKubbRadius.sm),
+          borderRadius: BorderRadius.circular(KaatoRadius.sm),
           onTap: widget.onEdit,
           child: ConstrainedBox(
             constraints: const BoxConstraints(
@@ -548,7 +458,7 @@ class _PlayerRowState extends State<_PlayerRow> {
                   widget.player.name,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: IKubbType.emphasis,
+                  style: KaatoType.emphasis,
                 ),
               ),
             ),
@@ -558,10 +468,10 @@ class _PlayerRowState extends State<_PlayerRow> {
     }
     return FormCard(
       padding: const EdgeInsets.fromLTRB(
-        IKubbSpacing.md,
-        IKubbSpacing.sm,
-        IKubbSpacing.sm,
-        IKubbSpacing.sm,
+        KaatoSpacing.md,
+        KaatoSpacing.sm,
+        KaatoSpacing.sm,
+        KaatoSpacing.sm,
       ),
       child: Row(
         children: [
@@ -572,10 +482,10 @@ class _PlayerRowState extends State<_PlayerRow> {
               label: widget.player.avatarLabel,
             ),
           ),
-          const SizedBox(width: IKubbSpacing.md),
+          const SizedBox(width: KaatoSpacing.md),
           Expanded(child: name),
           if (widget.teamMode) ...[
-            const SizedBox(width: IKubbSpacing.sm),
+            const SizedBox(width: KaatoSpacing.sm),
             TintPill(
               label: teamLabel,
               color: teamColor(widget.team),
@@ -588,7 +498,7 @@ class _PlayerRowState extends State<_PlayerRow> {
             onPressed: widget.onRemove,
             icon: Icon(
               Icons.close,
-              color: scheme.onSurface.withValues(alpha: IKubbAlpha.faded),
+              color: scheme.onSurface.withValues(alpha: KaatoAlpha.faded),
             ),
           ),
         ],
@@ -600,7 +510,7 @@ class _PlayerRowState extends State<_PlayerRow> {
 /// Team identity: warm walnut for A, cool fjord for B — distinct from the
 /// player colors so a pill never matches its avatar.
 Color teamColor(Team team) =>
-    team == Team.a ? IKubbPalette.walnut : IKubbPalette.fjord;
+    team == Team.a ? KaatoPalette.walnut : KaatoPalette.fjord;
 
 class _TeamsSection extends ConsumerWidget {
   const _TeamsSection({this.compact = false});
@@ -612,11 +522,10 @@ class _TeamsSection extends ConsumerWidget {
     final setup = ref.watch(setupControllerProvider);
     final controller = ref.read(setupControllerProvider.notifier);
     final l10n = AppLocalizations.of(context)!;
-    final forced = setup.mode == GameMode.classicKubb; // kubb = teams
     final desc = setup.teamMode ? l10n.teamsOnDesc : l10n.teamsOffDesc;
     final toggle = Switch.adaptive(
       value: setup.teamMode,
-      onChanged: forced ? null : controller.setTeamMode,
+      onChanged: controller.setTeamMode,
     );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -626,9 +535,7 @@ class _TeamsSection extends ConsumerWidget {
             title: l10n.teams,
             subtitle: desc,
             trailing: toggle,
-            onTap: forced
-                ? null
-                : () => controller.setTeamMode(!setup.teamMode),
+            onTap: () => controller.setTeamMode(!setup.teamMode),
           )
         else
           MergeSemantics(
@@ -644,22 +551,22 @@ class _TeamsSection extends ConsumerWidget {
                         desc,
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           color: Theme.of(context).colorScheme.onSurface
-                              .withValues(alpha: IKubbAlpha.faded),
+                              .withValues(alpha: KaatoAlpha.faded),
                         ),
                       ),
                     ],
                   ),
                 ),
-                const SizedBox(width: IKubbSpacing.md),
+                const SizedBox(width: KaatoSpacing.md),
                 Padding(
-                  padding: const EdgeInsets.only(top: IKubbSpacing.sm),
+                  padding: const EdgeInsets.only(top: KaatoSpacing.sm),
                   child: toggle,
                 ),
               ],
             ),
           ),
         if (setup.teamMode) ...[
-          const SizedBox(height: IKubbSpacing.md),
+          const SizedBox(height: KaatoSpacing.md),
           IntrinsicHeight(
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -667,7 +574,7 @@ class _TeamsSection extends ConsumerWidget {
                 Expanded(
                   child: _TeamCard(team: Team.a, setup: setup),
                 ),
-                const SizedBox(width: IKubbSpacing.md),
+                const SizedBox(width: KaatoSpacing.md),
                 Expanded(
                   child: _TeamCard(team: Team.b, setup: setup),
                 ),
@@ -678,11 +585,11 @@ class _TeamsSection extends ConsumerWidget {
             alignment: Alignment.centerLeft,
             child: TextButton.icon(
               onPressed: setup.players.isEmpty ? null : controller.swapTeams,
-              icon: const Icon(Icons.swap_vert, size: IKubbIconSize.sm),
+              icon: const Icon(Icons.swap_vert, size: KaatoIconSize.sm),
               label: Text(l10n.swapTeams),
             ),
           ),
-          if (compact) const SizedBox(height: IKubbSpacing.sm),
+          if (compact) const SizedBox(height: KaatoSpacing.sm),
         ],
       ],
     );
@@ -706,11 +613,11 @@ class _TeamCard extends ConsumerWidget {
     return FormCard(
       margin: EdgeInsets.zero,
       color: Color.alphaBlend(
-        color.withValues(alpha: IKubbAlpha.activeTint),
+        color.withValues(alpha: KaatoAlpha.activeTint),
         Theme.of(context).colorScheme.surfaceContainerHighest,
       ),
       borderColor: color,
-      padding: const EdgeInsets.all(IKubbSpacing.md),
+      padding: const EdgeInsets.all(KaatoSpacing.md),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -719,12 +626,12 @@ class _TeamCard extends ConsumerWidget {
               hintText: hint,
               isDense: true,
               contentPadding: const EdgeInsets.symmetric(
-                horizontal: IKubbSpacing.md,
-                vertical: IKubbSpacing.sm + IKubbSpacing.xxs,
+                horizontal: KaatoSpacing.md,
+                vertical: KaatoSpacing.sm + KaatoSpacing.xxs,
               ),
             ),
-            style: IKubbType.emphasis.copyWith(
-              fontSize: IKubbType.stepChip + 1,
+            style: KaatoType.emphasis.copyWith(
+              fontSize: KaatoType.stepChip + 1,
             ),
             textInputAction: TextInputAction.done,
             textCapitalization: TextCapitalization.words,
@@ -732,7 +639,7 @@ class _TeamCard extends ConsumerWidget {
             inputFormatters: [LengthLimitingTextInputFormatter(maxNameLength)],
             onChanged: (v) => controller.setTeamName(team, v),
           ),
-          const SizedBox(height: IKubbSpacing.xxs),
+          const SizedBox(height: KaatoSpacing.xxs),
           Text(
             members.isEmpty ? '—' : members,
             maxLines: 2,
@@ -811,59 +718,6 @@ class _HouseRulesSection extends ConsumerWidget {
   }
 }
 
-/// Classic-kubb match options on the same cards.
-class _KubbOptionsSection extends ConsumerWidget {
-  const _KubbOptionsSection();
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final setup = ref.watch(setupControllerProvider);
-    final controller = ref.read(setupControllerProvider.notifier);
-    final l10n = AppLocalizations.of(context)!;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SectionHeader(l10n.matchLabel, padded: true),
-        FormCard(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              FormLabel(title: l10n.matchLabel),
-              const SizedBox(height: IKubbSpacing.sm),
-              AdaptiveChoice<int>(
-                options: [
-                  ChoiceOption(value: 1, label: l10n.bestOfSingle),
-                  ChoiceOption(value: 3, label: l10n.bestOfThree),
-                ],
-                selected: setup.kubbBestOf,
-                onSelected: controller.setKubbBestOf,
-              ),
-            ],
-          ),
-        ),
-        FormCard(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              FormLabel(title: l10n.turnClockLabel),
-              const SizedBox(height: IKubbSpacing.sm),
-              AdaptiveChoice<int>(
-                options: [
-                  ChoiceOption(value: 0, label: l10n.offLabel),
-                  ChoiceOption(value: 30, label: l10n.secondsShort(30)),
-                  ChoiceOption(value: 60, label: l10n.secondsShort(60)),
-                ],
-                selected: setup.kubbClockSeconds ?? 0,
-                onSelected: (v) => controller.setKubbClock(v == 0 ? null : v),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
-
 /// The closing bar: what will be played, and the one primary action.
 class _SummaryBar extends ConsumerWidget {
   const _SummaryBar({required this.wide, required this.onStart});
@@ -878,24 +732,22 @@ class _SummaryBar extends ConsumerWidget {
     final scheme = Theme.of(context).colorScheme;
     final problem = setup.problem;
     final count = l10n.playersCount(setup.players.length);
-    final line = setup.mode == GameMode.numberKubb
-        ? [
-            l10n.modeNumber,
-            l10n.summaryFirstTo(setup.targetScore),
-            if (setup.teamMode) l10n.summaryInTeams,
-          ].join(', ')
-        : kubbSummary(l10n, setup);
+    final rules = [
+      l10n.summaryFirstTo(setup.targetScore),
+      if (setup.teamMode) l10n.summaryInTeams,
+    ].join(', ');
+    final line = rules[0].toUpperCase() + rules.substring(1);
     final problemText = switch (problem) {
       null => null,
       SetupProblem.needTwoPlayers => l10n.needTwoPlayers,
       SetupProblem.needBothTeams => l10n.needBothTeams,
     };
     final faded = Theme.of(context).textTheme.bodySmall
-        ?.copyWith(color: scheme.onSurface.withValues(alpha: IKubbAlpha.faded));
+        ?.copyWith(color: scheme.onSurface.withValues(alpha: KaatoAlpha.faded));
     final start = FilledButton.icon(
       onPressed: problem == null ? onStart : null,
       iconAlignment: IconAlignment.end,
-      icon: const Icon(Icons.arrow_forward, size: IKubbIconSize.md),
+      icon: const Icon(Icons.arrow_forward, size: KaatoIconSize.md),
       label: Text(l10n.startGame),
     );
     return BottomActionBar(
@@ -906,12 +758,12 @@ class _SummaryBar extends ConsumerWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(count, style: IKubbType.emphasis),
+                      Text(count, style: KaatoType.emphasis),
                       Text(problemText ?? line, style: faded),
                     ],
                   ),
                 ),
-                const SizedBox(width: IKubbSpacing.lg),
+                const SizedBox(width: KaatoSpacing.lg),
                 start,
               ],
             )
@@ -919,7 +771,7 @@ class _SummaryBar extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(bottom: IKubbSpacing.sm),
+                  padding: const EdgeInsets.only(bottom: KaatoSpacing.sm),
                   child: Text(
                     problemText ?? '$count, $line',
                     textAlign: TextAlign.center,
@@ -945,19 +797,4 @@ String houseRulesSummary(AppLocalizations l10n, SetupState setup) {
         : l10n.summaryOutAfter(setup.missLimit),
   ].join(', ');
   return parts[0].toUpperCase() + parts.substring(1);
-}
-
-/// "Kubb, best of three, turn clock 60 s" — the match summary.
-String kubbSummary(
-  AppLocalizations l10n,
-  SetupState setup, {
-  bool withMode = true,
-}) {
-  final parts = [
-    if (withMode) l10n.modeKubb,
-    setup.kubbBestOf > 1 ? l10n.bestOfThree : l10n.bestOfSingle,
-    if (setup.kubbClockSeconds case final s?)
-      '${l10n.turnClockLabel} ${l10n.secondsShort(s)}',
-  ].join(', ');
-  return withMode ? parts : parts[0].toUpperCase() + parts.substring(1);
 }

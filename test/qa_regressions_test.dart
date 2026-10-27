@@ -1,12 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ikubb/app.dart';
-import 'package:ikubb/features/game/game_screen.dart';
-import 'package:ikubb/features/game/win_overlay.dart';
-import 'package:ikubb/features/kubb/kubb_screen.dart';
-import 'package:ikubb/features/onboarding/onboarding_state.dart';
-import 'package:ikubb/features/stats/game_records_repository.dart';
+import 'package:kaato/app.dart';
+import 'package:kaato/features/game/game_screen.dart';
+import 'package:kaato/features/game/win_overlay.dart';
+import 'package:kaato/features/onboarding/onboarding_state.dart';
+import 'package:kaato/features/stats/game_records_repository.dart';
+import 'package:scoring_engine/scoring_engine.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'test_utils.dart';
@@ -23,7 +25,7 @@ Future<void> pumpHome(
         onboardingSeenProvider.overrideWithValue(true),
         restoredGameProvider.overrideWithValue(restored),
       ],
-      child: const IKubbApp(),
+      child: const KaatoApp(),
     ),
   );
   await tester.pumpAndSettle();
@@ -45,8 +47,8 @@ Future<void> winAGame(WidgetTester tester) async {
   expect(find.byType(WinOverlay), findsOneWidget);
 }
 
-/// QA regressions for the review round: resume/quick-start, the kubb turn
-/// clock, corrupt storage, and destructive-action consistency.
+/// QA regressions for the review round: resume/quick-start, corrupt
+/// storage, destructive-action consistency, and old two-mode records.
 void main() {
   setUp(() => SharedPreferences.setMockInitialValues({}));
 
@@ -57,7 +59,7 @@ void main() {
     // Relaunch with the saved game restored (as main() does): a finished
     // game opens on Home with Quick start.
     final restored = await GameRecordsRepository().loadActive();
-    expect(restored?.molkky?.isFinished, isTrue);
+    expect(restored?.game.isFinished, isTrue);
     await pumpHome(tester, key: UniqueKey(), restored: restored);
     expect(find.text('Quick start'), findsOneWidget);
     await tester.tap(find.text('Quick start'));
@@ -87,42 +89,6 @@ void main() {
     SharedPreferences.setMockInitialValues({'locale_override_v1': 'xx'});
     await pumpHome(tester);
     expect(find.text('Quick start'), findsOneWidget);
-  });
-
-  testWidgets('the kubb turn clock counts down from the start of a turn', (
-    tester,
-  ) async {
-    await pumpHome(tester);
-    await tester.tap(find.text('New game'));
-    await tester.pumpAndSettle();
-    await tester.tap(find.text('Kubb'));
-    await tester.pumpAndSettle();
-    await addPlayers(tester, ['Anna', 'Björn']);
-    await tester.tapVisible(find.text('60s'));
-    await tester.pumpAndSettle();
-    await tester.tapVisible(find.text('Start game'));
-    await tester.pumpAndSettle();
-    expect(find.byType(KubbScreen), findsOneWidget);
-    expect(find.text('60'), findsOneWidget);
-
-    // No baton thrown yet — the clock must still run.
-    await tester.pump(const Duration(seconds: 3));
-    await tester.pump();
-    expect(find.text('57'), findsOneWidget);
-
-    // A throw mid-turn does not restart the countdown...
-    await tester.tap(find.text('Miss'));
-    await tester.pump(const Duration(seconds: 1));
-    await tester.pump();
-    expect(find.text('56'), findsOneWidget);
-
-    // ...the next turn does.
-    for (var b = 0; b < 5; b++) {
-      await tester.tap(find.text('Miss'));
-      await tester.pump();
-    }
-    await tester.pumpAndSettle();
-    expect(find.text('60'), findsOneWidget);
   });
 
   testWidgets('a corrupt recent-players record does not break setup', (
@@ -176,20 +142,37 @@ void main() {
     expect(find.textContaining('Anna 12'), findsNothing);
   });
 
-  testWidgets('the kubb overflow and overlay say "New match", not "New game"', (
-    tester,
-  ) async {
-    await pumpHome(tester);
-    await tester.tap(find.text('New game'));
-    await tester.pumpAndSettle();
-    await tester.tap(find.text('Kubb'));
-    await tester.pumpAndSettle();
-    await addPlayers(tester, ['Anna', 'Björn']);
-    await tester.tapVisible(find.text('Start game'));
-    await tester.pumpAndSettle();
-    await tester.tap(find.byType(PopupMenuButton<String>));
-    await tester.pumpAndSettle();
-    expect(find.text('New match'), findsOneWidget);
-    expect(find.text('New game'), findsNothing);
+  test('records from the two-mode era load without the kubb matches', () async {
+    final game = Game.start(
+      sides: const [
+        Side(id: 'a', name: 'Anna'),
+        Side(id: 'b', name: 'Björn'),
+      ],
+    );
+    SharedPreferences.setMockInitialValues({
+      // Builds before 0.4.0 stored classic-kubb matches next to number
+      // kubb games; the kubb payload is irrelevant, only its key matters.
+      'game_history_v1': jsonEncode([
+        {
+          'id': 'kubb-1',
+          'finishedAt': '2026-10-01T20:00:00.000',
+          'kubbMatch': {'legacy': true},
+        },
+        {
+          'id': 'number-1',
+          'finishedAt': '2026-10-02T20:00:00.000',
+          'game': game.toJson(),
+        },
+      ]),
+      'active_game_v1': jsonEncode({
+        'id': 'kubb-2',
+        'kubbMatch': {'legacy': true},
+        'sideColors': <String, int>{},
+      }),
+    });
+    final repo = GameRecordsRepository();
+    final history = await repo.loadHistory();
+    expect(history.map((g) => g.id), ['number-1']);
+    expect(await repo.loadActive(), isNull);
   });
 }

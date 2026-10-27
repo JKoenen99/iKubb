@@ -14,8 +14,8 @@ class DotRow extends StatelessWidget {
     required this.filled,
     required this.activeColor,
     required this.idleColor,
-    this.size = IKubbIconSize.dot,
-    this.padding = const EdgeInsets.all(IKubbSpacing.xxs),
+    this.size = KaatoIconSize.dot,
+    this.padding = const EdgeInsets.all(KaatoSpacing.xxs),
     this.semanticLabel,
   });
 

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ikubb/app.dart';
-import 'package:ikubb/features/game/scoreboard_screen.dart';
+import 'package:kaato/app.dart';
+import 'package:kaato/features/game/scoreboard_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'test_utils.dart';
 
 Future<void> pumpToGame(WidgetTester tester) async {
-  await tester.pumpWidget(const ProviderScope(child: IKubbApp()));
+  await tester.pumpWidget(const ProviderScope(child: KaatoApp()));
   await tester.pumpAndSettle();
   await tester.tap(find.text('I know the rules, start scoring'));
   await tester.pumpAndSettle();

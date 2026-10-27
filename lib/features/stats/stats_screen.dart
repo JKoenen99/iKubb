@@ -8,22 +8,18 @@ import '../../widgets/home_leading.dart';
 import '../../widgets/section_header.dart';
 import '../../theme/palette.dart';
 import '../../widgets/viking_mascot.dart';
-import '../game/game_mode.dart';
 import 'game_records_repository.dart';
 import 'stats.dart';
 import '../../theme/glass.dart';
 import '../../theme/tokens.dart';
-import '../../widgets/ikubb_app_bar.dart';
+import '../../widgets/kaato_app_bar.dart';
 import '../../theme/typography.dart';
 import '../../widgets/confirm_dialog.dart';
 
 import 'package:go_router/go_router.dart';
 
 /// Player statistics and game history (SPEC.md §3.5), computed by
-/// replaying the stored logs through the engine. One evening, one log:
-/// both modes mix chronologically in the history (filterable), while a
-/// player card shares only what is honestly comparable — games, wins,
-/// win rate — and keeps each mode's own numbers in its own section.
+/// replaying the stored logs through the engine.
 class StatsScreen extends ConsumerStatefulWidget {
   const StatsScreen({super.key});
 
@@ -32,8 +28,6 @@ class StatsScreen extends ConsumerStatefulWidget {
 }
 
 class _StatsScreenState extends ConsumerState<StatsScreen> {
-  GameMode? _filter;
-
   /// Ids swiped away but not yet removed from storage: a dismissed
   /// Dismissible must leave the tree in the same frame.
   final Set<String> _dismissed = {};
@@ -50,7 +44,7 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
     final history = ref.watch(gameHistoryProvider);
     return Scaffold(
       extendBodyBehindAppBar: LiquidGlass.isCupertino(context),
-      appBar: IKubbAppBar(
+      appBar: KaatoAppBar(
         title: Text(l10n.stats),
         leading: homeLeading(context),
         actions: [
@@ -70,9 +64,9 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const VikingMascot(pose: MascotPose.oops, size: 120),
-              const SizedBox(height: IKubbSpacing.lg),
+              const SizedBox(height: KaatoSpacing.lg),
               Text(l10n.statsErrorBody),
-              const SizedBox(height: IKubbSpacing.md),
+              const SizedBox(height: KaatoSpacing.md),
               FilledButton.tonal(
                 onPressed: () => ref.invalidate(gameHistoryProvider),
                 child: Text(l10n.retryLabel),
@@ -87,9 +81,9 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const VikingMascot(size: 120),
-                  const SizedBox(height: IKubbSpacing.lg),
+                  const SizedBox(height: KaatoSpacing.lg),
                   Text(l10n.noGamesYet),
-                  const SizedBox(height: IKubbSpacing.lg),
+                  const SizedBox(height: KaatoSpacing.lg),
                   FilledButton(
                     onPressed: () => context.push('/setup'),
                     child: Text(l10n.newGame),
@@ -98,22 +92,12 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
               ),
             );
           }
-          final molkky = aggregateStats(games);
-          final kubb = aggregateKubbStats(games);
-          final names = {...molkky.keys, ...kubb.keys}.toList()
-            ..sort((a, b) {
-              int wins(String n) =>
-                  (molkky[n]?.wins ?? 0) + (kubb[n]?.matchWins ?? 0);
-              return wins(b).compareTo(wins(a));
-            });
-          final hasBothModes =
-              games.any((g) => g.isKubb) && games.any((g) => !g.isKubb);
-          final filtered = [
+          final stats = aggregateStats(games);
+          final names = stats.keys.toList()
+            ..sort((a, b) => stats[b]!.wins.compareTo(stats[a]!.wins));
+          final visible = [
             for (final g in games)
-              if (!_dismissed.contains(g.id) &&
-                  (_filter == null ||
-                      (_filter == GameMode.classicKubb) == g.isKubb))
-                g,
+              if (!_dismissed.contains(g.id)) g,
           ];
           // SafeArea: the explicit ListView padding disables the automatic
           // inset, so the last history row would hide under the home bar.
@@ -122,50 +106,23 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
             child: Center(
               child: ConstrainedBox(
                 constraints: const BoxConstraints(
-                  maxWidth: IKubbLayout.maxPanel,
+                  maxWidth: KaatoLayout.maxPanel,
                 ),
                 child: Builder(
                   builder: (context) => ListView(
                     padding: EdgeInsets.fromLTRB(
-                      IKubbSpacing.lg,
-                      MediaQuery.paddingOf(context).top + IKubbSpacing.lg,
-                      IKubbSpacing.lg,
-                      IKubbSpacing.lg,
+                      KaatoSpacing.lg,
+                      MediaQuery.paddingOf(context).top + KaatoSpacing.lg,
+                      KaatoSpacing.lg,
+                      KaatoSpacing.lg,
                     ),
                     children: [
                       SectionHeader(l10n.players, padded: true),
                       for (final name in names)
-                        _PlayerCard(
-                          name: name,
-                          molkky: molkky[name],
-                          kubb: kubb[name],
-                          showSections: hasBothModes,
-                        ),
-                      const SizedBox(height: IKubbSpacing.lg),
+                        _PlayerCard(stats: stats[name]!),
+                      const SizedBox(height: KaatoSpacing.lg),
                       SectionHeader(l10n.historyTitle, padded: true),
-                      if (hasBothModes)
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            bottom: IKubbSpacing.sm,
-                          ),
-                          child: Wrap(
-                            spacing: 8,
-                            children: [
-                              for (final (label, value) in [
-                                (l10n.filterAll, null),
-                                (l10n.modeNumber, GameMode.numberKubb),
-                                (l10n.modeKubb, GameMode.classicKubb),
-                              ])
-                                FilterChip(
-                                  label: Text(label),
-                                  selected: _filter == value,
-                                  onSelected: (_) =>
-                                      setState(() => _filter = value),
-                                ),
-                            ],
-                          ),
-                        ),
-                      for (final finished in filtered)
+                      for (final finished in visible)
                         Dismissible(
                           key: ValueKey(finished.id),
                           direction: DismissDirection.endToStart,
@@ -181,17 +138,17 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
                           background: Container(
                             alignment: Alignment.centerRight,
                             padding: const EdgeInsets.only(
-                              right: IKubbSpacing.lg,
+                              right: KaatoSpacing.lg,
                             ),
                             decoration: BoxDecoration(
-                              color: IKubbPalette.berry,
+                              color: KaatoPalette.berry,
                               borderRadius: BorderRadius.circular(
-                                IKubbRadius.md,
+                                KaatoRadius.md,
                               ),
                             ),
                             child: const Icon(
                               Icons.delete_outline,
-                              color: IKubbPalette.birchLight,
+                              color: KaatoPalette.birchLight,
                             ),
                           ),
                           onDismissed: (_) => _delete(finished.id),
@@ -240,97 +197,49 @@ Future<void> _confirmClearHistory(
   }
 }
 
-/// One card per name. The header carries what both modes can honestly
-/// share (games, wins, win rate); the mode sections never mix numbers.
+/// One card per name: games, wins and win rate, then the scoring
+/// numbers.
 class _PlayerCard extends StatelessWidget {
-  const _PlayerCard({
-    required this.name,
-    this.molkky,
-    this.kubb,
-    required this.showSections,
-  });
+  const _PlayerCard({required this.stats});
 
-  final String name;
-  final PlayerStats? molkky;
-  final KubbSideStats? kubb;
-
-  /// Section labels only earn their space once both modes have history.
-  final bool showSections;
+  final PlayerStats stats;
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final scheme = Theme.of(context).colorScheme;
-    final games = (molkky?.games ?? 0) + (kubb?.matches ?? 0);
-    final wins = (molkky?.wins ?? 0) + (kubb?.matchWins ?? 0);
+    final m = stats;
     final header = <(String, String)>[
-      (l10n.gamesPlayed, '$games'),
-      (l10n.wins, '$wins'),
-      (l10n.winRate, '${games == 0 ? 0 : (wins / games * 100).round()}%'),
+      (l10n.gamesPlayed, '${m.games}'),
+      (l10n.wins, '${m.wins}'),
+      (l10n.winRate, '${(m.winRate * 100).round()}%'),
     ];
     final numberChips = <(String, String)>[
-      if (molkky case final m?) ...[
-        (l10n.avgPerThrow, m.avgPerThrow.toStringAsFixed(1)),
-        if (m.favoritePin != null) (l10n.mostHitPin, '${m.favoritePin}'),
-        (l10n.statMisses, '${m.misses}'),
-        if (m.overshoots > 0) (l10n.statOvershoots, '${m.overshoots}'),
-        if (m.eliminations > 0) (l10n.statEliminations, '${m.eliminations}'),
-      ],
-    ];
-    final kubbChips = <(String, String)>[
-      if (kubb case final k?) ...[
-        (l10n.statKingsFelled, '${k.kingsFelled}'),
-        (l10n.statKubbsPerBaton, k.kubbsPerBaton.toStringAsFixed(1)),
-        if (k.advantageTurns > 0)
-          (l10n.statAdvantageTurns, '${k.advantageTurns}'),
-        if (k.earlyKings > 0) (l10n.statEarlyKings, '${k.earlyKings}'),
-      ],
+      (l10n.avgPerThrow, m.avgPerThrow.toStringAsFixed(1)),
+      if (m.favoritePin != null) (l10n.mostHitPin, '${m.favoritePin}'),
+      (l10n.statMisses, '${m.misses}'),
+      if (m.overshoots > 0) (l10n.statOvershoots, '${m.overshoots}'),
+      if (m.eliminations > 0) (l10n.statEliminations, '${m.eliminations}'),
     ];
     return Card(
       elevation: 0,
       color: scheme.surfaceContainerHighest,
-      margin: const EdgeInsets.symmetric(vertical: IKubbSpacing.xs),
+      margin: const EdgeInsets.symmetric(vertical: KaatoSpacing.xs),
       child: Padding(
-        padding: const EdgeInsets.all(IKubbSpacing.md),
+        padding: const EdgeInsets.all(KaatoSpacing.md),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(name, style: IKubbType.cardTitle),
-            const SizedBox(height: IKubbSpacing.sm),
+            Text(m.name, style: KaatoType.cardTitle),
+            const SizedBox(height: KaatoSpacing.sm),
             _ChipWrap(chips: header),
-            if (numberChips.isNotEmpty) ...[
-              if (showSections) _ModeLabel(l10n.modeNumber),
-              const SizedBox(height: IKubbSpacing.sm),
-              _ChipWrap(chips: numberChips),
-            ],
-            if (kubbChips.isNotEmpty) ...[
-              if (showSections) _ModeLabel(l10n.modeKubb),
-              const SizedBox(height: IKubbSpacing.sm),
-              _ChipWrap(chips: kubbChips),
-            ],
+            const SizedBox(height: KaatoSpacing.sm),
+            _ChipWrap(chips: numberChips),
           ],
         ),
       ),
     );
   }
-}
-
-class _ModeLabel extends StatelessWidget {
-  const _ModeLabel(this.text);
-
-  final String text;
-
-  @override
-  Widget build(BuildContext context) => Padding(
-    padding: const EdgeInsets.only(top: IKubbSpacing.md),
-    child: Text(
-      text,
-      style: Theme.of(context).textTheme.labelMedium?.copyWith(
-        color: Theme.of(context).colorScheme.primary,
-        fontWeight: FontWeight.w700,
-      ),
-    ),
-  );
 }
 
 class _ChipWrap extends StatelessWidget {
@@ -351,7 +260,7 @@ class _ChipWrap extends StatelessWidget {
             children: [
               Text(
                 value,
-                style: IKubbType.statValue.copyWith(color: scheme.primary),
+                style: KaatoType.statValue.copyWith(color: scheme.primary),
               ),
               Text(label, style: Theme.of(context).textTheme.labelSmall),
             ],
@@ -375,13 +284,10 @@ class _HistoryTile extends StatelessWidget {
     final l10n = AppLocalizations.of(context)!;
     final locale = Localizations.localeOf(context).toString();
     final game = finished.game;
-    final kubb = finished.kubbMatch;
-    final summary = game != null
-        ? game.sideStates.map((s) => '${s.side.name} ${s.score}').join(' · ')
-        : '${kubb!.sides[0].name} '
-              '${l10n.matchScore(kubb.wins[0], kubb.wins[1])} '
-              '${kubb.sides[1].name}';
-    final winnerName = game?.winner?.name ?? kubb?.matchWinner?.name ?? '';
+    final summary = game.sideStates
+        .map((s) => '${s.side.name} ${s.score}')
+        .join(' · ');
+    final winnerName = game.winner?.name ?? '';
     return Semantics(
       customSemanticsActions: {
         CustomSemanticsAction(label: l10n.deleteGameLabel): onDelete,
@@ -389,8 +295,8 @@ class _HistoryTile extends StatelessWidget {
       child: ListTile(
         contentPadding: EdgeInsets.zero,
         leading: Icon(
-          finished.isKubb ? Icons.crop_square : Icons.emoji_events,
-          color: IKubbPalette.woodAccent(Theme.of(context).brightness),
+          Icons.emoji_events,
+          color: KaatoPalette.woodAccent(Theme.of(context).brightness),
         ),
         title: Text(summary, maxLines: 1, overflow: TextOverflow.ellipsis),
         subtitle: Text(

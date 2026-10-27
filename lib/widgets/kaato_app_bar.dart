@@ -12,8 +12,8 @@ import '../theme/tokens.dart';
 ///
 /// Pair it with `extendBodyBehindAppBar: LiquidGlass.isCupertino(context)`
 /// on the Scaffold so content really does flow under the bar.
-class IKubbAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const IKubbAppBar({
+class KaatoAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const KaatoAppBar({
     super.key,
     this.title,
     this.leading,
@@ -52,7 +52,7 @@ class IKubbAppBar extends StatelessWidget implements PreferredSizeWidget {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                scheme.surface.withValues(alpha: IKubbAlpha.scrim),
+                scheme.surface.withValues(alpha: KaatoAlpha.scrim),
                 scheme.surface.withValues(alpha: 0),
               ],
             ),
@@ -60,11 +60,11 @@ class IKubbAppBar extends StatelessWidget implements PreferredSizeWidget {
           child: const SizedBox.expand(),
         ),
       ),
-      leadingWidth: lead == null ? null : kToolbarHeight + IKubbSpacing.sm,
+      leadingWidth: lead == null ? null : kToolbarHeight + KaatoSpacing.sm,
       leading: lead == null
           ? null
           : Padding(
-              padding: const EdgeInsets.only(left: IKubbSpacing.sm),
+              padding: const EdgeInsets.only(left: KaatoSpacing.sm),
               child: Center(
                 child: GlassGroup(variant: glassVariant, children: [lead]),
               ),
@@ -73,7 +73,7 @@ class IKubbAppBar extends StatelessWidget implements PreferredSizeWidget {
           ? const []
           : [
               Padding(
-                padding: const EdgeInsets.only(right: IKubbSpacing.sm),
+                padding: const EdgeInsets.only(right: KaatoSpacing.sm),
                 child: Center(
                   child: GlassGroup(variant: glassVariant, children: actions),
                 ),

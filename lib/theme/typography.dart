@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 /// the wordmark, headings, and scores; body text stays on the platform
 /// font. The rounded, chunky cuts echo the mascot's linework (SPEC.md §4,
 /// UX audit finding #2).
-abstract final class IKubbType {
+abstract final class KaatoType {
   static const family = 'Baloo2';
 
   /// Variable-font weight axes (the bundled file is a variable TTF).

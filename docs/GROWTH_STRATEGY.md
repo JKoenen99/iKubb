@@ -1,4 +1,4 @@
-# iKubb — First users & monetization strategy
+# Kaato — First users & monetization strategy
 
 **Date:** 2026-07 (peak season) · Strategy only — no build items.
 

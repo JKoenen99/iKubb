@@ -13,7 +13,7 @@ LiveScore createLiveScore() => _LiveScoreIos();
 /// background. Requires the LiveScoreWidget extension target — see
 /// docs/LIVE_ACTIVITY_SETUP.md; without it every call fails quietly.
 class _LiveScoreIos implements LiveScore {
-  static const _appGroupId = 'group.nl.jasperkoenen.ikubb';
+  static const _appGroupId = 'group.nl.jasperkoenen.kaato';
 
   final _plugin = LiveActivities();
   bool _initialized = false;
@@ -42,26 +42,6 @@ class _LiveScoreIos implements LiveScore {
     );
   }
 
-  @override
-  void syncKubb(KubbMatch match) {
-    if (!Platform.isIOS) return;
-    final game = match.currentGame;
-    _syncAsync(
-      ended: match.isFinished || !match.hasEvents,
-      // Same widget schema as number kubb: the "score" a passer-by wants
-      // is baseline kubbs still standing per team.
-      data: {
-        for (final (i, side) in match.sides.indexed) ...{
-          'name$i': side.name,
-          'score$i': '${game.baseline[i]}',
-        },
-        'sideCount': '2',
-        'activeIndex': '${game.attackerIndex}',
-        'target': '0',
-      },
-    );
-  }
-
   Future<void> _syncAsync({
     required bool ended,
     required Map<String, dynamic> data,
@@ -85,7 +65,7 @@ class _LiveScoreIos implements LiveScore {
       }
       if (_activityId == null) {
         _activityId = await _plugin.createActivity(
-          'ikubb-live-score',
+          'kaato-live-score',
           data,
           removeWhenAppIsKilled: true,
         );

@@ -13,7 +13,7 @@ struct LiveActivitiesAppAttributes: ActivityAttributes, Identifiable {
   var id = UUID()
 }
 
-private let sharedDefault = UserDefaults(suiteName: "group.nl.jasperkoenen.ikubb")!
+private let sharedDefault = UserDefaults(suiteName: "group.nl.jasperkoenen.kaato")!
 
 private struct ScoreData {
   let names: [String]

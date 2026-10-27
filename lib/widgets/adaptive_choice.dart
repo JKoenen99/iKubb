@@ -46,14 +46,14 @@ class AdaptiveChoice<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     if (shouldWrap(context)) {
       return Wrap(
-        spacing: IKubbSpacing.sm,
-        runSpacing: IKubbSpacing.xs,
+        spacing: KaatoSpacing.sm,
+        runSpacing: KaatoSpacing.xs,
         children: [
           for (final o in options)
             ChoiceChip(
               avatar: o.icon == null
                   ? null
-                  : Icon(o.icon, size: IKubbIconSize.sm),
+                  : Icon(o.icon, size: KaatoIconSize.sm),
               label: Text(o.label),
               selected: o.value == selected,
               showCheckmark: false,

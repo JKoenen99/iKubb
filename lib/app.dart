@@ -5,10 +5,10 @@ import 'features/feedback/feedback_controller.dart';
 import 'features/settings/settings_controller.dart';
 import 'l10n/app_localizations.dart';
 import 'router.dart';
-import 'theme/ikubb_theme.dart';
+import 'theme/kaato_theme.dart';
 
-class IKubbApp extends ConsumerWidget {
-  const IKubbApp({super.key});
+class KaatoApp extends ConsumerWidget {
+  const KaatoApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -23,8 +23,8 @@ class IKubbApp extends ConsumerWidget {
           MediaQuery.withClampedTextScaling(maxScaleFactor: 2, child: child!),
       locale: ref.watch(localeControllerProvider),
       themeMode: ref.watch(themeModeProvider),
-      theme: IKubbTheme.light,
-      darkTheme: IKubbTheme.dark,
+      theme: KaatoTheme.light,
+      darkTheme: KaatoTheme.dark,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       routerConfig: router,

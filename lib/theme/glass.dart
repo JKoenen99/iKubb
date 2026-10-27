@@ -42,12 +42,12 @@ enum GlassVariant { regular, clear }
 
 /// One glass surface: blur, tint, specular rim, soft shadow, superellipse
 /// corners. Wrap a group of controls, a bar, or a sheet body in it.
-class IKubbGlass extends StatelessWidget {
-  const IKubbGlass({
+class KaatoGlass extends StatelessWidget {
+  const KaatoGlass({
     super.key,
     required this.child,
     this.variant = GlassVariant.regular,
-    this.radius = IKubbRadius.glass,
+    this.radius = KaatoRadius.glass,
     this.padding = EdgeInsets.zero,
     this.shadow = true,
   });
@@ -55,7 +55,7 @@ class IKubbGlass extends StatelessWidget {
   final Widget child;
   final GlassVariant variant;
 
-  /// Corner radius; [IKubbRadius.capsule] for pills.
+  /// Corner radius; [KaatoRadius.capsule] for pills.
   final double radius;
   final EdgeInsetsGeometry padding;
   final bool shadow;
@@ -73,21 +73,21 @@ class IKubbGlass extends StatelessWidget {
     switch (variant) {
       case GlassVariant.regular:
         tint = scheme.surface.withValues(
-          alpha: enabled ? IKubbAlpha.glassTint : 1,
+          alpha: enabled ? KaatoAlpha.glassTint : 1,
         );
-        rim = (dark ? IKubbPalette.birchLight : IKubbPalette.ink).withValues(
-          alpha: enabled ? IKubbAlpha.glassRim : IKubbAlpha.glassRimOpaque,
+        rim = (dark ? KaatoPalette.birchLight : KaatoPalette.ink).withValues(
+          alpha: enabled ? KaatoAlpha.glassRim : KaatoAlpha.glassRimOpaque,
         );
       case GlassVariant.clear:
-        tint = IKubbPalette.forestDeep.withValues(
-          alpha: enabled ? IKubbAlpha.glassDim : 1,
+        tint = KaatoPalette.forestDeep.withValues(
+          alpha: enabled ? KaatoAlpha.glassDim : 1,
         );
-        rim = IKubbPalette.birchLight.withValues(alpha: IKubbAlpha.glassRim);
+        rim = KaatoPalette.birchLight.withValues(alpha: KaatoAlpha.glassRim);
     }
 
     final shape = RoundedSuperellipseBorder(
       borderRadius: BorderRadius.circular(radius),
-      side: BorderSide(color: rim, width: IKubbBorder.hairline),
+      side: BorderSide(color: rim, width: KaatoBorder.hairline),
     );
 
     Widget surface = DecoratedBox(
@@ -104,8 +104,8 @@ class IKubbGlass extends StatelessWidget {
                 end: Alignment.bottomCenter,
                 colors: [
                   Color.alphaBlend(
-                    IKubbPalette.birchLight.withValues(
-                      alpha: IKubbAlpha.glassSheen,
+                    KaatoPalette.birchLight.withValues(
+                      alpha: KaatoAlpha.glassSheen,
                     ),
                     tint,
                   ),
@@ -117,13 +117,13 @@ class IKubbGlass extends StatelessWidget {
         shadows: shadow
             ? [
                 BoxShadow(
-                  color: IKubbPalette.ink.withValues(
+                  color: KaatoPalette.ink.withValues(
                     alpha: enabled
-                        ? IKubbAlpha.glassShadow
-                        : IKubbAlpha.glassShadow / 2,
+                        ? KaatoAlpha.glassShadow
+                        : KaatoAlpha.glassShadow / 2,
                   ),
-                  blurRadius: IKubbSpacing.xl,
-                  offset: const Offset(0, IKubbSpacing.sm),
+                  blurRadius: KaatoSpacing.xl,
+                  offset: const Offset(0, KaatoSpacing.sm),
                 ),
               ]
             : null,
@@ -136,8 +136,8 @@ class IKubbGlass extends StatelessWidget {
       borderRadius: BorderRadius.circular(radius),
       child: BackdropFilter(
         filter: ImageFilter.blur(
-          sigmaX: IKubbMotion.glassBlur,
-          sigmaY: IKubbMotion.glassBlur,
+          sigmaX: KaatoMotion.glassBlur,
+          sigmaY: KaatoMotion.glassBlur,
         ),
         child: surface,
       ),
@@ -160,10 +160,10 @@ class GlassGroup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IKubbGlass(
+    return KaatoGlass(
       variant: variant,
-      radius: IKubbRadius.capsule,
-      padding: const EdgeInsets.symmetric(horizontal: IKubbSpacing.xxs),
+      radius: KaatoRadius.capsule,
+      padding: const EdgeInsets.symmetric(horizontal: KaatoSpacing.xxs),
       child: Row(mainAxisSize: MainAxisSize.min, children: children),
     );
   }
@@ -188,23 +188,23 @@ class GlassToolbar extends StatelessWidget {
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
     final onGlass = variant == GlassVariant.clear
-        ? IKubbPalette.birchLight
+        ? KaatoPalette.birchLight
         : scheme.onSurface;
     return Padding(
       padding: const EdgeInsets.fromLTRB(
-        IKubbSpacing.lg,
-        IKubbSpacing.sm,
-        IKubbSpacing.lg,
-        IKubbSpacing.lg,
+        KaatoSpacing.lg,
+        KaatoSpacing.sm,
+        KaatoSpacing.lg,
+        KaatoSpacing.lg,
       ),
-      child: IKubbGlass(
+      child: KaatoGlass(
         variant: variant,
-        padding: const EdgeInsets.all(IKubbSpacing.sm),
+        padding: const EdgeInsets.all(KaatoSpacing.sm),
         child: Theme(
           data: theme.copyWith(
             colorScheme: scheme.copyWith(
               secondaryContainer: onGlass.withValues(
-                alpha: IKubbAlpha.glassControl,
+                alpha: KaatoAlpha.glassControl,
               ),
               onSecondaryContainer: onGlass,
             ),
@@ -235,10 +235,10 @@ class BottomActionBar extends StatelessWidget {
     }
     return Padding(
       padding: const EdgeInsets.fromLTRB(
-        IKubbSpacing.lg,
+        KaatoSpacing.lg,
         0,
-        IKubbSpacing.lg,
-        IKubbSpacing.lg,
+        KaatoSpacing.lg,
+        KaatoSpacing.lg,
       ),
       child: child,
     );
@@ -254,26 +254,26 @@ Widget glassSheet(BuildContext context, Widget child) {
   final scheme = Theme.of(context).colorScheme;
   return Padding(
     padding: const EdgeInsets.fromLTRB(
-      IKubbSpacing.sm,
+      KaatoSpacing.sm,
       0,
-      IKubbSpacing.sm,
-      IKubbSpacing.sm,
+      KaatoSpacing.sm,
+      KaatoSpacing.sm,
     ),
-    child: IKubbGlass(
-      radius: IKubbRadius.sheet,
+    child: KaatoGlass(
+      radius: KaatoRadius.sheet,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           // Grabber (HIG: resizable sheets show one; it also works with
           // VoiceOver through the sheet's own drag semantics).
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: IKubbSpacing.sm),
+            padding: const EdgeInsets.symmetric(vertical: KaatoSpacing.sm),
             child: Container(
               width: 36,
               height: 5,
               decoration: BoxDecoration(
-                color: scheme.onSurface.withValues(alpha: IKubbAlpha.dotIdle),
-                borderRadius: BorderRadius.circular(IKubbRadius.capsule),
+                color: scheme.onSurface.withValues(alpha: KaatoAlpha.dotIdle),
+                borderRadius: BorderRadius.circular(KaatoRadius.capsule),
               ),
             ),
           ),

@@ -23,7 +23,7 @@ Future<void> main() async {
         onboardingSeenProvider.overrideWithValue(onboardingSeen),
         restoredGameProvider.overrideWithValue(restored),
       ],
-      child: const IKubbApp(),
+      child: const KaatoApp(),
     ),
   );
 }

@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ikubb/app.dart';
-import 'package:ikubb/features/game/game_screen.dart';
+import 'package:kaato/app.dart';
+import 'package:kaato/features/game/game_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'test_utils.dart';
@@ -10,7 +10,7 @@ void main() {
   setUp(() => SharedPreferences.setMockInitialValues({}));
 
   testWidgets('set up and score a pin-tap throw end to end', (tester) async {
-    await tester.pumpWidget(const ProviderScope(child: IKubbApp()));
+    await tester.pumpWidget(const ProviderScope(child: KaatoApp()));
     await tester.pumpAndSettle();
 
     // Onboarding fork → straight to scoring for experienced players.

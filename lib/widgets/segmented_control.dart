@@ -32,9 +32,9 @@ class SegmentedControl<T> extends StatelessWidget {
 
   /// Track inset around the tile; also the gap that makes the corners
   /// concentric (trackRadius - inset = tileRadius).
-  static const double inset = IKubbSpacing.xs;
-  static const double trackRadius = IKubbRadius.md;
-  static const double tileRadius = IKubbRadius.sm;
+  static const double inset = KaatoSpacing.xs;
+  static const double trackRadius = KaatoRadius.md;
+  static const double tileRadius = KaatoRadius.sm;
 
   /// Whole control height: the 48pt tap minimum.
   static const double height = kMinInteractiveDimension;
@@ -57,17 +57,17 @@ class SegmentedControl<T> extends StatelessWidget {
     // The track is a tint of the text color, so it recedes from whatever
     // it sits on (the page or a card) in both themes.
     final track = scheme.onSurface.withValues(
-      alpha: dark ? IKubbAlpha.segmentTrackDark : IKubbAlpha.segmentTrack,
+      alpha: dark ? KaatoAlpha.segmentTrackDark : KaatoAlpha.segmentTrack,
     );
-    final tile = dark ? IKubbPalette.segmentTileDark : scheme.surface;
+    final tile = dark ? KaatoPalette.segmentTileDark : scheme.surface;
     final tileShadow = BoxShadow(
-      color: (dark ? Colors.black : IKubbPalette.ink).withValues(
-        alpha: dark ? IKubbAlpha.segmentShadowDark : IKubbAlpha.segmentShadow,
+      color: (dark ? Colors.black : KaatoPalette.ink).withValues(
+        alpha: dark ? KaatoAlpha.segmentShadowDark : KaatoAlpha.segmentShadow,
       ),
       blurRadius: 4,
       offset: const Offset(0, 1),
     );
-    final duration = IKubbMotion.resolve(context, IKubbMotion.quick);
+    final duration = KaatoMotion.resolve(context, KaatoMotion.quick);
 
     return Focus(
       // Arrow keys move the selection while any segment has focus
@@ -105,7 +105,7 @@ class SegmentedControl<T> extends StatelessWidget {
               children: [
                 AnimatedPositionedDirectional(
                   duration: duration,
-                  curve: IKubbMotion.enter,
+                  curve: KaatoMotion.enter,
                   start: inset + segment * index,
                   top: inset,
                   bottom: inset,
@@ -162,7 +162,7 @@ class _Segment extends StatelessWidget {
     final scheme = Theme.of(context).colorScheme;
     final color = selected
         ? scheme.onSurface
-        : scheme.onSurface.withValues(alpha: IKubbAlpha.faded);
+        : scheme.onSurface.withValues(alpha: KaatoAlpha.faded);
     // Built on the theme's label style so family, letter spacing and text
     // scaling come from the app; AnimatedDefaultTextStyle replaces rather
     // than merges, so a bare TextStyle would drop them.
@@ -183,17 +183,17 @@ class _Segment extends StatelessWidget {
         splashFactory: NoSplash.splashFactory,
         highlightColor: Colors.transparent,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: IKubbSpacing.sm),
+          padding: const EdgeInsets.symmetric(horizontal: KaatoSpacing.sm),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               if (option.icon != null) ...[
-                Icon(option.icon, size: IKubbIconSize.sm, color: color),
-                const SizedBox(width: IKubbSpacing.xs + IKubbSpacing.xxs),
+                Icon(option.icon, size: KaatoIconSize.sm, color: color),
+                const SizedBox(width: KaatoSpacing.xs + KaatoSpacing.xxs),
               ],
               Flexible(
                 child: AnimatedDefaultTextStyle(
-                  duration: IKubbMotion.resolve(context, IKubbMotion.quick),
+                  duration: KaatoMotion.resolve(context, KaatoMotion.quick),
                   style: style,
                   child: Text(
                     option.label,

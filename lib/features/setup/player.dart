@@ -7,14 +7,14 @@ import '../../theme/palette.dart';
 /// card or the scoreboard field (UX audit finding #1). Every hue reads on
 /// both birch and dark-green surfaces.
 const playerColors = <Color>[
-  IKubbPalette.oak,
-  IKubbPalette.fjord,
-  IKubbPalette.berry,
-  IKubbPalette.amber,
-  IKubbPalette.plum,
-  IKubbPalette.copper,
-  IKubbPalette.slate,
-  IKubbPalette.indigo,
+  KaatoPalette.oak,
+  KaatoPalette.fjord,
+  KaatoPalette.berry,
+  KaatoPalette.amber,
+  KaatoPalette.plum,
+  KaatoPalette.copper,
+  KaatoPalette.slate,
+  KaatoPalette.indigo,
 ];
 
 /// An app-level player. The scoring engine only sees a [Side]; avatar and

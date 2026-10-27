@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ikubb/theme/ikubb_theme.dart';
-import 'package:ikubb/widgets/adaptive_choice.dart';
-import 'package:ikubb/widgets/segmented_control.dart';
+import 'package:kaato/theme/kaato_theme.dart';
+import 'package:kaato/widgets/adaptive_choice.dart';
+import 'package:kaato/widgets/segmented_control.dart';
 
 void main() {
   Widget host(int selected, ValueChanged<int> onSelected) => MaterialApp(
-    theme: IKubbTheme.light,
+    theme: KaatoTheme.light,
     home: Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(16),

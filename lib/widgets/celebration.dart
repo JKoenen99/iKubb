@@ -23,8 +23,8 @@ class OverlayFilledButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final style = FilledButton.styleFrom(
-      backgroundColor: IKubbPalette.birchLight,
-      foregroundColor: IKubbPalette.forestDeep,
+      backgroundColor: KaatoPalette.birchLight,
+      foregroundColor: KaatoPalette.forestDeep,
     );
     return icon == null
         ? FilledButton(style: style, onPressed: onPressed, child: child)
@@ -52,8 +52,8 @@ class OverlayOutlinedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final style = OutlinedButton.styleFrom(
-      foregroundColor: IKubbPalette.birchLight,
-      side: const BorderSide(color: IKubbPalette.birchLight),
+      foregroundColor: KaatoPalette.birchLight,
+      side: const BorderSide(color: KaatoPalette.birchLight),
     );
     return icon == null
         ? OutlinedButton(style: style, onPressed: onPressed, child: child)
@@ -104,34 +104,34 @@ class CelebrationScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     final scrim = celebrate && winnerColor != null
         ? Color.alphaBlend(
-            winnerColor!.withValues(alpha: IKubbAlpha.activeTint),
-            IKubbPalette.forestDeep,
+            winnerColor!.withValues(alpha: KaatoAlpha.activeTint),
+            KaatoPalette.forestDeep,
           )
-        : IKubbPalette.forestDeep.withValues(alpha: IKubbAlpha.scrim);
+        : KaatoPalette.forestDeep.withValues(alpha: KaatoAlpha.scrim);
     final content = Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         if (celebrate) ...[
           const VikingMascot(pose: MascotPose.cheer, size: 150),
-          const SizedBox(height: IKubbSpacing.md),
+          const SizedBox(height: KaatoSpacing.md),
         ],
         Semantics(liveRegion: true, child: banner),
         if (scoreLine != null) ...[
-          const SizedBox(height: IKubbSpacing.sm),
+          const SizedBox(height: KaatoSpacing.sm),
           scoreLine!,
         ],
         if (details != null) ...[
-          const SizedBox(height: IKubbSpacing.xl),
+          const SizedBox(height: KaatoSpacing.xl),
           details!,
         ],
-        const SizedBox(height: IKubbSpacing.xl),
+        const SizedBox(height: KaatoSpacing.xl),
         for (final (i, action) in actions.indexed) ...[
-          if (i > 0) const SizedBox(height: IKubbSpacing.md),
+          if (i > 0) const SizedBox(height: KaatoSpacing.md),
           action,
         ],
         if (footer != null) ...[
-          const SizedBox(height: IKubbSpacing.xl),
+          const SizedBox(height: KaatoSpacing.xl),
           footer!,
         ],
       ],
@@ -146,25 +146,25 @@ class CelebrationScaffold extends StatelessWidget {
           ColoredBox(color: scrim),
           if (celebrate)
             const WoodGrainBackground(
-              color: IKubbPalette.birchLight,
-              opacity: IKubbAlpha.grain,
+              color: KaatoPalette.birchLight,
+              opacity: KaatoAlpha.grain,
             ),
           SafeArea(
             child: Center(
               child: ConstrainedBox(
                 constraints: const BoxConstraints(
-                  maxWidth: IKubbLayout.maxOverlay,
+                  maxWidth: KaatoLayout.maxOverlay,
                 ),
                 child: SingleChildScrollView(
-                  padding: const EdgeInsets.all(IKubbSpacing.xl),
+                  padding: const EdgeInsets.all(KaatoSpacing.xl),
                   child: celebrate
                       ? TweenAnimationBuilder<double>(
                           tween: Tween(begin: 0.9, end: 1),
-                          duration: IKubbMotion.resolve(
+                          duration: KaatoMotion.resolve(
                             context,
-                            IKubbMotion.gentle,
+                            KaatoMotion.gentle,
                           ),
-                          curve: IKubbMotion.emphasized,
+                          curve: KaatoMotion.emphasized,
                           builder: (context, scale, child) =>
                               Transform.scale(scale: scale, child: child),
                           child: content,
@@ -194,8 +194,8 @@ class CelebrationBanner extends StatelessWidget {
       text,
       textAlign: TextAlign.center,
       style: Theme.of(context).textTheme.displayLarge?.copyWith(
-        fontSize: size ?? IKubbType.stepScoreLg,
-        color: IKubbPalette.birchLight,
+        fontSize: size ?? KaatoType.stepScoreLg,
+        color: KaatoPalette.birchLight,
       ),
     );
   }

@@ -8,14 +8,12 @@ import '../../widgets/rolling_number.dart';
 import '../../widgets/viking_mascot.dart';
 import '../feedback/feedback_event.dart';
 import '../feedback/feedback_prompt.dart';
-import '../game/game_mode.dart';
 import '../game/pin_diagram.dart';
 import '../rules/rule_illustrations.dart';
-import '../setup/setup_controller.dart';
 import 'onboarding_state.dart';
 import '../../theme/glass.dart';
 import '../../theme/tokens.dart';
-import '../../widgets/ikubb_app_bar.dart';
+import '../../widgets/kaato_app_bar.dart';
 import '../../theme/typography.dart';
 
 /// "Teach me the game": swipeable illustrated rule cards, skippable at
@@ -33,10 +31,9 @@ class TourScreen extends ConsumerStatefulWidget {
 class _TourScreenState extends ConsumerState<TourScreen> {
   final _pageController = PageController();
   var _page = 0;
-  var _mode = GameMode.numberKubb;
 
-  /// Mode card + five rule cards.
-  static const _pageCount = 6;
+  /// Five rule cards.
+  static const _pageCount = 5;
 
   @override
   void dispose() {
@@ -46,9 +43,6 @@ class _TourScreenState extends ConsumerState<TourScreen> {
 
   void _finish(BuildContext context) {
     markOnboardingSeen();
-    // Land in setup with the toured mode preselected — the tour's choice
-    // carries through instead of being asked twice.
-    ref.read(setupControllerProvider.notifier).setMode(_mode);
     context.go('/setup');
   }
 
@@ -57,7 +51,7 @@ class _TourScreenState extends ConsumerState<TourScreen> {
       _finish(context);
       return;
     }
-    final duration = IKubbMotion.resolve(context, IKubbMotion.entrance);
+    final duration = KaatoMotion.resolve(context, KaatoMotion.entrance);
     if (duration == Duration.zero) {
       _pageController.jumpToPage(_page + 1); // Reduce Motion: no slide
       return;
@@ -65,7 +59,7 @@ class _TourScreenState extends ConsumerState<TourScreen> {
     _pageController.animateToPage(
       _page + 1,
       duration: duration,
-      curve: IKubbMotion.enter,
+      curve: KaatoMotion.enter,
     );
   }
 
@@ -102,42 +96,13 @@ class _TourScreenState extends ConsumerState<TourScreen> {
         eventContext: {'mode': mode},
       );
 
-  List<Widget> _kubbCards(AppLocalizations l10n) => [
-    _TourCard(
-      title: l10n.ruleKubbFieldTitle,
-      body: l10n.ruleKubbFieldBody,
-      child: const KubbFieldSchematic(scale: 1.4),
-    ),
-    _TourCard(
-      title: l10n.ruleKubbBatonsTitle,
-      body: l10n.ruleKubbBatonsBody,
-      child: ruleIllustration('kubbBatons'),
-    ),
-    _TourCard(
-      title: l10n.ruleKubbThrowInTitle,
-      body: l10n.ruleKubbThrowInBody,
-      child: ruleIllustration('kubbThrowIn'),
-    ),
-    _TourCard(
-      title: l10n.ruleKubbFieldFirstTitle,
-      body: l10n.ruleKubbFieldFirstBody,
-      child: ruleIllustration('kubbFieldFirst'),
-    ),
-    _TourCard(
-      title: l10n.ruleKubbKingTitle,
-      body: l10n.ruleKubbKingBody,
-      footer: _tourFeedback(l10n, 'classic_kubb'),
-      child: const VikingMascot(pose: MascotPose.cheer, size: 150),
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final isLast = _page == _pageCount - 1;
     return Scaffold(
       extendBodyBehindAppBar: LiquidGlass.isCupertino(context),
-      appBar: IKubbAppBar(
+      appBar: KaatoAppBar(
         actions: [
           // Skip stays visible on every card (SPEC.md §3.1).
           TextButton(onPressed: () => _finish(context), child: Text(l10n.skip)),
@@ -146,22 +111,14 @@ class _TourScreenState extends ConsumerState<TourScreen> {
       body: SafeArea(
         child: Center(
           child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: IKubbLayout.maxContent),
+            constraints: const BoxConstraints(maxWidth: KaatoLayout.maxContent),
             child: Column(
               children: [
                 Expanded(
                   child: PageView(
                     controller: _pageController,
                     onPageChanged: (p) => setState(() => _page = p),
-                    children: [
-                      _ModePickCard(
-                        selected: _mode,
-                        onPick: (m) => setState(() => _mode = m),
-                      ),
-                      ...(_mode == GameMode.classicKubb
-                          ? _kubbCards(l10n)
-                          : _numberCards(l10n)),
-                    ],
+                    children: _numberCards(l10n),
                   ),
                 ),
                 Row(
@@ -169,19 +126,19 @@ class _TourScreenState extends ConsumerState<TourScreen> {
                   children: [
                     for (var i = 0; i < _pageCount; i++)
                       AnimatedContainer(
-                        duration: IKubbMotion.resolve(
+                        duration: KaatoMotion.resolve(
                           context,
-                          IKubbMotion.quick,
+                          KaatoMotion.quick,
                         ),
                         width: i == _page ? 22 : 8,
                         height: 8,
-                        margin: const EdgeInsets.all(IKubbSpacing.xs),
+                        margin: const EdgeInsets.all(KaatoSpacing.xs),
                         decoration: BoxDecoration(
                           color: i == _page
                               ? Theme.of(context).colorScheme.primary
                               : Theme.of(context).colorScheme.primary
-                                    .withValues(alpha: IKubbAlpha.dotIdle),
-                          borderRadius: BorderRadius.circular(IKubbRadius.xs),
+                                    .withValues(alpha: KaatoAlpha.dotIdle),
+                          borderRadius: BorderRadius.circular(KaatoRadius.xs),
                         ),
                       ),
                   ],
@@ -195,121 +152,6 @@ class _TourScreenState extends ConsumerState<TourScreen> {
                     ),
                   ),
                 ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-/// The fork: which game is being learned? Both options stay one tap away
-/// throughout — picking just swaps the five cards that follow.
-class _ModePickCard extends StatelessWidget {
-  const _ModePickCard({required this.selected, required this.onPick});
-
-  final GameMode selected;
-  final ValueChanged<GameMode> onPick;
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    return Center(
-      child: SingleChildScrollView(
-        padding: const EdgeInsets.all(IKubbSpacing.xl),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              l10n.tourModePickTitle,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            const SizedBox(height: IKubbSpacing.md),
-            Text(
-              l10n.tourModePickBody,
-              textAlign: TextAlign.center,
-              style: IKubbType.reading,
-            ),
-            const SizedBox(height: IKubbSpacing.xl),
-            _ModeOption(
-              icon: Icons.tag,
-              title: l10n.modeNumber,
-              description: l10n.tourModeNumberDesc,
-              selected: selected == GameMode.numberKubb,
-              onTap: () => onPick(GameMode.numberKubb),
-            ),
-            const SizedBox(height: IKubbSpacing.md),
-            _ModeOption(
-              icon: Icons.workspace_premium,
-              title: l10n.modeKubb,
-              description: l10n.tourModeKubbDesc,
-              selected: selected == GameMode.classicKubb,
-              onTap: () => onPick(GameMode.classicKubb),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _ModeOption extends StatelessWidget {
-  const _ModeOption({
-    required this.icon,
-    required this.title,
-    required this.description,
-    required this.selected,
-    required this.onTap,
-  });
-
-  final IconData icon;
-  final String title;
-  final String description;
-  final bool selected;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
-    // Selection by border, not fill: the custom scheme has no
-    // primaryContainer pair, and a border keeps AA contrast in both themes.
-    return Container(
-      decoration: BoxDecoration(
-        color: scheme.surfaceContainerHighest,
-        borderRadius: BorderRadius.circular(IKubbRadius.lg),
-        border: Border.all(
-          color: selected ? scheme.primary : Colors.transparent,
-          width: IKubbBorder.focus,
-        ),
-      ),
-      child: Semantics(
-        button: true,
-        selected: selected,
-        child: InkWell(
-          borderRadius: BorderRadius.circular(IKubbRadius.lg),
-          onTap: onTap,
-          child: Padding(
-            padding: const EdgeInsets.all(IKubbSpacing.lg),
-            child: Row(
-              children: [
-                Icon(icon, size: IKubbIconSize.display, color: scheme.primary),
-                const SizedBox(width: IKubbSpacing.lg),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(title, style: IKubbType.strong),
-                      const SizedBox(height: IKubbSpacing.xxs),
-                      Text(
-                        description,
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
-                    ],
-                  ),
-                ),
-                if (selected) Icon(Icons.check_circle, color: scheme.primary),
               ],
             ),
           ),
@@ -340,23 +182,23 @@ class _TourCard extends StatelessWidget {
     // when it genuinely doesn't fit.
     return Center(
       child: SingleChildScrollView(
-        padding: const EdgeInsets.all(IKubbSpacing.xl),
+        padding: const EdgeInsets.all(KaatoSpacing.xl),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             if (child != null) ...[
               child!,
-              const SizedBox(height: IKubbSpacing.xl),
+              const SizedBox(height: KaatoSpacing.xl),
             ],
             Text(
               title,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.headlineMedium,
             ),
-            const SizedBox(height: IKubbSpacing.md),
-            Text(body, textAlign: TextAlign.center, style: IKubbType.reading),
+            const SizedBox(height: KaatoSpacing.md),
+            Text(body, textAlign: TextAlign.center, style: KaatoType.reading),
             if (footer != null) ...[
-              const SizedBox(height: IKubbSpacing.xl),
+              const SizedBox(height: KaatoSpacing.xl),
               footer!,
             ],
           ],
@@ -389,7 +231,7 @@ class _ScoringDemoCardState extends State<_ScoringDemoCard> {
     };
     return Center(
       child: SingleChildScrollView(
-        padding: const EdgeInsets.all(IKubbSpacing.xl),
+        padding: const EdgeInsets.all(KaatoSpacing.xl),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -402,25 +244,25 @@ class _ScoringDemoCardState extends State<_ScoringDemoCard> {
                     : _selected.add(pin);
               }),
             ),
-            const SizedBox(height: IKubbSpacing.lg),
+            const SizedBox(height: KaatoSpacing.lg),
             RollingNumber(
               value: score,
               style: Theme.of(context).textTheme.displayLarge
                   ?.copyWith(color: Theme.of(context).colorScheme.primary),
             ),
-            const SizedBox(height: IKubbSpacing.sm),
+            const SizedBox(height: KaatoSpacing.sm),
             Text(
               l10n.catScoring,
               style: Theme.of(context).textTheme.headlineMedium,
             ),
-            const SizedBox(height: IKubbSpacing.md),
+            const SizedBox(height: KaatoSpacing.md),
             AnimatedSwitcher(
-              duration: IKubbMotion.resolve(context, IKubbMotion.quick),
+              duration: KaatoMotion.resolve(context, KaatoMotion.quick),
               child: Text(
                 explanation,
                 key: ValueKey(explanation),
                 textAlign: TextAlign.center,
-                style: IKubbType.reading,
+                style: KaatoType.reading,
               ),
             ),
           ],

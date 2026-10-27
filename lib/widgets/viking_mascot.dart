@@ -6,7 +6,7 @@ import '../theme/palette.dart';
 
 enum MascotPose { idle, cheer, oops }
 
-/// The iKubb Viking mascot as code-drawn vector art: flat shapes, chunky
+/// The Kaato Viking mascot as code-drawn vector art: flat shapes, chunky
 /// rounded linework, brand palette, no text (SPEC.md §4).
 ///
 /// Poses are state-driven and spring between each other ([MascotPose.cheer]
@@ -59,8 +59,8 @@ class _VikingPainter extends CustomPainter {
   /// 0 = normal, 1 = full wince: frown, slight sag and tilt.
   final double oops;
 
-  static const _skin = IKubbPalette.mascotSkin;
-  static const _cheek = IKubbPalette.mascotBlush;
+  static const _skin = KaatoPalette.mascotSkin;
+  static const _cheek = KaatoPalette.mascotBlush;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -77,7 +77,7 @@ class _VikingPainter extends CustomPainter {
     }
 
     // Boots.
-    fill.color = IKubbPalette.walnut;
+    fill.color = KaatoPalette.walnut;
     canvas.drawRRect(
       RRect.fromLTRBR(38, 88, 47, 96, const Radius.circular(4)),
       fill,
@@ -88,13 +88,13 @@ class _VikingPainter extends CustomPainter {
     );
 
     // Tunic.
-    fill.color = IKubbPalette.forest;
+    fill.color = KaatoPalette.forest;
     canvas.drawRRect(
       RRect.fromLTRBR(33, 58, 67, 90, const Radius.circular(14)),
       fill,
     );
     // Belt.
-    fill.color = IKubbPalette.oak;
+    fill.color = KaatoPalette.oak;
     canvas.drawRRect(
       RRect.fromLTRBR(33, 74, 67, 80, const Radius.circular(3)),
       fill,
@@ -110,7 +110,7 @@ class _VikingPainter extends CustomPainter {
     canvas.drawCircle(const Offset(50, 40), 15, fill);
 
     // Beard: lower half of the face, with two braid tips.
-    fill.color = IKubbPalette.oak;
+    fill.color = KaatoPalette.oak;
     final beard = Path()
       ..addArc(
         Rect.fromCircle(center: const Offset(50, 42), radius: 15.5),
@@ -127,7 +127,7 @@ class _VikingPainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1.8
       ..strokeCap = StrokeCap.round
-      ..color = IKubbPalette.ink;
+      ..color = KaatoPalette.ink;
     if (oops > 0.5) {
       canvas.drawArc(
         Rect.fromCircle(center: const Offset(50, 50.5), radius: 4.5),
@@ -147,7 +147,7 @@ class _VikingPainter extends CustomPainter {
     }
 
     // Eyes and cheeks.
-    fill.color = IKubbPalette.ink;
+    fill.color = KaatoPalette.ink;
     canvas.drawCircle(const Offset(44.5, 38), 1.8, fill);
     canvas.drawCircle(const Offset(55.5, 38), 1.8, fill);
     fill.color = _cheek;
@@ -155,7 +155,7 @@ class _VikingPainter extends CustomPainter {
     canvas.drawCircle(const Offset(59, 43), 2.6, fill);
 
     // Helmet dome + rim.
-    fill.color = IKubbPalette.forestDeep;
+    fill.color = KaatoPalette.forestDeep;
     canvas.drawPath(
       Path()
         ..addArc(
@@ -172,7 +172,7 @@ class _VikingPainter extends CustomPainter {
     );
 
     // Horns.
-    fill.color = IKubbPalette.birchLight;
+    fill.color = KaatoPalette.birchLight;
     canvas.drawPath(
       Path()
         ..moveTo(34, 34)
@@ -202,7 +202,7 @@ class _VikingPainter extends CustomPainter {
     canvas.save();
     canvas.translate(shoulder.dx, shoulder.dy);
     canvas.rotate(angle);
-    final fill = Paint()..color = IKubbPalette.forest;
+    final fill = Paint()..color = KaatoPalette.forest;
     canvas.drawRRect(
       RRect.fromLTRBR(-3.5, 0, 3.5, 18, const Radius.circular(3.5)),
       fill,
@@ -211,7 +211,7 @@ class _VikingPainter extends CustomPainter {
     fill.color = _skin;
     canvas.drawCircle(const Offset(0, 18), 4, fill);
     if (holdsStick) {
-      fill.color = IKubbPalette.walnut;
+      fill.color = KaatoPalette.walnut;
       canvas.drawRRect(
         RRect.fromLTRBR(-2.5, 8, 2.5, 34, const Radius.circular(2.5)),
         fill,

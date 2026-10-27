@@ -4,6 +4,24 @@ Versies volgen `MAJOR.MINOR.PATCH+BUILD` uit `pubspec.yaml`; zie
 `docs/IOS_DEVICE_TESTING.md` voor de regels. De app toont de versie en
 commit onderaan Settings.
 
+## 0.4.0 (4)
+
+De app heet nu **Kaato** (Fins voor het vellen, de omgegooide kegel) en
+speelt alleen nog nummerkubb.
+
+- **Nieuwe naam overal**: app-naam op iOS, Android en web, woordmerk,
+  tagline in tien talen, deelkaart, Live Activity, code en documentatie.
+- **Nieuwe bundel-ID**: `nl.jasperkoenen.kaato` (was `…ikubb`). Op je
+  toestel verschijnt Kaato als nieuwe app; de oude iKubb-app kun je
+  verwijderen. Spelers en geschiedenis gaan niet mee.
+- **Klassiek kubb verwijderd**: spel, regels, rondleiding, scorebord,
+  statistieken en de engine-onderdelen. De rondleiding begint direct met
+  de regels, New game heeft geen spelkeuze meer, de samenvatting zegt
+  "First to 50" in plaats van "Number kubb, first to 50".
+- Bewaarde klassieke-kubbwedstrijden uit eerdere builds worden bij het
+  laden overgeslagen; nummerkubb-geschiedenis blijft staan.
+- 71 ongebruikte teksten uit alle tien talen verwijderd.
+
 ## 0.3.0 (3)
 
 - **Segmentknop opnieuw ontworpen**: geen capsule met randen meer, maar
@@ -37,6 +55,8 @@ Eerste build met versienummer in de app.
   copywriting-ronde in alle tien talen.
 
 ## 0.1.0 (1)
+
+*Toen nog iKubb.*
 
 Eerste werkende versie: number kubb (Mölkky-stijl) en klassiek kubb,
 rondleiding, regels met illustraties, geschiedenis en statistieken,

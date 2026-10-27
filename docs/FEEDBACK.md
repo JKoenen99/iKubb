@@ -8,7 +8,7 @@ systeem-onafhankelijk opgeslagen wordt en direct te analyseren is.
 
 | Moment | Trigger-id | Waarom hier | Frequentie |
 |---|---|---|---|
-| Winscherm, onder Rematch/Delen/Nieuw spel (beide modi) | `game_end` | Het natuurlijke "einde van het bezoek": de uitslag staat nog in beeld, de emotie is er, niemand zit midden in een worp. De kaart staat onder de acties zodat hij nooit concurreert met Rematch. | Eerst na het **tweede** afgeronde spel. Na "Niet nu": na 10 spellen of 30 dagen. Na een antwoord: pas na 20 spellen **en** 30 dagen. Nooit twee keer binnen 12 uur. |
+| Winscherm, onder Rematch/Delen/Nieuw spel | `game_end` | Het natuurlijke "einde van het bezoek": de uitslag staat nog in beeld, de emotie is er, niemand zit midden in een worp. De kaart staat onder de acties zodat hij nooit concurreert met Rematch. | Eerst na het **tweede** afgeronde spel. Na "Niet nu": na 10 spellen of 30 dagen. Na een antwoord: pas na 20 spellen **en** 30 dagen. Nooit twee keer binnen 12 uur. |
 | Laatste kaart van de tour ("Leer het spel") | `tour_end` | Meet de onboarding los van het scoren: hielp de uitleg? | Eén keer ooit, bij de eerste voltooiing. |
 | Instellingen → Feedback → "Feedback geven" | `settings` | Ongevraagde feedback is vaak de rijkste; de ingang moet altijd vindbaar zijn. | Altijd. |
 
@@ -67,9 +67,9 @@ Context per trigger:
 
 - `game_end` number kubb: `mode`, `sides`, `throws`, `target_score`,
   `overshoot_policy`, `elimination`, `eliminated_sides`, `input_mode`.
-- `game_end` classic kubb: `mode`, `best_of`, `games`,
-  `turn_clock_seconds`, `early_king`, `events`.
-- `tour_end`: `mode` (welke uitleg).
+- `game_end` classic kubb (alleen builds vóór 0.4.0): `mode`, `best_of`,
+  `games`, `turn_clock_seconds`, `early_king`, `events`.
+- `tour_end`: `mode` (sinds 0.4.0 altijd `number_kubb`).
 - `settings`: leeg.
 
 Tag-ids (`lib/features/feedback/feedback_tags.dart`):
@@ -109,7 +109,7 @@ Een id verandert nooit; nieuwe ids toevoegen is additief.
 
 ### Supabase: ingericht op 2026-10-19
 
-Project `iKubb` (`cebkosufhtkddecfroij`, eu-west-1, Postgres 17). De
+Project `Kaato` (`cebkosufhtkddecfroij`, eu-west-1, Postgres 17). De
 migratie is via de Supabase-connector uitgevoerd (tabel, policy, views)
 en geverifieerd: de anon-rol kan invoegen, kan niet lezen (42501) en een
 dubbele `event_id` geeft 23505 (REST: 409). De security-advisor meldt

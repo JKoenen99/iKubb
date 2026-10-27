@@ -2,10 +2,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ikubb/app.dart';
-import 'package:ikubb/features/onboarding/onboarding_state.dart';
-import 'package:ikubb/theme/glass.dart';
-import 'package:ikubb/widgets/ikubb_app_bar.dart';
+import 'package:kaato/app.dart';
+import 'package:kaato/features/onboarding/onboarding_state.dart';
+import 'package:kaato/theme/glass.dart';
+import 'package:kaato/widgets/kaato_app_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'test_utils.dart';
@@ -20,7 +20,7 @@ Future<void> pumpHome(WidgetTester tester, {bool highContrast = false}) async {
       overrides: [onboardingSeenProvider.overrideWithValue(true)],
       child: MediaQuery(
         data: MediaQueryData(highContrast: highContrast),
-        child: const IKubbApp(),
+        child: const KaatoApp(),
       ),
     ),
   );
@@ -64,7 +64,7 @@ void main() {
       expect(find.byType(GlassToolbar), findsOneWidget);
       final bar = tester.widget<AppBar>(
         find.descendant(
-          of: find.byType(IKubbAppBar),
+          of: find.byType(KaatoAppBar),
           matching: find.byType(AppBar),
         ),
       );
@@ -113,7 +113,7 @@ void main() {
       expect(
         find.descendant(
           of: find.byType(BottomSheet),
-          matching: find.byType(IKubbGlass),
+          matching: find.byType(KaatoGlass),
         ),
         findsOneWidget,
       );
@@ -144,7 +144,7 @@ void main() {
       expect(find.byType(BackdropFilter), findsNothing);
       // The chrome is still there, just solid.
       expect(find.byType(GlassToolbar), findsOneWidget);
-      expect(find.byType(IKubbGlass), findsAtLeastNWidgets(2));
+      expect(find.byType(KaatoGlass), findsAtLeastNWidgets(2));
       await checkGuidelines(tester);
     }),
   );

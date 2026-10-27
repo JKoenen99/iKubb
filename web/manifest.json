@@ -1,11 +1,11 @@
 {
-    "name": "iKubb",
-    "short_name": "iKubb",
+    "name": "Kaato",
+    "short_name": "Kaato",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#F5EFE6",
     "theme_color": "#2F4A3C",
-    "description": "iKubb — the number kubb scoreboard. Score faster than pen and paper, learn the rules, keep player stats.",
+    "description": "Kaato — the number kubb scoreboard. Score faster than pen and paper, learn the rules, keep player stats.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

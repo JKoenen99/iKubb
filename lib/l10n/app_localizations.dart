@@ -117,13 +117,13 @@ abstract class AppLocalizations {
   /// No description provided for @appTitle.
   ///
   /// In en, this message translates to:
-  /// **'iKubb'**
+  /// **'Kaato'**
   String get appTitle;
 
   /// No description provided for @tagline.
   ///
   /// In en, this message translates to:
-  /// **'The kubb scoreboard'**
+  /// **'The number kubb scoreboard'**
   String get tagline;
 
   /// No description provided for @startScoring.
@@ -161,12 +161,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Stats'**
   String get stats;
-
-  /// No description provided for @confirmThrow.
-  ///
-  /// In en, this message translates to:
-  /// **'Confirm throw'**
-  String get confirmThrow;
 
   /// No description provided for @miss.
   ///
@@ -210,18 +204,6 @@ abstract class AppLocalizations {
   /// **'Add player'**
   String get addPlayer;
 
-  /// No description provided for @playerName.
-  ///
-  /// In en, this message translates to:
-  /// **'Name'**
-  String get playerName;
-
-  /// No description provided for @recentPlayers.
-  ///
-  /// In en, this message translates to:
-  /// **'Recent players'**
-  String get recentPlayers;
-
   /// No description provided for @teams.
   ///
   /// In en, this message translates to:
@@ -257,12 +239,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Target score'**
   String get targetScore;
-
-  /// No description provided for @overshootRule.
-  ///
-  /// In en, this message translates to:
-  /// **'Overshoot'**
-  String get overshootRule;
 
   /// Overshoot policy label; value is the score a side drops to
   ///
@@ -756,317 +732,17 @@ abstract class AppLocalizations {
   /// **'Number kubb'**
   String get modeNumber;
 
-  /// No description provided for @modeKubb.
-  ///
-  /// In en, this message translates to:
-  /// **'Kubb'**
-  String get modeKubb;
-
-  /// No description provided for @matchLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Match'**
-  String get matchLabel;
-
-  /// No description provided for @bestOfSingle.
-  ///
-  /// In en, this message translates to:
-  /// **'Single game'**
-  String get bestOfSingle;
-
-  /// No description provided for @bestOfThree.
-  ///
-  /// In en, this message translates to:
-  /// **'Best of three'**
-  String get bestOfThree;
-
-  /// No description provided for @turnClockLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Turn clock'**
-  String get turnClockLabel;
-
   /// No description provided for @offLabel.
   ///
   /// In en, this message translates to:
   /// **'Off'**
   String get offLabel;
 
-  /// No description provided for @kingLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'King'**
-  String get kingLabel;
-
-  /// No description provided for @kingWarningTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Topple the king?'**
-  String get kingWarningTitle;
-
-  /// No description provided for @kingWarningBody.
-  ///
-  /// In en, this message translates to:
-  /// **'Not everything is down yet — toppling the king now loses the game.'**
-  String get kingWarningBody;
-
-  /// No description provided for @advantageLine.
-  ///
-  /// In en, this message translates to:
-  /// **'Advantage line'**
-  String get advantageLine;
-
-  /// No description provided for @throwInTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Throw the knocked-over kubbs into the attackers\' half.'**
-  String get throwInTitle;
-
-  /// No description provided for @outTwice.
-  ///
-  /// In en, this message translates to:
-  /// **'Penalty kubbs (out twice)'**
-  String get outTwice;
-
   /// No description provided for @done.
   ///
   /// In en, this message translates to:
   /// **'Done'**
   String get done;
-
-  /// No description provided for @nextGameLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Next game'**
-  String get nextGameLabel;
-
-  /// Shown when a team loses by toppling the king too early
-  ///
-  /// In en, this message translates to:
-  /// **'{name} toppled the king too early!'**
-  String earlyKingBanner(String name);
-
-  /// No description provided for @catKubbSetup.
-  ///
-  /// In en, this message translates to:
-  /// **'Setup & teams'**
-  String get catKubbSetup;
-
-  /// No description provided for @catKubbBatons.
-  ///
-  /// In en, this message translates to:
-  /// **'Throwing batons'**
-  String get catKubbBatons;
-
-  /// No description provided for @catKubbFieldKubbs.
-  ///
-  /// In en, this message translates to:
-  /// **'Field kubbs'**
-  String get catKubbFieldKubbs;
-
-  /// No description provided for @catKubbKing.
-  ///
-  /// In en, this message translates to:
-  /// **'The king'**
-  String get catKubbKing;
-
-  /// No description provided for @ruleKubbFieldTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'The field'**
-  String get ruleKubbFieldTitle;
-
-  /// No description provided for @ruleKubbFieldBody.
-  ///
-  /// In en, this message translates to:
-  /// **'Two teams face each other across the field. Each lines up five kubbs on its baseline, and the king stands alone in the middle.'**
-  String get ruleKubbFieldBody;
-
-  /// No description provided for @ruleKubbFieldDetail.
-  ///
-  /// In en, this message translates to:
-  /// **'Tournament fields measure 5 × 8 meters. In the park, two jackets and a good guess work fine — just keep the halves roughly equal.'**
-  String get ruleKubbFieldDetail;
-
-  /// No description provided for @ruleKubbTeamsTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'One to six per team'**
-  String get ruleKubbTeamsTitle;
-
-  /// No description provided for @ruleKubbTeamsBody.
-  ///
-  /// In en, this message translates to:
-  /// **'Kubb is a team game: one to six players per team. Teammates share the six batons and take turns throwing.'**
-  String get ruleKubbTeamsBody;
-
-  /// No description provided for @ruleKubbBatonsTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Six batons per turn'**
-  String get ruleKubbBatonsTitle;
-
-  /// No description provided for @ruleKubbBatonsBody.
-  ///
-  /// In en, this message translates to:
-  /// **'The attacking team throws six batons at the other team\'s kubbs — underhand, spinning end over end.'**
-  String get ruleKubbBatonsBody;
-
-  /// No description provided for @ruleKubbBatonsDetail.
-  ///
-  /// In en, this message translates to:
-  /// **'No helicopter throws: the baton must spin vertically, never sideways. Kubbs felled by the batons stay down until the turn ends.'**
-  String get ruleKubbBatonsDetail;
-
-  /// No description provided for @ruleKubbThrowInTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Felled kubbs come back'**
-  String get ruleKubbThrowInTitle;
-
-  /// No description provided for @ruleKubbThrowInBody.
-  ///
-  /// In en, this message translates to:
-  /// **'After the batons, the defenders throw every felled kubb into the attackers\' half. Where a kubb lands, it is stood up as a field kubb.'**
-  String get ruleKubbThrowInBody;
-
-  /// No description provided for @ruleKubbThrowInDetail.
-  ///
-  /// In en, this message translates to:
-  /// **'The defenders choose where to aim — kubbs standing close together are far easier to clear with one baton.'**
-  String get ruleKubbThrowInDetail;
-
-  /// No description provided for @ruleKubbFieldFirstTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Field kubbs first'**
-  String get ruleKubbFieldFirstTitle;
-
-  /// No description provided for @ruleKubbFieldFirstBody.
-  ///
-  /// In en, this message translates to:
-  /// **'Attackers must fell every standing field kubb before any baseline kubb may be hit. A baseline kubb felled too early is raised again.'**
-  String get ruleKubbFieldFirstBody;
-
-  /// No description provided for @ruleKubbPenaltyTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Out twice = penalty'**
-  String get ruleKubbPenaltyTitle;
-
-  /// No description provided for @ruleKubbPenaltyBody.
-  ///
-  /// In en, this message translates to:
-  /// **'A kubb thrown out of bounds twice becomes a penalty kubb: the other team places it anywhere in their half — even right next to the king.'**
-  String get ruleKubbPenaltyBody;
-
-  /// No description provided for @ruleKubbAdvantageTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'The advantage line'**
-  String get ruleKubbAdvantageTitle;
-
-  /// No description provided for @ruleKubbAdvantageBody.
-  ///
-  /// In en, this message translates to:
-  /// **'If your opponents leave field kubbs standing in your half, your team may throw its batons from level with the one closest to the king.'**
-  String get ruleKubbAdvantageBody;
-
-  /// No description provided for @ruleKubbKingTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'The king decides it'**
-  String get ruleKubbKingTitle;
-
-  /// No description provided for @ruleKubbKingBody.
-  ///
-  /// In en, this message translates to:
-  /// **'Only when every kubb in the defending half is down may you aim for the king. Topple it, and the game is yours.'**
-  String get ruleKubbKingBody;
-
-  /// No description provided for @ruleKubbEarlyKingTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Not before the line is down'**
-  String get ruleKubbEarlyKingTitle;
-
-  /// No description provided for @ruleKubbEarlyKingBody.
-  ///
-  /// In en, this message translates to:
-  /// **'Topple the king before everything else is down — even by accident — and your team loses the game on the spot.'**
-  String get ruleKubbEarlyKingBody;
-
-  /// No description provided for @ruleKubbMatchTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Best of three'**
-  String get ruleKubbMatchTitle;
-
-  /// No description provided for @ruleKubbMatchBody.
-  ///
-  /// In en, this message translates to:
-  /// **'Tournaments play a match as best of three games. The teams alternate which team opens each game.'**
-  String get ruleKubbMatchBody;
-
-  /// No description provided for @ruleKubbMatchDetail.
-  ///
-  /// In en, this message translates to:
-  /// **'With the turn clock on, a team has a fixed time to throw its six batons. The clock is a guide — the app never blocks a throw.'**
-  String get ruleKubbMatchDetail;
-
-  /// No description provided for @tourModePickTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Which game are you playing?'**
-  String get tourModePickTitle;
-
-  /// No description provided for @tourModePickBody.
-  ///
-  /// In en, this message translates to:
-  /// **'Both live in this app. Pick one to learn — you can switch any time.'**
-  String get tourModePickBody;
-
-  /// No description provided for @tourModeNumberDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'Twelve numbered pins. Race to exactly 50.'**
-  String get tourModeNumberDesc;
-
-  /// No description provided for @tourModeKubbDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'Two teams, five kubbs each — and the king.'**
-  String get tourModeKubbDesc;
-
-  /// No description provided for @statKingsFelled.
-  ///
-  /// In en, this message translates to:
-  /// **'Kings toppled'**
-  String get statKingsFelled;
-
-  /// No description provided for @statKubbsPerBaton.
-  ///
-  /// In en, this message translates to:
-  /// **'Kubbs per baton'**
-  String get statKubbsPerBaton;
-
-  /// No description provided for @statAdvantageTurns.
-  ///
-  /// In en, this message translates to:
-  /// **'Advantage turns'**
-  String get statAdvantageTurns;
-
-  /// No description provided for @statEarlyKings.
-  ///
-  /// In en, this message translates to:
-  /// **'Early kings'**
-  String get statEarlyKings;
-
-  /// No description provided for @filterAll.
-  ///
-  /// In en, this message translates to:
-  /// **'All'**
-  String get filterAll;
 
   /// No description provided for @closeLabel.
   ///
@@ -1085,36 +761,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Decrease'**
   String get decreaseLabel;
-
-  /// VoiceOver label of a standing kubb block (1-based index)
-  ///
-  /// In en, this message translates to:
-  /// **'Kubb {number}, standing'**
-  String kubbStandingSemantics(int number);
-
-  /// VoiceOver label of a kubb marked as felled this baton
-  ///
-  /// In en, this message translates to:
-  /// **'Kubb {number}, marked as knocked over'**
-  String kubbSelectedSemantics(int number);
-
-  /// No description provided for @kingSafeSemantics.
-  ///
-  /// In en, this message translates to:
-  /// **'The king — topple it to win'**
-  String get kingSafeSemantics;
-
-  /// No description provided for @kingRiskySemantics.
-  ///
-  /// In en, this message translates to:
-  /// **'The king — toppling it now loses the game'**
-  String get kingRiskySemantics;
-
-  /// VoiceOver summary of the batons-left dot row
-  ///
-  /// In en, this message translates to:
-  /// **'{remaining} of {total} batons left'**
-  String batonsLeftSemantics(int remaining, int total);
 
   /// VoiceOver summary of the miss-streak dot row
   ///
@@ -1139,18 +785,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Delete game'**
   String get deleteGameLabel;
-
-  /// No description provided for @newMatchConfirmTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Start a new match?'**
-  String get newMatchConfirmTitle;
-
-  /// No description provided for @newMatchConfirmBody.
-  ///
-  /// In en, this message translates to:
-  /// **'You\'ll lose the match that\'s underway.'**
-  String get newMatchConfirmBody;
 
   /// No description provided for @settingsAppearance.
   ///
@@ -1200,35 +834,17 @@ abstract class AppLocalizations {
   /// **'Resume game · {summary}'**
   String resumeGameSummary(String summary);
 
-  /// Games won in a best-of match, side A first
-  ///
-  /// In en, this message translates to:
-  /// **'{a} – {b}'**
-  String matchScore(int a, int b);
-
   /// No description provided for @deleteGameConfirmBody.
   ///
   /// In en, this message translates to:
   /// **'This game will be removed from your history.'**
   String get deleteGameConfirmBody;
 
-  /// No description provided for @newMatch.
-  ///
-  /// In en, this message translates to:
-  /// **'New match'**
-  String get newMatch;
-
   /// Default name for an unnamed quick-start player; n is 1-based
   ///
   /// In en, this message translates to:
   /// **'Player {n}'**
   String playerN(int n);
-
-  /// Compact seconds value, e.g. in the active-rules chips
-  ///
-  /// In en, this message translates to:
-  /// **'{seconds}s'**
-  String secondsShort(int seconds);
 
   /// Accessibility label of the remove button in a setup player row
   ///
@@ -1241,24 +857,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'More details'**
   String get showDetails;
-
-  /// No description provided for @toppleKing.
-  ///
-  /// In en, this message translates to:
-  /// **'Topple the king'**
-  String get toppleKing;
-
-  /// VoiceOver label of the kubb turn clock
-  ///
-  /// In en, this message translates to:
-  /// **'{seconds} seconds left on the turn clock'**
-  String turnClockSemantics(int seconds);
-
-  /// VoiceOver label of the per-team kubbs-remaining number
-  ///
-  /// In en, this message translates to:
-  /// **'{count} baseline kubbs standing'**
-  String baselineStandingSemantics(int count);
 
   /// No description provided for @opensRuleHint.
   ///
@@ -1299,7 +897,7 @@ abstract class AppLocalizations {
   /// No description provided for @feedbackPromptGameTitle.
   ///
   /// In en, this message translates to:
-  /// **'How was scoring with iKubb?'**
+  /// **'How was scoring with Kaato?'**
   String get feedbackPromptGameTitle;
 
   /// No description provided for @feedbackPromptTourTitle.
@@ -1457,30 +1055,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Other'**
   String get tagOther;
-
-  /// No description provided for @gameSection.
-  ///
-  /// In en, this message translates to:
-  /// **'Game'**
-  String get gameSection;
-
-  /// No description provided for @modeNumberDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'Score points per kubb. First to the target wins.'**
-  String get modeNumberDesc;
-
-  /// No description provided for @modeKubbDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'Classic rules. Clear the field, then the king.'**
-  String get modeKubbDesc;
-
-  /// Phone-layout helper line under the mode picker
-  ///
-  /// In en, this message translates to:
-  /// **'Score points per kubb. First to {target} wins.'**
-  String modeNumberHint(int target);
 
   /// Player count after the Players header and in the summary bar
   ///

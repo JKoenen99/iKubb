@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ikubb/app.dart';
-import 'package:ikubb/widgets/form_cards.dart';
-import 'package:ikubb/widgets/share_card.dart';
-import 'package:ikubb/features/onboarding/onboarding_state.dart';
+import 'package:kaato/app.dart';
+import 'package:kaato/widgets/form_cards.dart';
+import 'package:kaato/widgets/share_card.dart';
+import 'package:kaato/features/onboarding/onboarding_state.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'test_utils.dart';
@@ -13,7 +13,7 @@ Future<void> pumpHome(WidgetTester tester) async {
   await tester.pumpWidget(
     ProviderScope(
       overrides: [onboardingSeenProvider.overrideWithValue(true)],
-      child: const IKubbApp(),
+      child: const KaatoApp(),
     ),
   );
   await tester.pumpAndSettle();

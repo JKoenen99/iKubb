@@ -5,7 +5,7 @@ import 'package:wakelock_plus/wakelock_plus.dart';
 import '../features/settings/settings_controller.dart';
 
 /// Keeps the screen on while mounted, when enabled in settings — wrap any
-/// screen a game is glanced at (SPEC.md §3.3): /game, /kubb, /scoreboard.
+/// screen a game is glanced at (SPEC.md §3.3): /game, /scoreboard.
 /// Best-effort: platforms without the plugin (tests, unsupported targets)
 /// must never break play.
 class KeepAwake extends ConsumerStatefulWidget {

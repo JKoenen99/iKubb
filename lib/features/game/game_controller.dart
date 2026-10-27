@@ -3,7 +3,6 @@ import 'package:scoring_engine/scoring_engine.dart';
 
 import '../feedback/feedback_controller.dart';
 import '../stats/game_records_repository.dart';
-import 'game_mode.dart';
 import 'live_score/live_score.dart';
 
 /// Side id → palette color index for the active game, set at game start
@@ -34,9 +33,9 @@ class GameController extends Notifier<Game> {
   @override
   Game build() {
     final restored = ref.read(restoredGameProvider);
-    if (restored?.molkky != null) {
-      _gameId = restored!.id;
-      return restored.molkky!;
+    if (restored != null) {
+      _gameId = restored.id;
+      return restored.game;
     }
     _gameId = _newId();
     return Game.start(
@@ -99,14 +98,13 @@ class GameController extends Notifier<Game> {
 
   /// Fire and forget: persistence must never delay the next throw.
   void _persist() {
-    ref.read(lastModeProvider.notifier).set(GameMode.numberKubb);
     liveScore.sync(state);
     final repo = ref.read(gameRecordsRepositoryProvider);
     repo
         .saveActive(
           ActiveRecord(
             id: _gameId,
-            molkky: state,
+            game: state,
             sideColors: ref.read(sideColorsProvider),
           ),
         )

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ikubb/app.dart';
-import 'package:ikubb/features/game/game_screen.dart';
-import 'package:ikubb/features/onboarding/onboarding_state.dart';
-import 'package:ikubb/features/stats/game_records_repository.dart';
+import 'package:kaato/app.dart';
+import 'package:kaato/features/game/game_screen.dart';
+import 'package:kaato/features/onboarding/onboarding_state.dart';
+import 'package:kaato/features/stats/game_records_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'test_utils.dart';
 
 Future<void> winAGame(WidgetTester tester) async {
-  await tester.pumpWidget(const ProviderScope(child: IKubbApp()));
+  await tester.pumpWidget(const ProviderScope(child: KaatoApp()));
   await tester.pumpAndSettle();
   await tester.tap(find.text('I know the rules, start scoring'));
   await tester.pumpAndSettle();
@@ -37,7 +37,7 @@ void main() {
       ProviderScope(
         key: UniqueKey(),
         overrides: [onboardingSeenProvider.overrideWithValue(true)],
-        child: const IKubbApp(),
+        child: const KaatoApp(),
       ),
     );
     await tester.pumpAndSettle();
@@ -56,7 +56,7 @@ void main() {
     tester,
   ) async {
     // Play two throws of a classic game, then "kill" the app.
-    await tester.pumpWidget(const ProviderScope(child: IKubbApp()));
+    await tester.pumpWidget(const ProviderScope(child: KaatoApp()));
     await tester.pumpAndSettle();
     await tester.tap(find.text('I know the rules, start scoring'));
     await tester.pumpAndSettle();
@@ -78,7 +78,7 @@ void main() {
           onboardingSeenProvider.overrideWithValue(true),
           restoredGameProvider.overrideWithValue(restored),
         ],
-        child: const IKubbApp(),
+        child: const KaatoApp(),
       ),
     );
     await tester.pumpAndSettle();

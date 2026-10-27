@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ikubb/app.dart';
-import 'package:ikubb/features/designsystem/design_system_screen.dart';
-import 'package:ikubb/features/onboarding/onboarding_state.dart';
-import 'package:ikubb/features/settings/settings_controller.dart';
+import 'package:kaato/app.dart';
+import 'package:kaato/features/designsystem/design_system_screen.dart';
+import 'package:kaato/features/onboarding/onboarding_state.dart';
+import 'package:kaato/features/settings/settings_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'test_utils.dart';
@@ -22,7 +22,7 @@ void main() {
           onboardingSeenProvider.overrideWithValue(true),
           if (mode != null) themeModeProvider.overrideWith(() => _Fixed(mode)),
         ],
-        child: const IKubbApp(),
+        child: const KaatoApp(),
       ),
     );
     await tester.pumpAndSettle();

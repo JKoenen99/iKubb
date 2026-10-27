@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ikubb/app.dart';
-import 'package:ikubb/features/onboarding/onboarding_state.dart';
-import 'package:ikubb/features/settings/settings_controller.dart';
-import 'package:ikubb/theme/palette.dart';
+import 'package:kaato/app.dart';
+import 'package:kaato/features/onboarding/onboarding_state.dart';
+import 'package:kaato/features/settings/settings_controller.dart';
+import 'package:kaato/theme/palette.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'test_utils.dart';
@@ -35,7 +35,7 @@ void main() {
           onboardingSeenProvider.overrideWithValue(true),
           themeModeProvider.overrideWith(_Dark.new),
         ],
-        child: const IKubbApp(),
+        child: const KaatoApp(),
       ),
     );
     await tester.pumpAndSettle();
@@ -47,25 +47,25 @@ void main() {
     await pumpDark(tester);
     expect(
       paintedColor(tester, find.widgetWithText(FilledButton, 'New game')),
-      IKubbPalette.birchLight,
+      KaatoPalette.birchLight,
     );
     await tester.tap(find.text('New game'));
     await tester.pumpAndSettle();
     await addPlayers(tester, ['Jasper', 'Freya']);
     expect(
       paintedColor(tester, find.widgetWithText(FilledButton, 'Start game')),
-      IKubbPalette.birchLight,
+      KaatoPalette.birchLight,
     );
     await tester.tapVisible(find.text('Start game'));
     await tester.pumpAndSettle();
     // Active side card (primaryContainer) and the tonal Miss button.
     expect(
       paintedColor(tester, find.text('Needs exactly 50').first),
-      IKubbPalette.birchLight,
+      KaatoPalette.birchLight,
     );
     expect(
       paintedColor(tester, find.widgetWithText(FilledButton, 'Miss')),
-      IKubbPalette.birchLight,
+      KaatoPalette.birchLight,
     );
   });
 
@@ -77,15 +77,15 @@ void main() {
     await tester.pumpAndSettle();
     // Segmented control: the active label is full birch on the raised
     // tile, the others birch at 70% on the track; never ink.
-    expect(paintedColor(tester, find.text('Dark')), IKubbPalette.birchLight);
+    expect(paintedColor(tester, find.text('Dark')), KaatoPalette.birchLight);
     expect(
       paintedColor(tester, find.text('Light')),
-      IKubbPalette.birchLight.withValues(alpha: 0.7),
+      KaatoPalette.birchLight.withValues(alpha: 0.7),
     );
     // Text accent: sanded oak (8.7:1 on charcoal).
     final scheme = Theme.of(tester.element(find.text('Dark'))).colorScheme;
-    expect(scheme.primary, IKubbPalette.oakLight);
-    expect(scheme.primaryContainer, IKubbPalette.pineNight);
-    expect(scheme.onPrimaryContainer, IKubbPalette.birchLight);
+    expect(scheme.primary, KaatoPalette.oakLight);
+    expect(scheme.primaryContainer, KaatoPalette.pineNight);
+    expect(scheme.onPrimaryContainer, KaatoPalette.birchLight);
   });
 }

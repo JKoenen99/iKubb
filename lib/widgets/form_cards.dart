@@ -19,12 +19,12 @@ class FormCard extends StatelessWidget {
     required this.child,
     this.onTap,
     this.padding = const EdgeInsets.symmetric(
-      horizontal: IKubbSpacing.lg,
-      vertical: IKubbSpacing.md,
+      horizontal: KaatoSpacing.lg,
+      vertical: KaatoSpacing.md,
     ),
     this.borderColor,
     this.color,
-    this.margin = const EdgeInsets.only(bottom: IKubbSpacing.sm),
+    this.margin = const EdgeInsets.only(bottom: KaatoSpacing.sm),
   });
 
   final Widget child;
@@ -38,10 +38,10 @@ class FormCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final shape = RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(IKubbRadius.lg),
+      borderRadius: BorderRadius.circular(KaatoRadius.lg),
       side: borderColor == null
           ? BorderSide.none
-          : BorderSide(color: borderColor!, width: IKubbBorder.hairline),
+          : BorderSide(color: borderColor!, width: KaatoBorder.hairline),
     );
     return Padding(
       padding: margin,
@@ -80,17 +80,17 @@ class FormLabel extends StatelessWidget {
       children: [
         Text(
           title,
-          style: IKubbType.cardTitle.copyWith(
-            fontSize: IKubbType.stepLabel,
+          style: KaatoType.cardTitle.copyWith(
+            fontSize: KaatoType.stepLabel,
             color: titleColor,
           ),
         ),
         if (subtitle != null) ...[
-          const SizedBox(height: IKubbSpacing.xxs),
+          const SizedBox(height: KaatoSpacing.xxs),
           Text(
             subtitle!,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              color: scheme.onSurface.withValues(alpha: IKubbAlpha.faded),
+              color: scheme.onSurface.withValues(alpha: KaatoAlpha.faded),
             ),
           ),
         ],
@@ -126,12 +126,12 @@ class SettingCard extends StatelessWidget {
         children: [
           if (leading != null) ...[
             leading!,
-            const SizedBox(width: IKubbSpacing.md),
+            const SizedBox(width: KaatoSpacing.md),
           ],
           Expanded(
             child: FormLabel(title: title, subtitle: subtitle),
           ),
-          const SizedBox(width: IKubbSpacing.md),
+          const SizedBox(width: KaatoSpacing.md),
           trailing ??
               (onTap == null
                   ? const SizedBox.shrink()
@@ -206,7 +206,7 @@ class ChoiceCard extends StatelessWidget {
         borderColor: selected ? scheme.primary : null,
         color: selected
             ? Color.alphaBlend(
-                scheme.primary.withValues(alpha: IKubbAlpha.choiceTint),
+                scheme.primary.withValues(alpha: KaatoAlpha.choiceTint),
                 scheme.surfaceContainerHighest,
               )
             : null,
@@ -214,11 +214,11 @@ class ChoiceCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: IKubbSpacing.xxs),
+              padding: const EdgeInsets.only(top: KaatoSpacing.xxs),
               child: ExcludeSemantics(
                 child: Container(
-                  width: IKubbIconSize.md,
-                  height: IKubbIconSize.md,
+                  width: KaatoIconSize.md,
+                  height: KaatoIconSize.md,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: selected ? scheme.primary : null,
@@ -226,15 +226,15 @@ class ChoiceCard extends StatelessWidget {
                         ? null
                         : Border.all(
                             color: scheme.onSurface.withValues(
-                              alpha: IKubbAlpha.faded,
+                              alpha: KaatoAlpha.faded,
                             ),
-                            width: IKubbBorder.hairline,
+                            width: KaatoBorder.hairline,
                           ),
                   ),
                 ),
               ),
             ),
-            const SizedBox(width: IKubbSpacing.md),
+            const SizedBox(width: KaatoSpacing.md),
             Expanded(
               child: FormLabel(title: title, subtitle: subtitle),
             ),
@@ -304,7 +304,7 @@ class StepperCard extends StatelessWidget {
           Expanded(
             child: FormLabel(title: title, subtitle: subtitle),
           ),
-          const SizedBox(width: IKubbSpacing.sm),
+          const SizedBox(width: KaatoSpacing.sm),
           _RoundIconButton(
             icon: Icons.remove,
             tooltip: decreaseLabel,
@@ -316,19 +316,19 @@ class StepperCard extends StatelessWidget {
             label: '$title: $label',
             button: editTitle != null,
             child: InkWell(
-              borderRadius: BorderRadius.circular(IKubbRadius.sm),
+              borderRadius: BorderRadius.circular(KaatoRadius.sm),
               onTap: editTitle == null ? null : () => _edit(context),
               child: ConstrainedBox(
                 constraints: const BoxConstraints(
-                  minWidth: kMinInteractiveDimension + IKubbSpacing.xs,
+                  minWidth: kMinInteractiveDimension + KaatoSpacing.xs,
                   minHeight: kMinInteractiveDimension,
                 ),
                 child: Center(
                   child: ExcludeSemantics(
                     child: Text(
                       label,
-                      style: IKubbType.score(
-                        size: IKubbType.stepTitle,
+                      style: KaatoType.score(
+                        size: KaatoType.stepTitle,
                         color: scheme.onSurface,
                       ),
                     ),
@@ -424,12 +424,12 @@ class _RoundIconButton extends StatelessWidget {
       onPressed: onPressed,
       style: IconButton.styleFrom(
         backgroundColor: scheme.onSurface.withValues(
-          alpha: IKubbAlpha.glassControl,
+          alpha: KaatoAlpha.glassControl,
         ),
         foregroundColor: scheme.onSurface,
-        minimumSize: const Size(IKubbTap.min, IKubbTap.min),
+        minimumSize: const Size(KaatoTap.min, KaatoTap.min),
       ),
-      icon: Icon(icon, size: IKubbIconSize.md),
+      icon: Icon(icon, size: KaatoIconSize.md),
     );
   }
 }
@@ -451,12 +451,12 @@ class DashedAddButton extends StatelessWidget {
     return Semantics(
       button: true,
       child: InkWell(
-        borderRadius: BorderRadius.circular(IKubbRadius.lg),
+        borderRadius: BorderRadius.circular(KaatoRadius.lg),
         onTap: onPressed,
         child: CustomPaint(
           painter: _DashedBorderPainter(
-            color: scheme.onSurface.withValues(alpha: IKubbAlpha.dotIdle),
-            radius: IKubbRadius.lg,
+            color: scheme.onSurface.withValues(alpha: KaatoAlpha.dotIdle),
+            radius: KaatoRadius.lg,
           ),
           child: SizedBox(
             height: 56,
@@ -465,11 +465,11 @@ class DashedAddButton extends StatelessWidget {
               children: [
                 Icon(
                   Icons.add,
-                  size: IKubbIconSize.md,
+                  size: KaatoIconSize.md,
                   color: scheme.onSurface,
                 ),
-                const SizedBox(width: IKubbSpacing.sm),
-                Text(label, style: IKubbType.emphasis),
+                const SizedBox(width: KaatoSpacing.sm),
+                Text(label, style: KaatoType.emphasis),
               ],
             ),
           ),
@@ -490,13 +490,13 @@ class _DashedBorderPainter extends CustomPainter {
     final paint = Paint()
       ..color = color
       ..style = PaintingStyle.stroke
-      ..strokeWidth = IKubbBorder.hairline;
+      ..strokeWidth = KaatoBorder.hairline;
     final path = Path()
       ..addRRect(
         RRect.fromRectAndRadius(
           Offset.zero & size,
           Radius.circular(radius),
-        ).deflate(IKubbBorder.hairline / 2),
+        ).deflate(KaatoBorder.hairline / 2),
       );
     const dash = 6.0, gap = 5.0;
     for (final metric in path.computeMetrics()) {
@@ -552,12 +552,12 @@ class SelectField<T> extends StatelessWidget {
             child: Row(
               children: [
                 if (o.icon != null) ...[
-                  Icon(o.icon, size: IKubbIconSize.md),
-                  const SizedBox(width: IKubbSpacing.md),
+                  Icon(o.icon, size: KaatoIconSize.md),
+                  const SizedBox(width: KaatoSpacing.md),
                 ],
                 Expanded(child: Text(o.label)),
                 if (o.value == value)
-                  const Icon(Icons.check, size: IKubbIconSize.md),
+                  const Icon(Icons.check, size: KaatoIconSize.md),
               ],
             ),
           ),
@@ -577,7 +577,7 @@ class SelectField<T> extends StatelessWidget {
       label: semanticLabel,
       value: current.label,
       child: InkWell(
-        borderRadius: BorderRadius.circular(IKubbRadius.md),
+        borderRadius: BorderRadius.circular(KaatoRadius.md),
         onTap: () => _open(context),
         child: InputDecorator(
           decoration: const InputDecoration(
@@ -588,7 +588,7 @@ class SelectField<T> extends StatelessWidget {
               current.label,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: IKubbType.emphasis,
+              style: KaatoType.emphasis,
             ),
           ),
         ),
@@ -626,7 +626,7 @@ class AvatarCircle extends StatelessWidget {
         child: Text(
           label,
           style: TextStyle(
-            color: IKubbPalette.on(color),
+            color: KaatoPalette.on(color),
             fontWeight: FontWeight.w700,
             fontSize: size * 0.42,
           ),
@@ -666,14 +666,14 @@ class TintPill extends StatelessWidget {
             constraints: const BoxConstraints(
               minHeight: kMinInteractiveDimension,
             ),
-            padding: const EdgeInsets.symmetric(horizontal: IKubbSpacing.md),
+            padding: const EdgeInsets.symmetric(horizontal: KaatoSpacing.md),
             alignment: Alignment.center,
             child: ExcludeSemantics(
               child: Text(
                 label,
-                style: IKubbType.emphasis.copyWith(
-                  color: IKubbPalette.on(color),
-                  fontSize: IKubbType.stepChip + 1,
+                style: KaatoType.emphasis.copyWith(
+                  color: KaatoPalette.on(color),
+                  fontSize: KaatoType.stepChip + 1,
                 ),
               ),
             ),
@@ -708,20 +708,20 @@ class RecentChip extends StatelessWidget {
       avatar: AvatarCircle(
         color: color,
         label: initial,
-        size: IKubbIconSize.lg,
+        size: KaatoIconSize.lg,
         dimmed: dimmed,
       ),
       label: Text(
         name,
         style: TextStyle(
           color: dimmed
-              ? scheme.onSurface.withValues(alpha: IKubbAlpha.faded)
+              ? scheme.onSurface.withValues(alpha: KaatoAlpha.faded)
               : scheme.onSurface,
         ),
       ),
       shape: const StadiumBorder(),
       side: BorderSide(
-        color: scheme.onSurface.withValues(alpha: IKubbAlpha.dotIdle),
+        color: scheme.onSurface.withValues(alpha: KaatoAlpha.dotIdle),
       ),
       onPressed: onPressed,
     );

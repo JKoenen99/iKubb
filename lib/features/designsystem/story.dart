@@ -40,7 +40,7 @@ class StoryCanvas extends StatelessWidget {
     super.key,
     required this.child,
     this.background,
-    this.padding = const EdgeInsets.all(IKubbSpacing.lg),
+    this.padding = const EdgeInsets.all(KaatoSpacing.lg),
   });
 
   final Widget child;
@@ -55,7 +55,7 @@ class StoryCanvas extends StatelessWidget {
       padding: padding,
       decoration: BoxDecoration(
         color: background ?? scheme.surface,
-        borderRadius: BorderRadius.circular(IKubbRadius.lg),
+        borderRadius: BorderRadius.circular(KaatoRadius.lg),
         border: Border.all(color: scheme.outlineVariant),
       ),
       child: Align(alignment: Alignment.centerLeft, child: child),
@@ -105,62 +105,62 @@ class Story extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final faded = theme.colorScheme.onSurface.withValues(
-      alpha: IKubbAlpha.faded,
+      alpha: KaatoAlpha.faded,
     );
     return Padding(
-      padding: const EdgeInsets.only(bottom: IKubbSpacing.xl),
+      padding: const EdgeInsets.only(bottom: KaatoSpacing.xl),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Wrap(
             crossAxisAlignment: WrapCrossAlignment.center,
-            spacing: IKubbSpacing.md,
+            spacing: KaatoSpacing.md,
             children: [
               Text(name, style: Story.code.copyWith(fontSize: 16)),
-              Text(source, style: IKubbType.caption.copyWith(color: faded)),
+              Text(source, style: KaatoType.caption.copyWith(color: faded)),
             ],
           ),
-          const SizedBox(height: IKubbSpacing.xs),
+          const SizedBox(height: KaatoSpacing.xs),
           Text(summary, style: theme.textTheme.bodyMedium),
           if (usedIn != null) ...[
-            const SizedBox(height: IKubbSpacing.xs),
+            const SizedBox(height: KaatoSpacing.xs),
             Text(
               'Used in: $usedIn',
-              style: IKubbType.caption.copyWith(color: faded),
+              style: KaatoType.caption.copyWith(color: faded),
             ),
           ],
           if (props.isNotEmpty) ...[
-            const SizedBox(height: IKubbSpacing.md),
+            const SizedBox(height: KaatoSpacing.md),
             _PropsTable(props),
           ],
           for (final v in variants) ...[
-            const SizedBox(height: IKubbSpacing.md),
+            const SizedBox(height: KaatoSpacing.md),
             Text(
               v.label,
-              style: IKubbType.caption.copyWith(fontWeight: FontWeight.w700),
+              style: KaatoType.caption.copyWith(fontWeight: FontWeight.w700),
             ),
-            const SizedBox(height: IKubbSpacing.xs),
+            const SizedBox(height: KaatoSpacing.xs),
             StoryCanvas(background: v.background, child: v.child),
             if (v.note != null) ...[
-              const SizedBox(height: IKubbSpacing.xs),
-              Text(v.note!, style: IKubbType.caption.copyWith(color: faded)),
+              const SizedBox(height: KaatoSpacing.xs),
+              Text(v.note!, style: KaatoType.caption.copyWith(color: faded)),
             ],
           ],
           if (a11y != null) ...[
-            const SizedBox(height: IKubbSpacing.md),
+            const SizedBox(height: KaatoSpacing.md),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Icon(
                   Icons.accessibility_new,
-                  size: IKubbIconSize.sm,
+                  size: KaatoIconSize.sm,
                   color: faded,
                 ),
-                const SizedBox(width: IKubbSpacing.sm),
+                const SizedBox(width: KaatoSpacing.sm),
                 Expanded(
                   child: Text(
                     a11y!,
-                    style: IKubbType.caption.copyWith(color: faded),
+                    style: KaatoType.caption.copyWith(color: faded),
                   ),
                 ),
               ],
@@ -180,7 +180,7 @@ class _PropsTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
-    final faded = scheme.onSurface.withValues(alpha: IKubbAlpha.faded);
+    final faded = scheme.onSurface.withValues(alpha: KaatoAlpha.faded);
     return Table(
       columnWidths: const {
         0: FlexColumnWidth(2.2),
@@ -196,22 +196,22 @@ class _PropsTable extends StatelessWidget {
           TableRow(
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: IKubbSpacing.xs),
+                padding: const EdgeInsets.symmetric(vertical: KaatoSpacing.xs),
                 child: Text(p.name, style: Story.code),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(
-                  vertical: IKubbSpacing.xs,
-                  horizontal: IKubbSpacing.xs,
+                  vertical: KaatoSpacing.xs,
+                  horizontal: KaatoSpacing.xs,
                 ),
                 child: Text(
                   p.type,
-                  style: IKubbType.caption.copyWith(color: faded),
+                  style: KaatoType.caption.copyWith(color: faded),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: IKubbSpacing.xs),
-                child: Text(p.note, style: IKubbType.caption),
+                padding: const EdgeInsets.symmetric(vertical: KaatoSpacing.xs),
+                child: Text(p.note, style: KaatoType.caption),
               ),
             ],
           ),
@@ -236,15 +236,15 @@ class TokenRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final faded = Theme.of(context).colorScheme.onSurface
-        .withValues(alpha: IKubbAlpha.faded);
+        .withValues(alpha: KaatoAlpha.faded);
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: IKubbSpacing.xs),
+      padding: const EdgeInsets.symmetric(vertical: KaatoSpacing.xs),
       child: Row(
         children: [
           SizedBox(width: 110, child: Text(name, style: Story.code)),
           SizedBox(
             width: 72,
-            child: Text(value, style: IKubbType.caption.copyWith(color: faded)),
+            child: Text(value, style: KaatoType.caption.copyWith(color: faded)),
           ),
           Expanded(child: sample),
         ],

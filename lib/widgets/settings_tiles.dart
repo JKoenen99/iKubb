@@ -26,8 +26,8 @@ class SettingsSection extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.only(
-            top: IKubbSpacing.lg,
-            bottom: IKubbSpacing.sm,
+            top: KaatoSpacing.lg,
+            bottom: KaatoSpacing.sm,
           ),
           child: SectionHeader(title),
         ),
@@ -117,13 +117,13 @@ class SettingsChoiceTile extends StatelessWidget {
           Row(
             children: [
               Icon(icon),
-              const SizedBox(width: IKubbSpacing.md),
+              const SizedBox(width: KaatoSpacing.md),
               Expanded(child: FormLabel(title: title)),
               ?trailing,
             ],
           ),
           if (below != null) ...[
-            const SizedBox(height: IKubbSpacing.md),
+            const SizedBox(height: KaatoSpacing.md),
             below!,
           ],
         ],

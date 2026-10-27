@@ -4,58 +4,48 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:scoring_engine/scoring_engine.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// The active game plus its presentation extras, as persisted. Exactly one
-/// of [molkky]/[kubb] is set — the app tracks a single active game across
-/// both modes.
+/// The active game plus its presentation extras, as persisted.
 class ActiveRecord {
   const ActiveRecord({
     required this.id,
     required this.sideColors,
-    this.molkky,
-    this.kubb,
-  }) : assert((molkky == null) != (kubb == null), 'exactly one mode');
+    required this.game,
+  });
 
   final String id;
   final Map<String, int> sideColors;
-  final Game? molkky;
-  final KubbMatch? kubb;
+  final Game game;
 }
 
-/// A finished game in the history list — number kubb or classic kubb.
+/// A finished game in the history list.
 class FinishedGame {
   const FinishedGame({
     required this.id,
     required this.finishedAt,
-    this.game,
-    this.kubbMatch,
-  }) : assert((game == null) != (kubbMatch == null), 'exactly one mode');
+    required this.game,
+  });
 
   final String id;
   final DateTime finishedAt;
-  final Game? game;
-  final KubbMatch? kubbMatch;
-
-  bool get isKubb => kubbMatch != null;
+  final Game game;
 
   Map<String, Object?> toJson() => {
     'id': id,
     'finishedAt': finishedAt.toIso8601String(),
-    if (game != null) 'game': game!.toJson(),
-    if (kubbMatch != null) 'kubbMatch': kubbMatch!.toJson(),
+    'game': game.toJson(),
   };
 
-  factory FinishedGame.fromJson(Map<String, Object?> json) => FinishedGame(
-    id: json['id'] as String,
-    finishedAt: DateTime.parse(json['finishedAt'] as String),
-    game: json['game'] == null
-        ? null
-        : Game.fromJson((json['game'] as Map).cast<String, Object?>()),
-    kubbMatch: json['kubbMatch'] == null
-        ? null
-        : KubbMatch.fromJson(
-            (json['kubbMatch'] as Map).cast<String, Object?>(),
-          ),
-  );
+  /// Null for records the app no longer plays: builds before 0.4.0 also
+  /// stored classic-kubb matches (`kubbMatch`), which are skipped.
+  static FinishedGame? tryFromJson(Map<String, Object?> json) {
+    final game = json['game'];
+    if (game == null) return null;
+    return FinishedGame(
+      id: json['id'] as String,
+      finishedAt: DateTime.parse(json['finishedAt'] as String),
+      game: Game.fromJson((game as Map).cast<String, Object?>()),
+    );
+  }
 }
 
 /// Persists the active game (for exact resume, undo history included — the
@@ -77,17 +67,14 @@ class GameRecordsRepository {
       final colors = ((json['sideColors'] as Map?) ?? {}).map(
         (k, v) => MapEntry(k as String, (v as num).toInt()),
       );
+      // A classic-kubb match left active by a build before 0.4.0 has no
+      // 'game': start fresh rather than resume something unplayable.
+      final game = json['game'];
+      if (game == null) return null;
       return ActiveRecord(
         id: json['id'] as String,
         sideColors: colors,
-        molkky: json['game'] == null
-            ? null
-            : Game.fromJson((json['game'] as Map).cast<String, Object?>()),
-        kubb: json['kubbMatch'] == null
-            ? null
-            : KubbMatch.fromJson(
-                (json['kubbMatch'] as Map).cast<String, Object?>(),
-              ),
+        game: Game.fromJson((game as Map).cast<String, Object?>()),
       );
     } on Object {
       return null; // A corrupt record must never brick the app.
@@ -100,8 +87,7 @@ class GameRecordsRepository {
       _activeKey,
       jsonEncode({
         'id': record.id,
-        if (record.molkky != null) 'game': record.molkky!.toJson(),
-        if (record.kubb != null) 'kubbMatch': record.kubb!.toJson(),
+        'game': record.game.toJson(),
         'sideColors': record.sideColors,
       }),
     );
@@ -114,7 +100,7 @@ class GameRecordsRepository {
     try {
       return [
         for (final e in jsonDecode(raw) as List)
-          FinishedGame.fromJson((e as Map).cast<String, Object?>()),
+          ?FinishedGame.tryFromJson((e as Map).cast<String, Object?>()),
       ];
     } on Object {
       return const [];

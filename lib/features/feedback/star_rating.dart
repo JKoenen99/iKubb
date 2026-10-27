@@ -14,7 +14,7 @@ class StarRating extends ConsumerWidget {
     super.key,
     required this.value,
     required this.onChanged,
-    this.size = IKubbIconSize.display,
+    this.size = KaatoIconSize.display,
     this.idleColor,
   });
 
@@ -30,7 +30,7 @@ class StarRating extends ConsumerWidget {
     final idle =
         idleColor ??
         Theme.of(context).colorScheme.onSurface
-            .withValues(alpha: IKubbAlpha.dotIdle);
+            .withValues(alpha: KaatoAlpha.dotIdle);
     return Row(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -42,8 +42,8 @@ class StarRating extends ConsumerWidget {
               tooltip: l10n.feedbackStarsSemantics(star),
               iconSize: size,
               constraints: const BoxConstraints(
-                minWidth: IKubbTap.min,
-                minHeight: IKubbTap.min,
+                minWidth: KaatoTap.min,
+                minHeight: KaatoTap.min,
               ),
               onPressed: () {
                 Haptics.selection(ref);
@@ -51,7 +51,7 @@ class StarRating extends ConsumerWidget {
               },
               icon: Icon(
                 star <= value ? Icons.star_rounded : Icons.star_outline_rounded,
-                color: star <= value ? IKubbPalette.amber : idle,
+                color: star <= value ? KaatoPalette.amber : idle,
               ),
             ),
           ),

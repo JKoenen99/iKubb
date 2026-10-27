@@ -11,12 +11,12 @@ instellingen en de `/designsystem`-pagina draagt.
 
 | Ontwerp | Implementatie |
 |---|---|
-| Twee kolommen op tablet, één kolom op telefoon | `LayoutBuilder`, omslagpunt 720 pt (`twoColumnWidth`); de brede variant staat gecentreerd op maximaal 960 pt (`IKubbLayout.maxWide`). |
-| "Game": twee keuzekaarten (Number kubb / Kubb) met radio-stip | `ChoiceCard` in een `IntrinsicHeight`-rij; op telefoon de bestaande segmentknop met een hint eronder. |
+| Twee kolommen op tablet, één kolom op telefoon | `LayoutBuilder`, omslagpunt 720 pt (`twoColumnWidth`); de brede variant staat gecentreerd op maximaal 960 pt (`KaatoLayout.maxWide`). |
+| "Game": twee keuzekaarten (Number kubb / Kubb) met radio-stip | Vervallen in 0.4.0: de app speelt alleen nog nummerkubb. `ChoiceCard` blijft beschikbaar in het designsysteem. |
 | Spelerskaarten: avatar, naam inline te hernoemen, teampil, verwijderen | `_PlayerRow` op een `FormCard`; de avatar is tegelijk de sleepgreep (`ReorderableDragStartListener`). Naam aantikken opent een inline `TextField`; `done` of buiten tikken bevestigt. |
 | Namen optioneel, "+ Add player" voegt een genummerde speler toe | `addAutoPlayer` in de controller; genummerde spelers krijgen hun nummer op de avatar en worden niet in de recents bewaard. |
 | Recente spelers als chips onder de lijst | `RecentChip`; gedimd zodra de speler al in de lijst staat. |
-| Teams: schakelaar met uitleg, daarna twee getinte teamkaarten met naamveld en leden, plus "Swap teams" | `_TeamsSection`; walnoot voor A, fjord voor B (`teamColor`), nooit gelijk aan een spelerskleur. In kubb-modus staat de schakelaar vast aan. |
+| Teams: schakelaar met uitleg, daarna twee getinte teamkaarten met naamveld en leden, plus "Swap teams" | `_TeamsSection`; walnoot voor A, fjord voor B (`teamColor`), nooit gelijk aan een spelerskleur. |
 | House rules als steppers: target, back-to, elimination; Reset-knop | `StepperCard` (−/waarde/+, waarde aantikken opent een typ-dialoog). Target 10..200 in stappen van 5; back-to volgt mee onder het target; elimination 0 = Off. `Reset` is alleen actief als de regels afwijken van klassiek. |
 | Samenvattingsbalk onderaan: aantal spelers, regel in één zin, "Start game" | `_SummaryBar` op `BottomActionBar` (glas op iOS). Een blokkade ("Add at least 2 players") vervangt de regelzin. |
 | Telefoon: house rules en match-opties als rij met chevron die een sheet opent | `SettingCard` → `glassSheet`. |

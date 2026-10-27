@@ -1,4 +1,7 @@
-# iKubb — Quality audit: UX · WCAG AA · brand & copy · Apple HIG
+# Kaato — Quality audit: UX · WCAG AA · brand & copy · Apple HIG
+
+> Historisch rapport. De klassieke kubb-modus waar dit audit naar verwijst
+> is in 0.4.0 verwijderd, toen de app Kaato werd.
 
 **Date:** 2026-07-26 · **Artefacts:** full codebase (`lib/`, `test/`) plus
 21 headless screenshots of the web build (light/dark, phone 390×844 and iPad
@@ -97,7 +100,7 @@ Severity counts: **4 Critical · 10 High · 8 Medium · 3 Low.**
 - **Recommendation:** semantic labels + roles + selected states on every interactive/piece widget; merged live summaries for dot rows ("2 of 6 batons thrown").
 
 ### 8. No iOS swipe-back, and the leading control changes meaning per entry path — High
-- **Where:** no `pageTransitionsTheme` (`ikubb_theme.dart`); `home_leading.dart:10-17` swaps between back chevron and a Home glyph; `rules_screen.dart:25` uses `go('/tour')`, replacing Rules in the stack.
+- **Where:** no `pageTransitionsTheme` (`kaato_theme.dart`); `home_leading.dart:10-17` swaps between back chevron and a Home glyph; `rules_screen.dart:25` uses `go('/tour')`, replacing Rules in the stack.
 - **Heuristic:** HIG navigation; Jakob's law.
 - **Observation:** iOS users' most ingrained gesture (edge swipe) does nothing anywhere; the same screen shows different leading icons depending on how it was reached; replaying the tour from Rules destroys the Rules stack entry.
 - **Recommendation:** `CupertinoPageTransitionsBuilder` for iOS/macOS, `push` for the tour from Rules, keep the hub model but document it.

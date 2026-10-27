@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ikubb/app.dart';
-import 'package:ikubb/features/game/mascot_reaction.dart';
+import 'package:kaato/app.dart';
+import 'package:kaato/features/game/mascot_reaction.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'test_utils.dart';
@@ -12,7 +12,7 @@ void main() {
   testWidgets('an overshoot triggers a brief, self-dismissing mascot wince', (
     tester,
   ) async {
-    await tester.pumpWidget(const ProviderScope(child: IKubbApp()));
+    await tester.pumpWidget(const ProviderScope(child: KaatoApp()));
     await tester.pumpAndSettle();
     await tester.tap(find.text('I know the rules, start scoring'));
     await tester.pumpAndSettle();

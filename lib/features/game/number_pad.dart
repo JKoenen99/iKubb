@@ -41,7 +41,7 @@ class NumberPad extends StatelessWidget {
               ),
           ],
         ),
-        const SizedBox(height: IKubbSpacing.md),
+        const SizedBox(height: KaatoSpacing.md),
         ConstrainedBox(
           constraints: const BoxConstraints(minWidth: 220, minHeight: 56),
           child: FilledButton.tonal(
@@ -62,8 +62,8 @@ class NumberPad extends StatelessWidget {
           )
         : busts
         ? FilledButton.styleFrom(
-            backgroundColor: IKubbPalette.amber,
-            foregroundColor: IKubbPalette.ink,
+            backgroundColor: KaatoPalette.amber,
+            foregroundColor: KaatoPalette.ink,
           )
         : null;
     final button = wins || busts

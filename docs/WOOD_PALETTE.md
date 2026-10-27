@@ -23,13 +23,13 @@ plek waar hij WCAG AA haalt.
 
 ## Helpers (`lib/theme/palette.dart`)
 
-- `IKubbPalette.woodAccent(brightness)`: walnut op licht, geschuurd eiken
+- `KaatoPalette.woodAccent(brightness)`: walnut op licht, geschuurd eiken
   op donker. Voor houten iconen, dots en lijnen die direct op een
   oppervlak staan (pijlen en trofeeën in de regels, batons, het
   statistieken-icoon).
-- `IKubbPalette.woodGrain(brightness)`: de nerfkleur op Home en
+- `KaatoPalette.woodGrain(brightness)`: de nerfkleur op Home en
   onboarding; voorheen verdween de walnoot-nerf in het donkere thema.
-- `IKubbPalette.on(fill)`: ink op lichte vullingen (oak, amber,
+- `KaatoPalette.on(fill)`: ink op lichte vullingen (oak, amber,
   geschuurd eiken), birch op donkere. Gebruikt door `AvatarCircle` en
   `TintPill`, zodat elke spelerkleur een AA-initiaal krijgt. Copper is
   daarvoor een stap dieper gezet (`#A85420`, 4,7:1).

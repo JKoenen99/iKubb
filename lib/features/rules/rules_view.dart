@@ -3,10 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:scoring_engine/scoring_engine.dart';
 
 import '../../l10n/app_localizations.dart';
-import '../../widgets/adaptive_choice.dart';
 import '../game/game_controller.dart';
-import '../game/game_mode.dart';
-import '../kubb/kubb_controller.dart';
 import 'rule_illustrations.dart';
 import 'rules_content.dart';
 import '../../theme/glass.dart';
@@ -16,18 +13,12 @@ import '../../theme/typography.dart';
 /// Opens the rules reference as a slide-over panel — reachable from any
 /// screen so nobody leaves a game to settle an argument (SPEC.md §3.6).
 /// [categoryId] deep-links to a category, arriving with it expanded.
-/// [mode] opens the panel on that game's rule set; without it the panel
-/// opens on the last-played mode, so it always matches the game at hand.
-Future<void> showRulesPanel(
-  BuildContext context, {
-  String? categoryId,
-  GameMode? mode,
-}) {
+Future<void> showRulesPanel(BuildContext context, {String? categoryId}) {
   return showModalBottomSheet(
     context: context,
     isScrollControlled: true,
     useSafeArea: true,
-    constraints: const BoxConstraints(maxWidth: IKubbLayout.maxPanel),
+    constraints: const BoxConstraints(maxWidth: KaatoLayout.maxPanel),
     // On iOS the glass sheet draws its own grabber.
     showDragHandle: !LiquidGlass.isCupertino(context),
     builder: (context) => glassSheet(
@@ -39,28 +30,20 @@ Future<void> showRulesPanel(
         builder: (context, scrollController) => RulesView(
           scrollController: scrollController,
           initialCategoryId: categoryId,
-          initialMode: mode,
         ),
       ),
     ),
   );
 }
 
-/// The categorized rules reference for both game modes. Progressive
-/// disclosure throughout: collapsed category rows → short rule cards →
-/// edge-case details. Search flattens everything into matching cards
-/// only — across BOTH modes, tagged so "king" and "overshoot" never mix.
+/// The categorized rules reference. Progressive disclosure throughout:
+/// collapsed category rows → short rule cards → edge-case details. Search
+/// flattens everything into matching cards only.
 class RulesView extends ConsumerStatefulWidget {
-  const RulesView({
-    super.key,
-    this.scrollController,
-    this.initialCategoryId,
-    this.initialMode,
-  });
+  const RulesView({super.key, this.scrollController, this.initialCategoryId});
 
   final ScrollController? scrollController;
   final String? initialCategoryId;
-  final GameMode? initialMode;
 
   @override
   ConsumerState<RulesView> createState() => _RulesViewState();
@@ -69,7 +52,6 @@ class RulesView extends ConsumerStatefulWidget {
 class _RulesViewState extends ConsumerState<RulesView> {
   final _searchController = TextEditingController();
   String _query = '';
-  GameMode? _modeOverride;
 
   @override
   void dispose() {
@@ -80,14 +62,7 @@ class _RulesViewState extends ConsumerState<RulesView> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final mode =
-        _modeOverride ??
-        widget.initialMode ??
-        ref.watch(lastModeProvider) ??
-        GameMode.numberKubb;
-    var categories = mode == GameMode.classicKubb
-        ? buildKubbRulesContent(l10n)
-        : buildRulesContent(l10n);
+    var categories = buildRulesContent(l10n);
     // A deep-linked category leads the list: it arrives expanded AND
     // in view, so the answer is on screen before anyone scrolls.
     if (widget.initialCategoryId case final target?) {
@@ -106,34 +81,20 @@ class _RulesViewState extends ConsumerState<RulesView> {
         (c.detail?.toLowerCase().contains(query) ?? false);
 
     final searchResults = query.isEmpty
-        ? const <(GameMode, RuleCard)>[]
-        : [
-            for (final cat in buildRulesContent(l10n))
-              ...cat.cards.where(matches).map((c) => (GameMode.numberKubb, c)),
-            for (final cat in buildKubbRulesContent(l10n))
-              ...cat.cards.where(matches).map((c) => (GameMode.classicKubb, c)),
-          ];
+        ? const <RuleCard>[]
+        : [for (final cat in categories) ...cat.cards.where(matches)];
 
     return ListView(
       controller: widget.scrollController,
       // Full-screen the bar is transparent on iOS: start below it. In the
       // sheet the safe area is already consumed, so this adds nothing.
       padding: EdgeInsets.fromLTRB(
-        IKubbSpacing.lg,
-        MediaQuery.paddingOf(context).top + IKubbSpacing.sm,
-        IKubbSpacing.lg,
-        IKubbSpacing.xl,
+        KaatoSpacing.lg,
+        MediaQuery.paddingOf(context).top + KaatoSpacing.sm,
+        KaatoSpacing.lg,
+        KaatoSpacing.xl,
       ),
       children: [
-        AdaptiveChoice<GameMode>(
-          options: [
-            ChoiceOption(value: GameMode.numberKubb, label: l10n.modeNumber),
-            ChoiceOption(value: GameMode.classicKubb, label: l10n.modeKubb),
-          ],
-          selected: mode,
-          onSelected: (m) => setState(() => _modeOverride = m),
-        ),
-        const SizedBox(height: IKubbSpacing.md),
         TextField(
           controller: _searchController,
           textInputAction: TextInputAction.search,
@@ -154,27 +115,22 @@ class _RulesViewState extends ConsumerState<RulesView> {
           ),
           onChanged: (v) => setState(() => _query = v),
         ),
-        const SizedBox(height: IKubbSpacing.md),
+        const SizedBox(height: KaatoSpacing.md),
         _ActiveRulesChips(
-          values: mode == GameMode.classicKubb
-              ? _kubbRuleChips(ref.watch(kubbControllerProvider).rules, l10n)
-              : _numberRuleChips(ref.watch(gameControllerProvider).rules, l10n),
+          values: _numberRuleChips(
+            ref.watch(gameControllerProvider).rules,
+            l10n,
+          ),
         ),
-        const SizedBox(height: IKubbSpacing.sm),
+        const SizedBox(height: KaatoSpacing.sm),
         if (query.isNotEmpty) ...[
           if (searchResults.isEmpty)
             Padding(
-              padding: const EdgeInsets.all(IKubbSpacing.xl),
+              padding: const EdgeInsets.all(KaatoSpacing.xl),
               child: Text(l10n.rulesNoResults, textAlign: TextAlign.center),
             )
           else
-            for (final (cardMode, card) in searchResults)
-              _RuleCardTile(
-                card: card,
-                modeLabel: cardMode == GameMode.classicKubb
-                    ? l10n.modeKubb
-                    : l10n.modeNumber,
-              ),
+            for (final card in searchResults) _RuleCardTile(card: card),
         ] else
           for (final category in categories)
             ExpansionTile(
@@ -183,7 +139,7 @@ class _RulesViewState extends ConsumerState<RulesView> {
                 category.icon,
                 color: Theme.of(context).colorScheme.primary,
               ),
-              title: Text(category.title, style: IKubbType.strong),
+              title: Text(category.title, style: KaatoType.strong),
               initiallyExpanded: category.id == widget.initialCategoryId,
               children: [
                 for (final card in category.cards) _RuleCardTile(card: card),
@@ -195,7 +151,7 @@ class _RulesViewState extends ConsumerState<RulesView> {
 }
 
 /// The active house rules, inline — the reference always matches the
-/// game being played. Both modes feed the same chip strip.
+/// game being played.
 List<String> _numberRuleChips(GameRules rules, AppLocalizations l10n) {
   final policyLabel = switch (rules.overshootPolicy) {
     OvershootPolicy.resetToFixed => l10n.policyReset(rules.overshootResetValue),
@@ -212,15 +168,6 @@ List<String> _numberRuleChips(GameRules rules, AppLocalizations l10n) {
   ];
 }
 
-List<String> _kubbRuleChips(KubbRules rules, AppLocalizations l10n) {
-  final clock = rules.turnClockSeconds;
-  return [
-    rules.bestOf > 1 ? l10n.bestOfThree : l10n.bestOfSingle,
-    '${l10n.turnClockLabel}: '
-        '${clock == null ? l10n.offLabel : l10n.secondsShort(clock)}',
-  ];
-}
-
 class _ActiveRulesChips extends StatelessWidget {
   const _ActiveRulesChips({required this.values});
 
@@ -230,8 +177,8 @@ class _ActiveRulesChips extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return Wrap(
-      spacing: IKubbSpacing.sm,
-      runSpacing: IKubbSpacing.xs,
+      spacing: KaatoSpacing.sm,
+      runSpacing: KaatoSpacing.xs,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
         Text(
@@ -245,12 +192,9 @@ class _ActiveRulesChips extends StatelessWidget {
 }
 
 class _RuleCardTile extends StatelessWidget {
-  const _RuleCardTile({required this.card, this.modeLabel});
+  const _RuleCardTile({required this.card});
 
   final RuleCard card;
-
-  /// Shown on search results, where both modes mix.
-  final String? modeLabel;
 
   @override
   Widget build(BuildContext context) {
@@ -258,35 +202,26 @@ class _RuleCardTile extends StatelessWidget {
     return Card(
       elevation: 0,
       color: scheme.surfaceContainerHighest,
-      margin: const EdgeInsets.symmetric(vertical: IKubbSpacing.xs),
+      margin: const EdgeInsets.symmetric(vertical: KaatoSpacing.xs),
       child: Padding(
-        padding: const EdgeInsets.all(IKubbSpacing.md),
+        padding: const EdgeInsets.all(KaatoSpacing.md),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (modeLabel != null)
-              Padding(
-                padding: const EdgeInsets.only(bottom: IKubbSpacing.sm),
-                child: Chip(
-                  label: Text(modeLabel!),
-                  visualDensity: VisualDensity.compact,
-                  labelStyle: Theme.of(context).textTheme.labelSmall,
-                ),
-              ),
             // Illustrations are decorative: the title and body carry the
             // rule, so VoiceOver skips the drawn numbers and initials.
             if (ruleIllustration(card.id) case final illustration?)
               ExcludeSemantics(
                 child: Padding(
                   padding: const EdgeInsets.only(
-                    bottom: IKubbSpacing.md,
-                    top: IKubbSpacing.xxs,
+                    bottom: KaatoSpacing.md,
+                    top: KaatoSpacing.xxs,
                   ),
                   child: Center(child: illustration),
                 ),
               ),
-            Text(card.title, style: IKubbType.strong),
-            const SizedBox(height: IKubbSpacing.xs),
+            Text(card.title, style: KaatoType.strong),
+            const SizedBox(height: KaatoSpacing.xs),
             Text(card.body),
             if (card.detail != null)
               Theme(
@@ -305,7 +240,7 @@ class _RuleCardTile extends StatelessWidget {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Padding(
-                        padding: const EdgeInsets.only(bottom: IKubbSpacing.sm),
+                        padding: const EdgeInsets.only(bottom: KaatoSpacing.sm),
                         child: Text(card.detail!),
                       ),
                     ),

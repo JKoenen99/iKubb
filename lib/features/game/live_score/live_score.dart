@@ -11,10 +11,6 @@ abstract class LiveScore {
   /// Reflects the current game: starts the activity on the first throw,
   /// updates it on every change, ends it on a win or reset.
   void sync(Game game);
-
-  /// The classic-kubb equivalent: baseline kubbs remaining per team
-  /// instead of scores, ended when the match is decided.
-  void syncKubb(KubbMatch match);
 }
 
 final LiveScore liveScore = createLiveScore();

@@ -51,7 +51,7 @@ Future<void> showShareCardDialog(
       // large Dynamic Type scrolls it instead of overflowing.
       final cardWidth = math.min(
         ShareCard.defaultWidth,
-        MediaQuery.sizeOf(context).width - 2 * IKubbSpacing.xl,
+        MediaQuery.sizeOf(context).width - 2 * KaatoSpacing.xl,
       );
       return Dialog(
         backgroundColor: Colors.transparent,
@@ -68,14 +68,14 @@ Future<void> showShareCardDialog(
                   width: cardWidth,
                 ),
               ),
-              const SizedBox(height: IKubbSpacing.md),
+              const SizedBox(height: KaatoSpacing.md),
               // Builder: the share sheet is anchored to this very button,
               // which iPad needs to place the popover (HIG).
               Builder(
                 builder: (buttonContext) => FilledButton.icon(
                   style: FilledButton.styleFrom(
-                    backgroundColor: IKubbPalette.birchLight,
-                    foregroundColor: IKubbPalette.forestDeep,
+                    backgroundColor: KaatoPalette.birchLight,
+                    foregroundColor: KaatoPalette.forestDeep,
                   ),
                   onPressed: () => _captureAndShare(
                     boundaryKey,
@@ -87,7 +87,7 @@ Future<void> showShareCardDialog(
               ),
               TextButton(
                 style: TextButton.styleFrom(
-                  foregroundColor: IKubbPalette.birchLight,
+                  foregroundColor: KaatoPalette.birchLight,
                 ),
                 onPressed: () => Navigator.of(context).pop(),
                 child: Text(l10n.closeLabel),
@@ -121,7 +121,7 @@ Future<void> _captureAndShare(GlobalKey boundaryKey, {Rect? origin}) async {
         files: [
           XFile.fromData(bytes.buffer.asUint8List(), mimeType: 'image/png'),
         ],
-        fileNameOverrides: ['ikubb-result.png'],
+        fileNameOverrides: ['kaato-result.png'],
         sharePositionOrigin: origin,
       ),
     );
@@ -154,37 +154,37 @@ class ShareCard extends StatelessWidget {
     return Container(
       width: width,
       decoration: BoxDecoration(
-        color: IKubbPalette.birchLight,
-        borderRadius: BorderRadius.circular(IKubbRadius.xl),
-        border: Border.all(color: winnerColor, width: IKubbBorder.frame),
+        color: KaatoPalette.birchLight,
+        borderRadius: BorderRadius.circular(KaatoRadius.xl),
+        border: Border.all(color: winnerColor, width: KaatoBorder.frame),
       ),
       clipBehavior: Clip.antiAlias,
       child: Stack(
         children: [
           const WoodGrainBackground(
-            color: IKubbPalette.walnut,
-            opacity: IKubbAlpha.grain,
+            color: KaatoPalette.walnut,
+            opacity: KaatoAlpha.grain,
           ),
           Padding(
-            padding: const EdgeInsets.all(IKubbSpacing.xl),
+            padding: const EdgeInsets.all(KaatoSpacing.xl),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 const VikingMascot(pose: MascotPose.cheer, size: 110),
-                const SizedBox(height: IKubbSpacing.sm),
+                const SizedBox(height: KaatoSpacing.sm),
                 Text(
                   banner,
                   textAlign: TextAlign.center,
-                  style: IKubbType.heading(
-                    size: IKubbType.stepHeadline,
-                    color: IKubbPalette.ink,
+                  style: KaatoType.heading(
+                    size: KaatoType.stepHeadline,
+                    color: KaatoPalette.ink,
                   ),
                 ),
-                const SizedBox(height: IKubbSpacing.lg),
+                const SizedBox(height: KaatoSpacing.lg),
                 for (final row in rows)
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                      vertical: IKubbSpacing.xxs,
+                      vertical: KaatoSpacing.xxs,
                     ),
                     child: Row(
                       children: [
@@ -193,8 +193,8 @@ class ShareCard extends StatelessWidget {
                             row.label,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: IKubbType.emphasis.copyWith(
-                              color: IKubbPalette.ink,
+                            style: KaatoType.emphasis.copyWith(
+                              color: KaatoPalette.ink,
                               fontWeight: row.emphasized
                                   ? FontWeight.w800
                                   : FontWeight.w500,
@@ -206,31 +206,31 @@ class ShareCard extends StatelessWidget {
                         ),
                         Text(
                           row.value,
-                          style: IKubbType.score(
-                            size: IKubbType.stepLabel,
-                            color: IKubbPalette.ink,
+                          style: KaatoType.score(
+                            size: KaatoType.stepLabel,
+                            color: KaatoPalette.ink,
                           ),
                         ),
                       ],
                     ),
                   ),
-                const SizedBox(height: IKubbSpacing.lg),
+                const SizedBox(height: KaatoSpacing.lg),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       DateFormat.yMMMd(locale).format(DateTime.now()),
-                      style: IKubbType.caption.copyWith(
-                        color: IKubbPalette.ink.withValues(
-                          alpha: IKubbAlpha.faded,
+                      style: KaatoType.caption.copyWith(
+                        color: KaatoPalette.ink.withValues(
+                          alpha: KaatoAlpha.faded,
                         ),
                       ),
                     ),
                     Text(
-                      'iKubb',
-                      style: IKubbType.heading(
-                        size: IKubbType.stepBody,
-                        color: IKubbPalette.forest,
+                      'Kaato',
+                      style: KaatoType.heading(
+                        size: KaatoType.stepBody,
+                        color: KaatoPalette.forest,
                       ),
                     ),
                   ],

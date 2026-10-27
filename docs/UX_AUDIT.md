@@ -1,4 +1,4 @@
-# UX Audit: iKubb
+# UX Audit: Kaato
 
 **Date:** 2026-07-18 · **Artefacts:** 11 screenshots of the current web build
 (iPhone 390pt light + dark, iPad 1180pt) captured headlessly per route, plus
@@ -96,7 +96,7 @@ fork — matching the stated goals (brand, emotion, overall UX).
 - **Observation:** pins are flat birch circles with a green ring — they
   read as generic radio buttons, not wooden pins; in dark mode they become
   near-black voids. There is no wood tone, no texture, no illustration
-  anywhere on the screen; the app bar says "iKubb" in plain type.
+  anywhere on the screen; the app bar says "Kaato" in plain type.
 - **Why it matters:** players spend ~95% of session time here; brand
   memory forms on this screen or not at all.
 - **Recommendation:** redraw pins as mini wooden pins (oak fill, walnut
@@ -171,7 +171,7 @@ fork — matching the stated goals (brand, emotion, overall UX).
 
 ### 10. Web preview ships Flutter-default favicon, title, and white splash: Low
 - **Where:** browser tab / PWA install of the preview
-- **Recommendation:** birch-toned favicon with the mascot head, `iKubb`
+- **Recommendation:** birch-toned favicon with the mascot head, `Kaato`
   title, birch background + mascot in the index.html splash. Low effort,
   first brand touchpoint for every tester.
 

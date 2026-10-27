@@ -6,7 +6,7 @@ import '../../widgets/home_leading.dart';
 import 'rules_view.dart';
 import '../../theme/glass.dart';
 import '../../theme/tokens.dart';
-import '../../widgets/ikubb_app_bar.dart';
+import '../../widgets/kaato_app_bar.dart';
 
 /// Full-screen rules reference — the target of the onboarding
 /// "Teach me the game" fork and the Home rules button. In-game, the same
@@ -19,7 +19,7 @@ class RulesScreen extends StatelessWidget {
     final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       extendBodyBehindAppBar: LiquidGlass.isCupertino(context),
-      appBar: IKubbAppBar(
+      appBar: KaatoAppBar(
         title: Text(l10n.rules),
         leading: homeLeading(context),
         actions: [
@@ -35,7 +35,7 @@ class RulesScreen extends StatelessWidget {
         top: false,
         child: Center(
           child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: IKubbLayout.maxPanel),
+            constraints: const BoxConstraints(maxWidth: KaatoLayout.maxPanel),
             child: const RulesView(),
           ),
         ),

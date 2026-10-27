@@ -10,10 +10,10 @@ class AppLocalizationsIt extends AppLocalizations {
   AppLocalizationsIt([String locale = 'it']) : super(locale);
 
   @override
-  String get appTitle => 'iKubb';
+  String get appTitle => 'Kaato';
 
   @override
-  String get tagline => 'Il segnapunti del kubb';
+  String get tagline => 'Il segnapunti del kubb numerato';
 
   @override
   String get startScoring => 'Conosco le regole, iniziamo';
@@ -32,9 +32,6 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get stats => 'Statistiche';
-
-  @override
-  String get confirmThrow => 'Conferma il lancio';
 
   @override
   String get miss => 'Mancato';
@@ -64,12 +61,6 @@ class AppLocalizationsIt extends AppLocalizations {
   String get addPlayer => 'Aggiungi giocatore';
 
   @override
-  String get playerName => 'Nome';
-
-  @override
-  String get recentPlayers => 'Giocatori recenti';
-
-  @override
   String get teams => 'Squadre';
 
   @override
@@ -86,9 +77,6 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get targetScore => 'Punteggio obiettivo';
-
-  @override
-  String get overshootRule => 'Superamento';
 
   @override
   String policyReset(int score) {
@@ -356,180 +344,10 @@ class AppLocalizationsIt extends AppLocalizations {
   String get modeNumber => 'Kubb numerato';
 
   @override
-  String get modeKubb => 'Kubb';
-
-  @override
-  String get matchLabel => 'Match';
-
-  @override
-  String get bestOfSingle => 'Partita secca';
-
-  @override
-  String get bestOfThree => 'Al meglio di 3';
-
-  @override
-  String get turnClockLabel => 'Timer del turno';
-
-  @override
   String get offLabel => 'Spento';
 
   @override
-  String get kingLabel => 'Il re';
-
-  @override
-  String get kingWarningTitle => 'Abbattere il re?';
-
-  @override
-  String get kingWarningBody =>
-      'Non è ancora caduto tutto — colpire il re ora fa perdere la partita.';
-
-  @override
-  String get advantageLine => 'Linea di vantaggio';
-
-  @override
-  String get throwInTitle =>
-      'Lancia i kubb abbattuti nella metà degli attaccanti.';
-
-  @override
-  String get outTwice => 'Kubb di penalità (fuori due volte)';
-
-  @override
   String get done => 'Fatto';
-
-  @override
-  String get nextGameLabel => 'Prossima partita';
-
-  @override
-  String earlyKingBanner(String name) {
-    return '$name ha abbattuto il re troppo presto!';
-  }
-
-  @override
-  String get catKubbSetup => 'Preparazione e squadre';
-
-  @override
-  String get catKubbBatons => 'Bastoni da lancio';
-
-  @override
-  String get catKubbFieldKubbs => 'Kubb di campo';
-
-  @override
-  String get catKubbKing => 'Il re';
-
-  @override
-  String get ruleKubbFieldTitle => 'Il campo';
-
-  @override
-  String get ruleKubbFieldBody =>
-      'Due squadre si fronteggiano sul campo. Ognuna schiera cinque kubb sulla propria linea di fondo; il re sta da solo al centro.';
-
-  @override
-  String get ruleKubbFieldDetail =>
-      'I campi da torneo misurano 5 × 8 metri. Al parco bastano due giacche e un buon occhio — l\'importante è che le metà siano circa uguali.';
-
-  @override
-  String get ruleKubbTeamsTitle => 'Da uno a sei per squadra';
-
-  @override
-  String get ruleKubbTeamsBody =>
-      'Il kubb è un gioco di squadra: da uno a sei giocatori per squadra. I compagni si dividono i sei bastoni e lanciano a turno.';
-
-  @override
-  String get ruleKubbBatonsTitle => 'Sei bastoni a turno';
-
-  @override
-  String get ruleKubbBatonsBody =>
-      'La squadra attaccante lancia sei bastoni contro i kubb avversari — dal basso, con rotazione verticale.';
-
-  @override
-  String get ruleKubbBatonsDetail =>
-      'Niente lanci a elicottero: il bastone deve ruotare in verticale, mai di lato. I kubb abbattuti restano a terra fino a fine turno.';
-
-  @override
-  String get ruleKubbThrowInTitle => 'I kubb abbattuti tornano';
-
-  @override
-  String get ruleKubbThrowInBody =>
-      'Dopo i bastoni, i difensori lanciano ogni kubb abbattuto nella metà degli attaccanti. Dove atterra, il kubb viene rialzato come kubb di campo.';
-
-  @override
-  String get ruleKubbThrowInDetail =>
-      'I difensori scelgono dove mirare — i kubb vicini tra loro sono molto più facili da abbattere con un solo bastone.';
-
-  @override
-  String get ruleKubbFieldFirstTitle => 'Prima i kubb di campo';
-
-  @override
-  String get ruleKubbFieldFirstBody =>
-      'Gli attaccanti devono abbattere tutti i kubb di campo in piedi prima di poter colpire un kubb di fondo. Un kubb di fondo abbattuto troppo presto viene rialzato.';
-
-  @override
-  String get ruleKubbPenaltyTitle => 'Fuori due volte = penalità';
-
-  @override
-  String get ruleKubbPenaltyBody =>
-      'Un kubb lanciato fuori campo due volte diventa un kubb di penalità: l\'altra squadra lo piazza dove vuole nella propria metà — anche proprio accanto al re.';
-
-  @override
-  String get ruleKubbAdvantageTitle => 'La linea di vantaggio';
-
-  @override
-  String get ruleKubbAdvantageBody =>
-      'Se gli avversari lasciano kubb di campo in piedi nella vostra metà, la vostra squadra può lanciare i bastoni dall\'altezza del kubb più vicino al re.';
-
-  @override
-  String get ruleKubbKingTitle => 'Il re decide';
-
-  @override
-  String get ruleKubbKingBody =>
-      'Solo quando ogni kubb nella metà difensiva è a terra puoi mirare al re. Abbattilo, e la partita è vostra.';
-
-  @override
-  String get ruleKubbEarlyKingTitle => 'Non prima che la linea sia a terra';
-
-  @override
-  String get ruleKubbEarlyKingBody =>
-      'Abbatti il re prima che tutto il resto sia a terra — anche per sbaglio — e la tua squadra perde la partita all\'istante.';
-
-  @override
-  String get ruleKubbMatchTitle => 'Al meglio delle tre';
-
-  @override
-  String get ruleKubbMatchBody =>
-      'Nei tornei un incontro si gioca al meglio delle tre partite. Le squadre si alternano a decidere quale squadra apre ogni partita.';
-
-  @override
-  String get ruleKubbMatchDetail =>
-      'Con il timer del turno attivo, la squadra ha un tempo fisso per i suoi sei bastoni. Il timer è indicativo — l\'app non blocca mai un lancio.';
-
-  @override
-  String get tourModePickTitle => 'A quale gioco giocate?';
-
-  @override
-  String get tourModePickBody =>
-      'Sono entrambi in questa app. Scegline uno da imparare — puoi cambiare quando vuoi.';
-
-  @override
-  String get tourModeNumberDesc =>
-      'Dodici birilli numerati. Corsa a 50 esatti.';
-
-  @override
-  String get tourModeKubbDesc => 'Due squadre, cinque kubb ciascuna — e il re.';
-
-  @override
-  String get statKingsFelled => 'Re abbattuti';
-
-  @override
-  String get statKubbsPerBaton => 'Kubb per bastone';
-
-  @override
-  String get statAdvantageTurns => 'Turni in vantaggio';
-
-  @override
-  String get statEarlyKings => 'Re anticipati';
-
-  @override
-  String get filterAll => 'Tutti';
 
   @override
   String get closeLabel => 'Chiudi';
@@ -539,27 +357,6 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get decreaseLabel => 'Riduci';
-
-  @override
-  String kubbStandingSemantics(int number) {
-    return 'Kubb $number, in piedi';
-  }
-
-  @override
-  String kubbSelectedSemantics(int number) {
-    return 'Kubb $number, segnato come abbattuto';
-  }
-
-  @override
-  String get kingSafeSemantics => 'Il re — abbattilo per vincere';
-
-  @override
-  String get kingRiskySemantics => 'Il re — colpirlo ora fa perdere la partita';
-
-  @override
-  String batonsLeftSemantics(int remaining, int total) {
-    return '$remaining bastoni su $total rimasti';
-  }
 
   @override
   String missesSemantics(int count, int limit) {
@@ -574,12 +371,6 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get deleteGameLabel => 'Elimina partita';
-
-  @override
-  String get newMatchConfirmTitle => 'Iniziare un nuovo incontro?';
-
-  @override
-  String get newMatchConfirmBody => 'Perderai l\'incontro in corso.';
 
   @override
   String get settingsAppearance => 'Aspetto';
@@ -610,25 +401,12 @@ class AppLocalizationsIt extends AppLocalizations {
   }
 
   @override
-  String matchScore(int a, int b) {
-    return '$a – $b';
-  }
-
-  @override
   String get deleteGameConfirmBody =>
       'Questa partita sarà rimossa dalla cronologia.';
 
   @override
-  String get newMatch => 'Nuovo incontro';
-
-  @override
   String playerN(int n) {
     return 'Giocatore $n';
-  }
-
-  @override
-  String secondsShort(int seconds) {
-    return '$seconds s';
   }
 
   @override
@@ -638,19 +416,6 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get showDetails => 'Più dettagli';
-
-  @override
-  String get toppleKing => 'Abbatti il re';
-
-  @override
-  String turnClockSemantics(int seconds) {
-    return '$seconds secondi rimasti sul timer del turno';
-  }
-
-  @override
-  String baselineStandingSemantics(int count) {
-    return '$count kubb di linea di fondo in piedi';
-  }
 
   @override
   String get opensRuleHint => 'Apre la regola';
@@ -679,7 +444,7 @@ class AppLocalizationsIt extends AppLocalizations {
   }
 
   @override
-  String get feedbackPromptGameTitle => 'Com’è andato segnare con iKubb?';
+  String get feedbackPromptGameTitle => 'Com’è andato segnare con Kaato?';
 
   @override
   String get feedbackPromptTourTitle => 'Il tour ti ha spiegato il gioco?';
@@ -761,21 +526,6 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get tagOther => 'Altro';
-
-  @override
-  String get gameSection => 'Gioco';
-
-  @override
-  String get modeNumberDesc =>
-      'Punti per birillo. Vince chi arriva per primo al traguardo.';
-
-  @override
-  String get modeKubbDesc => 'Regole classiche. Libera il campo, poi il re.';
-
-  @override
-  String modeNumberHint(int target) {
-    return 'Punti per birillo. Vince chi arriva per primo a $target.';
-  }
 
   @override
   String playersCount(int count) {

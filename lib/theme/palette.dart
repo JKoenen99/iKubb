@@ -6,7 +6,7 @@ import 'dart:ui';
 /// actions and brand, a four-tone wood ramp (sanded oak → bark) for
 /// accents, off-black ink for text. See SPEC.md §4 and
 /// docs/WOOD_PALETTE.md.
-abstract final class IKubbPalette {
+abstract final class KaatoPalette {
   // Birchwood neutrals (light surfaces)
   static const birchLight = Color(0xFFF5EFE6);
   static const birch = Color(0xFFE8DCC8);
@@ -24,7 +24,7 @@ abstract final class IKubbPalette {
   //   oakLight  sanded oak   accent on dark surfaces (8.7:1 on charcoal as
   //                          text), the dark-theme primary, highlights.
   //   oak       honey oak    light-theme accent fills (ink on oak 5.7:1),
-  //                          standing pins and kubbs, player color 1.
+  //                          standing pins, player color 1.
   //   walnut    walnut       accent on light surfaces (8.4:1 on birch), the
   //                          Team A identity, fallen pins, linework.
   //   bark      bark         deepest wood: outlines, knots, pin edges.

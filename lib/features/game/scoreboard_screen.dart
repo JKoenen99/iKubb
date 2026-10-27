@@ -11,25 +11,18 @@ import '../../widgets/dot_row.dart';
 import '../../widgets/keep_awake.dart';
 import '../../widgets/rolling_number.dart';
 import '../../widgets/viking_mascot.dart';
-import '../kubb/kubb_controller.dart';
 import '../setup/player.dart' show playerColors;
 import 'game_controller.dart';
-import 'game_mode.dart';
 
 /// Big, glanceable field-side scoreboard (SPEC.md §3.4): prop the iPad up
-/// and read the game from across the pitch. It mirrors whichever mode is
-/// running — scores for number kubb, kubbs remaining for classic — live
-/// from the same state as the play screen. Tap anywhere to return.
+/// and read the game from across the pitch, live from the same state as
+/// the play screen. Tap anywhere to return.
 class ScoreboardScreen extends ConsumerWidget {
   const ScoreboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    if (ref.watch(lastModeProvider) == GameMode.classicKubb) {
-      return const _KubbScoreboard();
-    }
-    return const _NumberScoreboard();
-  }
+  Widget build(BuildContext context, WidgetRef ref) =>
+      const _NumberScoreboard();
 }
 
 class _NumberScoreboard extends ConsumerWidget {
@@ -58,46 +51,10 @@ class _NumberScoreboard extends ConsumerWidget {
                 ? (
                     count: game.rules.missLimit,
                     filled: game.sideStates[i].missStreak,
-                    color: IKubbPalette.berryLight,
+                    color: KaatoPalette.berryLight,
                   )
                 : null,
             dotsSemanticLabel: l10n.statMisses,
-          ),
-      ],
-    );
-  }
-}
-
-/// The classic-kubb variant: baseline kubbs remaining per team, match
-/// dots for best-of, the attacker highlighted.
-class _KubbScoreboard extends ConsumerWidget {
-  const _KubbScoreboard();
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final match = ref.watch(kubbControllerProvider);
-    final game = match.currentGame;
-    final sideColors = ref.watch(sideColorsProvider);
-    final l10n = AppLocalizations.of(context)!;
-    return _ScoreboardShell(
-      winnerName: match.matchWinner?.name,
-      columns: [
-        for (var i = 0; i < 2; i++)
-          _ScoreboardColumn(
-            name: match.sides[i].name,
-            value: game.baseline[i],
-            isActive: i == game.attackerIndex && !game.isFinished,
-            color:
-                playerColors[(sideColors[match.sides[i].id] ?? i) %
-                    playerColors.length],
-            dots: match.rules.bestOf > 1
-                ? (
-                    count: match.rules.gamesToWin,
-                    filled: match.wins[i],
-                    color: IKubbPalette.amber,
-                  )
-                : null,
-            dotsSemanticLabel: l10n.matchLabel,
           ),
       ],
     );
@@ -119,14 +76,14 @@ class _ScoreboardShell extends StatelessWidget {
         behavior: HitTestBehavior.opaque,
         onTap: () => context.pop(),
         child: Scaffold(
-          backgroundColor: IKubbPalette.forestDeep,
+          backgroundColor: KaatoPalette.forestDeep,
           body: SafeArea(
             child: Stack(
               children: [
                 Align(
                   alignment: Alignment.topRight,
                   child: Padding(
-                    padding: const EdgeInsets.all(IKubbSpacing.sm),
+                    padding: const EdgeInsets.all(KaatoSpacing.sm),
                     child: glassIconButton(
                       context,
                       IconButton(
@@ -134,7 +91,7 @@ class _ScoreboardShell extends StatelessWidget {
                         onPressed: () => context.pop(),
                         icon: const Icon(
                           Icons.close,
-                          color: IKubbPalette.birchLight,
+                          color: KaatoPalette.birchLight,
                         ),
                       ),
                     ),
@@ -149,9 +106,9 @@ class _ScoreboardShell extends StatelessWidget {
                         Text(
                           l10n.winnerBanner(winnerName!),
                           textAlign: TextAlign.center,
-                          style: IKubbType.heading(
-                            size: IKubbType.stepDisplay,
-                            color: IKubbPalette.birchLight,
+                          style: KaatoType.heading(
+                            size: KaatoType.stepDisplay,
+                            color: KaatoPalette.birchLight,
                           ),
                         ),
                       ],
@@ -198,19 +155,19 @@ class _ScoreboardColumn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textColor = struck
-        ? IKubbPalette.berryLight
-        : IKubbPalette.birchLight;
+        ? KaatoPalette.berryLight
+        : KaatoPalette.birchLight;
     return AnimatedContainer(
-      duration: IKubbMotion.resolve(context, IKubbMotion.base),
-      margin: const EdgeInsets.all(IKubbSpacing.md),
+      duration: KaatoMotion.resolve(context, KaatoMotion.base),
+      margin: const EdgeInsets.all(KaatoSpacing.md),
       decoration: BoxDecoration(
         color: isActive
-            ? color.withValues(alpha: IKubbAlpha.activeTint)
+            ? color.withValues(alpha: KaatoAlpha.activeTint)
             : Colors.transparent,
-        borderRadius: BorderRadius.circular(IKubbRadius.xl),
+        borderRadius: BorderRadius.circular(KaatoRadius.xl),
         border: Border.all(
-          color: isActive ? color : IKubbPalette.pine,
-          width: isActive ? IKubbBorder.frame : IKubbBorder.line,
+          color: isActive ? color : KaatoPalette.pine,
+          width: isActive ? KaatoBorder.frame : KaatoBorder.line,
         ),
       ),
       child: Column(
@@ -220,8 +177,8 @@ class _ScoreboardColumn extends StatelessWidget {
             name,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: IKubbType.heading(
-              size: IKubbType.stepScoreLg,
+            style: KaatoType.heading(
+              size: KaatoType.stepScoreLg,
               color: textColor,
             ).copyWith(decoration: struck ? TextDecoration.lineThrough : null),
           ),
@@ -231,25 +188,25 @@ class _ScoreboardColumn extends StatelessWidget {
             fit: BoxFit.scaleDown,
             child: RollingNumber(
               value: value,
-              style: IKubbType.score(
-                size: IKubbType.stepScoreboard,
+              style: KaatoType.score(
+                size: KaatoType.stepScoreboard,
                 color: textColor,
               ),
             ),
           ),
           SizedBox(
-            height: IKubbIconSize.field + 2 * IKubbSpacing.xs,
+            height: KaatoIconSize.field + 2 * KaatoSpacing.xs,
             child: dots == null
                 ? null
                 : DotRow(
                     count: dots!.count,
                     filled: dots!.filled,
                     activeColor: dots!.color,
-                    idleColor: IKubbPalette.birchLight.withValues(
-                      alpha: IKubbAlpha.dotIdle,
+                    idleColor: KaatoPalette.birchLight.withValues(
+                      alpha: KaatoAlpha.dotIdle,
                     ),
-                    size: IKubbIconSize.field,
-                    padding: const EdgeInsets.all(IKubbSpacing.xs),
+                    size: KaatoIconSize.field,
+                    padding: const EdgeInsets.all(KaatoSpacing.xs),
                     semanticLabel: dotsSemanticLabel == null
                         ? null
                         : '$dotsSemanticLabel: ${dots!.filled}/${dots!.count}',

@@ -80,18 +80,18 @@ class _Pin extends StatelessWidget {
       child: GestureDetector(
         onTap: onTap,
         child: AnimatedContainer(
-          duration: IKubbMotion.resolve(context, IKubbMotion.base),
-          curve: IKubbMotion.emphasized,
+          duration: KaatoMotion.resolve(context, KaatoMotion.base),
+          curve: KaatoMotion.emphasized,
           width: size,
           height: size,
           margin: EdgeInsets.all(size / 12),
           transform: Matrix4.rotationZ(isDown ? 0.35 : 0),
           transformAlignment: Alignment.bottomCenter,
           decoration: BoxDecoration(
-            color: isDown ? IKubbPalette.walnut : IKubbPalette.oak,
+            color: isDown ? KaatoPalette.walnut : KaatoPalette.oak,
             shape: BoxShape.circle,
             border: Border.all(
-              color: isDown ? IKubbPalette.birch : IKubbPalette.bark,
+              color: isDown ? KaatoPalette.birch : KaatoPalette.bark,
               width: 2.5,
             ),
           ),
@@ -100,15 +100,15 @@ class _Pin extends StatelessWidget {
               width: size * 0.58,
               height: size * 0.58,
               decoration: const BoxDecoration(
-                color: IKubbPalette.birchLight,
+                color: KaatoPalette.birchLight,
                 shape: BoxShape.circle,
               ),
               child: Center(
                 child: Text(
                   '$number',
-                  style: IKubbType.score(
+                  style: KaatoType.score(
                     size: size * 0.34,
-                    color: IKubbPalette.ink,
+                    color: KaatoPalette.ink,
                   ),
                 ),
               ),

@@ -6,7 +6,7 @@ import '../../l10n/app_localizations.dart';
 import '../../theme/glass.dart';
 import '../../theme/tokens.dart';
 import '../../theme/typography.dart';
-import '../../widgets/ikubb_app_bar.dart';
+import '../../widgets/kaato_app_bar.dart';
 import '../../widgets/home_leading.dart';
 import '../../widgets/adaptive_choice.dart';
 import '../../widgets/form_cards.dart';
@@ -42,7 +42,7 @@ class SettingsScreen extends ConsumerWidget {
     final locale = ref.watch(localeControllerProvider);
     return Scaffold(
       extendBodyBehindAppBar: LiquidGlass.isCupertino(context),
-      appBar: IKubbAppBar(
+      appBar: KaatoAppBar(
         title: Text(l10n.settings),
         leading: homeLeading(context),
       ),
@@ -54,14 +54,14 @@ class SettingsScreen extends ConsumerWidget {
         top: false,
         child: Center(
           child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: IKubbLayout.maxContent),
+            constraints: const BoxConstraints(maxWidth: KaatoLayout.maxContent),
             child: Builder(
               builder: (context) => ListView(
                 padding: EdgeInsets.fromLTRB(
-                  IKubbSpacing.lg,
-                  MediaQuery.paddingOf(context).top + IKubbSpacing.lg,
-                  IKubbSpacing.lg,
-                  IKubbSpacing.lg,
+                  KaatoSpacing.lg,
+                  MediaQuery.paddingOf(context).top + KaatoSpacing.lg,
+                  KaatoSpacing.lg,
+                  KaatoSpacing.lg,
                 ),
                 children: [
                   SettingsSection(
@@ -214,12 +214,12 @@ class _VersionFooter extends ConsumerWidget {
         : l10n.appVersionWithCommit(version.short, version.commit);
     final scheme = Theme.of(context).colorScheme;
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: IKubbSpacing.lg),
+      padding: const EdgeInsets.symmetric(vertical: KaatoSpacing.lg),
       child: SelectableText(
         text,
         textAlign: TextAlign.center,
-        style: IKubbType.caption.copyWith(
-          color: scheme.onSurface.withValues(alpha: IKubbAlpha.faded),
+        style: KaatoType.caption.copyWith(
+          color: scheme.onSurface.withValues(alpha: KaatoAlpha.faded),
         ),
       ),
     );

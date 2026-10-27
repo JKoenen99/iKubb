@@ -19,14 +19,14 @@ Future<void> addPlayers(WidgetTester tester, List<String> names) async {
     await tester.tapVisible(find.text('Add player'));
     await tester.pumpAndSettle();
     // The new row is the only auto-named one left (earlier rows were
-    // renamed). The team cards (kubb or team mode) repeat the name as a
+    // renamed). The team cards (team mode) repeat the name as a
     // member further down the tree, so the first match is the row.
     final auto = find.textContaining(RegExp(r'^Player \d+$')).first;
     final autoName = (tester.widget(auto) as Text).data!;
     await tester.tapVisible(auto);
     await tester.pumpAndSettle();
     // The row's field is prefilled with the generated name; team-name
-    // fields (kubb mode) are empty, so this never hits those.
+    // fields are empty, so this never hits those.
     await tester.enterText(
       find.byWidgetPredicate(
         (w) => w is TextField && w.controller?.text == autoName,

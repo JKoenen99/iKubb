@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:scoring_engine/scoring_engine.dart';
 
-import '../game/game_mode.dart';
 import 'player.dart';
 import 'recent_players_repository.dart';
 
@@ -12,9 +11,6 @@ enum Team { a, b }
 
 class SetupState {
   const SetupState({
-    this.mode = GameMode.numberKubb,
-    this.kubbBestOf = 1,
-    this.kubbClockSeconds,
     this.players = const [],
     this.recents = const [],
     this.teamMode = false,
@@ -30,10 +26,6 @@ class SetupState {
   static const classicTarget = 50;
   static const classicReset = 25;
   static const classicMissLimit = 3;
-
-  final GameMode mode;
-  final int kubbBestOf;
-  final int? kubbClockSeconds;
 
   /// Selected players, in throw order.
   final List<Player> players;
@@ -81,9 +73,6 @@ class SetupState {
     return null;
   }
 
-  KubbRules get kubbRules =>
-      KubbRules(bestOf: kubbBestOf, turnClockSeconds: kubbClockSeconds);
-
   GameRules get rules => GameRules(
     targetScore: targetScore,
     overshootPolicy: overshootPolicy,
@@ -94,9 +83,6 @@ class SetupState {
   );
 
   SetupState copyWith({
-    GameMode? mode,
-    int? kubbBestOf,
-    Object? kubbClockSeconds = _sentinel,
     List<Player>? players,
     List<Player>? recents,
     bool? teamMode,
@@ -107,11 +93,6 @@ class SetupState {
     int? overshootResetValue,
     int? missLimit,
   }) => SetupState(
-    mode: mode ?? this.mode,
-    kubbBestOf: kubbBestOf ?? this.kubbBestOf,
-    kubbClockSeconds: kubbClockSeconds == _sentinel
-        ? this.kubbClockSeconds
-        : kubbClockSeconds as int?,
     players: players ?? this.players,
     recents: recents ?? this.recents,
     teamMode: teamMode ?? this.teamMode,
@@ -125,8 +106,6 @@ class SetupState {
 }
 
 enum SetupProblem { needTwoPlayers, needBothTeams }
-
-const _sentinel = Object();
 
 final recentPlayersRepositoryProvider = Provider<RecentPlayersRepository>(
   (ref) => RecentPlayersRepository(),
@@ -204,17 +183,6 @@ class SetupController extends Notifier<SetupState> {
       state = state.copyWith(players: [...state.players]..shuffle(_random));
 
   void setTeamMode(bool enabled) => state = state.copyWith(teamMode: enabled);
-
-  /// Classic kubb is a team game: switching to it forces team mode on.
-  void setMode(GameMode mode) => state = state.copyWith(
-    mode: mode,
-    teamMode: mode == GameMode.classicKubb ? true : state.teamMode,
-  );
-
-  void setKubbBestOf(int bestOf) => state = state.copyWith(kubbBestOf: bestOf);
-
-  void setKubbClock(int? seconds) =>
-      state = state.copyWith(kubbClockSeconds: seconds);
 
   void assignTeam(Player player, Team team) =>
       state = state.copyWith(teamOf: {...state.teamOf, player.id: team});

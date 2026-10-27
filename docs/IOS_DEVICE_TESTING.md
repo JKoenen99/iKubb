@@ -1,4 +1,10 @@
-# iKubb testen op je eigen iPhone en iPad
+# Kaato testen op je eigen iPhone en iPad
+
+> Sinds 0.4.0 heet de app Kaato met bundel-ID `nl.jasperkoenen.kaato`.
+> De eerste `tool/ios.sh` daarna maakt het nieuwe profiel zelf aan en
+> zet Kaato als nieuwe app op je toestel. Verwijder de oude iKubb-app; met
+> een gratis Apple ID mag je maar drie eigen apps tegelijk hebben. De
+> repo en de map heten nog `iKubb` tot je de GitHub-repo hernoemt.
 
 Route zonder betaald developeraccount: bouwen op je Mac met Xcode en een
 gratis Apple ID. Eén keer instellen, daarna bijwerken met één commando.
@@ -27,7 +33,7 @@ gratis Apple ID. Eén keer instellen, daarna bijwerken met één commando.
    ```bash
    cd ~/projects
    gh repo clone JKoenen99/iKubb
-   cd iKubb
+   cd Kaato
    git checkout claude/kubb-scoreboard-spec-taaalb
    ```
 5. **Ondertekening**: `open ios/Runner.xcworkspace`, target Runner,

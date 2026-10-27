@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ikubb/app.dart';
-import 'package:ikubb/features/game/game_screen.dart';
+import 'package:kaato/app.dart';
+import 'package:kaato/features/game/game_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'test_utils.dart';
 
 Future<void> pumpToSetup(WidgetTester tester) async {
-  await tester.pumpWidget(const ProviderScope(child: IKubbApp()));
+  await tester.pumpWidget(const ProviderScope(child: KaatoApp()));
   await tester.pumpAndSettle();
   await tester.tap(find.text('I know the rules, start scoring'));
   await tester.pumpAndSettle();
@@ -32,7 +32,7 @@ void main() {
     }
     expect(find.text('25'), findsOneWidget);
     // Back-to follows the target down so it always stays below it.
-    expect(find.text('Number kubb, first to 25'), findsOneWidget);
+    expect(find.text('First to 25'), findsOneWidget);
 
     await tester.tapVisible(find.text('Start game'));
     await tester.pumpAndSettle();
@@ -59,7 +59,7 @@ void main() {
     expect(find.byType(GameScreen), findsOneWidget);
 
     await tester.pumpWidget(
-      ProviderScope(key: UniqueKey(), child: const IKubbApp()),
+      ProviderScope(key: UniqueKey(), child: const KaatoApp()),
     );
     await tester.pumpAndSettle();
     await tester.tap(find.text('I know the rules, start scoring'));
@@ -76,7 +76,7 @@ void main() {
     expect(find.text('Team A'), findsWidgets); // pills + team card hint
     await tester.enterText(find.widgetWithText(TextField, 'Team A'), 'Ravens');
     await tester.pumpAndSettle();
-    expect(find.text('Number kubb, first to 50, in teams'), findsOneWidget);
+    expect(find.text('First to 50, in teams'), findsOneWidget);
 
     await tester.tapVisible(find.text('Start game'));
     await tester.pumpAndSettle();
@@ -115,7 +115,7 @@ void main() {
 
     // Relaunch the app: a fresh scope must offer the players as chips.
     await tester.pumpWidget(
-      ProviderScope(key: UniqueKey(), child: const IKubbApp()),
+      ProviderScope(key: UniqueKey(), child: const KaatoApp()),
     );
     await tester.pumpAndSettle();
     await tester.tap(find.text('I know the rules, start scoring'));

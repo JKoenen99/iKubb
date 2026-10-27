@@ -6,16 +6,16 @@ invoerelement volgt nu hetzelfde recept, naar het voorbeeld van Airbnb
 (DLS), Shopify Polaris en de Apple HIG: een zichtbare rand in rust, een
 sterkere primaire rand bij focus, één duidelijke "geselecteerd"-vulling.
 
-## Het recept (`lib/theme/ikubb_theme.dart`)
+## Het recept (`lib/theme/kaato_theme.dart`)
 
 | Staat | Vulling | Rand | Bron |
 |---|---|---|---|
-| Rust | `surface` (één stap lichter dan de kaart) | `outline` 1,5 pt | `IKubbPalette.lineLight` / `lineDark` |
+| Rust | `surface` (één stap lichter dan de kaart) | `outline` 1,5 pt | `KaatoPalette.lineLight` / `lineDark` |
 | Focus | idem | `primary` 2 pt | forest (licht) / geschuurd eiken (donker) |
 | Fout | idem | `error` 1,5 pt, 2 pt bij focus | berry (licht) / berryLight (donker) |
 | Uitgeschakeld | idem | `outlineVariant` 1,5 pt | `lineSoftLight` / `lineSoftDark` |
 
-Hoekradius 12 pt (`IKubbRadius.md`), contentpadding 16 × 12. De
+Hoekradius 12 pt (`KaatoRadius.md`), contentpadding 16 × 12. De
 lijnkleuren halen 3:1 op de kaart waar ze op staan (WCAG 1.4.11), vastgelegd
 in `test/palette_test.dart`.
 

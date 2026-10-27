@@ -14,7 +14,6 @@ import '../../widgets/home_leading.dart';
 import '../../widgets/keep_awake.dart';
 import '../../widgets/side_card.dart';
 import '../rules/rules_content.dart';
-import 'game_mode.dart';
 import '../rules/rules_view.dart';
 import '../setup/player.dart' show playerColors;
 import 'game_controller.dart';
@@ -25,7 +24,7 @@ import 'pin_diagram.dart';
 import 'win_overlay.dart';
 import '../../theme/glass.dart';
 import '../../theme/tokens.dart';
-import '../../widgets/ikubb_app_bar.dart';
+import '../../widgets/kaato_app_bar.dart';
 import '../../widgets/confirm_dialog.dart';
 import '../settings/haptics.dart';
 
@@ -178,15 +177,14 @@ class _GameScreenState extends ConsumerState<GameScreen> {
         extendBodyBehindAppBar: LiquidGlass.isCupertino(context),
         // Three visible actions only (audit #4): rules and undo stay, the
         // rest lives in an overflow menu with labeled rows.
-        appBar: IKubbAppBar(
+        appBar: KaatoAppBar(
           // The title names the screen, not the app (HIG).
           title: Text(l10n.modeNumber),
           leading: homeLeading(context),
           actions: [
             IconButton(
               tooltip: l10n.rules,
-              onPressed: () =>
-                  showRulesPanel(context, mode: GameMode.numberKubb),
+              onPressed: () => showRulesPanel(context),
               icon: const Icon(Icons.help_outline),
             ),
             IconButton(
@@ -289,9 +287,9 @@ class _GameScreenState extends ConsumerState<GameScreen> {
     final l10n = AppLocalizations.of(context)!;
     return Center(
       child: Padding(
-        padding: const EdgeInsets.only(top: IKubbSpacing.xs),
+        padding: const EdgeInsets.only(top: KaatoSpacing.xs),
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: IKubbLayout.maxColumn),
+          constraints: const BoxConstraints(maxWidth: KaatoLayout.maxColumn),
           child: AdaptiveChoice<InputMode>(
             options: [
               ChoiceOption(
@@ -324,7 +322,7 @@ class _GameScreenState extends ConsumerState<GameScreen> {
           Expanded(
             child: Center(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.all(IKubbSpacing.lg),
+                padding: const EdgeInsets.all(KaatoSpacing.lg),
                 child: NumberPad(
                   pointsNeeded: current == null
                       ? 0
@@ -380,7 +378,7 @@ class _GameScreenState extends ConsumerState<GameScreen> {
                   child: Text(l10n.miss),
                 ),
               ),
-              const SizedBox(width: IKubbSpacing.md),
+              const SizedBox(width: KaatoSpacing.md),
               Expanded(
                 flex: 2,
                 child: FilledButton(
@@ -389,8 +387,8 @@ class _GameScreenState extends ConsumerState<GameScreen> {
                       : _confirm,
                   style: wouldBust
                       ? FilledButton.styleFrom(
-                          backgroundColor: IKubbPalette.amber,
-                          foregroundColor: IKubbPalette.ink,
+                          backgroundColor: KaatoPalette.amber,
+                          foregroundColor: KaatoPalette.ink,
                         )
                       : null,
                   child: Text(
@@ -440,13 +438,13 @@ class _Standings extends ConsumerWidget {
     ];
     if (vertical) {
       return Padding(
-        padding: const EdgeInsets.all(IKubbSpacing.lg),
+        padding: const EdgeInsets.all(KaatoSpacing.lg),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             for (final card in cards)
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: IKubbSpacing.xs),
+                padding: const EdgeInsets.symmetric(vertical: KaatoSpacing.xs),
                 child: card,
               ),
           ],
@@ -460,7 +458,7 @@ class _Standings extends ConsumerWidget {
         ? cards.length
         : (cards.length / (cards.length / maxPerRow).ceil()).ceil();
     return Padding(
-      padding: const EdgeInsets.all(IKubbSpacing.lg),
+      padding: const EdgeInsets.all(KaatoSpacing.lg),
       child: Column(
         children: [
           for (var start = 0; start < cards.length; start += perRow)
@@ -501,7 +499,7 @@ class _SideCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final onColor = isActive ? scheme.onPrimaryContainer : scheme.onSurface;
-    final danger = IKubbPalette.danger(Theme.of(context).brightness);
+    final danger = KaatoPalette.danger(Theme.of(context).brightness);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -514,8 +512,8 @@ class _SideCard extends StatelessWidget {
             child: RollingNumber(
               value: state.score,
               style:
-                  IKubbType.score(
-                    size: IKubbType.stepScoreLg,
+                  KaatoType.score(
+                    size: KaatoType.stepScoreLg,
                     color: state.isEliminated ? danger : onColor,
                   ).copyWith(
                     decoration: state.isEliminated
@@ -526,23 +524,20 @@ class _SideCard extends StatelessWidget {
           ),
         ),
         if (isActive)
-          Text(needsLine, style: IKubbType.caption.copyWith(color: onColor)),
+          Text(needsLine, style: KaatoType.caption.copyWith(color: onColor)),
         // Miss dots fade in on the first miss (audit #6) and deep-link to
         // their exact rule card (SPEC.md §3.6). The slot is reserved (no
         // layout jump) and tall enough to be a legal tap target.
         SizedBox(
-          height: IKubbTap.min,
+          height: KaatoTap.min,
           child: IgnorePointer(
             ignoring: state.missStreak == 0,
             child: AnimatedOpacity(
-              duration: IKubbMotion.resolve(context, IKubbMotion.base),
+              duration: KaatoMotion.resolve(context, KaatoMotion.base),
               opacity: state.missStreak > 0 ? 1 : 0,
               child: InkWell(
-                onTap: () => showRulesPanel(
-                  context,
-                  mode: GameMode.numberKubb,
-                  categoryId: RuleCategoryIds.misses,
-                ),
+                onTap: () =>
+                    showRulesPanel(context, categoryId: RuleCategoryIds.misses),
                 child: Semantics(
                   button: true,
                   hint: AppLocalizations.of(context)!.opensRuleHint,
@@ -551,8 +546,8 @@ class _SideCard extends StatelessWidget {
                     child: DotRow(
                       count: missLimit,
                       filled: state.missStreak,
-                      activeColor: IKubbPalette.berry,
-                      idleColor: onColor.withValues(alpha: IKubbAlpha.dotIdle),
+                      activeColor: KaatoPalette.berry,
+                      idleColor: onColor.withValues(alpha: KaatoAlpha.dotIdle),
                       padding: EdgeInsets.zero,
                       semanticLabel: AppLocalizations.of(context)!
                           .missesSemantics(state.missStreak, missLimit),

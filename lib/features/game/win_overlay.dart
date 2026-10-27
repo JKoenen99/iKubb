@@ -36,14 +36,14 @@ class WinOverlay extends ConsumerWidget {
       winnerColor: winnerColor,
       banner: CelebrationBanner(
         l10n.winnerBanner(winner.name),
-        size: IKubbType.stepHero,
+        size: KaatoType.stepHero,
       ),
       details: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           for (final state in game.sideStates)
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: IKubbSpacing.xs),
+              padding: const EdgeInsets.symmetric(vertical: KaatoSpacing.xs),
               child: Row(
                 children: [
                   Expanded(
@@ -51,8 +51,8 @@ class WinOverlay extends ConsumerWidget {
                       state.side.name,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: IKubbType.statValue.copyWith(
-                        color: IKubbPalette.birchLight,
+                      style: KaatoType.statValue.copyWith(
+                        color: KaatoPalette.birchLight,
                         fontWeight: state.side == winner
                             ? FontWeight.w800
                             : FontWeight.w500,
@@ -64,8 +64,8 @@ class WinOverlay extends ConsumerWidget {
                   ),
                   Text(
                     '${state.score}',
-                    style: IKubbType.statValue.copyWith(
-                      color: IKubbPalette.birchLight,
+                    style: KaatoType.statValue.copyWith(
+                      color: KaatoPalette.birchLight,
                     ),
                   ),
                 ],

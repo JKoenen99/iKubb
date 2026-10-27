@@ -20,15 +20,15 @@ class ActiveSideCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     return AnimatedContainer(
-      duration: IKubbMotion.resolve(context, IKubbMotion.base),
-      curve: IKubbMotion.standard,
-      margin: const EdgeInsets.symmetric(horizontal: IKubbSpacing.xs),
-      padding: const EdgeInsets.all(IKubbSpacing.md),
+      duration: KaatoMotion.resolve(context, KaatoMotion.base),
+      curve: KaatoMotion.standard,
+      margin: const EdgeInsets.symmetric(horizontal: KaatoSpacing.xs),
+      padding: const EdgeInsets.all(KaatoSpacing.md),
       decoration: BoxDecoration(
         color: isActive
             ? scheme.primaryContainer
             : scheme.surfaceContainerHighest,
-        borderRadius: BorderRadius.circular(IKubbRadius.lg),
+        borderRadius: BorderRadius.circular(KaatoRadius.lg),
       ),
       child: child,
     );
@@ -57,13 +57,13 @@ class ColorDotName extends StatelessWidget {
           child: Container(
             width: 14,
             height: 14,
-            margin: const EdgeInsets.only(right: IKubbSpacing.sm),
+            margin: const EdgeInsets.only(right: KaatoSpacing.sm),
             decoration: BoxDecoration(
               color: color,
               shape: BoxShape.circle,
               border: Border.all(
-                color: IKubbPalette.birchLight,
-                width: IKubbBorder.hairline,
+                color: KaatoPalette.birchLight,
+                width: KaatoBorder.hairline,
               ),
             ),
           ),
@@ -73,7 +73,7 @@ class ColorDotName extends StatelessWidget {
             name,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: IKubbType.emphasis.copyWith(color: textColor),
+            style: KaatoType.emphasis.copyWith(color: textColor),
           ),
         ),
       ],

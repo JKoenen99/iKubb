@@ -1,14 +1,13 @@
 {
   "@@locale": "en",
-  "appTitle": "iKubb",
-  "tagline": "The kubb scoreboard",
+  "appTitle": "Kaato",
+  "tagline": "The number kubb scoreboard",
   "startScoring": "I know the rules, start scoring",
   "teachMe": "Teach me the game",
   "quickStart": "Quick start",
   "newGame": "New game",
   "rules": "Rules",
   "stats": "Stats",
-  "confirmThrow": "Confirm throw",
   "miss": "Miss",
   "undo": "Undo",
   "needsExactly": "Needs exactly {points}",
@@ -40,15 +39,12 @@
   },
   "players": "Players",
   "addPlayer": "Add player",
-  "playerName": "Name",
-  "recentPlayers": "Recent players",
   "teams": "Teams",
   "teamA": "Team A",
   "teamB": "Team B",
   "autoBalance": "Auto-balance",
   "houseRules": "House rules",
   "targetScore": "Target score",
-  "overshootRule": "Overshoot",
   "policyReset": "Back to {score}",
   "@policyReset": {
     "placeholders": {
@@ -147,101 +143,11 @@
   "clearHistory": "Clear history",
   "clearHistoryConfirmBody": "This clears every game and all stats.",
   "modeNumber": "Number kubb",
-  "modeKubb": "Kubb",
-  "matchLabel": "Match",
-  "bestOfSingle": "Single game",
-  "bestOfThree": "Best of three",
-  "turnClockLabel": "Turn clock",
   "offLabel": "Off",
-  "kingLabel": "King",
-  "kingWarningTitle": "Topple the king?",
-  "kingWarningBody": "Not everything is down yet — toppling the king now loses the game.",
-  "advantageLine": "Advantage line",
-  "throwInTitle": "Throw the knocked-over kubbs into the attackers' half.",
-  "outTwice": "Penalty kubbs (out twice)",
   "done": "Done",
-  "nextGameLabel": "Next game",
-  "earlyKingBanner": "{name} toppled the king too early!",
-  "@earlyKingBanner": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    },
-    "description": "Shown when a team loses by toppling the king too early"
-  },
-  "catKubbSetup": "Setup & teams",
-  "catKubbBatons": "Throwing batons",
-  "catKubbFieldKubbs": "Field kubbs",
-  "catKubbKing": "The king",
-  "ruleKubbFieldTitle": "The field",
-  "ruleKubbFieldBody": "Two teams face each other across the field. Each lines up five kubbs on its baseline, and the king stands alone in the middle.",
-  "ruleKubbFieldDetail": "Tournament fields measure 5 × 8 meters. In the park, two jackets and a good guess work fine — just keep the halves roughly equal.",
-  "ruleKubbTeamsTitle": "One to six per team",
-  "ruleKubbTeamsBody": "Kubb is a team game: one to six players per team. Teammates share the six batons and take turns throwing.",
-  "ruleKubbBatonsTitle": "Six batons per turn",
-  "ruleKubbBatonsBody": "The attacking team throws six batons at the other team's kubbs — underhand, spinning end over end.",
-  "ruleKubbBatonsDetail": "No helicopter throws: the baton must spin vertically, never sideways. Kubbs felled by the batons stay down until the turn ends.",
-  "ruleKubbThrowInTitle": "Felled kubbs come back",
-  "ruleKubbThrowInBody": "After the batons, the defenders throw every felled kubb into the attackers' half. Where a kubb lands, it is stood up as a field kubb.",
-  "ruleKubbThrowInDetail": "The defenders choose where to aim — kubbs standing close together are far easier to clear with one baton.",
-  "ruleKubbFieldFirstTitle": "Field kubbs first",
-  "ruleKubbFieldFirstBody": "Attackers must fell every standing field kubb before any baseline kubb may be hit. A baseline kubb felled too early is raised again.",
-  "ruleKubbPenaltyTitle": "Out twice = penalty",
-  "ruleKubbPenaltyBody": "A kubb thrown out of bounds twice becomes a penalty kubb: the other team places it anywhere in their half — even right next to the king.",
-  "ruleKubbAdvantageTitle": "The advantage line",
-  "ruleKubbAdvantageBody": "If your opponents leave field kubbs standing in your half, your team may throw its batons from level with the one closest to the king.",
-  "ruleKubbKingTitle": "The king decides it",
-  "ruleKubbKingBody": "Only when every kubb in the defending half is down may you aim for the king. Topple it, and the game is yours.",
-  "ruleKubbEarlyKingTitle": "Not before the line is down",
-  "ruleKubbEarlyKingBody": "Topple the king before everything else is down — even by accident — and your team loses the game on the spot.",
-  "ruleKubbMatchTitle": "Best of three",
-  "ruleKubbMatchBody": "Tournaments play a match as best of three games. The teams alternate which team opens each game.",
-  "ruleKubbMatchDetail": "With the turn clock on, a team has a fixed time to throw its six batons. The clock is a guide — the app never blocks a throw.",
-  "tourModePickTitle": "Which game are you playing?",
-  "tourModePickBody": "Both live in this app. Pick one to learn — you can switch any time.",
-  "tourModeNumberDesc": "Twelve numbered pins. Race to exactly 50.",
-  "tourModeKubbDesc": "Two teams, five kubbs each — and the king.",
-  "statKingsFelled": "Kings toppled",
-  "statKubbsPerBaton": "Kubbs per baton",
-  "statAdvantageTurns": "Advantage turns",
-  "statEarlyKings": "Early kings",
-  "filterAll": "All",
   "closeLabel": "Close",
   "increaseLabel": "Increase",
   "decreaseLabel": "Decrease",
-  "kubbStandingSemantics": "Kubb {number}, standing",
-  "@kubbStandingSemantics": {
-    "placeholders": {
-      "number": {
-        "type": "int"
-      }
-    },
-    "description": "VoiceOver label of a standing kubb block (1-based index)"
-  },
-  "kubbSelectedSemantics": "Kubb {number}, marked as knocked over",
-  "@kubbSelectedSemantics": {
-    "placeholders": {
-      "number": {
-        "type": "int"
-      }
-    },
-    "description": "VoiceOver label of a kubb marked as felled this baton"
-  },
-  "kingSafeSemantics": "The king — topple it to win",
-  "kingRiskySemantics": "The king — toppling it now loses the game",
-  "batonsLeftSemantics": "{remaining} of {total} batons left",
-  "@batonsLeftSemantics": {
-    "placeholders": {
-      "remaining": {
-        "type": "int"
-      },
-      "total": {
-        "type": "int"
-      }
-    },
-    "description": "VoiceOver summary of the batons-left dot row"
-  },
   "missesSemantics": "{count} of {limit} misses",
   "@missesSemantics": {
     "placeholders": {
@@ -257,8 +163,6 @@
   "statsErrorBody": "Your stats couldn't be loaded.",
   "retryLabel": "Try again",
   "deleteGameLabel": "Delete game",
-  "newMatchConfirmTitle": "Start a new match?",
-  "newMatchConfirmBody": "You'll lose the match that's underway.",
   "settingsAppearance": "Appearance",
   "settingsDuringPlay": "During play",
   "settingsLearn": "Learn",
@@ -283,34 +187,12 @@
     },
     "description": "Home primary action for an interrupted game; summary lists sides and scores"
   },
-  "matchScore": "{a} – {b}",
-  "@matchScore": {
-    "placeholders": {
-      "a": {
-        "type": "int"
-      },
-      "b": {
-        "type": "int"
-      }
-    },
-    "description": "Games won in a best-of match, side A first"
-  },
   "deleteGameConfirmBody": "This game will be removed from your history.",
-  "newMatch": "New match",
   "playerN": "Player {n}",
   "@playerN": {
     "description": "Default name for an unnamed quick-start player; n is 1-based",
     "placeholders": {
       "n": {
-        "type": "int"
-      }
-    }
-  },
-  "secondsShort": "{seconds}s",
-  "@secondsShort": {
-    "description": "Compact seconds value, e.g. in the active-rules chips",
-    "placeholders": {
-      "seconds": {
         "type": "int"
       }
     }
@@ -325,25 +207,6 @@
     }
   },
   "showDetails": "More details",
-  "toppleKing": "Topple the king",
-  "turnClockSemantics": "{seconds} seconds left on the turn clock",
-  "@turnClockSemantics": {
-    "description": "VoiceOver label of the kubb turn clock",
-    "placeholders": {
-      "seconds": {
-        "type": "int"
-      }
-    }
-  },
-  "baselineStandingSemantics": "{count} baseline kubbs standing",
-  "@baselineStandingSemantics": {
-    "description": "VoiceOver label of the per-team kubbs-remaining number",
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
   "opensRuleHint": "Opens the rule",
   "clearSearch": "Clear search",
   "scoredAnnouncement": "{name} scores {points}, now at {total}",
@@ -391,7 +254,7 @@
       }
     }
   },
-  "feedbackPromptGameTitle": "How was scoring with iKubb?",
+  "feedbackPromptGameTitle": "How was scoring with Kaato?",
   "feedbackPromptTourTitle": "Did the tour explain the game?",
   "feedbackSheetTitle": "Your feedback",
   "feedbackNotNow": "Not now",
@@ -426,18 +289,6 @@
   "tagRulesUnclear": "Rules unclear",
   "tagTranslation": "Translation issue",
   "tagOther": "Other",
-  "gameSection": "Game",
-  "modeNumberDesc": "Score points per kubb. First to the target wins.",
-  "modeKubbDesc": "Classic rules. Clear the field, then the king.",
-  "modeNumberHint": "Score points per kubb. First to {target} wins.",
-  "@modeNumberHint": {
-    "description": "Phone-layout helper line under the mode picker",
-    "placeholders": {
-      "target": {
-        "type": "int"
-      }
-    }
-  },
   "playersCount": "{count, plural, =1{1 player} other{{count} players}}",
   "@playersCount": {
     "description": "Player count after the Players header and in the summary bar",

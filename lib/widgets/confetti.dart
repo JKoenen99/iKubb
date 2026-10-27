@@ -68,12 +68,12 @@ class _Particle {
       color = _colors[random.nextInt(_colors.length)];
 
   static const _colors = [
-    IKubbPalette.forest,
-    IKubbPalette.pine,
-    IKubbPalette.oak,
-    IKubbPalette.oakLight,
-    IKubbPalette.amber,
-    IKubbPalette.birch,
+    KaatoPalette.forest,
+    KaatoPalette.pine,
+    KaatoPalette.oak,
+    KaatoPalette.oakLight,
+    KaatoPalette.amber,
+    KaatoPalette.birch,
   ];
 
   final double x, speed, sway, phase, spin, sizeFactor;

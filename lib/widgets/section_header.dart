@@ -48,7 +48,7 @@ class SectionHeader extends StatelessWidget {
             ),
           ),
           if (detail != null) ...[
-            const SizedBox(width: IKubbSpacing.sm),
+            const SizedBox(width: KaatoSpacing.sm),
             Flexible(
               child: Text(
                 detail!,
@@ -56,7 +56,7 @@ class SectionHeader extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: theme.colorScheme.onSurface.withValues(
-                    alpha: IKubbAlpha.faded,
+                    alpha: KaatoAlpha.faded,
                   ),
                 ),
               ),
@@ -69,7 +69,7 @@ class SectionHeader extends StatelessWidget {
     }
     if (!padded) return title;
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: IKubbSpacing.sm),
+      padding: const EdgeInsets.symmetric(vertical: KaatoSpacing.sm),
       child: title,
     );
   }

@@ -5,9 +5,9 @@ import 'package:flutter/widgets.dart';
 /// should carry raw spacing, radius, duration, alpha, or size literals.
 ///
 /// Exemption: code-drawn artwork (the mascot painter, wood grain, rule
-/// illustrations, the geometry of pins and kubb blocks) is vector art;
+/// illustrations, the geometry of pins) is vector art;
 /// its internal coordinates stay literal, only its colors are tokens.
-abstract final class IKubbSpacing {
+abstract final class KaatoSpacing {
   static const double xxs = 2;
   static const double xs = 4;
   static const double sm = 8;
@@ -20,7 +20,7 @@ abstract final class IKubbSpacing {
   static const double huge = 48;
 }
 
-abstract final class IKubbRadius {
+abstract final class KaatoRadius {
   static const double xs = 4;
   static const double sm = 8;
   static const double chip = 10;
@@ -44,7 +44,7 @@ abstract final class IKubbRadius {
   static const double capsule = 999;
 }
 
-abstract final class IKubbBorder {
+abstract final class KaatoBorder {
   static const double hairline = 1.5;
   static const double line = 2;
   static const double focus = 3;
@@ -54,7 +54,7 @@ abstract final class IKubbBorder {
 /// One motion vocabulary for the whole app: state changes first, animation
 /// as decoration (SPEC.md §3.7). Route every duration through [resolve] so
 /// Reduce Motion collapses them to zero in a single place.
-abstract final class IKubbMotion {
+abstract final class KaatoMotion {
   /// Micro feedback: selection, toggles, small movements.
   static const quick = Duration(milliseconds: 200);
 
@@ -80,7 +80,7 @@ abstract final class IKubbMotion {
 }
 
 /// Opacity steps with fixed meanings — never invent a new alpha inline.
-abstract final class IKubbAlpha {
+abstract final class KaatoAlpha {
   /// Idle dot / inactive indicator.
   static const double dotIdle = 0.3;
 
@@ -122,7 +122,7 @@ abstract final class IKubbAlpha {
   static const double segmentShadowDark = 0.35;
 }
 
-abstract final class IKubbIconSize {
+abstract final class KaatoIconSize {
   /// Miss/win dots.
   static const double dot = 10;
   static const double sm = 18;
@@ -136,12 +136,12 @@ abstract final class IKubbIconSize {
 }
 
 /// Interactive minimums (HIG 44pt / WCAG 2.5.8).
-abstract final class IKubbTap {
+abstract final class KaatoTap {
   static const double min = 44;
 }
 
 /// Content max-widths: phone-first columns that stay readable on iPad.
-abstract final class IKubbLayout {
+abstract final class KaatoLayout {
   static const double maxColumn = 420;
   static const double maxOverlay = 480;
   static const double maxContent = 560;

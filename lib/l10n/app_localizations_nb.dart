@@ -10,10 +10,10 @@ class AppLocalizationsNb extends AppLocalizations {
   AppLocalizationsNb([String locale = 'nb']) : super(locale);
 
   @override
-  String get appTitle => 'iKubb';
+  String get appTitle => 'Kaato';
 
   @override
-  String get tagline => 'Kubb-resultattavlen';
+  String get tagline => 'Nummerkubb-resultattavlen';
 
   @override
   String get startScoring => 'Jeg kan reglene, start poengføringen';
@@ -32,9 +32,6 @@ class AppLocalizationsNb extends AppLocalizations {
 
   @override
   String get stats => 'Statistikk';
-
-  @override
-  String get confirmThrow => 'Bekreft kast';
 
   @override
   String get miss => 'Bom';
@@ -64,12 +61,6 @@ class AppLocalizationsNb extends AppLocalizations {
   String get addPlayer => 'Legg til spiller';
 
   @override
-  String get playerName => 'Navn';
-
-  @override
-  String get recentPlayers => 'Nylige spillere';
-
-  @override
   String get teams => 'Lag';
 
   @override
@@ -86,9 +77,6 @@ class AppLocalizationsNb extends AppLocalizations {
 
   @override
   String get targetScore => 'Målpoeng';
-
-  @override
-  String get overshootRule => 'Over målet';
 
   @override
   String policyReset(int score) {
@@ -356,180 +344,10 @@ class AppLocalizationsNb extends AppLocalizations {
   String get modeNumber => 'Nummerkubb';
 
   @override
-  String get modeKubb => 'Kubb';
-
-  @override
-  String get matchLabel => 'Match';
-
-  @override
-  String get bestOfSingle => 'Ett parti';
-
-  @override
-  String get bestOfThree => 'Best av 3';
-
-  @override
-  String get turnClockLabel => 'Kasteklokke';
-
-  @override
   String get offLabel => 'Av';
 
   @override
-  String get kingLabel => 'Kongen';
-
-  @override
-  String get kingWarningTitle => 'Velte kongen?';
-
-  @override
-  String get kingWarningBody =>
-      'Alt er ikke nede ennå — å treffe kongen nå taper partiet.';
-
-  @override
-  String get advantageLine => 'Fordelslinje';
-
-  @override
-  String get throwInTitle =>
-      'Kast de veltede kubbene inn i angripernes halvdel.';
-
-  @override
-  String get outTwice => 'Straffekubber (ute to ganger)';
-
-  @override
   String get done => 'Ferdig';
-
-  @override
-  String get nextGameLabel => 'Neste parti';
-
-  @override
-  String earlyKingBanner(String name) {
-    return '$name veltet kongen for tidlig!';
-  }
-
-  @override
-  String get catKubbSetup => 'Oppstilling & lag';
-
-  @override
-  String get catKubbBatons => 'Kastepinner';
-
-  @override
-  String get catKubbFieldKubbs => 'Feltkubber';
-
-  @override
-  String get catKubbKing => 'Kongen';
-
-  @override
-  String get ruleKubbFieldTitle => 'Banen';
-
-  @override
-  String get ruleKubbFieldBody =>
-      'To lag står overfor hverandre på banen. Hvert lag setter fem kubber på sin baklinje, og kongen står alene i midten.';
-
-  @override
-  String get ruleKubbFieldDetail =>
-      'Turneringsbaner måler 5 × 8 meter. I parken holder det med to jakker og godt øyemål — bare hold halvdelene omtrent like store.';
-
-  @override
-  String get ruleKubbTeamsTitle => 'Én til seks per lag';
-
-  @override
-  String get ruleKubbTeamsBody =>
-      'Kubb er et lagspill: én til seks spillere per lag. Lagkameratene deler de seks kastepinnene og kaster etter tur.';
-
-  @override
-  String get ruleKubbBatonsTitle => 'Seks pinner per tur';
-
-  @override
-  String get ruleKubbBatonsBody =>
-      'Det angripende laget kaster seks pinner mot motstandernes kubber — underarms, roterende rundt kortaksen.';
-
-  @override
-  String get ruleKubbBatonsDetail =>
-      'Ingen helikopterkast: pinnen må rotere vertikalt, aldri sidelengs. Veltede kubber blir liggende til turen er over.';
-
-  @override
-  String get ruleKubbThrowInTitle => 'Veltede kubber kommer tilbake';
-
-  @override
-  String get ruleKubbThrowInBody =>
-      'Etter pinnene kaster forsvarerne hver veltede kubb inn i angripernes halvdel. Der en kubb lander, reises den som feltkubb.';
-
-  @override
-  String get ruleKubbThrowInDetail =>
-      'Forsvarerne velger hvor de sikter — kubber som står tett sammen, er mye lettere å rydde med én pinne.';
-
-  @override
-  String get ruleKubbFieldFirstTitle => 'Feltkubber først';
-
-  @override
-  String get ruleKubbFieldFirstBody =>
-      'Angriperne må velte alle stående feltkubber før en baklinjekubb kan treffes. En baklinjekubb som veltes for tidlig, reises igjen.';
-
-  @override
-  String get ruleKubbPenaltyTitle => 'Ute to ganger = straffekubb';
-
-  @override
-  String get ruleKubbPenaltyBody =>
-      'En kubb som kastes utenfor banen to ganger, blir en straffekubb: det andre laget plasserer den fritt i sin halvdel — til og med rett ved kongen.';
-
-  @override
-  String get ruleKubbAdvantageTitle => 'Fordelslinjen';
-
-  @override
-  String get ruleKubbAdvantageBody =>
-      'Lar motstanderne feltkubber stå i deres halvdel, kan laget deres kaste pinnene fra høyde med kubben som står nærmest kongen.';
-
-  @override
-  String get ruleKubbKingTitle => 'Kongen avgjør';
-
-  @override
-  String get ruleKubbKingBody =>
-      'Først når hver kubb i den forsvarende halvdelen ligger nede, kan du sikte på kongen. Velter du ham, er spillet deres.';
-
-  @override
-  String get ruleKubbEarlyKingTitle => 'Ikke før linjen ligger nede';
-
-  @override
-  String get ruleKubbEarlyKingBody =>
-      'Velter du kongen før alt annet ligger nede — også ved et uhell — taper laget ditt spillet på stedet.';
-
-  @override
-  String get ruleKubbMatchTitle => 'Best av tre';
-
-  @override
-  String get ruleKubbMatchBody =>
-      'I turneringer spilles en kamp best av tre. Lagene bytter på hvilket lag som åpner hvert spill.';
-
-  @override
-  String get ruleKubbMatchDetail =>
-      'Med kasteklokken på har laget en fast tid på sine seks pinner. Klokken er veiledende — appen blokkerer aldri et kast.';
-
-  @override
-  String get tourModePickTitle => 'Hvilket spill spiller dere?';
-
-  @override
-  String get tourModePickBody =>
-      'Begge finnes i denne appen. Velg ett å lære — du kan bytte når som helst.';
-
-  @override
-  String get tourModeNumberDesc =>
-      'Tolv nummererte kjegler. Kappløp til nøyaktig 50.';
-
-  @override
-  String get tourModeKubbDesc => 'To lag, fem kubber hver — og kongen.';
-
-  @override
-  String get statKingsFelled => 'Konger veltet';
-
-  @override
-  String get statKubbsPerBaton => 'Kubber per pinne';
-
-  @override
-  String get statAdvantageTurns => 'Fordelsturer';
-
-  @override
-  String get statEarlyKings => 'For tidlige konger';
-
-  @override
-  String get filterAll => 'Alle';
 
   @override
   String get closeLabel => 'Lukk';
@@ -539,27 +357,6 @@ class AppLocalizationsNb extends AppLocalizations {
 
   @override
   String get decreaseLabel => 'Mindre';
-
-  @override
-  String kubbStandingSemantics(int number) {
-    return 'Kubb $number, står';
-  }
-
-  @override
-  String kubbSelectedSemantics(int number) {
-    return 'Kubb $number, merket som veltet';
-  }
-
-  @override
-  String get kingSafeSemantics => 'Kongen — velt ham og vinn';
-
-  @override
-  String get kingRiskySemantics => 'Kongen — å treffe ham nå taper spillet';
-
-  @override
-  String batonsLeftSemantics(int remaining, int total) {
-    return '$remaining av $total pinner igjen';
-  }
 
   @override
   String missesSemantics(int count, int limit) {
@@ -574,12 +371,6 @@ class AppLocalizationsNb extends AppLocalizations {
 
   @override
   String get deleteGameLabel => 'Slett spill';
-
-  @override
-  String get newMatchConfirmTitle => 'Starte en ny kamp?';
-
-  @override
-  String get newMatchConfirmBody => 'Du mister kampen som pågår.';
 
   @override
   String get settingsAppearance => 'Utseende';
@@ -610,25 +401,12 @@ class AppLocalizationsNb extends AppLocalizations {
   }
 
   @override
-  String matchScore(int a, int b) {
-    return '$a – $b';
-  }
-
-  @override
   String get deleteGameConfirmBody =>
       'Dette spillet fjernes fra historikken din.';
 
   @override
-  String get newMatch => 'Ny kamp';
-
-  @override
   String playerN(int n) {
     return 'Spiller $n';
-  }
-
-  @override
-  String secondsShort(int seconds) {
-    return '$seconds s';
   }
 
   @override
@@ -638,19 +416,6 @@ class AppLocalizationsNb extends AppLocalizations {
 
   @override
   String get showDetails => 'Flere detaljer';
-
-  @override
-  String get toppleKing => 'Velt kongen';
-
-  @override
-  String turnClockSemantics(int seconds) {
-    return '$seconds sekunder igjen på kasteklokken';
-  }
-
-  @override
-  String baselineStandingSemantics(int count) {
-    return '$count grunnlinjekubber står';
-  }
 
   @override
   String get opensRuleHint => 'Åpner regelen';
@@ -679,7 +444,7 @@ class AppLocalizationsNb extends AppLocalizations {
   }
 
   @override
-  String get feedbackPromptGameTitle => 'Hvordan var det å telle med iKubb?';
+  String get feedbackPromptGameTitle => 'Hvordan var det å telle med Kaato?';
 
   @override
   String get feedbackPromptTourTitle => 'Forklarte omvisningen spillet?';
@@ -761,20 +526,6 @@ class AppLocalizationsNb extends AppLocalizations {
 
   @override
   String get tagOther => 'Annet';
-
-  @override
-  String get gameSection => 'Spill';
-
-  @override
-  String get modeNumberDesc => 'Poeng per kjegle. Først til målet vinner.';
-
-  @override
-  String get modeKubbDesc => 'Klassiske regler. Rydd banen, så kongen.';
-
-  @override
-  String modeNumberHint(int target) {
-    return 'Poeng per kjegle. Først til $target vinner.';
-  }
 
   @override
   String playersCount(int count) {

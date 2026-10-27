@@ -38,7 +38,7 @@ Future<FeedbackResult?> showFeedbackSheet(
     isScrollControlled: true,
     useSafeArea: true,
     showDragHandle: !LiquidGlass.isCupertino(context),
-    constraints: const BoxConstraints(maxWidth: IKubbLayout.maxPanel),
+    constraints: const BoxConstraints(maxWidth: KaatoLayout.maxPanel),
     builder: (context) => glassSheet(
       context,
       _FeedbackForm(
@@ -144,10 +144,10 @@ class _FeedbackFormState extends ConsumerState<_FeedbackForm> {
         ),
         child: SingleChildScrollView(
           padding: const EdgeInsets.fromLTRB(
-            IKubbSpacing.lg,
+            KaatoSpacing.lg,
             0,
-            IKubbSpacing.lg,
-            IKubbSpacing.xl,
+            KaatoSpacing.lg,
+            KaatoSpacing.xl,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -157,21 +157,21 @@ class _FeedbackFormState extends ConsumerState<_FeedbackForm> {
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
-              const SizedBox(height: IKubbSpacing.sm),
+              const SizedBox(height: KaatoSpacing.sm),
               StarRating(
                 value: _rating,
                 onChanged: (v) => setState(() => _rating = v),
               ),
               if (_rating > 0) ...[
-                const SizedBox(height: IKubbSpacing.lg),
+                const SizedBox(height: KaatoSpacing.lg),
                 Text(
                   positive ? l10n.feedbackWhatLiked : l10n.feedbackWhatImprove,
-                  style: IKubbType.strong,
+                  style: KaatoType.strong,
                 ),
-                const SizedBox(height: IKubbSpacing.sm),
+                const SizedBox(height: KaatoSpacing.sm),
                 Wrap(
-                  spacing: IKubbSpacing.sm,
-                  runSpacing: IKubbSpacing.xs,
+                  spacing: KaatoSpacing.sm,
+                  runSpacing: KaatoSpacing.xs,
                   children: [
                     for (final id in tagIds)
                       FilterChip(
@@ -183,7 +183,7 @@ class _FeedbackFormState extends ConsumerState<_FeedbackForm> {
                       ),
                   ],
                 ),
-                const SizedBox(height: IKubbSpacing.lg),
+                const SizedBox(height: KaatoSpacing.lg),
                 TextField(
                   controller: _comment,
                   maxLength: FeedbackEvent.maxCommentLength,
@@ -196,7 +196,7 @@ class _FeedbackFormState extends ConsumerState<_FeedbackForm> {
                   ),
                 ),
               ],
-              const SizedBox(height: IKubbSpacing.md),
+              const SizedBox(height: KaatoSpacing.md),
               FilledButton(
                 onPressed: _rating == 0 || _busy ? null : _submit,
                 child: Text(l10n.feedbackSubmit),
@@ -205,13 +205,13 @@ class _FeedbackFormState extends ConsumerState<_FeedbackForm> {
                 onPressed: () => Navigator.of(context).pop(),
                 child: Text(l10n.feedbackNotNow),
               ),
-              const SizedBox(height: IKubbSpacing.xs),
+              const SizedBox(height: KaatoSpacing.xs),
               Text(
                 l10n.feedbackPrivacyNote,
                 textAlign: TextAlign.center,
-                style: IKubbType.caption.copyWith(
+                style: KaatoType.caption.copyWith(
                   color: Theme.of(context).colorScheme.onSurface
-                      .withValues(alpha: IKubbAlpha.faded),
+                      .withValues(alpha: KaatoAlpha.faded),
                 ),
               ),
             ],

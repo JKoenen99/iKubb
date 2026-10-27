@@ -15,11 +15,11 @@ val keystoreProperties = Properties().apply {
     if (f.exists()) f.inputStream().use { load(it) }
 }
 fun signingValue(key: String): String? =
-    keystoreProperties.getProperty(key) ?: System.getenv("IKUBB_" + key.uppercase())
+    keystoreProperties.getProperty(key) ?: System.getenv("KAATO_" + key.uppercase())
 val hasReleaseKeystore = signingValue("storeFile") != null
 
 android {
-    namespace = "nl.jasperkoenen.ikubb"
+    namespace = "nl.jasperkoenen.kaato"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -29,7 +29,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "nl.jasperkoenen.ikubb"
+        applicationId = "nl.jasperkoenen.kaato"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion

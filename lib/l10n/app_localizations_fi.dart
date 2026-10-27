@@ -10,10 +10,10 @@ class AppLocalizationsFi extends AppLocalizations {
   AppLocalizationsFi([String locale = 'fi']) : super(locale);
 
   @override
-  String get appTitle => 'iKubb';
+  String get appTitle => 'Kaato';
 
   @override
-  String get tagline => 'Kubbin tulostaulu';
+  String get tagline => 'Numerokubbin tulostaulu';
 
   @override
   String get startScoring => 'Osaan säännöt, aloita pisteytys';
@@ -32,9 +32,6 @@ class AppLocalizationsFi extends AppLocalizations {
 
   @override
   String get stats => 'Tilastot';
-
-  @override
-  String get confirmThrow => 'Vahvista heitto';
 
   @override
   String get miss => 'Ohi';
@@ -64,12 +61,6 @@ class AppLocalizationsFi extends AppLocalizations {
   String get addPlayer => 'Lisää pelaaja';
 
   @override
-  String get playerName => 'Nimi';
-
-  @override
-  String get recentPlayers => 'Viimeisimmät pelaajat';
-
-  @override
   String get teams => 'Joukkueet';
 
   @override
@@ -86,9 +77,6 @@ class AppLocalizationsFi extends AppLocalizations {
 
   @override
   String get targetScore => 'Tavoitepisteet';
-
-  @override
-  String get overshootRule => 'Ylitys';
 
   @override
   String policyReset(int score) {
@@ -356,180 +344,10 @@ class AppLocalizationsFi extends AppLocalizations {
   String get modeNumber => 'Numerokubb';
 
   @override
-  String get modeKubb => 'Kubb';
-
-  @override
-  String get matchLabel => 'Ottelu';
-
-  @override
-  String get bestOfSingle => 'Yksi peli';
-
-  @override
-  String get bestOfThree => 'Paras kolmesta';
-
-  @override
-  String get turnClockLabel => 'Heittokello';
-
-  @override
   String get offLabel => 'Pois';
 
   @override
-  String get kingLabel => 'Kuningas';
-
-  @override
-  String get kingWarningTitle => 'Kaadetaanko kuningas?';
-
-  @override
-  String get kingWarningBody =>
-      'Kaikki ei ole vielä nurin — kuninkaan osuminen nyt häviää pelin.';
-
-  @override
-  String get advantageLine => 'Etulinja';
-
-  @override
-  String get throwInTitle => 'Heitä kaatuneet kubbit hyökkääjien puoliskolle.';
-
-  @override
-  String get outTwice => 'Rangaistuskubbit (kahdesti ulos)';
-
-  @override
   String get done => 'Valmis';
-
-  @override
-  String get nextGameLabel => 'Seuraava peli';
-
-  @override
-  String earlyKingBanner(String name) {
-    return '$name kaatoi kuninkaan liian aikaisin!';
-  }
-
-  @override
-  String get catKubbSetup => 'Aloitus ja joukkueet';
-
-  @override
-  String get catKubbBatons => 'Heittokapulat';
-
-  @override
-  String get catKubbFieldKubbs => 'Kenttäkubbit';
-
-  @override
-  String get catKubbKing => 'Kuningas';
-
-  @override
-  String get ruleKubbFieldTitle => 'Kenttä';
-
-  @override
-  String get ruleKubbFieldBody =>
-      'Kaksi joukkuetta seisoo vastakkain kentällä. Kumpikin asettaa viisi kubbia takarajalleen, ja kuningas seisoo yksin keskellä.';
-
-  @override
-  String get ruleKubbFieldDetail =>
-      'Turnauskentät ovat 5 × 8 metriä. Puistossa riittävät kaksi takkia ja hyvä arvio — pidä puoliskot suunnilleen yhtä suurina.';
-
-  @override
-  String get ruleKubbTeamsTitle => 'Yhdestä kuuteen per joukkue';
-
-  @override
-  String get ruleKubbTeamsBody =>
-      'Kubb on joukkuepeli: yhdestä kuuteen pelaajaa per joukkue. Joukkuetoverit jakavat kuusi kapulaa ja heittävät vuorotellen.';
-
-  @override
-  String get ruleKubbBatonsTitle => 'Kuusi kapulaa vuorossa';
-
-  @override
-  String get ruleKubbBatonsBody =>
-      'Hyökkäävä joukkue heittää kuusi kapulaa vastustajan kubbeja kohti — alakautta, pystysuunnassa pyörien.';
-
-  @override
-  String get ruleKubbBatonsDetail =>
-      'Ei helikopteriheittoja: kapulan on pyörittävä pystysuunnassa, ei koskaan sivuttain. Kaatuneet kubbit jäävät maahan vuoron loppuun asti.';
-
-  @override
-  String get ruleKubbThrowInTitle => 'Kaatuneet kubbit palaavat';
-
-  @override
-  String get ruleKubbThrowInBody =>
-      'Kapuloiden jälkeen puolustajat heittävät jokaisen kaatuneen kubbin hyökkääjien puoliskolle. Sinne minne kubbi laskeutuu, se nostetaan kenttäkubbiksi.';
-
-  @override
-  String get ruleKubbThrowInDetail =>
-      'Puolustajat valitsevat mihin tähtäävät — lähekkäin seisovat kubbit on paljon helpompi kaataa yhdellä kapulalla.';
-
-  @override
-  String get ruleKubbFieldFirstTitle => 'Kenttäkubbit ensin';
-
-  @override
-  String get ruleKubbFieldFirstBody =>
-      'Hyökkääjien on kaadettava kaikki pystyssä olevat kenttäkubbit ennen kuin takarajan kubbiin saa osua. Liian aikaisin kaadettu takarajan kubbi nostetaan takaisin.';
-
-  @override
-  String get ruleKubbPenaltyTitle => 'Kahdesti ulos = rangaistus';
-
-  @override
-  String get ruleKubbPenaltyBody =>
-      'Kubb, joka heitetään kahdesti kentän ulkopuolelle, muuttuu rangaistuskubbiksi: toinen joukkue asettaa sen minne tahansa puoliskolleen — vaikka aivan kuninkaan viereen.';
-
-  @override
-  String get ruleKubbAdvantageTitle => 'Etulinja';
-
-  @override
-  String get ruleKubbAdvantageBody =>
-      'Jos vastustajat jättävät kenttäkubbeja pystyyn puoliskollesi, joukkueesi saa heittää kapulat lähimpänä kuningasta seisovan kubbin tasalta.';
-
-  @override
-  String get ruleKubbKingTitle => 'Kuningas ratkaisee';
-
-  @override
-  String get ruleKubbKingBody =>
-      'Vasta kun jokainen kubb puolustavalla puoliskolla on kaatunut, saat tähdätä kuninkaaseen. Kaada se, ja peli on teidän.';
-
-  @override
-  String get ruleKubbEarlyKingTitle => 'Ei ennen kuin rivi on kaatunut';
-
-  @override
-  String get ruleKubbEarlyKingBody =>
-      'Jos kaadat kuninkaan ennen kuin kaikki muu on kaatunut — vaikka vahingossa — joukkueesi häviää pelin siihen paikkaan.';
-
-  @override
-  String get ruleKubbMatchTitle => 'Paras kolmesta';
-
-  @override
-  String get ruleKubbMatchBody =>
-      'Turnauksissa ottelu pelataan paras kolmesta -muodossa. Joukkueet vuorottelevat siitä, kumpi aloittaa kunkin pelin.';
-
-  @override
-  String get ruleKubbMatchDetail =>
-      'Heittokellon ollessa päällä joukkueella on kiinteä aika kuuden kapulan heittoon. Kello on ohjeellinen — sovellus ei koskaan estä heittoa.';
-
-  @override
-  String get tourModePickTitle => 'Mitä peliä pelaatte?';
-
-  @override
-  String get tourModePickBody =>
-      'Molemmat löytyvät tästä sovelluksesta. Valitse toinen opeteltavaksi — voit vaihtaa milloin vain.';
-
-  @override
-  String get tourModeNumberDesc =>
-      'Kaksitoista numeroitua keilaa. Kilpajuoksu tasan 50:een.';
-
-  @override
-  String get tourModeKubbDesc =>
-      'Kaksi joukkuetta, viisi kubbia kummallakin — ja kuningas.';
-
-  @override
-  String get statKingsFelled => 'Kaadetut kuninkaat';
-
-  @override
-  String get statKubbsPerBaton => 'Kubbeja per kapula';
-
-  @override
-  String get statAdvantageTurns => 'Etulinjavuorot';
-
-  @override
-  String get statEarlyKings => 'Liian aikaiset kuninkaat';
-
-  @override
-  String get filterAll => 'Kaikki';
 
   @override
   String get closeLabel => 'Sulje';
@@ -539,28 +357,6 @@ class AppLocalizationsFi extends AppLocalizations {
 
   @override
   String get decreaseLabel => 'Vähennä';
-
-  @override
-  String kubbStandingSemantics(int number) {
-    return 'Kubb $number, pystyssä';
-  }
-
-  @override
-  String kubbSelectedSemantics(int number) {
-    return 'Kubb $number, merkitty kaatuneeksi';
-  }
-
-  @override
-  String get kingSafeSemantics => 'Kuningas — kaada se ja voita';
-
-  @override
-  String get kingRiskySemantics =>
-      'Kuningas — siihen osuminen nyt häviää pelin';
-
-  @override
-  String batonsLeftSemantics(int remaining, int total) {
-    return '$remaining/$total kapulaa jäljellä';
-  }
 
   @override
   String missesSemantics(int count, int limit) {
@@ -575,12 +371,6 @@ class AppLocalizationsFi extends AppLocalizations {
 
   @override
   String get deleteGameLabel => 'Poista peli';
-
-  @override
-  String get newMatchConfirmTitle => 'Aloitetaanko uusi ottelu?';
-
-  @override
-  String get newMatchConfirmBody => 'Menetät käynnissä olevan ottelun.';
 
   @override
   String get settingsAppearance => 'Ulkoasu';
@@ -611,24 +401,11 @@ class AppLocalizationsFi extends AppLocalizations {
   }
 
   @override
-  String matchScore(int a, int b) {
-    return '$a – $b';
-  }
-
-  @override
   String get deleteGameConfirmBody => 'Tämä peli poistetaan historiastasi.';
-
-  @override
-  String get newMatch => 'Uusi ottelu';
 
   @override
   String playerN(int n) {
     return 'Pelaaja $n';
-  }
-
-  @override
-  String secondsShort(int seconds) {
-    return '$seconds s';
   }
 
   @override
@@ -638,19 +415,6 @@ class AppLocalizationsFi extends AppLocalizations {
 
   @override
   String get showDetails => 'Lisätietoja';
-
-  @override
-  String get toppleKing => 'Kaada kuningas';
-
-  @override
-  String turnClockSemantics(int seconds) {
-    return 'Heittokellossa $seconds sekuntia jäljellä';
-  }
-
-  @override
-  String baselineStandingSemantics(int count) {
-    return '$count takalinjan kubbia pystyssä';
-  }
 
   @override
   String get opensRuleHint => 'Avaa säännön';
@@ -679,7 +443,7 @@ class AppLocalizationsFi extends AppLocalizations {
   }
 
   @override
-  String get feedbackPromptGameTitle => 'Miten pisteenlasku sujui iKubbilla?';
+  String get feedbackPromptGameTitle => 'Miten pisteenlasku sujui Kaatolla?';
 
   @override
   String get feedbackPromptTourTitle => 'Selittikö kierros pelin?';
@@ -761,22 +525,6 @@ class AppLocalizationsFi extends AppLocalizations {
 
   @override
   String get tagOther => 'Muu';
-
-  @override
-  String get gameSection => 'Peli';
-
-  @override
-  String get modeNumberDesc =>
-      'Pisteitä keilaa kohden. Ensimmäisenä maaliin voittaa.';
-
-  @override
-  String get modeKubbDesc =>
-      'Klassiset säännöt. Tyhjennä kenttä, sitten kuningas.';
-
-  @override
-  String modeNumberHint(int target) {
-    return 'Pisteitä keilaa kohden. Ensimmäisenä $target:een voittaa.';
-  }
 
   @override
   String playersCount(int count) {
