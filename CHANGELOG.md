@@ -4,6 +4,12 @@ Versies volgen `MAJOR.MINOR.PATCH+BUILD` uit `pubspec.yaml`; de regels
 staan in `AGENTS.md`. De app toont de versie en
 commit onderaan Settings.
 
+## 0.4.2 (6)
+
+- **Instellingenknop op Home leesbaar in licht thema** (iOS): het
+  tandwiel stond donker op de donkere glazen schijf. Knoppen op helder
+  glas houden nu in beide thema's een lichte glyph.
+
 ## 0.4.1 (5)
 
 - **Werkafspraken op één plek**: `AGENTS.md` beschrijft hoe iedereen aan

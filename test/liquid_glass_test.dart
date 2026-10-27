@@ -1,10 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kaato/app.dart';
 import 'package:kaato/features/onboarding/onboarding_state.dart';
 import 'package:kaato/theme/glass.dart';
+import 'package:kaato/theme/palette.dart';
 import 'package:kaato/widgets/kaato_app_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -118,6 +120,22 @@ void main() {
         findsOneWidget,
       );
       await checkGuidelines(tester);
+    }),
+  );
+
+  testWidgets(
+    'iOS light theme: the Home settings glyph stays light on clear glass',
+    (tester) => onPlatform(TargetPlatform.iOS, () async {
+      await pumpHome(tester);
+      final glyph = tester.renderObject<RenderParagraph>(
+        find
+            .descendant(
+              of: find.byIcon(Icons.settings_outlined),
+              matching: find.byType(RichText),
+            )
+            .first,
+      );
+      expect(glyph.text.style!.color, KaatoPalette.birchLight);
     }),
   );
 
