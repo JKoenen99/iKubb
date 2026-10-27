@@ -4,6 +4,12 @@ Versies volgen `MAJOR.MINOR.PATCH+BUILD` uit `pubspec.yaml`; zie
 `docs/IOS_DEVICE_TESTING.md` voor de regels. De app toont de versie en
 commit onderaan Settings.
 
+## 0.4.1 (5)
+
+- **Instellingenknop op Home leesbaar in licht thema** (iOS): het
+  tandwiel stond donker op de donkere glazen schijf. Knoppen op helder
+  glas houden nu in beide thema's een lichte glyph.
+
 ## 0.4.0 (4)
 
 De app heet nu **Kaato** (Fins voor het vellen, de omgegooide kegel) en
