@@ -3,6 +3,8 @@
 #
 #   tool/ios.sh                  pull, build once, install on every connected
 #                                iPhone/iPad (cable or wireless)
+#   tool/ios.sh --branch NAME    switch to that branch first (e.g. main, or a
+#                                feature branch you were asked to try)
 #   tool/ios.sh --device NAME    only that device (name or id, prefix is fine)
 #   tool/ios.sh --no-pull        build what is checked out, skip git pull
 #   tool/ios.sh --dev [NAME]     debug run with hot reload on one device
@@ -22,12 +24,16 @@ SUPABASE_ANON_KEY="sb_publishable_qaavkaafBNirBzeW9k3toA_FOi_Dx-d"
 pull=1
 dev=0
 device=""
+branch=""
 while [ $# -gt 0 ]; do
   case "$1" in
     --no-pull) pull=0 ;;
     --dev) dev=1 ;;
     --device|-d) shift; device="${1:-}" ;;
-    -h|--help) sed -n '2,12p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
+    --branch|-b) shift; branch="${1:-}" ;;
+    # The comment block at the top of this file, up to the first blank
+    # comment line followed by code.
+    -h|--help) awk 'NR > 1 && /^#/ { sub(/^# ?/, ""); print; next } NR > 1 { exit }' "$0"; exit 0 ;;
     -*) echo "Unknown option: $1 (see tool/ios.sh --help)" >&2; exit 2 ;;
     *) device="$1" ;;
   esac
@@ -39,8 +45,14 @@ fail() { printf '\n\033[31m%s\033[0m\n' "$*" >&2; exit 1; }
 
 command -v flutter >/dev/null || fail "flutter is not on your PATH. See docs/IOS_DEVICE_TESTING.md, step 3."
 
-branch="$(git rev-parse --abbrev-ref HEAD)"
-say "Branch: $branch"
+if [ -n "$branch" ]; then
+  git fetch --quiet origin "$branch" ||
+    fail "There is no branch '$branch' on GitHub. Check the name in the chat."
+  # `git switch NAME` creates the local branch from origin/NAME when needed.
+  git switch --quiet "$branch" ||
+    fail "Could not switch to '$branch'. Run 'git status' and paste the output in the chat."
+fi
+say "Branch: $(git rev-parse --abbrev-ref HEAD)"
 
 if [ "$pull" -eq 1 ]; then
   before="$(git rev-parse HEAD)"
