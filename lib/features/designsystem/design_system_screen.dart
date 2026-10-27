@@ -22,6 +22,7 @@ import '../../widgets/share_card.dart';
 import '../../widgets/side_card.dart';
 import '../../widgets/viking_mascot.dart';
 import '../../widgets/wood_grain.dart';
+import '../../widgets/workbench_kaato.dart';
 import '../feedback/star_rating.dart';
 import '../game/pin_diagram.dart';
 import '../settings/settings_controller.dart';
@@ -2084,13 +2085,25 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
     return [
       _anchor(_Section.illustration),
       const Story(
+        name: 'WorkbenchKaato',
+        source: 'widgets/workbench_kaato.dart',
+        summary:
+            'Kaato at the workbench, carving pins: a hand-drawn SVG '
+            '(assets/character). Shrinks to fit on short screens. Colours '
+            'are baked into the file, so it looks the same in both themes.',
+        usedIn: 'Home',
+        props: [Prop('height', 'double', '220 by default')],
+        variants: [Variant('Default', WorkbenchKaato(height: 160))],
+        a11y: 'Decorative: excluded from semantics.',
+      ),
+      const Story(
         name: 'VikingMascot',
         source: 'widgets/viking_mascot.dart',
         summary:
             'The code-drawn Viking: flat, chunky linework, no gradients. '
-            'Three poses; idle on Home, cheer on a win, oops on a miss '
+            'Three poses; idle on onboarding, cheer on a win, oops on a miss '
             'streak. Text-free so it never needs localization.',
-        usedIn: 'Home, win overlay, empty states',
+        usedIn: 'Onboarding, win overlay, empty states',
         props: [
           Prop('pose', 'MascotPose', 'idle, cheer, oops'),
           Prop('size', 'double', '120 by default'),

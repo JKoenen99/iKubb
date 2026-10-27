@@ -4,8 +4,8 @@ import 'package:go_router/go_router.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../../theme/palette.dart';
-import '../../widgets/viking_mascot.dart';
 import '../../widgets/wood_grain.dart';
+import '../../widgets/workbench_kaato.dart';
 import '../game/game_controller.dart';
 import '../../theme/glass.dart';
 import '../../theme/tokens.dart';
@@ -67,7 +67,8 @@ class HomeScreen extends ConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      const VikingMascot(size: 140),
+                      // Shrinks before the buttons do on short screens.
+                      const Flexible(child: WorkbenchKaato()),
                       const SizedBox(height: KaatoSpacing.sm),
                       Text(
                         l10n.appTitle,

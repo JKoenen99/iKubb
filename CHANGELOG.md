@@ -4,6 +4,17 @@ Versies volgen `MAJOR.MINOR.PATCH+BUILD` uit `pubspec.yaml`; zie
 `docs/IOS_DEVICE_TESTING.md` voor de regels. De app toont de versie en
 commit onderaan Settings.
 
+## 0.5.0 (5)
+
+- **Nieuwe illustratie op Home**: Kaato aan de werkbank, kegels aan het
+  snijden, vervangt de getekende Viking boven het woordmerk. Op kleine
+  schermen krimpt hij mee, zodat de knoppen altijd passen. De Viking
+  blijft bij de rondleiding, de winst en lege schermen.
+- **Nieuwe SVG's uit Illustrator**: zet ze in `assets/character/` en draai
+  `dart tool/inline_svg_styles.dart assets/character/<bestand>.svg`.
+  Flutter negeert het `<style>`-blok dat Illustrator schrijft en tekent
+  anders alles zwart; een test bewaakt dit.
+
 ## 0.4.0 (4)
 
 De app heet nu **Kaato** (Fins voor het vellen, de omgegooide kegel) en
