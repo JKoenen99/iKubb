@@ -1,8 +1,23 @@
 # Changelog
 
-Versies volgen `MAJOR.MINOR.PATCH+BUILD` uit `pubspec.yaml`; zie
-`docs/IOS_DEVICE_TESTING.md` voor de regels. De app toont de versie en
+Versies volgen `MAJOR.MINOR.PATCH+BUILD` uit `pubspec.yaml`; de regels
+staan in `AGENTS.md`. De app toont de versie en
 commit onderaan Settings.
+
+## 0.4.1 (5)
+
+- **Werkafspraken op één plek**: `AGENTS.md` beschrijft hoe iedereen aan
+  Kaato werkt, mens of agent: wanneer een nieuwe branch, checks vóór een
+  push, versies, het designsysteem, teksten en documentatie. Claude,
+  Copilot en Gemini lezen het automatisch via hun eigen bestand.
+- **Documentatie bijgewerkt**: `docs/README.md` zegt welke documenten
+  actueel zijn en welke gedateerde rapporten; de spec beschrijft wat er
+  gebouwd is en markeert wat nog gepland staat; geen verwijzingen meer
+  naar klassiek kubb of oude componenten in de actuele documenten.
+- **Designsystem-pagina**: voorbeelden en "gebruikt in"-notities zonder
+  klassiek kubb.
+- **Supabase**: een migratie die de tabelomschrijving naar Kaato zet
+  (alleen metadata, nog uit te voeren).
 
 ## 0.4.0 (4)
 

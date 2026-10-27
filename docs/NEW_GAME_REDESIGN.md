@@ -63,8 +63,9 @@ andere flows gebruiken de helpers `addPlayers`, `setTarget` en
 
 ## Vertalingen
 
-Nieuwe sleutels in alle tien talen: `gameSection`, `modeNumberDesc`,
-`modeKubbDesc`, `modeNumberHint`, `playersCount`, `namesOptionalHint`,
+Nieuwe sleutels in alle tien talen (`gameSection`, `modeNumberDesc`,
+`modeKubbDesc` en `modeNumberHint` zijn in 0.4.0 weer verwijderd met de
+spelkeuze): `playersCount`, `namesOptionalHint`,
 `recentLabel`, `teamsOffDesc`, `teamsOnDesc`, `swapTeams`, `moveToTeam`,
 `resetLabel`, `targetScoreDesc`, `backToLabel`, `backToDesc`,
 `eliminationDesc`, `summaryFirstTo`, `summaryBackTo`, `summaryOutAfter`,

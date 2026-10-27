@@ -25,7 +25,7 @@ plek waar hij WCAG AA haalt.
 
 - `KaatoPalette.woodAccent(brightness)`: walnut op licht, geschuurd eiken
   op donker. Voor houten iconen, dots en lijnen die direct op een
-  oppervlak staan (pijlen en trofeeën in de regels, batons, het
+  oppervlak staan (pijlen, trofeeën en de stok in de regels, het
   statistieken-icoon).
 - `KaatoPalette.woodGrain(brightness)`: de nerfkleur op Home en
   onboarding; voorheen verdween de walnoot-nerf in het donkere thema.
@@ -43,11 +43,11 @@ plek waar hij WCAG AA haalt.
   berken-tekst, zodat labels in het donker licht blijven (HIG- en
   Airbnb-conventie). In code: `primaryContainer`/`secondaryContainer`, die
   in het lichte thema gelijk zijn aan forest en oak.
-- **Pins en kubbs**: staande blokken honingeiken met een schorsrand, gevelde
-  blokken walnoot met een berkenrand. Het contrast tussen staand en geveld
-  is groter dan voorheen.
-- **Regelillustraties**: pijlen, trofeeën, de stok en de batons volgen het
-  thema (`woodAccent`), in het donker dus geschuurd eiken.
+- **Pins**: staande pins honingeiken met een schorsrand, gevelde pins
+  walnoot met een berkenrand. Het contrast tussen staand en geveld is
+  groter dan voorheen.
+- **Regelillustraties**: pijlen, trofeeën en de stok volgen het thema
+  (`woodAccent`), in het donker dus geschuurd eiken.
 - **Avatars en teampillen**: donkere initiaal op lichte vullingen.
 - **Live Activity** (`ios/LiveScoreWidget`): oak bijgewerkt naar de nieuwe
   waarde.

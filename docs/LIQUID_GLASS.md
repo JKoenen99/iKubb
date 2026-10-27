@@ -16,7 +16,7 @@ dezelfde widgetboom.
 | *Regular* voor tekstrijke chrome; *clear* alleen boven rijke media, dan met een donkere dimlaag van 35 % | Materials | `GlassVariant.regular` (surface-tint 72 %) voor bars, toolbars, sheets. `GlassVariant.clear` (forestDeep 35 %) alleen voor de knoppen boven het houtnerf-thuisscherm en het donkere scorebord. |
 | Content scrollt onder de bar door; scroll-edge-effect houdt de titel leesbaar | Adopting / Toolbars | `extendBodyBehindAppBar` op elk scherm; `KaatoAppBar` is transparant met een verloop van de achtergrondkleur als zachte scroll-edge. Lijsten beginnen onder de bar via de MediaQuery-inset en scrollen eronder door. |
 | Groepeer verwante acties in één container; iconen, monochroom; één primaire actie getint, trailing | Toolbars / Buttons | `GlassGroup`: alle bar-acties in één capsule (iconen, monochroom). In `GlassToolbar` worden tonal-knoppen monochroom glas; alleen de bevestigknop blijft getint, rechts. |
-| Capsule- en cirkelvormen, concentrisch met hun container | Adopting / Buttons | Theme op iOS: `StadiumBorder` voor Filled/Outlined/Text-knoppen, segmented controls en chips; glascontainers 26 pt superellips (`RoundedSuperellipseBorder`), sheets 34 pt. |
+| Capsule- en cirkelvormen, concentrisch met hun container | Adopting / Buttons | Theme op iOS: `StadiumBorder` voor Filled/Outlined/Text-knoppen en chips; glascontainers 26 pt superellips (`RoundedSuperellipseBorder`), sheets 34 pt. De segmentknop is bewust geen capsule: track 12 pt met een concentrische tegel van 8 pt (`docs/INPUTS.md`). |
 | Hit-regio minimaal 44×44 pt | Buttons | Ongewijzigd; `iOSTapTargetGuideline` getest op game, setup, settings. |
 | Sheets: grotere hoekradius, half sheets los van de schermrand, grabber, content piept eromheen | Adopting / Sheets | `glassSheet`: 8 pt inzet, 34 pt hoeken, eigen grabber, glazen oppervlak; regels- en feedback-sheet. |
 | Menu's nemen glas aan, met iconen | Adopting | `popupMenuTheme`: translucent, superellips 26 pt; de overflow-menu's hadden al iconen. |
@@ -43,7 +43,7 @@ dezelfde widgetboom.
 
 ## Native kant
 
-Bouw met Xcode 26: systeemonderdelen die niet door Flutter worden
+Bouw met Xcode 26 of nieuwer: systeemonderdelen die niet door Flutter worden
 getekend (de deelsheet, toetsenbord, systeemdialogen, de Live Activity)
 krijgen Liquid Glass vanzelf. `UIDesignRequiresCompatibility` staat
 bewust niet in `Info.plist`.

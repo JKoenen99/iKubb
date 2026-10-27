@@ -180,7 +180,7 @@ class SettingsScreen extends ConsumerWidget {
                               ?.short,
                         ),
                       ),
-                      // TEMPORARY: design review.
+                      // The living design-system catalog (docs/DESIGN_SYSTEM.md).
                       SettingsNavTile(
                         icon: Icons.palette_outlined,
                         title: l10n.designSystemLabel,
