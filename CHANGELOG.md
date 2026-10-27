@@ -16,8 +16,8 @@ commit onderaan Settings.
   naar klassiek kubb of oude componenten in de actuele documenten.
 - **Designsystem-pagina**: voorbeelden en "gebruikt in"-notities zonder
   klassiek kubb.
-- **Supabase**: een migratie die de tabelomschrijving naar Kaato zet
-  (alleen metadata, nog uit te voeren).
+- **Supabase**: de tabelomschrijving van de feedbacktabel zegt nu Kaato
+  (alleen metadata; de feedback zelf is ongewijzigd).
 
 ## 0.4.0 (4)
 

@@ -111,15 +111,15 @@ Een id verandert nooit; nieuwe ids toevoegen is additief.
 
 Project `cebkosufhtkddecfroij` (eu-west-1, Postgres 17). In het
 Supabase-dashboard heet het nog `iKubb`; hernoemen kan daar en verandert
-niets aan de URL of de sleutels. De migraties 0001 en 0002 zijn via de
-Supabase-connector uitgevoerd (tabel, policy, views, rate limit) en
-geverifieerd: de anon-rol kan invoegen, kan niet lezen (42501) en een
+niets aan de URL of de sleutels. Alle migraties in `supabase/migrations/`
+(0001 tot en met 0003) zijn via de Supabase-connector uitgevoerd (tabel,
+policy, views, rate limit, tabelomschrijving) en geverifieerd: de anon-rol kan invoegen, kan niet lezen (42501) en een
 dubbele `event_id` geeft 23505 (REST: 409). De security-advisor meldt
-niets. Migratie 0003 (alleen de tabelomschrijving, van iKubb naar Kaato)
-staat klaar maar is nog niet uitgevoerd. Migraties zijn append-only: pas
-een uitgevoerde nooit aan, voeg een nieuwe toe. Voor een vers project of
-de openstaande migratie: `supabase link` + `supabase db push`, of de SQL
-uit `supabase/migrations/` in volgorde in de SQL-editor plakken.
+niets. Migraties zijn append-only: pas een uitgevoerde nooit aan, voeg
+een nieuwe toe. Voor een vers project: `supabase link` + `supabase db
+push`, of de SQL uit `supabase/migrations/` in volgorde in de SQL-editor
+plakken. Een gepauzeerd project (na een week zonder verkeer op het gratis
+plan) moet eerst in het dashboard worden hervat.
 
 Build-configuratie (publishable key is publiek; RLS beperkt hem tot
 invoegen):
