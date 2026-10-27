@@ -160,11 +160,27 @@ class GlassGroup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Widget row = Row(mainAxisSize: MainAxisSize.min, children: children);
+    // Clear glass is always dark, so its glyphs stay light in both
+    // themes; the theme's onSurface would turn them ink in light mode.
+    if (variant == GlassVariant.clear) {
+      row = IconTheme.merge(
+        data: const IconThemeData(color: KaatoPalette.birchLight),
+        child: IconButtonTheme(
+          data: IconButtonThemeData(
+            style: IconButton.styleFrom(
+              foregroundColor: KaatoPalette.birchLight,
+            ),
+          ),
+          child: row,
+        ),
+      );
+    }
     return KaatoGlass(
       variant: variant,
       radius: KaatoRadius.capsule,
       padding: const EdgeInsets.symmetric(horizontal: KaatoSpacing.xxs),
-      child: Row(mainAxisSize: MainAxisSize.min, children: children),
+      child: row,
     );
   }
 }

@@ -42,7 +42,7 @@ final routerProvider = Provider<GoRouter>(
         path: '/settings',
         builder: (context, state) => const SettingsScreen(),
       ),
-      // TEMPORARY: design review.
+      // The living design-system catalog (docs/DESIGN_SYSTEM.md).
       GoRoute(
         path: '/designsystem',
         builder: (context, state) => const DesignSystemScreen(),

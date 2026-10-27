@@ -1,5 +1,8 @@
 # Platform review: Apple HIG · iOS patterns · Android/Material patterns
 
+> **Historisch rapport (juli 2026).** Geschreven toen de app nog iKubb heette. Het wordt niet herschreven; wat nu geldt staat in de actuele
+> documenten, zie [`docs/README.md`](README.md) en [`AGENTS.md`](../AGENTS.md).
+
 **Date:** 2026-07-18 · **Scope:** full app, source-level review of every
 screen plus the iOS/Android platform shells. Items marked **FIXED** were
 corrected as part of this review; **PASS** already conformed; **TO VERIFY**
@@ -22,7 +25,7 @@ action confirmation, and share/overflow glyph conventions.
 |---|---|---|
 | App icon | **FIXED** | Was Flutter's default. Brand mark now generated for all 15 catalog entries, opaque RGB (HIG: no alpha in app icons). |
 | Launch screen | **FIXED** | Was white; now birch `#F5EFE6` to blend into the app's first frame (HIG: launch should resemble the first screen). |
-| Display name | **FIXED** | `Ikubb` → `Kaato` (CFBundleDisplayName + CFBundleName). |
+| Display name | **FIXED** | `Ikubb` → `iKubb` (CFBundleDisplayName + CFBundleName). |
 | Navigation & back | **PASS** | MaterialPageRoute is platform-adaptive: iOS gets Cupertino slide transitions and the edge-swipe back gesture; `BackButton` renders the iOS chevron. No screen is a dead end (home fallback leading everywhere). |
 | Destructive actions | **FIXED** | "New game" mid-game silently discarded the running game. Now `AlertDialog.adaptive` (renders as a Cupertino alert on iOS) asks first; empty/finished games reset silently. |
 | Share | **FIXED/PASS** | Uses the system share sheet (HIG requirement); glyph now `Icons.adaptive.share` (iOS square-and-arrow, Android share nodes). |
@@ -43,7 +46,7 @@ action confirmation, and share/overflow glyph conventions.
 |---|---|---|
 | Launcher icon | **FIXED** | Brand mark generated for all five densities (mdpi–xxxhdpi). |
 | Adaptive + themed icons | **DEFERRED** | Legacy square icons ship now; proper adaptive layers (foreground/background/monochrome for Android 13 themed icons) belong in the Play-release pass. |
-| App label | **FIXED** | `ikubb` → `Kaato`. |
+| App label | **FIXED** | `ikubb` → `iKubb`. |
 | Launch/splash | **FIXED** | `launch_background.xml` (both API variants) now birch instead of white; pairs with the Android 12+ splash API defaults. |
 | Material 3 | **PASS** | M3 components throughout (SegmentedButton, FilledButton, chips, expansion tiles); dynamic-color is intentionally not used — the brand palette is the identity. |
 | System back | **PASS** | Root screens exit the app (platform convention); pushed screens pop; predictive-back works through Flutter's default integration. |

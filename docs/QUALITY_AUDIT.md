@@ -1,7 +1,8 @@
 # Kaato — Quality audit: UX · WCAG AA · brand & copy · Apple HIG
 
-> Historisch rapport. De klassieke kubb-modus waar dit audit naar verwijst
-> is in 0.4.0 verwijderd, toen de app Kaato werd.
+> **Historisch rapport (juli 2026).** Geschreven toen de app nog iKubb heette en ook klassiek
+> kubb speelde (verwijderd in 0.4.0). Het wordt niet herschreven; wat nu geldt staat in de actuele
+> documenten, zie [`docs/README.md`](README.md) en [`AGENTS.md`](../AGENTS.md).
 
 **Date:** 2026-07-26 · **Artefacts:** full codebase (`lib/`, `test/`) plus
 21 headless screenshots of the web build (light/dark, phone 390×844 and iPad

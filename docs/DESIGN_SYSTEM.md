@@ -32,23 +32,35 @@ Foundations: palet (incl. houtramp met gemeten contrast, lijnen, signalen,
 spelerkleuren), typografie (stappen en begeleidende stijlen), spacing,
 radius, randen, icoonmaten, alpha's, layoutbreedtes, tikminimum, motion.
 
-Componenten: KaatoAppBar; KaatoGlass, GlassGroup, GlassToolbar,
-BottomActionBar, glassIconButton, glassSheet; SectionHeader; de Material-
-knoppen in de thema-hiërarchie; Overlay-knoppen; DashedAddButton; TextField
-(alle staten); SelectField; AdaptiveChoice (segment en chip-modus);
-chips; SwitchCard; StepperCard; ChoiceCard; StarRating; FormCard en
-FormLabel; SettingCard; de Settings-tegels; ActiveSideCard en
-ColorDotName; AvatarCircle; TintPill; RecentChip; de spelerrij en
-teamkaart (composities); DotRow; RollingNumber; CelebrationBanner;
-SnackBar; confirmAdaptive; CelebrationScaffold; ConfettiBurst; ShareCard
-en showShareCardDialog; KubbBlock, KubbKing, KubbBlockRow, AdvantageLine;
-PinDiagram; VikingMascot; WoodGrainBackground; de regelillustraties;
-KeepAwake; LiquidGlass-gates; de paletfuncties.
+Componenten, per sectie:
+
+- **Chrome & glass**: KaatoAppBar; KaatoGlass, GlassGroup, GlassToolbar,
+  BottomActionBar, glassIconButton, glassSheet; SectionHeader.
+- **Buttons**: de Material-knoppen in de thema-hiërarchie (capsules op
+  iOS); Overlay-knoppen; DashedAddButton.
+- **Inputs**: TextField (alle staten); SelectField; SegmentedControl met
+  een anatomie-overzicht (track, actieve tegel, label, icoon, segmenten);
+  AdaptiveChoice (segmenten, chips bij grote tekst); chips; SwitchCard;
+  StepperCard; ChoiceCard (beschikbaar, nu in geen scherm gebruikt);
+  StarRating.
+- **Cards & tiles**: FormCard en FormLabel; SettingCard; de
+  Settings-tegels; ActiveSideCard en ColorDotName.
+- **Players & teams**: AvatarCircle; TintPill; RecentChip; de spelerrij
+  en de teamkaart (composities).
+- **Status & numbers**: DotRow; RollingNumber; CelebrationBanner;
+  SnackBar.
+- **Overlays & dialogs**: confirmAdaptive; CelebrationScaffold;
+  ConfettiBurst; ShareCard en showShareCardDialog.
+- **Game pieces**: PinDiagram.
+- **Illustration**: WorkbenchKaato (SVG op Home); VikingMascot;
+  WoodGrainBackground; de regelillustraties.
+- **Behaviours**: KeepAwake; de LiquidGlass-gates; de paletfuncties
+  (`on`, `woodAccent`, `woodGrain`, `danger`).
 
 ## Een component toevoegen
 
 1. Bouw de widget in `lib/widgets/` (of in zijn feature als hij
-   feature-specifiek is).
+   feature-specifiek is), alleen met tokens uit `lib/theme/`.
 2. Voeg in de passende sectie van `design_system_screen.dart` een `Story`
    toe met minstens één `Variant` per visuele staat. Gebruik de echte
    widget, geen nabootsing.

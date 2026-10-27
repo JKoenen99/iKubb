@@ -90,16 +90,16 @@ Version 0.2.0 (2), commit 58cf66b
 
 ## Versieregels
 
-`version: MAJOR.MINOR.PATCH+BUILD` in `pubspec.yaml`:
+`version: MAJOR.MINOR.PATCH+BUILD` in `pubspec.yaml`. De volledige regels
+staan in `AGENTS.md` (sectie *Versions and changelog*); kort:
 
-- **BUILD** (+2, +3, …): verhogen bij elke build die je op toestellen of
-  aan testers geeft. Altijd ophogen, nooit hergebruiken; TestFlight en de
-  App Store eisen dat later ook.
-- **PATCH** (0.2.1): alleen fixes.
-- **MINOR** (0.3.0): nieuwe functies of een merkbare ontwerpwijziging.
+- **BUILD** (+2, +3, …): omhoog bij elke build die je installeert, nooit
+  hergebruiken.
+- **PATCH** (0.4.1): fixes, en docs of onderhoud dat de app raakt.
+- **MINOR** (0.5.0): nieuwe functies of een merkbare ontwerpwijziging.
 - **MAJOR** (1.0.0): de eerste publieke release.
-
-Bij elke versie hoort een regel in `CHANGELOG.md`.
+- Elke branch verhoogt de versie één keer; bij elke versie hoort een
+  regel in `CHANGELOG.md`.
 
 ## Problemen
 
@@ -127,10 +127,13 @@ Bij elke versie hoort een regel in `CHANGELOG.md`.
 ## Branches
 
 `main` is de versie die altijd werkt. Nieuw werk staat eerst op een eigen
-branch (`feature/…`, `design/…`, `fix/…`); Claude noemt bij elke
+branch met een naam die zegt waar het over gaat: soort werk en
+onderwerp, zoals `feature/match-history` of `fix/stepper-overflow`
+(ook als een cloudsessie met een willekeurige `claude/…`-naam start;
+branches van vóór deze afspraak houden hun naam). Claude noemt bij elke
 wijziging op welke branch het staat en met welk commando je het
 uitprobeert. Na jouw akkoord gaat het naar `main`. De regels staan in
-`CLAUDE.md`.
+`AGENTS.md`.
 
 Het script bouwt wat er op je Mac is uitgecheckt; de regel `Branch:`
 bovenaan de uitvoer en de commit onderaan Settings vertellen welke versie

@@ -828,7 +828,7 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
         name: 'OverlayFilledButton · OverlayOutlinedButton',
         source: 'widgets/celebration.dart',
         summary:
-            'The two actions of a full-screen overlay (win, early king): '
+            'The two actions of a full-screen overlay (the win screen): '
             'birch on the forest scrim, one filled primary and one outlined '
             'secondary.',
         usedIn: 'win overlay, share dialog',
@@ -979,9 +979,7 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
             'tinted from the text color, and a raised tile with a soft '
             'shadow that slides to the chosen segment. No outlines and no '
             'brand-colored fill; equal segment widths.',
-        usedIn:
-            'through AdaptiveChoice: Settings theme, New game mode, '
-            'match and turn clock, rules panel mode, game input mode',
+        usedIn: 'through AdaptiveChoice: Settings theme, game input mode',
         props: const [
           Prop('options', 'List<ChoiceOption<T>>', 'value, label, icon?'),
           Prop('selected', 'T', 'exactly one'),
@@ -1026,8 +1024,8 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
               margin: EdgeInsets.zero,
               child: SegmentedControl<int>(
                 options: const [
-                  ChoiceOption(value: 0, label: 'Single game'),
-                  ChoiceOption(value: 1, label: 'Best of three'),
+                  ChoiceOption(value: 0, label: 'Tap pins'),
+                  ChoiceOption(value: 1, label: 'Number pad'),
                 ],
                 selected: _segment,
                 onSelected: (v) => setState(() => _segment = v),
@@ -1054,9 +1052,7 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
             'SegmentedControl at normal text sizes; once Dynamic Type grows '
             'past 1.3× it becomes a wrapping row of choice chips so labels '
             'never clip.',
-        usedIn:
-            'Settings theme, New game mode, rules panel mode, game input '
-            'mode',
+        usedIn: 'Settings theme, game input mode',
         props: const [
           Prop('options', 'List<ChoiceOption<T>>', 'two to four'),
           Prop('selected', 'T', 'exactly one'),
@@ -1344,7 +1340,7 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
             'A row card: label on the left, one control on the right. With '
             'onTap and no trailing it shows a disclosure chevron and opens '
             'a sheet or screen.',
-        usedIn: 'phone layout of New game (house rules, match), Settings',
+        usedIn: 'phone layout of New game (house rules), Settings',
         props: const [
           Prop(
             'title / subtitle',
@@ -1367,10 +1363,10 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
                   onTap: () {},
                 ),
                 SettingCard(
-                  leading: const Icon(Icons.timer_outlined),
-                  title: 'Turn clock',
+                  leading: const Icon(Icons.flag_outlined),
+                  title: 'Target score',
                   trailing: TintPill(
-                    label: '30s',
+                    label: '50',
                     color: KaatoPalette.fjord,
                     onTap: () {},
                   ),
@@ -1923,7 +1919,7 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
             'The full-screen end-of-game overlay: forest scrim tinted with '
             'the winner\'s color, banner, score line, details, actions and '
             'a footer, with confetti when celebrate is true.',
-        usedIn: 'win overlay, early king, match won',
+        usedIn: 'win overlay',
         props: const [
           Prop('banner', 'Widget', 'CelebrationBanner'),
           Prop('scoreLine / details / footer', 'Widget?', ''),
@@ -2162,8 +2158,9 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
         name: 'Rule illustrations',
         source: 'features/rules/rule_illustrations.dart',
         summary:
-            'Small text-free diagrams for the rules panel (throw arc, '
-            'scoring, elimination, king). Arrows, trophies and sticks use '
+            'Small text-free diagrams for the rules panel and the tour '
+            '(throw arc, scoring, overshoot, misses, winning). Arrows, '
+            'trophies and sticks use '
             'KaatoPalette.woodAccent so they read in both themes.',
         usedIn: 'rules panel',
         variants: [

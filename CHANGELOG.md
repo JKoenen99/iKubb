@@ -1,10 +1,10 @@
 # Changelog
 
-Versies volgen `MAJOR.MINOR.PATCH+BUILD` uit `pubspec.yaml`; zie
-`docs/IOS_DEVICE_TESTING.md` voor de regels. De app toont de versie en
+Versies volgen `MAJOR.MINOR.PATCH+BUILD` uit `pubspec.yaml`; de regels
+staan in `AGENTS.md`. De app toont de versie en
 commit onderaan Settings.
 
-## 0.5.0 (5)
+## 0.5.0 (7)
 
 - **Nieuwe illustratie op Home**: Kaato aan de werkbank, kegels aan het
   snijden, vervangt de getekende Viking boven het woordmerk. Op kleine
@@ -14,6 +14,27 @@ commit onderaan Settings.
   `dart tool/inline_svg_styles.dart assets/character/<bestand>.svg`.
   Flutter negeert het `<style>`-blok dat Illustrator schrijft en tekent
   anders alles zwart; een test bewaakt dit.
+
+## 0.4.2 (6)
+
+- **Instellingenknop op Home leesbaar in licht thema** (iOS): het
+  tandwiel stond donker op de donkere glazen schijf. Knoppen op helder
+  glas houden nu in beide thema's een lichte glyph.
+
+## 0.4.1 (5)
+
+- **Werkafspraken op één plek**: `AGENTS.md` beschrijft hoe iedereen aan
+  Kaato werkt, mens of agent: wanneer een nieuwe branch, checks vóór een
+  push, versies, het designsysteem, teksten en documentatie. Claude,
+  Copilot en Gemini lezen het automatisch via hun eigen bestand.
+- **Documentatie bijgewerkt**: `docs/README.md` zegt welke documenten
+  actueel zijn en welke gedateerde rapporten; de spec beschrijft wat er
+  gebouwd is en markeert wat nog gepland staat; geen verwijzingen meer
+  naar klassiek kubb of oude componenten in de actuele documenten.
+- **Designsystem-pagina**: voorbeelden en "gebruikt in"-notities zonder
+  klassiek kubb.
+- **Supabase**: de tabelomschrijving van de feedbacktabel zegt nu Kaato
+  (alleen metadata; de feedback zelf is ongewijzigd).
 
 ## 0.4.0 (4)
 

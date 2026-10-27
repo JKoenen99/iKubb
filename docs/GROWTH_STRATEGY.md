@@ -1,5 +1,9 @@
 # Kaato — First users & monetization strategy
 
+> **Gedateerde strategie (juli 2026).** Geschreven toen de app nog iKubb heette;
+> de naam is nu Kaato en de app speelt alleen nummerkubb. Wat nu geldt
+> staat in [`docs/README.md`](README.md) en [`AGENTS.md`](../AGENTS.md).
+
 **Date:** 2026-07 (peak season) · Strategy only — no build items.
 
 ## 1. Who the first users actually are

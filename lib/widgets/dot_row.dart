@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../theme/tokens.dart';
 
-/// The one way to show progress dots (misses, match wins, batons).
+/// The one way to show progress dots (misses toward elimination).
 ///
 /// Filled and idle dots differ in *shape* (filled vs outlined), not just
 /// color (WCAG 1.4.1), and the row carries a caller-provided semantic

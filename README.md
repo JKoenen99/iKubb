@@ -20,8 +20,15 @@ repository name, and GitHub redirects the old URLs.
 ## Branches
 
 `main` is always installable; work happens on `feature/…`, `design/…`,
-`fix/…` and `chore/…` branches and is merged after review. When to start
-a branch and when not: [CLAUDE.md](CLAUDE.md).
+`fix/…` and `chore/…` branches named after their topic
+(`feature/match-history`) and is merged after review. When to start a
+branch, how to name it, and every other working agreement (checks,
+versions, design system, copy, docs): [AGENTS.md](AGENTS.md). Claude,
+Copilot and Gemini read it through `CLAUDE.md`,
+`.github/copilot-instructions.md` and `GEMINI.md`.
+
+Which docs describe the app as it is now, and which are dated reports:
+[docs/README.md](docs/README.md).
 
 ## Getting started
 
@@ -81,7 +88,7 @@ dart test -C packages/scoring_engine   # pure Dart rules engine tests
 
 On iOS the chrome follows Apple's Liquid Glass guidelines: transparent
 navigation bars whose buttons float in glass, glass toolbars for the
-primary actions, inset glass half sheets, capsule controls. Android and
+primary actions, inset glass half sheets, capsule buttons. Android and
 web keep the Material look from the same widget tree. Rules, fallbacks
 (Increase Contrast) and what stays native: [docs/LIQUID_GLASS.md](docs/LIQUID_GLASS.md).
 
@@ -118,6 +125,14 @@ in [CHANGELOG.md](CHANGELOG.md).
 
 ## Layout
 
-- `lib/` — app code (theme tokens, router, feature folders, 10-language ARB catalogs)
-- `packages/scoring_engine/` — pure Dart, Flutter-free rules engine (replay-based: undo/edit fall out for free)
-- `SPEC.md` — the product spec this repo implements
+- `lib/` — app code: `theme/` (tokens, palette, typography, themes,
+  glass), `widgets/` (shared components), `features/` (one folder per
+  screen area), `l10n/` (10-language ARB catalogs)
+- `packages/scoring_engine/` — pure Dart, Flutter-free rules engine
+  (replay-based: undo and throw edits fall out for free)
+- `test/` — widget tests; `packages/scoring_engine/test/` — engine tests
+- `tool/ios.sh` — build and install on your iPhone and iPad
+- `supabase/migrations/` — the feedback table (append-only)
+- `docs/` — current docs and dated reports ([index](docs/README.md))
+- `SPEC.md` — the product spec: what is built and what is planned
+- `AGENTS.md` — working agreements for people and agents

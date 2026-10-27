@@ -1,5 +1,8 @@
 # UX Audit: Kaato
 
+> **Historisch rapport (juli 2026).** Geschreven toen de app nog iKubb heette. Het wordt niet herschreven; wat nu geldt staat in de actuele
+> documenten, zie [`docs/README.md`](README.md) en [`AGENTS.md`](../AGENTS.md).
+
 **Date:** 2026-07-18 · **Artefacts:** 11 screenshots of the current web build
 (iPhone 390pt light + dark, iPad 1180pt) captured headlessly per route, plus
 source review · **Scope:** brand awareness, emotional design, overall UX ·
