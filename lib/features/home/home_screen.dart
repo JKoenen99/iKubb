@@ -4,8 +4,8 @@ import 'package:go_router/go_router.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../../theme/palette.dart';
+import '../../widgets/thrower_kaato.dart';
 import '../../widgets/wood_grain.dart';
-import '../../widgets/workbench_kaato.dart';
 import '../game/game_controller.dart';
 import '../../theme/glass.dart';
 import '../../theme/tokens.dart';
@@ -56,70 +56,81 @@ class HomeScreen extends ConsumerWidget {
             ),
           ),
           SafeArea(
-            child: Center(
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(
-                  maxWidth: KaatoLayout.maxColumn,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(KaatoSpacing.xl),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      // Shrinks before the buttons do on short screens.
-                      const Flexible(child: WorkbenchKaato()),
-                      const SizedBox(height: KaatoSpacing.sm),
-                      Text(
-                        l10n.appTitle,
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.displayLarge,
+            child: Padding(
+              padding: const EdgeInsets.all(KaatoSpacing.xl),
+              child: Column(
+                children: [
+                  // The illustration takes all the space the title and
+                  // buttons leave, up to the screen's side padding (wider
+                  // than the button column on iPad), standing on the title.
+                  const Expanded(
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: ThrowerKaato(),
+                    ),
+                  ),
+                  Center(
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(
+                        maxWidth: KaatoLayout.maxColumn,
                       ),
-                      Text(l10n.tagline, textAlign: TextAlign.center),
-                      const SizedBox(height: KaatoSpacing.huge),
-                      // An interrupted game takes over as the primary
-                      // action: resuming beats restarting (SPEC.md §3.5).
-                      if (resumable)
-                        FilledButton.icon(
-                          onPressed: () => context.go('/game'),
-                          icon: const Icon(Icons.play_arrow),
-                          label: Text(
-                            l10n.resumeGameSummary(resumeSummary),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        )
-                      else
-                        FilledButton(
-                          onPressed: quickStart,
-                          child: Text(l10n.quickStart),
-                        ),
-                      const SizedBox(height: KaatoSpacing.md),
-                      FilledButton.tonal(
-                        onPressed: () => context.push('/setup'),
-                        child: Text(l10n.newGame),
-                      ),
-                      const SizedBox(height: KaatoSpacing.md),
-                      Row(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          Expanded(
-                            child: OutlinedButton(
-                              onPressed: () => context.push('/rules'),
-                              child: Text(l10n.rules),
-                            ),
+                          const SizedBox(height: KaatoSpacing.sm),
+                          Text(
+                            l10n.appTitle,
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.displayLarge,
                           ),
-                          const SizedBox(width: KaatoSpacing.md),
-                          Expanded(
-                            child: OutlinedButton(
-                              onPressed: () => context.push('/stats'),
-                              child: Text(l10n.stats),
+                          Text(l10n.tagline, textAlign: TextAlign.center),
+                          const SizedBox(height: KaatoSpacing.huge),
+                          // An interrupted game takes over as the primary
+                          // action: resuming beats restarting (SPEC.md §3.5).
+                          if (resumable)
+                            FilledButton.icon(
+                              onPressed: () => context.go('/game'),
+                              icon: const Icon(Icons.play_arrow),
+                              label: Text(
+                                l10n.resumeGameSummary(resumeSummary),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            )
+                          else
+                            FilledButton(
+                              onPressed: quickStart,
+                              child: Text(l10n.quickStart),
                             ),
+                          const SizedBox(height: KaatoSpacing.md),
+                          FilledButton.tonal(
+                            onPressed: () => context.push('/setup'),
+                            child: Text(l10n.newGame),
+                          ),
+                          const SizedBox(height: KaatoSpacing.md),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: OutlinedButton(
+                                  onPressed: () => context.push('/rules'),
+                                  child: Text(l10n.rules),
+                                ),
+                              ),
+                              const SizedBox(width: KaatoSpacing.md),
+                              Expanded(
+                                child: OutlinedButton(
+                                  onPressed: () => context.push('/stats'),
+                                  child: Text(l10n.stats),
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                    ],
+                    ),
                   ),
-                ),
+                ],
               ),
             ),
           ),

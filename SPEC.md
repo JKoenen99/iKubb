@@ -266,9 +266,9 @@ Histories from those builds load without their classic-kubb matches.
   (`docs/DESIGN_SYSTEM.md`).
 - **Illustration.** Code-drawn in Flutter, flat and minimal-line: the
   Viking mascot with throwing stick (three poses), the pin set, rule
-  illustrations, wood grain. Home's hero is a hand-drawn SVG, Kaato at
-  the workbench carving pins (`assets/character/`). Longship/rune flourishes, an avatar set and a
-  layered app icon are *(planned)*. One consistent style — limited
+  illustrations, wood grain. Home's hero is a hand-drawn PNG, Kaato
+  throwing the stick (`assets/character/`). Longship/rune flourishes, an
+  avatar set and a layered app icon are *(planned)*. One consistent style — limited
   palette, chunky rounded linework, no gradients.
 - **Materials.** Subtle wood-grain texture only on large brand surfaces
   (onboarding, win screen), never behind body text.

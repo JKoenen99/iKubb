@@ -52,7 +52,7 @@ Componenten, per sectie:
 - **Overlays & dialogs**: confirmAdaptive; CelebrationScaffold;
   ConfettiBurst; ShareCard en showShareCardDialog.
 - **Game pieces**: PinDiagram.
-- **Illustration**: WorkbenchKaato (SVG op Home); VikingMascot;
+- **Illustration**: ThrowerKaato (PNG op Home); VikingMascot;
   WoodGrainBackground; de regelillustraties.
 - **Behaviours**: KeepAwake; de LiquidGlass-gates; de paletfuncties
   (`on`, `woodAccent`, `woodGrain`, `danger`).

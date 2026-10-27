@@ -20,9 +20,9 @@ import '../../widgets/segmented_control.dart';
 import '../../widgets/settings_tiles.dart';
 import '../../widgets/share_card.dart';
 import '../../widgets/side_card.dart';
+import '../../widgets/thrower_kaato.dart';
 import '../../widgets/viking_mascot.dart';
 import '../../widgets/wood_grain.dart';
-import '../../widgets/workbench_kaato.dart';
 import '../feedback/star_rating.dart';
 import '../game/pin_diagram.dart';
 import '../settings/settings_controller.dart';
@@ -2081,15 +2081,21 @@ class _DesignSystemScreenState extends ConsumerState<DesignSystemScreen> {
     return [
       _anchor(_Section.illustration),
       const Story(
-        name: 'WorkbenchKaato',
-        source: 'widgets/workbench_kaato.dart',
+        name: 'ThrowerKaato',
+        source: 'widgets/thrower_kaato.dart',
         summary:
-            'Kaato at the workbench, carving pins: a hand-drawn SVG '
-            '(assets/character). Shrinks to fit on short screens. Colours '
-            'are baked into the file, so it looks the same in both themes.',
+            'Kaato throwing the stick: a hand-drawn PNG with a transparent '
+            'background (assets/character). Fills the space its parent gives '
+            'it and keeps its aspect ratio; on Home it takes everything the '
+            'title and buttons leave. Colours are baked in, so it looks the '
+            'same in both themes.',
         usedIn: 'Home',
-        props: [Prop('height', 'double', '220 by default')],
-        variants: [Variant('Default', WorkbenchKaato(height: 160))],
+        variants: [
+          Variant(
+            'In a 200 pt box',
+            SizedBox(height: 200, child: ThrowerKaato()),
+          ),
+        ],
         a11y: 'Decorative: excluded from semantics.',
       ),
       const Story(

@@ -4,6 +4,15 @@ Versies volgen `MAJOR.MINOR.PATCH+BUILD` uit `pubspec.yaml`; de regels
 staan in `AGENTS.md`. De app toont de versie en
 commit onderaan Settings.
 
+## 0.6.0 (8)
+
+- **Nieuwe hoofdafbeelding op Home**: Kaato die de werpstok gooit, zonder
+  witte achtergrond, in plaats van Kaato aan de werkbank. Hij vult alle
+  ruimte boven de naam en de knoppen, met de gewone marge aan de zijkant;
+  op de iPad wordt hij breder dan de knoppen.
+- De werkbank-illustratie is uit de app gehaald (hij staat nog in de
+  geschiedenis van de repository).
+
 ## 0.5.0 (7)
 
 - **Nieuwe illustratie op Home**: Kaato aan de werkbank, kegels aan het
