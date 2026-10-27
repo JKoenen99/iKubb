@@ -33,8 +33,8 @@ gratis Apple ID. Eén keer instellen, daarna bijwerken met één commando.
    ```bash
    cd ~/projects
    gh repo clone JKoenen99/iKubb
-   cd Kaato
-   git checkout claude/kubb-scoreboard-spec-taaalb
+   cd iKubb
+   git switch main
    ```
 5. **Ondertekening**: `open ios/Runner.xcworkspace`, target Runner,
    Signing & Capabilities: "Automatically manage signing" aan, Team
@@ -63,6 +63,8 @@ app blijven bewaard.
 | Commando | Wat het doet |
 |---|---|
 | `tool/ios.sh` | ophalen, bouwen, installeren op alle toestellen |
+| `tool/ios.sh --branch main` | eerst naar `main` wisselen (de stabiele versie) |
+| `tool/ios.sh --branch feature/x` | een branch uitproberen die Claude noemt |
 | `tool/ios.sh --device ipad` | alleen het toestel waarvan de naam "ipad" bevat |
 | `tool/ios.sh --no-pull` | bouwen wat er nu lokaal staat |
 | `tool/ios.sh --dev` | debug-run met hot reload (r, R, q) op één toestel |
@@ -121,3 +123,15 @@ Bij elke versie hoort een regel in `CHANGELOG.md`.
   `git stash list`. Het ondertekeningsteam staat sinds 0.4.0 in de repo,
   dus Xcode hoeft daar lokaal niets meer aan te veranderen.
 - *CocoaPods-fout*: `cd ios && pod repo update && cd ..`, dan opnieuw.
+
+## Branches
+
+`main` is de versie die altijd werkt. Nieuw werk staat eerst op een eigen
+branch (`feature/…`, `design/…`, `fix/…`); Claude noemt bij elke
+wijziging op welke branch het staat en met welk commando je het
+uitprobeert. Na jouw akkoord gaat het naar `main`. De regels staan in
+`CLAUDE.md`.
+
+Het script bouwt wat er op je Mac is uitgecheckt; de regel `Branch:`
+bovenaan de uitvoer en de commit onderaan Settings vertellen welke versie
+je hebt.

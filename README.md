@@ -17,6 +17,12 @@ The GitHub repository is still named `iKubb`. Renaming it in GitHub
 settings is safe: the web preview builds its base path from the
 repository name, and GitHub redirects the old URLs.
 
+## Branches
+
+`main` is always installable; work happens on `feature/…`, `design/…`,
+`fix/…` and `chore/…` branches and is merged after review. When to start
+a branch and when not: [CLAUDE.md](CLAUDE.md).
+
 ## Getting started
 
 Requires Flutter 3.47+ (stable); CI pins the exact version in
