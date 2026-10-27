@@ -247,5 +247,7 @@
   "summaryNoElimination": "ingen utslagning",
   "summaryInTeams": "i lag",
   "editValueTitle": "Ange ett värde",
-  "renamePlayer": "Byt namn på {name}"
+  "renamePlayer": "Byt namn på {name}",
+  "appVersionLabel": "Version {version}",
+  "appVersionWithCommit": "Version {version}, commit {commit}"
 }

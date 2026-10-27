@@ -855,4 +855,14 @@ class AppLocalizationsNb extends AppLocalizations {
   String renamePlayer(String name) {
     return 'Gi $name nytt navn';
   }
+
+  @override
+  String appVersionLabel(String version) {
+    return 'Versjon $version';
+  }
+
+  @override
+  String appVersionWithCommit(String version, String commit) {
+    return 'Versjon $version, commit $commit';
+  }
 }

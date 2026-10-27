@@ -247,5 +247,7 @@
   "summaryNoElimination": "sans élimination",
   "summaryInTeams": "en équipes",
   "editValueTitle": "Saisir une valeur",
-  "renamePlayer": "Renommer {name}"
+  "renamePlayer": "Renommer {name}",
+  "appVersionLabel": "Version {version}",
+  "appVersionWithCommit": "Version {version}, commit {commit}"
 }

@@ -855,4 +855,14 @@ class AppLocalizationsDa extends AppLocalizations {
   String renamePlayer(String name) {
     return 'Omdøb $name';
   }
+
+  @override
+  String appVersionLabel(String version) {
+    return 'Version $version';
+  }
+
+  @override
+  String appVersionWithCommit(String version, String commit) {
+    return 'Version $version, commit $commit';
+  }
 }

@@ -92,6 +92,14 @@ page documents every token and component Storybook-style, with props,
 variants and accessibility notes, in both themes:
 [docs/DESIGN_SYSTEM.md](docs/DESIGN_SYSTEM.md).
 
+## Testing on your own iPhone and iPad
+
+One-time Mac setup, then `tool/ios.sh` pulls, builds once and installs
+on every connected iPhone and iPad. Settings shows the version and
+commit on the device. Steps and versioning rules:
+[docs/IOS_DEVICE_TESTING.md](docs/IOS_DEVICE_TESTING.md); release notes
+in [CHANGELOG.md](CHANGELOG.md).
+
 ## Layout
 
 - `lib/` — app code (theme tokens, router, feature folders, 10-language ARB catalogs)

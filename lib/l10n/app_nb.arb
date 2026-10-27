@@ -247,5 +247,7 @@
   "summaryNoElimination": "ingen eliminering",
   "summaryInTeams": "i lag",
   "editValueTitle": "Skriv inn en verdi",
-  "renamePlayer": "Gi {name} nytt navn"
+  "renamePlayer": "Gi {name} nytt navn",
+  "appVersionLabel": "Versjon {version}",
+  "appVersionWithCommit": "Versjon {version}, commit {commit}"
 }

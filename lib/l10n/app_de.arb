@@ -247,5 +247,7 @@
   "summaryNoElimination": "kein Ausscheiden",
   "summaryInTeams": "in Teams",
   "editValueTitle": "Wert eingeben",
-  "renamePlayer": "{name} umbenennen"
+  "renamePlayer": "{name} umbenennen",
+  "appVersionLabel": "Version {version}",
+  "appVersionWithCommit": "Version {version}, Commit {commit}"
 }

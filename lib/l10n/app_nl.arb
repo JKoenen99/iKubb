@@ -247,5 +247,7 @@
   "summaryNoElimination": "geen uitschakeling",
   "summaryInTeams": "in teams",
   "editValueTitle": "Voer een waarde in",
-  "renamePlayer": "{name} hernoemen"
+  "renamePlayer": "{name} hernoemen",
+  "appVersionLabel": "Versie {version}",
+  "appVersionWithCommit": "Versie {version}, commit {commit}"
 }

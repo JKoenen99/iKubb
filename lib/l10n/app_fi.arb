@@ -247,5 +247,7 @@
   "summaryNoElimination": "ei putoamista",
   "summaryInTeams": "joukkueissa",
   "editValueTitle": "Syötä arvo",
-  "renamePlayer": "Nimeä {name} uudelleen"
+  "renamePlayer": "Nimeä {name} uudelleen",
+  "appVersionLabel": "Versio {version}",
+  "appVersionWithCommit": "Versio {version}, commit {commit}"
 }

@@ -1601,6 +1601,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Rename {name}'**
   String renamePlayer(String name);
+
+  /// Settings footer: the installed version, e.g. "0.2.0 (2)".
+  ///
+  /// In en, this message translates to:
+  /// **'Version {version}'**
+  String appVersionLabel(String version);
+
+  /// Settings footer with the short git commit the build was made from.
+  ///
+  /// In en, this message translates to:
+  /// **'Version {version}, commit {commit}'**
+  String appVersionWithCommit(String version, String commit);
 }
 
 class _AppLocalizationsDelegate

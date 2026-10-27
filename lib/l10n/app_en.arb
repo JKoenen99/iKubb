@@ -508,5 +508,26 @@
         "type": "String"
       }
     }
+  },
+  "appVersionLabel": "Version {version}",
+  "appVersionWithCommit": "Version {version}, commit {commit}",
+  "@appVersionLabel": {
+    "description": "Settings footer: the installed version, e.g. \"0.2.0 (2)\".",
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "@appVersionWithCommit": {
+    "description": "Settings footer with the short git commit the build was made from.",
+    "placeholders": {
+      "version": {
+        "type": "String"
+      },
+      "commit": {
+        "type": "String"
+      }
+    }
   }
 }

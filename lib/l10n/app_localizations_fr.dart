@@ -860,4 +860,14 @@ class AppLocalizationsFr extends AppLocalizations {
   String renamePlayer(String name) {
     return 'Renommer $name';
   }
+
+  @override
+  String appVersionLabel(String version) {
+    return 'Version $version';
+  }
+
+  @override
+  String appVersionWithCommit(String version, String commit) {
+    return 'Version $version, commit $commit';
+  }
 }

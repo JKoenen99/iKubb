@@ -247,5 +247,7 @@
   "summaryNoElimination": "ingen eliminering",
   "summaryInTeams": "i hold",
   "editValueTitle": "Indtast en værdi",
-  "renamePlayer": "Omdøb {name}"
+  "renamePlayer": "Omdøb {name}",
+  "appVersionLabel": "Version {version}",
+  "appVersionWithCommit": "Version {version}, commit {commit}"
 }
