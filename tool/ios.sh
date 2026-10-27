@@ -47,6 +47,17 @@ if [ "$pull" -eq 1 ]; then
   # --autostash keeps local Xcode tweaks (such as your signing team in
   # project.pbxproj) across the pull.
   git pull --ff-only --autostash || fail "git pull failed. Run 'git status' and paste the output in the chat."
+  # git pull exits 0 even when re-applying the autostash conflicts: it
+  # leaves conflict markers in the files and the changes in the stash.
+  # Never build on top of that.
+  conflicts="$(git diff --name-only --diff-filter=U)"
+  if [ -n "$conflicts" ]; then
+    fail "Your local changes clashed with the update in:
+$conflicts
+They are kept in 'git stash list'. To build the pushed version, run:
+  git checkout HEAD -- $(echo $conflicts)
+  tool/ios.sh --no-pull"
+  fi
   if [ "$before" = "$(git rev-parse HEAD)" ]; then
     echo "Already up to date."
   else

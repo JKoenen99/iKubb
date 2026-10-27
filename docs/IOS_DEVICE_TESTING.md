@@ -113,6 +113,11 @@ Bij elke versie hoort een regel in `CHANGELOG.md`.
 - *"No iPhone or iPad found"*: ontgrendelen, kabel controleren, of
   `flutter devices` draaien om te zien wat Flutter ziet.
 - *`git pull failed`*: `git status` draaien en de uitvoer in de chat
-  plakken. Lokale wijzigingen aan de ondertekening in Xcode worden door
-  het script automatisch bewaard.
+  plakken.
+- *"Your local changes clashed with the update"*: je had lokale
+  wijzigingen (meestal door Xcode) in een bestand dat de update ook
+  aanpast. Het script stopt dan vóór het bouwen en noemt het commando
+  om de gepushte versie terug te zetten; jouw wijzigingen blijven in
+  `git stash list`. Het ondertekeningsteam staat sinds 0.4.0 in de repo,
+  dus Xcode hoeft daar lokaal niets meer aan te veranderen.
 - *CocoaPods-fout*: `cd ios && pod repo update && cd ..`, dan opnieuw.
