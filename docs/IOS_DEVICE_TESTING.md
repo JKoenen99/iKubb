@@ -95,7 +95,14 @@ Bij elke versie hoort een regel in `CHANGELOG.md`.
 
 ## Problemen
 
-- *"Untrusted Developer"*: stap 6, het certificaat vertrouwen.
+- *"Untrusted Developer"*: stap 6, het certificaat vertrouwen. Dat
+  hoort eenmalig per toestel te zijn: iOS trekt het vertrouwen alleen in
+  als de laatste app van jouw certificaat van het toestel verdwijnt.
+  `tool/ios.sh` installeert daarom over de bestaande app heen (zoals
+  Xcode) en nooit via `flutter install`, dat eerst de-installeert. Moet
+  je toch opnieuw vertrouwen, dan heeft Xcode een nieuw certificaat
+  gemaakt (bijvoorbeeld na een nieuwe Mac of een ingetrokken
+  certificaat).
 - *"Developer Mode disabled"*: Ontwikkelaarsmodus aanzetten.
 - *"No iPhone or iPad found"*: ontgrendelen, kabel controleren, of
   `flutter devices` draaien om te zien wat Flutter ziet.

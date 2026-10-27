@@ -97,12 +97,18 @@ fi
 say "Building iKubb $version, commit $sha for iOS"
 flutter build ios --release "${defines[@]}"
 
+# Install over the existing app, as Xcode does. Not `flutter install`: that
+# uninstalls first, which wipes the app's data and, once the last app from
+# your developer certificate is gone, makes iOS ask to trust it again.
+app="build/ios/iphoneos/Runner.app"
+[ -d "$app" ] || fail "The build did not produce $app."
+
 installed=""
 while IFS="$(printf '\t')" read -r id name; do
   [ -n "$id" ] || continue
   say "Installing on $name"
-  # </dev/null: flutter must not read the device list this loop consumes.
-  if flutter install --release -d "$id" </dev/null; then
+  # </dev/null: the installer must not read the device list this loop uses.
+  if xcrun devicectl device install app --device "$id" "$app" </dev/null; then
     installed="$installed
   - $name"
   else
